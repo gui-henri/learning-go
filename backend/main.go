@@ -2,14 +2,15 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 )
 
 type NovaTarefaInput struct {
-	Descricao string `json:"descricao"`
-	Prazo     string `json:"prazo"`
+	Descricao   string `json:"descricao"`
+	Solicitante string `json:"solicitante"`
+	Prazo       string `json:"prazo"`
 }
 
 type Tarefa struct {
@@ -61,7 +62,22 @@ func main() {
 
 	mux.HandleFunc("GET /task/{id}/", func(w http.ResponseWriter, r *http.Request) {
 		id := r.PathValue("id")
-		fmt.Fprintf(w, "handling task with id=%v\n", id)
+		idInt, err := strconv.Atoi(id)
+
+		if err != nil {
+			http.Error(w, "Requisição não pôde ser lida", http.StatusBadRequest)
+			return
+		}
+
+		for tarefa := range listaTarefas {
+			if listaTarefas[tarefa].Id == idInt {
+				w.Header().Set("Content-Type", "application/json")
+				json.NewEncoder(w).Encode(listaTarefas[tarefa])
+				return
+			}
+		}
+		http.NotFound(w, r)
+
 	})
 
 	http.ListenAndServe("localhost:8090", mux)

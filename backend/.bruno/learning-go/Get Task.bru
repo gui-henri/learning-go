@@ -1,0 +1,23 @@
+meta {
+  name: Get Task
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8090/task
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "descricao": "passear com o cachorro",
+    "prazo": "amanhã"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+}
