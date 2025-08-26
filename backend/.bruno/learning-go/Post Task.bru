@@ -6,8 +6,15 @@ meta {
 
 post {
   url: http://localhost:8090/task
-  body: none
+  body: json
   auth: inherit
+}
+
+body:json {
+  {
+    "descricao": "passear com o cachorro",
+    "prazo": "amanhã"
+  }
 }
 
 settings {
