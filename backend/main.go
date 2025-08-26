@@ -36,6 +36,7 @@ func main() {
 
 		if err != nil {
 			http.Error(w, "Requisição não pôde ser lida", http.StatusBadRequest)
+			return
 		}
 
 		novaTarefaOutput = NovaTarefaOutput{
