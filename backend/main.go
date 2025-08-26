@@ -7,15 +7,13 @@ import (
 	"time"
 )
 
-var listaTarefas := make(Tarefa, 0)
-
 type NovaTarefaInput struct {
 	Descricao string `json:"descricao"`
 	Prazo     string `json:"prazo"`
 }
 
 type Tarefa struct {
-	Id Int	`json:"id"`
+	Id        int    `json:"id"`
 	Descricao string `json:"descricao"`
 	Prazo     string `json:"prazo"`
 	Concluida bool   `json:"concluida"`
@@ -25,6 +23,8 @@ type Tarefa struct {
 type NovaTarefaOutput struct {
 	Id int
 }
+
+var listaTarefas = make([]Tarefa, 0)
 
 func main() {
 	mux := http.NewServeMux()
@@ -41,17 +41,17 @@ func main() {
 		}
 
 		tarefa = Tarefa{
-			Id: len(listaTarefas)
-			Descricao: novaTarefaOutput.Descricao,
+			Id:        len(listaTarefas),
+			Descricao: novaTarefaInput.Descricao,
 			Prazo:     novaTarefaInput.Prazo,
 			Concluida: false,
 			CriadaEm:  time.Now().Format(time.RFC850),
 		}
 
-		listaTarefas := append(listaTarefas, tarefa)
+		listaTarefas = append(listaTarefas, tarefa)
 
 		novaTarefaOutput = NovaTarefaOutput{
-			Id: tarefa.Id
+			Id: tarefa.Id,
 		}
 
 		w.Header().Set("Content-Type", "application/json")
