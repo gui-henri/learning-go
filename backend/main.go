@@ -7,12 +7,15 @@ import (
 	"time"
 )
 
+var listaTarefas := make(Tarefa, 0)
+
 type NovaTarefaInput struct {
 	Descricao string `json:"descricao"`
 	Prazo     string `json:"prazo"`
 }
 
 type Tarefa struct {
+	Id Int	`json:"id"`
 	Descricao string `json:"descricao"`
 	Prazo     string `json:"prazo"`
 	Concluida bool   `json:"concluida"`
@@ -20,16 +23,14 @@ type Tarefa struct {
 }
 
 type NovaTarefaOutput struct {
-	Descricao string `json:"descricao"`
-	Prazo     string `json:"prazo"`
-	Concluida bool   `json:"concluida"`
-	CriadaEm  string `json:"criada-em"`
+	Id int
 }
 
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("POST /task", func(w http.ResponseWriter, r *http.Request) {
 
+		var tarefa Tarefa
 		var novaTarefaInput NovaTarefaInput
 		var novaTarefaOutput NovaTarefaOutput
 		err := json.NewDecoder(r.Body).Decode(&novaTarefaInput)
@@ -39,11 +40,18 @@ func main() {
 			return
 		}
 
-		novaTarefaOutput = NovaTarefaOutput{
+		tarefa = Tarefa{
+			Id: len(listaTarefas)
 			Descricao: novaTarefaOutput.Descricao,
 			Prazo:     novaTarefaInput.Prazo,
 			Concluida: false,
 			CriadaEm:  time.Now().Format(time.RFC850),
+		}
+
+		listaTarefas := append(listaTarefas, tarefa)
+
+		novaTarefaOutput = NovaTarefaOutput{
+			Id: tarefa.Id
 		}
 
 		w.Header().Set("Content-Type", "application/json")
