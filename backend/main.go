@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -81,5 +82,10 @@ func main() {
 
 	})
 
-	http.ListenAndServe("localhost:8090", mux)
+	fmt.Print("olá mundo")
+
+	err := http.ListenAndServe(":8090", mux)
+	if err != nil {
+		fmt.Printf("Erro ocorrido: %s", err)
+	}
 }
