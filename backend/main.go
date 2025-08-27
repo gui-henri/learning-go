@@ -79,10 +79,11 @@ func main() {
 			}
 		}
 		http.NotFound(w, r)
-
 	})
 
 	fmt.Print("olá mundo")
+
+	mux.Handle("/", http.FileServer(http.Dir("./static")))
 
 	err := http.ListenAndServe(":8090", mux)
 	if err != nil {

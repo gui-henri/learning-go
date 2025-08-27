@@ -1,9 +1,19 @@
-FROM golang:1.25 AS builder
+FROM golang:1.25
+
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    PATH="/go/bin:$PATH"
 
 WORKDIR /app
+
+RUN go install github.com/air-verse/air@latest
+
+COPY go.mod ./
+RUN go mod download
 
 COPY . .
 
 EXPOSE 8090
 
-CMD ["go", "run", "main.go"]
+CMD ["air", "-c", ".air.toml"]
