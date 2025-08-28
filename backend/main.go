@@ -110,7 +110,7 @@ func main() {
 			return
 		}
 
-		for idx, _ := range listaTarefas {
+		for idx := range listaTarefas {
 			if listaTarefas[idx].Concluida && listaTarefas[idx].Id == idInt {
 				http.Error(w, "Tarefa já concluída", http.StatusBadRequest)
 				return
