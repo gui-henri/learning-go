@@ -1,0 +1,23 @@
+meta {
+  name: Get All Active Tasks
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:8090/task/all-active
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "descricao": "passear com o cachorro",
+    "prazo": "amanhã"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+}

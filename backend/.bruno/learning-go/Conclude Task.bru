@@ -1,0 +1,15 @@
+meta {
+  name: Conclude Task
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:8090/task/finish/0
+  body: json
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
