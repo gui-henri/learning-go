@@ -1,5 +1,9 @@
 <script setup>
-    const { data, pending, error } = await useFetch('http://backend:8090/task/all-active')
+    const config = useRuntimeConfig()
+    const { data, pending, error } = await useFetch('/task/all-active', {
+        baseURL: config.public.apiBase
+    })
+
 </script>
 
 <template>
