@@ -81,7 +81,53 @@ func main() {
 		http.NotFound(w, r)
 	})
 
-	fmt.Print("olá mundo")
+	mux.HandleFunc("GET /task/all", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(listaTarefas)
+	})
+
+	mux.HandleFunc("GET /task/all-active", func(w http.ResponseWriter, r *http.Request) {
+
+		activeTasks := make([]Tarefa, 0)
+
+		for _, v := range listaTarefas {
+			if !v.Concluida {
+				activeTasks = append(activeTasks, v)
+			}
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(activeTasks)
+	})
+
+	mux.HandleFunc("PUT /task/finish/{id}", func(w http.ResponseWriter, r *http.Request) {
+
+		id := r.PathValue("id")
+		idInt, err := strconv.Atoi(id)
+
+		if err != nil {
+			http.Error(w, "Id inválido", http.StatusBadRequest)
+			return
+		}
+
+		for idx, _ := range listaTarefas {
+			if listaTarefas[idx].Concluida && listaTarefas[idx].Id == idInt {
+				http.Error(w, "Tarefa já concluída", http.StatusBadRequest)
+				return
+			}
+
+			if listaTarefas[idx].Id == idInt {
+
+				listaTarefas[idx].Concluida = true
+
+				w.Header().Set("Content-Type", "application/json")
+				json.NewEncoder(w).Encode(listaTarefas[idx])
+				return
+			}
+		}
+
+		http.NotFound(w, r)
+	})
 
 	mux.Handle("/", http.FileServer(http.Dir("./static")))
 
