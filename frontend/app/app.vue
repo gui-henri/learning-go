@@ -1,4 +1,3 @@
-<!-- frontend/app/app.vue -->
 <template>
   <div>
     <div class="logo">
@@ -17,7 +16,6 @@
       <NuxtLink to="/tarefas" class="nav-link">Visualizar tarefas</NuxtLink>
     </nav>
 
-    <!-- Aqui é onde será renderizado o conteúdo da rota -->
     <NuxtPage />
   </div>
 </template>
