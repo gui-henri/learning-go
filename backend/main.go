@@ -29,6 +29,13 @@ type NovaTarefaOutput struct {
 
 var listaTarefas = make([]Tarefa, 0)
 
+func corsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		next.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("POST /task", func(w http.ResponseWriter, r *http.Request) {
@@ -131,7 +138,7 @@ func main() {
 
 	mux.Handle("/", http.FileServer(http.Dir("./static")))
 
-	err := http.ListenAndServe(":8090", mux)
+	err := http.ListenAndServe(":8090", corsMiddleware(mux))
 	if err != nil {
 		fmt.Printf("Erro ocorrido: %s", err)
 	}
