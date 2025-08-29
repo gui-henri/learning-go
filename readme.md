@@ -5,7 +5,7 @@ Interne Tarefas é uma aplicação web full-stack usando Nuxt para o frontend e 
 ---
 
 ## 📁 Estrutura
-
+```
 ├── backend/                  # Projeto em Go
 │ └── main.go
 ├── frontend/                 # App Nuxt
@@ -19,6 +19,7 @@ Interne Tarefas é uma aplicação web full-stack usando Nuxt para o frontend e 
 ├── Dockerfile.backend    ├── # Arquivos do Docker
 ├── Dockerfile.frontend   |
 └── readme.md
+```
 
 ## 🛠️ Setup
 
