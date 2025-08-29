@@ -20,7 +20,15 @@
   </div>
 </template>
 
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
 <style scoped>
+
 .logo {
   text-align: center;
   margin-bottom: 10px;
