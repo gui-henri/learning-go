@@ -1,8 +1,12 @@
 <script setup>
-    const config = useRuntimeConfig()
-    const { data, pending, error } = await useFetch('/task/all-active', {
-        baseURL: config.public.apiBase
-    })
+    const config = useRuntimeConfig();
+
+    const { data, pending, error } = await useAsyncData('tasks', () =>
+        $fetch('/task/all-active', {
+            baseURL: config.apiBase ?? "http://localhost:8090"
+        }
+    )
+)
 
 </script>
 
