@@ -24,8 +24,16 @@ func NewHttpTransportLayer(mux *http.ServeMux) *http.ServeMux {
 		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
 	)
 
+	finishTaskHandler := httptransport.NewServer(
+		makeFinishTaskEndpoint(taskService),
+		transport_encoding.EncodeRequest[FinishTaskRequest],
+		transport_encoding.EncodeResponse,
+		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
+	)
+
 	mux.HandleFunc("GET /tasks", getTaskHandler.ServeHTTP)
 	mux.HandleFunc("POST /tasks", insertTaskHandler.ServeHTTP)
+	mux.HandleFunc("POST /tasks/finish", finishTaskHandler.ServeHTTP)
 
 	return mux
 }

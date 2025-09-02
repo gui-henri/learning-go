@@ -27,3 +27,14 @@ func makeInsertTaskEndpoint(svc TaskService) endpoint.Endpoint {
 		return InsertTaskResponse{Id: id}, nil
 	}
 }
+
+func makeFinishTaskEndpoint(svc TaskService) endpoint.Endpoint {
+	return func(ctx context.Context, request any) (response any, err error) {
+		req := request.(FinishTaskRequest)
+		t, err := svc.FinishTask(ctx, req.Id)
+		if err != nil {
+			return nil, err
+		}
+		return FinishTaskResponse{Task: t}, nil
+	}
+}

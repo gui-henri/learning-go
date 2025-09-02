@@ -35,6 +35,8 @@ func EncodeError(_ context.Context, err error, w http.ResponseWriter) {
 		w.WriteHeader(http.StatusBadRequest)
 	case errors.Is(err, apperrors.NotFound):
 		w.WriteHeader(http.StatusNotFound)
+	case errors.Is(err, apperrors.AlreadyFinished):
+		w.WriteHeader(http.StatusBadRequest)
 	default:
 		w.WriteHeader(http.StatusInternalServerError)
 	}

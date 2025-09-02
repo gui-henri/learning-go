@@ -19,16 +19,14 @@ func NewTaskRepository() *taskRepository {
 	return &taskRepository{}
 }
 
-func (s *taskRepository) GetTask(id int) (Tarefa, error) {
+func (s *taskRepository) GetTask(id int) (*Tarefa, error) {
 	for idx := range tasks {
-		t := tasks[idx]
-
-		if t.Id == id {
-			return t, nil
+		if tasks[idx].Id == id {
+			return &tasks[idx], nil
 		}
 	}
 
-	return Tarefa{}, errors.NotFound
+	return &Tarefa{}, errors.NotFound
 }
 
 func (s *taskRepository) InsertTask(descricao string, prazo string) (int, error) {

@@ -5,8 +5,8 @@ type GetTaskRequest struct {
 }
 
 type GetTaskResponse struct {
-	Err  string `json:"err,omitempty"`
-	Task Tarefa `json:"tarefa"`
+	Err  string  `json:"err,omitempty"`
+	Task *Tarefa `json:"tarefa"`
 }
 
 type InsertTaskRequest struct {
@@ -16,4 +16,12 @@ type InsertTaskRequest struct {
 
 type InsertTaskResponse struct {
 	Id int `json:"id"`
+}
+
+type FinishTaskRequest struct {
+	Id int `json:"id"`
+}
+
+type FinishTaskResponse struct {
+	Task *Tarefa `json:"tarefa"`
 }
