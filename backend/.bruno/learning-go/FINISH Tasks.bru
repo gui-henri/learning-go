@@ -1,0 +1,15 @@
+meta {
+  name: FINISH Tasks
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/tasks/finish
+  body: json
+  auth: none
+}
+
+body:json {
+  {"id": 0}
+}
