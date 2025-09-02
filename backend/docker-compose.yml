@@ -1,9 +1,0 @@
-services:
-  app:
-    build: .
-    container_name: go-dev
-    ports:
-      - "8090:8090"
-    volumes:
-      - .:/app
-    working_dir: /app
