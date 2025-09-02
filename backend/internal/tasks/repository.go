@@ -32,13 +32,14 @@ func (s *taskRepository) GetTask(id int) (Tarefa, error) {
 }
 
 func (s *taskRepository) InsertTask(descricao string, prazo string) (int, error) {
+	id := len(tasks)
 	tasks = append(tasks, Tarefa{
-		Id:        len(tasks),
+		Id:        id,
 		Descricao: descricao,
 		Prazo:     prazo,
 		Concluida: false,
 		CriadaEm:  time.Now().GoString(),
 	})
 
-	return len(tasks), nil
+	return id, nil
 }
