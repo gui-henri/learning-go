@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gui-henri/learning-go/tasks"
+	"github.com/gui-henri/learning-go/internal/tasks"
 )
 
 func main() {
