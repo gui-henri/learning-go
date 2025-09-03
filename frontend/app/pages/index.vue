@@ -17,12 +17,13 @@
         
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>
-        
-        <main>
+        <div v-else-if="!data || data === undefined">Erro no servidor.</div>
+        <main v-else>
             <TaskInput />
             <div id="task-container">
                 <h3>Tarefas</h3>
-                <UiCard v-for="task in data" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada-em']" :concluida="task.concluida" />
+                <p v-if="data.value.length === 0">Nenhuma tarefa registrada</p>
+                <UiCard v-for="task in data.value" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada-em']" :concluida="task.concluida" />
             </div>
         </main>
 </template>
