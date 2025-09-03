@@ -7,5 +7,5 @@ type Tarefa struct {
 	Descricao string    `json:"descricao"`
 	Prazo     string    `json:"prazo"`
 	Concluida bool      `json:"concluida"`
-	CriadaEm  time.Time `json:"criada-em"`
+	CriadaEm  time.Time `json:"criada_em"`
 }
