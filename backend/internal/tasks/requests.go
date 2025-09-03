@@ -25,3 +25,7 @@ type FinishTaskRequest struct {
 type FinishTaskResponse struct {
 	Task *Tarefa `json:"tarefa"`
 }
+
+type GetAllIncompleteTasksResponse struct {
+	Tasks []Tarefa `json:"tarefas"`
+}

@@ -5,17 +5,9 @@ meta {
 }
 
 get {
-  url: http://localhost:8090/task/all
+  url: http://localhost:8090/tasks/all-unfinished
   body: json
   auth: inherit
-}
-
-body:json {
-  {
-    "descricao": "passear com o cachorro",
-    "prazo": "amanhã"
-  }
-  
 }
 
 settings {

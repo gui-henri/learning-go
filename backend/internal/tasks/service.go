@@ -10,6 +10,7 @@ type TaskService interface {
 	GetTask(ctx context.Context, id int) (*Tarefa, error)
 	InsertTask(ctx context.Context, descricao string, prazo string) (int, error)
 	FinishTask(ctx context.Context, id int) (*Tarefa, error)
+	GetAllIncompleteTasks(ctx context.Context) []Tarefa
 }
 
 type service struct{}
@@ -34,7 +35,7 @@ func (s *service) FinishTask(ctx context.Context, id int) (*Tarefa, error) {
 		return &Tarefa{}, err
 	}
 
-	if t.Concluida == true {
+	if t.Concluida {
 		return &Tarefa{}, apperrors.AlreadyFinished
 	}
 
@@ -42,4 +43,8 @@ func (s *service) FinishTask(ctx context.Context, id int) (*Tarefa, error) {
 
 	return t, nil
 
+}
+
+func (s *service) GetAllIncompleteTasks(ctx context.Context) []Tarefa {
+	return repository.GetAllIncomplete()
 }

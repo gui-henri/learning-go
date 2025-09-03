@@ -2,7 +2,7 @@
     <div class="card-body">
         <div>
             <h3>{{ descricao }}</h3>
-            <h4>{{ criadaEm }}</h4>
+            <h4>{{ `Criada em: ${new Date(criadaEm).toLocaleDateString()}` }}</h4>
             <p>{{ concluida ? "Concluída" : "Em andamento" }}</p>
         </div>
         <div>

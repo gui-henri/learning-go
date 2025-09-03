@@ -10,6 +10,9 @@ import (
 	apperrors "github.com/gui-henri/learning-go/pkg/errors"
 )
 
+type NoBodyRequest struct {
+}
+
 func EncodeRequest[T any](_ context.Context, r *http.Request) (any, error) {
 	var request T
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -18,7 +21,12 @@ func EncodeRequest[T any](_ context.Context, r *http.Request) (any, error) {
 	return request, nil
 }
 
+func EncodeNoBodyRequest(_ context.Context, r *http.Request) (any, error) {
+	return NoBodyRequest{}, nil
+}
+
 func EncodeResponse(_ context.Context, w http.ResponseWriter, response any) error {
+	w.Header().Set("Content-Type", "application/json")
 	return json.NewEncoder(w).Encode(response)
 }
 
