@@ -11,6 +11,7 @@ var tasks = make([]Tarefa, 0)
 type TaskRepository interface {
 	GetTask(id int) (Tarefa, error)
 	InsertTask(descricao string, prazo string) (int, error)
+	GetAllIncomplete() ([]Tarefa, error)
 }
 
 type taskRepository struct{}
@@ -36,8 +37,22 @@ func (s *taskRepository) InsertTask(descricao string, prazo string) (int, error)
 		Descricao: descricao,
 		Prazo:     prazo,
 		Concluida: false,
-		CriadaEm:  time.Now().GoString(),
+		CriadaEm:  time.Now(),
 	})
 
 	return id, nil
+}
+
+func (s *taskRepository) GetAllIncomplete() []Tarefa {
+	incompletedTasks := make([]Tarefa, 0)
+
+	for _, t := range tasks {
+		if t.Concluida {
+			continue
+		}
+
+		incompletedTasks = append(incompletedTasks, t)
+	}
+
+	return incompletedTasks
 }

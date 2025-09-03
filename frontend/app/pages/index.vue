@@ -5,25 +5,22 @@
     const config = useRuntimeConfig();
 
     const { data, pending, error } = await useAsyncData('tasks', () =>
-        $fetch('/task/all-active', {
+        $fetch('/tasks/all-unfinished', {
             baseURL: config.apiBase ?? "http://localhost:8090"
-        }
+            }
+        )
     )
-)
 
 </script>
 
 <template>
-        
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>
-        <div v-else-if="!data || data === undefined">Erro no servidor.</div>
         <main v-else>
             <TaskInput />
             <div id="task-container">
                 <h3>Tarefas</h3>
-                <p v-if="data.value.length === 0">Nenhuma tarefa registrada</p>
-                <UiCard v-for="task in data.value" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada-em']" :concluida="task.concluida" />
+                <UiCard v-for="task in data.tarefas" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada-em']" :concluida="task.concluida" />
             </div>
         </main>
 </template>
