@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -11,5 +12,6 @@ func main() {
 	mux := http.NewServeMux()
 
 	tasks.NewHttpTransportLayer(mux)
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	fmt.Println("Starting server at 8090")
+	log.Fatal(http.ListenAndServe(":8090", mux))
 }
