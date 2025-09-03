@@ -20,7 +20,7 @@
             <TaskInput />
             <div id="task-container">
                 <h3>Tarefas</h3>
-                <UiCard v-for="task in data.tarefas" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada-em']" :concluida="task.concluida" />
+                <UiCard v-for="task in data.tarefas" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :concluida="task.concluida" />
             </div>
         </main>
 </template>

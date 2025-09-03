@@ -1,4 +1,16 @@
 services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: system
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    - ./backend/db/migrations/create_tarefas.sql:/docker-entrypoint-initdb.d/create_tarefas.sql:ro
   backend:
     build:
       context: .
@@ -9,6 +21,8 @@ services:
     volumes:
       - ./backend:/backend
     working_dir: /backend
+    depends_on:
+      - db
   frontend:
     build:
       context: .
@@ -24,3 +38,4 @@ services:
     working_dir: /frontend
 volumes:
   node_modules_frontend:
+  pgdata:

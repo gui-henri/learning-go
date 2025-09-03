@@ -5,11 +5,13 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gui-henri/learning-go/db"
 	"github.com/gui-henri/learning-go/internal/tasks"
 	"github.com/gui-henri/learning-go/pkg/middleware"
 )
 
 func main() {
+	db.Connect()
 	mux := http.NewServeMux()
 
 	tasks.NewHttpTransportLayer(mux)
