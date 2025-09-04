@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -12,10 +13,10 @@ import (
 
 func main() {
 	db.Connect()
+	defer db.DB.Close(context.Background())
+
 	mux := http.NewServeMux()
-
 	tasks.NewHttpTransportLayer(db.DB, mux)
-
 	handler := middleware.NoCors(mux)
 
 	fmt.Println("Starting server at 8090")
