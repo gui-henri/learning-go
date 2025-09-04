@@ -1,6 +1,7 @@
 package tasks
 
 import (
+	"context"
 	"time"
 
 	"github.com/gui-henri/learning-go/pkg/errors"
@@ -32,7 +33,20 @@ func (s *taskRepository) GetTask(id int) (*Tarefa, error) {
 		}
 	}
 
-	return &Tarefa{}, errors.NotFound
+	var newTarefa Tarefa
+	err := s.db.QueryRow(context.Background(), "select * from tasks where id=$1", id).Scan(
+		&newTarefa.Id,
+		&newTarefa.Descricao,
+		&newTarefa.Prazo,
+		&newTarefa.Concluida,
+		&newTarefa.CriadaEm,
+	)
+
+	if err != nil {
+		return &Tarefa{}, errors.NotFound
+	}
+
+	return &newTarefa, nil
 }
 
 func (s *taskRepository) InsertTask(descricao string, prazo string) (int, error) {
