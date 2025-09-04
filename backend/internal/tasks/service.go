@@ -13,24 +13,26 @@ type TaskService interface {
 	GetAllIncompleteTasks(ctx context.Context) []Tarefa
 }
 
-type service struct{}
-
-func NewService() *service {
-	return &service{}
+type service struct {
+	repository taskRepository
 }
 
-var repository = NewTaskRepository()
+func NewService(r taskRepository) *service {
+	return &service{
+		repository: r,
+	}
+}
 
 func (s *service) GetTask(ctx context.Context, id int) (*Tarefa, error) {
-	return repository.GetTask(id)
+	return s.repository.GetTask(id)
 }
 
 func (s *service) InsertTask(ctx context.Context, descricao string, prazo string) (int, error) {
-	return repository.InsertTask(descricao, prazo)
+	return s.repository.InsertTask(descricao, prazo)
 }
 
 func (s *service) FinishTask(ctx context.Context, id int) (*Tarefa, error) {
-	t, err := repository.GetTask(id)
+	t, err := s.repository.GetTask(id)
 	if err != nil {
 		return &Tarefa{}, err
 	}
@@ -46,5 +48,5 @@ func (s *service) FinishTask(ctx context.Context, id int) (*Tarefa, error) {
 }
 
 func (s *service) GetAllIncompleteTasks(ctx context.Context) []Tarefa {
-	return repository.GetAllIncomplete()
+	return s.repository.GetAllIncomplete()
 }

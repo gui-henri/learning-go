@@ -14,7 +14,7 @@ func main() {
 	db.Connect()
 	mux := http.NewServeMux()
 
-	tasks.NewHttpTransportLayer(mux)
+	tasks.NewHttpTransportLayer(db.DB, mux)
 
 	handler := middleware.NoCors(mux)
 
