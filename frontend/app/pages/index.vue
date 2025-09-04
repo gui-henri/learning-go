@@ -1,6 +1,6 @@
 <script setup>
-
     import TaskInput from "@/components/ui/taskInput.vue";
+    import Card from "@/components/ui/card.vue";
 
     const config = useRuntimeConfig();
 
@@ -10,17 +10,17 @@
             }
         )
     )
-
 </script>
 
 <template>
+        <Button variant="ghost">Hi</Button>
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>
         <main v-else>
             <TaskInput />
             <div id="task-container">
                 <h3>Tarefas</h3>
-                <UiCard v-for="task in data.tarefas" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :concluida="task.concluida" />
+                <Card v-for="task in data.tarefas" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :concluida="task.concluida" />
             </div>
         </main>
 </template>
