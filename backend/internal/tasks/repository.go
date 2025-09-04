@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gui-henri/learning-go/pkg/errors"
+	"github.com/jackc/pgx/v5"
 )
 
 var tasks = make([]Tarefa, 0)
@@ -14,10 +15,14 @@ type TaskRepository interface {
 	GetAllIncomplete() ([]Tarefa, error)
 }
 
-type taskRepository struct{}
+type taskRepository struct {
+	db *pgx.Conn
+}
 
-func NewTaskRepository() *taskRepository {
-	return &taskRepository{}
+func NewTaskRepository(db *pgx.Conn) *taskRepository {
+	return &taskRepository{
+		db: db,
+	}
 }
 
 func (s *taskRepository) GetTask(id int) (*Tarefa, error) {

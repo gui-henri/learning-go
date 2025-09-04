@@ -5,10 +5,12 @@ import (
 
 	httptransport "github.com/go-kit/kit/transport/http"
 	transport_encoding "github.com/gui-henri/learning-go/pkg/encoding"
+	"github.com/jackc/pgx/v5"
 )
 
-func NewHttpTransportLayer(mux *http.ServeMux) *http.ServeMux {
-	taskService := NewService()
+func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux) *http.ServeMux {
+	taskRepository := NewTaskRepository(db)
+	taskService := NewService(*taskRepository)
 
 	getTaskHandler := httptransport.NewServer(
 		makeGetTaskEndpoint(taskService),
