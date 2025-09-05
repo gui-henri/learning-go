@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="logo">
+    <div class="logo p-4">
       <a class="flex items-center justify-center" href="https://interne.com.br" target="_blank" rel="noopener noreferrer">
         <img
           src="https://cdn.bitrix24.com.br/b22035513/landing/2a4/2a44b7c2b4e7e248ec783a2eae611962/Logo_Interne_180_x_60_px_1x.png"

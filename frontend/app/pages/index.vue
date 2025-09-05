@@ -10,16 +10,21 @@
             }
         )
     )
+
+    function removeTask(taskId) {
+        data.value = { ...data.value, tarefas: data.value.tarefas.filter(task => task.id !== taskId) }
+    }
+
 </script>
 
 <template>
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>
-        <main v-else>
+        <main v-else class="gap-2">
             <h3 class="text-3xl mb-5 font-bold">Tarefas</h3>
             <TaskInput />
             <div id="task-container">
-                <Card v-for="task in data.tarefas" :key="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :concluida="task.concluida" />
+                <Card v-for="task in data.tarefas" :key="task.id" :id="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :concluida="task.concluida" @taskFinished="removeTask" />
             </div>
         </main>
 </template>
