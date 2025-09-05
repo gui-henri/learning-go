@@ -10,7 +10,7 @@ type TaskService interface {
 	GetTask(ctx context.Context, id int) (*Tarefa, error)
 	InsertTask(ctx context.Context, descricao string, prazo string) (int, error)
 	FinishTask(ctx context.Context, id int) (*Tarefa, error)
-	GetAllIncompleteTasks(ctx context.Context) []Tarefa
+	GetAllIncompleteTasks(ctx context.Context) ([]Tarefa, error)
 }
 
 type service struct {
@@ -43,10 +43,21 @@ func (s *service) FinishTask(ctx context.Context, id int) (*Tarefa, error) {
 
 	t.Concluida = true
 
+	err = s.repository.UpdateTask(*t)
+
+	if err != nil {
+		return &Tarefa{}, apperrors.InvalidInput
+	}
+
 	return t, nil
 
 }
 
-func (s *service) GetAllIncompleteTasks(ctx context.Context) []Tarefa {
-	return s.repository.GetAllIncomplete()
+func (s *service) GetAllIncompleteTasks(ctx context.Context) ([]Tarefa, error) {
+	tarefas, err := s.repository.GetAllIncomplete()
+	if err != nil {
+		return make([]Tarefa, 0), apperrors.NotFound
+	}
+
+	return tarefas, nil
 }

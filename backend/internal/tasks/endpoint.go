@@ -41,7 +41,10 @@ func makeFinishTaskEndpoint(svc TaskService) endpoint.Endpoint {
 
 func makeGetAllIncompleteEndpoint(svc TaskService) endpoint.Endpoint {
 	return func(ctx context.Context, request any) (response any, err error) {
-		tasks := svc.GetAllIncompleteTasks(ctx)
+		tasks, err := svc.GetAllIncompleteTasks(ctx)
+		if err != nil {
+			return nil, err
+		}
 		return GetAllIncompleteTasksResponse{Tasks: tasks}, nil
 	}
 }
