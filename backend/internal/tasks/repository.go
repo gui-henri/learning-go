@@ -66,7 +66,7 @@ func (s *taskRepository) InsertTask(descricao string, prazo string) (int, error)
 }
 
 func (s *taskRepository) GetAllIncomplete() ([]Tarefa, error) {
-	var tarefas []Tarefa
+	tarefas := make([]Tarefa, 0)
 	rows, err := s.db.Query(context.Background(), "select * from tasks where concluida=false")
 
 	if err != nil {
