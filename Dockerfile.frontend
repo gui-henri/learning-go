@@ -8,4 +8,6 @@ COPY /frontend .
 
 RUN npm install
 
+RUN npx nuxi@latest module add vueuse
+
 CMD ["npm", "run", "dev"]
