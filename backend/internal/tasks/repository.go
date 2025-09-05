@@ -2,18 +2,16 @@ package tasks
 
 import (
 	"context"
-	"time"
 
 	"github.com/gui-henri/learning-go/pkg/errors"
 	"github.com/jackc/pgx/v5"
 )
 
-var tasks = make([]Tarefa, 0)
-
 type TaskRepository interface {
 	GetTask(id int) (Tarefa, error)
 	InsertTask(descricao string, prazo string) (int, error)
 	GetAllIncomplete() ([]Tarefa, error)
+	UpdateTask(t Tarefa) error
 }
 
 type taskRepository struct {
@@ -27,11 +25,6 @@ func NewTaskRepository(db *pgx.Conn) *taskRepository {
 }
 
 func (s *taskRepository) GetTask(id int) (*Tarefa, error) {
-	for idx := range tasks {
-		if tasks[idx].Id == id {
-			return &tasks[idx], nil
-		}
-	}
 
 	var newTarefa Tarefa
 	err := s.db.QueryRow(context.Background(), "select * from tasks where id=$1", id).Scan(
@@ -50,28 +43,64 @@ func (s *taskRepository) GetTask(id int) (*Tarefa, error) {
 }
 
 func (s *taskRepository) InsertTask(descricao string, prazo string) (int, error) {
-	id := len(tasks)
-	tasks = append(tasks, Tarefa{
-		Id:        id,
-		Descricao: descricao,
-		Prazo:     prazo,
-		Concluida: false,
-		CriadaEm:  time.Now(),
-	})
+	tarefa, err := newTarefa(descricao, prazo)
+
+	if err != nil {
+		return 0, err
+	}
+
+	sql := `
+        INSERT INTO tasks (descricao, prazo)
+        VALUES ($1, $2)
+        RETURNING id
+	`
+
+	var id int
+	err = s.db.QueryRow(context.Background(), sql, tarefa.Descricao, tarefa.Prazo).Scan(&id)
+
+	if err != nil {
+		return 0, err
+	}
 
 	return id, nil
 }
 
-func (s *taskRepository) GetAllIncomplete() []Tarefa {
-	incompletedTasks := make([]Tarefa, 0)
+func (s *taskRepository) GetAllIncomplete() ([]Tarefa, error) {
+	var tarefas []Tarefa
+	rows, err := s.db.Query(context.Background(), "select * from tasks where concluida=false")
 
-	for _, t := range tasks {
-		if t.Concluida {
-			continue
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var t Tarefa
+		err := rows.Scan(&t.Id, &t.Descricao, &t.Prazo, &t.Concluida, &t.CriadaEm)
+		if err != nil {
+			return nil, err
 		}
-
-		incompletedTasks = append(incompletedTasks, t)
+		tarefas = append(tarefas, t)
 	}
 
-	return incompletedTasks
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return tarefas, nil
+}
+
+func (s *taskRepository) UpdateTask(t Tarefa) error {
+	sql := `
+	UPDATE tasks
+	SET descricao = $1, prazo = $2, concluida = $3, criada_em = $4
+	WHERE id = $5
+	`
+	_, err := s.db.Exec(context.Background(), sql, t.Descricao, t.Prazo, t.Concluida, t.CriadaEm, t.Id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
