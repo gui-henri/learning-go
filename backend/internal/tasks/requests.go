@@ -15,7 +15,7 @@ type InsertTaskRequest struct {
 }
 
 type InsertTaskResponse struct {
-	Id int `json:"id"`
+	Task *Tarefa `json:"tarefa"`
 }
 
 type FinishTaskRequest struct {

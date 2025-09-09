@@ -8,7 +8,7 @@ import (
 
 type TaskService interface {
 	GetTask(ctx context.Context, id int) (*Tarefa, error)
-	InsertTask(ctx context.Context, descricao string, prazo string) (int, error)
+	InsertTask(ctx context.Context, descricao string, prazo string) (*Tarefa, error)
 	FinishTask(ctx context.Context, id int) (*Tarefa, error)
 	GetAllIncompleteTasks(ctx context.Context) ([]Tarefa, error)
 }
@@ -27,7 +27,7 @@ func (s *service) GetTask(ctx context.Context, id int) (*Tarefa, error) {
 	return s.repository.GetTask(id)
 }
 
-func (s *service) InsertTask(ctx context.Context, descricao string, prazo string) (int, error) {
+func (s *service) InsertTask(ctx context.Context, descricao string, prazo string) (*Tarefa, error) {
 	return s.repository.InsertTask(descricao, prazo)
 }
 
