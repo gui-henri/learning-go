@@ -16,8 +16,7 @@
     }
 
     function addTask(tarefa) {
-        data.value.tarefas.push(tarefa)
-        data.value = { ...data.value, tarefas: data.value.tarefas }
+        data.value.tarefas =  [...data.value.tarefas, tarefa]
     }
 
 </script>
