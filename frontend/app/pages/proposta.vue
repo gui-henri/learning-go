@@ -84,7 +84,7 @@
 
 <p class="mt-2 text-sm text-red-700 text-justify"><b>INTERNE SOLUÇÕES EM SAÚDE, A ESCOLHA CERTA PARA HOME CARE</b></p>
 
-            <p class="mt-2 text-sm text-white-700 whitespace-pre-line text-justify">
+            <div class="mt-2 text-sm text-white-700 whitespace-pre-line text-justify">
               <ul class="space-y-3 justify-middle">
     <li>O Home Care engloba serviços de saúde oferecidos em domicílio.</li>
   <li>Técnicos qualificados.</li>
@@ -107,7 +107,7 @@
 
 
 
-              </p>
+  </div>
             </div>
           </CarouselItem>
 
