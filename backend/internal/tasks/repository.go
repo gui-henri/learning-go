@@ -9,7 +9,7 @@ import (
 
 type TaskRepository interface {
 	GetTask(id int) (Tarefa, error)
-	InsertTask(descricao string, prazo string) (int, error)
+	InsertTask(descricao string, prazo string) (Tarefa, error)
 	GetAllIncomplete() ([]Tarefa, error)
 	UpdateTask(t Tarefa) error
 }
@@ -42,27 +42,33 @@ func (s *taskRepository) GetTask(id int) (*Tarefa, error) {
 	return &newTarefa, nil
 }
 
-func (s *taskRepository) InsertTask(descricao string, prazo string) (int, error) {
-	tarefa, err := newTarefa(descricao, prazo)
+func (s *taskRepository) InsertTask(descricao string, prazo string) (*Tarefa, error) {
+	tarefaValidation, err := newTarefa(descricao, prazo)
 
 	if err != nil {
-		return 0, err
+		return &Tarefa{}, err
 	}
 
 	sql := `
         INSERT INTO tasks (descricao, prazo)
         VALUES ($1, $2)
-        RETURNING id
+        RETURNING id, descricao, prazo, concluida, criada_em
 	`
 
-	var id int
-	err = s.db.QueryRow(context.Background(), sql, tarefa.Descricao, tarefa.Prazo).Scan(&id)
+	var tarefa Tarefa
+	err = s.db.QueryRow(context.Background(), sql, tarefaValidation.Descricao, tarefaValidation.Prazo).Scan(
+		&tarefa.Id,
+		&tarefa.Descricao,
+		&tarefa.Prazo,
+		&tarefa.Concluida,
+		&tarefa.CriadaEm,
+	)
 
 	if err != nil {
-		return 0, err
+		return &Tarefa{}, err
 	}
 
-	return id, nil
+	return &tarefa, nil
 }
 
 func (s *taskRepository) GetAllIncomplete() ([]Tarefa, error) {

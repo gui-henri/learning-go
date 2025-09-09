@@ -20,11 +20,11 @@ func makeGetTaskEndpoint(svc TaskService) endpoint.Endpoint {
 func makeInsertTaskEndpoint(svc TaskService) endpoint.Endpoint {
 	return func(ctx context.Context, request any) (response any, err error) {
 		req := request.(InsertTaskRequest)
-		id, err := svc.InsertTask(ctx, req.Descricao, req.Prazo)
+		task, err := svc.InsertTask(ctx, req.Descricao, req.Prazo)
 		if err != nil {
 			return nil, err
 		}
-		return InsertTaskResponse{Id: id}, nil
+		return InsertTaskResponse{Task: task}, nil
 	}
 }
 
