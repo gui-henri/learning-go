@@ -13,7 +13,9 @@
             })
 
             if (!response.ok) {
-                throw new Error("Resposta diferente de ok")
+                console.log(response.status)
+                console.log(response.url)
+                throw new Error(String(response.status))
             }
 
         } catch (error) {
