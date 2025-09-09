@@ -4,7 +4,7 @@
 
     async function sendTask() {
         try {
-            const response = await fetch(config.apiBase + "/tasks", {
+            const response = await fetch(config.public.apiBase + "/tasks", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

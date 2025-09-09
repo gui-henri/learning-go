@@ -19,7 +19,7 @@
 
 <template>
     <main class="gap-2">
-        <h3 class="text-3xl mb-5 font-bold">Tarefas</h3>
+        <h3 class="text-3xl mb-5 font-bold">Crie sua Tarefa abaixo.</h3>
         <TaskInput />
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>    

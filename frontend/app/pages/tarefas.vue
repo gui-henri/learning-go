@@ -1,5 +1,9 @@
 <template>
-  <h1 style="text-align: center;">Tarefas Concluídas</h1>
+  <h1 style="text-align: center;"><b>Tarefas Concluídas</b>
+
+
+    
+  </h1>
 
 </template>
 
