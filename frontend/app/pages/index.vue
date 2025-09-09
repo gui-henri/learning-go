@@ -15,12 +15,22 @@
         data.value = { ...data.value, tarefas: data.value.tarefas.filter(task => task.id !== taskId) }
     }
 
+    function addTask(tarefa) {
+        data.value.tarefas.push(tarefa)
+        data.value = { ...data.value, tarefas: data.value.tarefas }
+    }
+
 </script>
 
 <template>
     <main class="gap-2">
+<<<<<<< HEAD
         <h3 class="text-3xl mb-5 font-bold">Crie sua Tarefa abaixo.</h3>
         <TaskInput />
+=======
+        <h3 class="text-3xl mb-5 font-bold">Tarefas</h3>
+        <TaskInput @taskSended="addTask" />
+>>>>>>> 933214468d3a62103f5b5c77b1259b1d2bc28616
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>    
         <div v-else id="task-container">

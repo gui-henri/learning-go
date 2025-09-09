@@ -1,6 +1,18 @@
 <script setup lang="ts">
+
+    interface InsertResponse {
+        tarefa: {
+            id: number,
+            descricao: string,
+            prazo: string,
+            concluida: boolean,
+            criada_em: string
+        }
+    }
+
     const config = useRuntimeConfig();
     const descricao = ref('');
+    const emit = defineEmits(["taskSended"])
 
     async function sendTask() {
         try {
@@ -17,6 +29,10 @@
                 console.log(response.url)
                 throw new Error(String(response.status))
             }
+
+            const responseJson: InsertResponse = await response.json()
+
+            emit("taskSended", responseJson.tarefa);
 
         } catch (error) {
             console.log("Erro ao realizar requisição", error)
