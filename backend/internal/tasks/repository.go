@@ -13,6 +13,7 @@ type TaskRepository interface {
 	GetAll() ([]Tarefa, error)
 	GetAllIncomplete() ([]Tarefa, error)
 	UpdateTask(t Tarefa) error
+	DeleteTask(id int) error
 }
 
 type taskRepository struct {
@@ -129,6 +130,20 @@ func (s *taskRepository) UpdateTask(t Tarefa) error {
 	WHERE id = $5
 	`
 	_, err := s.db.Exec(context.Background(), sql, t.Descricao, t.Prazo, t.Concluida, t.CriadaEm, t.Id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *taskRepository) DeleteTask(id int) error {
+	sql := `
+	DELETE FROM tasks 
+	where id = $1
+	`
+	_, err := s.db.Exec(context.Background(), sql, id)
 
 	if err != nil {
 		return err

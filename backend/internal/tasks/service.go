@@ -12,6 +12,7 @@ type TaskService interface {
 	FinishTask(ctx context.Context, id int) (*Tarefa, error)
 	GetAllIncompleteTasks(ctx context.Context) ([]Tarefa, error)
 	GetAllTasks(ctx context.Context) ([]Tarefa, error)
+	DeleteTasks(ctx context.Context, id int) error
 }
 
 type service struct {
@@ -70,4 +71,13 @@ func (s *service) GetAllTasks(ctx context.Context) ([]Tarefa, error) {
 	}
 
 	return tarefas, nil
+}
+
+func (s *service) DeleteTasks(ctx context.Context, id int) error {
+	_, err := s.repository.GetTask(id)
+	if err != nil {
+		return apperrors.NotFound
+	}
+
+	return s.repository.DeleteTask(id)
 }
