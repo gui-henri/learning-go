@@ -1,4 +1,5 @@
 <script setup lang="ts">
+    import { Trash2 } from "lucide-vue-next"
     import { SquareCheckBig } from "lucide-vue-next"
     import { Button } from "@/components/ui/button"
 
