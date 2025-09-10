@@ -33,3 +33,7 @@ type GetAllIncompleteTasksResponse struct {
 type GetAllTasksResponse struct {
 	Tasks []Tarefa `json:"tarefas"`
 }
+
+type DeleteTaskRequest struct {
+	Id int `json:"id"`
+}

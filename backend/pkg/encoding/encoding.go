@@ -26,6 +26,11 @@ func EncodeNoBodyRequest(_ context.Context, r *http.Request) (any, error) {
 }
 
 func EncodeResponse(_ context.Context, w http.ResponseWriter, response any) error {
+
+	if response == nil {
+		return nil
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	return json.NewEncoder(w).Encode(response)
 }

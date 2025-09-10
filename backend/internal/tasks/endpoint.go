@@ -58,3 +58,14 @@ func makeGetAllEndpoint(svc TaskService) endpoint.Endpoint {
 		return GetAllTasksResponse{Tasks: tasks}, nil
 	}
 }
+
+func makeDeleteTaskEndpoint(svc TaskService) endpoint.Endpoint {
+	return func(ctx context.Context, request any) (response any, err error) {
+		req := request.(DeleteTaskRequest)
+		err = svc.DeleteTasks(ctx, req.Id)
+		if err != nil {
+			return nil, err
+		}
+		return nil, nil
+	}
+}
