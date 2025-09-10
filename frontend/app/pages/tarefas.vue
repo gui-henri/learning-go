@@ -22,7 +22,7 @@
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>    
         <div v-else id="task-container">
-            <Card v-for="task in data.tarefas.slice().reverse()" :key="task.id" :id="task.id" :descricao="task.descricao" :prazo="task.prazo" :criadaEm="task['criada_em']" :concluida="task.concluida" @taskFinished="removeTask" />
+            <Card v-for="task in data.tarefas" :key="task.id" :id="task.id" :descricao="task.descricao" :prazo="task.prazo" :criadaEm="task['criada_em']" :concluida="task.concluida" @taskFinished="removeTask" />
         </div>
     </main>
 </template>
