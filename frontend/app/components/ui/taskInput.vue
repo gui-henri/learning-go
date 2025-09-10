@@ -33,6 +33,7 @@
             const responseJson: InsertResponse = await response.json()
 
             emit("taskSended", responseJson.tarefa);
+            descricao.value = ""
 
         } catch (error) {
             console.log("Erro ao realizar requisição", error)
