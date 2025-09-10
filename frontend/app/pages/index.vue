@@ -23,7 +23,7 @@
 
 <template>
     <main class="gap-2">
-        <h3 class="text-3xl mb-5 font-bold">Tarefas</h3>
+        <h3 class="text-3xl mb-5 font-bold">Tarefas Concluídas</h3>
         <TaskInput @taskSended="addTask" />
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>    
