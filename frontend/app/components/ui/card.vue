@@ -12,17 +12,32 @@
 
     const emit = defineEmits(["taskFinished"])
 
-    const formattedDate = new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-    }).format(new Date(props.criadaEm))
+    const formattedDate = (() => {
+        try {
+            return new Intl.DateTimeFormat("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }).format(new Date(props.criadaEm))
+        } catch (err) {
+            console.error("Invalid criadaEm date:", props.criadaEm, err)
+            return "Data inválida"
+        }
+    })()
 
-    const formatedPrazo = new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-    }).format(new Date(props.prazo))
+
+    const formatedPrazo = (() => {
+        try {
+            return new Intl.DateTimeFormat("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }).format(new Date(props.prazo))
+        } catch (err) {
+            console.error("Invalid criadaEm date:", props.criadaEm, err)
+            return "Data inválida"
+        }
+    })()
 
 
     async function finishTask() {
@@ -51,12 +66,11 @@
             <h3 class="font-bold text-xl">{{ descricao }}</h3>
             <p>Prazo: {{ formatedPrazo }}</p>
             <h4>Criada em: {{ formattedDate }}</h4>
-            <p>{{ concluida ? "Concluída" : "Em andamento" }}</p>
         </div>
         <div class="gap-2 flex">
             <Button v-if="concluida === false" class="bg-neutral-700"><LoaderIcon/> Em andamento</Button>
-            <Button v-else class="bg-green-500"><LoaderIcon/> <PartyPopperIcon /> Concluída</Button>
-            <Button @click="finishTask" size="icon" class="bg-red-600 hover:bg-red-500">
+            <Button v-else class="bg-green-500"> <PartyPopperIcon /> Concluída</Button>
+            <Button v-if="concluida === false" @click="finishTask" size="icon" class="bg-red-600 hover:bg-red-500">
                 <SquareCheckBig class="w-4 h-4 text-red-200" />
             </Button>
            <Button @click="deleteTask" size="icon" class="bg-gray-600 hover:bg-gray-500">
