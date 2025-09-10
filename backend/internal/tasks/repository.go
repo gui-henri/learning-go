@@ -10,6 +10,7 @@ import (
 type TaskRepository interface {
 	GetTask(id int) (Tarefa, error)
 	InsertTask(descricao string, prazo string) (Tarefa, error)
+	GetAll() ([]Tarefa, error)
 	GetAllIncomplete() ([]Tarefa, error)
 	UpdateTask(t Tarefa) error
 }
@@ -74,6 +75,31 @@ func (s *taskRepository) InsertTask(descricao string, prazo string) (*Tarefa, er
 func (s *taskRepository) GetAllIncomplete() ([]Tarefa, error) {
 	tarefas := make([]Tarefa, 0)
 	rows, err := s.db.Query(context.Background(), "select * from tasks where concluida=false")
+
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var t Tarefa
+		err := rows.Scan(&t.Id, &t.Descricao, &t.Prazo, &t.Concluida, &t.CriadaEm)
+		if err != nil {
+			return nil, err
+		}
+		tarefas = append(tarefas, t)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return tarefas, nil
+}
+
+func (s *taskRepository) GetAll() ([]Tarefa, error) {
+	tarefas := make([]Tarefa, 0)
+	rows, err := s.db.Query(context.Background(), "select * from tasks")
 
 	if err != nil {
 		return nil, err
