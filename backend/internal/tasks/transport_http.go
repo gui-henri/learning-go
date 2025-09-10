@@ -40,9 +40,17 @@ func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux) *http.ServeMux {
 		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
 	)
 
+	getAllRequests := httptransport.NewServer(
+		makeGetAllEndpoint(taskService),
+		transport_encoding.EncodeNoBodyRequest,
+		transport_encoding.EncodeResponse,
+		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
+	)
+
 	mux.HandleFunc("GET /tasks", getTaskHandler.ServeHTTP)
 	mux.HandleFunc("POST /tasks", insertTaskHandler.ServeHTTP)
 	mux.HandleFunc("POST /tasks/finish", finishTaskHandler.ServeHTTP)
+	mux.HandleFunc("GET /tasks/all", getAllRequests.ServeHTTP)
 	mux.HandleFunc("GET /tasks/all-unfinished", getAllIncompleteRequests.ServeHTTP)
 
 	return mux
