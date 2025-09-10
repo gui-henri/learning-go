@@ -4,7 +4,7 @@
 
     const config = useRuntimeConfig();
 
-    const { data, pending, error } = await useAsyncData('tasks', () =>
+    const { data, pending, error, refresh } = await useAsyncData('tasks', () =>
         $fetch('/tasks/all-unfinished', {
             baseURL: config.apiBase ?? "http://localhost:8090"
             }
@@ -15,8 +15,8 @@
         data.value = { ...data.value, tarefas: data.value.tarefas.filter(task => task.id !== taskId) }
     }
 
-    function addTask(tarefa) {
-        data.value.tarefas =  [...data.value.tarefas, tarefa]
+    async function addTask(tarefa) {
+        await refresh()
     }
 
 </script>
@@ -28,7 +28,7 @@
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>    
         <div v-else id="task-container">
-            <Card v-for="task in data.tarefas" :key="task.id" :id="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :concluida="task.concluida" @taskFinished="removeTask" />
+            <Card v-for="task in data.tarefas.slice().reverse()" :key="task.id" :id="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :concluida="task.concluida" @taskFinished="removeTask" />
         </div>
     </main>
 </template>
