@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { SquareCheckBig } from "lucide-vue-next"
+    import { SquareCheckBig, LoaderIcon, PartyPopperIcon } from "lucide-vue-next"
     import { Button } from "@/components/ui/button"
 
     const props = defineProps<{
@@ -7,6 +7,7 @@
         descricao: string
         criadaEm: string
         concluida: boolean
+        prazo: string
     }>()
 
     const emit = defineEmits(["taskFinished"])
@@ -16,6 +17,12 @@
         month: "2-digit",
         year: "numeric"
     }).format(new Date(props.criadaEm))
+
+    const formatedPrazo = new Intl.DateTimeFormat("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    }).format(new Date(props.prazo))
 
 
     async function finishTask() {
@@ -39,11 +46,14 @@
 <template>
     <div class="card-body pl-3 pr-3 pt-2 pb-2 rounded-2xl border-2 border-b-red-600 border-l-red-400 border-r-red-600 border-t-red-400">
         <div>
-            <h3>{{ descricao }}</h3>
-            <h4>Criada em {{ formattedDate }}</h4>
+            <h3 class="font-bold text-xl">{{ descricao }}</h3>
+            <p>Prazo: {{ formatedPrazo }}</p>
+            <h4>Criada em: {{ formattedDate }}</h4>
             <p>{{ concluida ? "Concluída" : "Em andamento" }}</p>
         </div>
-        <div>
+        <div class="gap-2 flex">
+            <Button v-if="concluida === false" class="bg-neutral-700"><LoaderIcon/> Em andamento</Button>
+            <Button v-else class="bg-green-500"><LoaderIcon/> <PartyPopperIcon /> Concluída</Button>
             <Button @click="finishTask" size="icon" class="bg-red-600 hover:bg-red-500">
                 <SquareCheckBig class="w-4 h-4 text-red-200" />
             </Button>
@@ -54,7 +64,7 @@
 <style lang="css" scoped>
     .card-body {
         width: 100%;
-        max-width: 520px;
+        max-width: 640px;
         display: flex;
         align-items: center;
         justify-content: space-between;

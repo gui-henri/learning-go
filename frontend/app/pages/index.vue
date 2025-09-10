@@ -28,7 +28,7 @@
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>    
         <div v-else id="task-container">
-            <Card v-for="task in data.tarefas.slice().reverse()" :key="task.id" :id="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :concluida="task.concluida" @taskFinished="removeTask" />
+            <Card v-for="task in data.tarefas.slice().reverse()" :key="task.id" :id="task.id" :descricao="task.descricao" :criadaEm="task['criada_em']" :prazo="task.prazo" :concluida="task.concluida" @taskFinished="removeTask" />
         </div>
     </main>
 </template>
@@ -44,7 +44,7 @@
 
     #task-container {
         width: 100%;
-        max-width: 520px;
+        max-width: 640px;
         gap: 16px;
         display: flex;
         flex-direction: column;
