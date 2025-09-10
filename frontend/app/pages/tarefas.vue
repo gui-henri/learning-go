@@ -10,6 +10,10 @@
         )
     )
 
+    async function removeTask() {
+        await refresh()
+    }
+
 </script>
 
 <template>
