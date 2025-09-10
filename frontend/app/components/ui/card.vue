@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { SquareCheckBig, LoaderIcon, PartyPopperIcon } from "lucide-vue-next"
+    import { SquareCheckBig, LoaderIcon, PartyPopperIcon, Trash2 } from "lucide-vue-next"
     import { Button } from "@/components/ui/button"
 
     const props = defineProps<{
@@ -41,6 +41,8 @@
             console.error("Error finishing task:", err);
         }
     }
+
+
 </script>
 
 <template>
@@ -56,6 +58,9 @@
             <Button v-else class="bg-green-500"><LoaderIcon/> <PartyPopperIcon /> Concluída</Button>
             <Button @click="finishTask" size="icon" class="bg-red-600 hover:bg-red-500">
                 <SquareCheckBig class="w-4 h-4 text-red-200" />
+            </Button>
+           <Button @click="deleteTask" size="icon" class="bg-gray-600 hover:bg-gray-500">
+            <Trash2 class="w-4 h-4 text-white" />
             </Button>
         </div>
     </div>
