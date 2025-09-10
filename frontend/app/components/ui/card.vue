@@ -50,10 +50,25 @@
 
             if (!res.ok) throw new Error("Failed to mark task as complete");
 
-            console.log("emmiting for", props.id)
             emit("taskFinished", props.id);
         } catch (err) {
             console.error("Error finishing task:", err);
+        }
+    }
+
+    async function deleteTask() {
+        try {
+            const res = await fetch("http://localhost:8090/tasks", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: props.id })
+            });
+
+            if (!res.ok) throw new Error("Failed to delete task");
+
+            emit("taskFinished", props.id);
+        } catch (error) {
+            console.error("Error finishing task:", error);
         }
     }
 
@@ -73,8 +88,8 @@
             <Button v-if="concluida === false" @click="finishTask" size="icon" class="bg-red-600 hover:bg-red-500">
                 <SquareCheckBig class="w-4 h-4 text-red-200" />
             </Button>
-           <Button @click="deleteTask" size="icon" class="bg-gray-600 hover:bg-gray-500">
-            <Trash2 class="w-4 h-4 text-white" />
+            <Button @click="deleteTask" size="icon" class="bg-gray-600 hover:bg-gray-500">
+                <Trash2 class="w-4 h-4 text-white" />
             </Button>
         </div>
     </div>

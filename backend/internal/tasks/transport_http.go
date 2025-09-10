@@ -49,7 +49,7 @@ func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux) *http.ServeMux {
 
 	deleteTask := httptransport.NewServer(
 		makeDeleteTaskEndpoint(taskService),
-		transport_encoding.EncodeNoBodyRequest,
+		transport_encoding.EncodeRequest[DeleteTaskRequest],
 		transport_encoding.EncodeResponse,
 		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
 	)
