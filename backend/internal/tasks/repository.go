@@ -3,8 +3,8 @@ package tasks
 import (
 	"context"
 
+	"github.com/gui-henri/learning-go/db"
 	"github.com/gui-henri/learning-go/pkg/errors"
-	"github.com/jackc/pgx/v5"
 )
 
 type TaskRepository interface {
@@ -17,10 +17,10 @@ type TaskRepository interface {
 }
 
 type taskRepository struct {
-	db *pgx.Conn
+	db db.IDB
 }
 
-func NewTaskRepository(db *pgx.Conn) *taskRepository {
+func NewTaskRepository(db db.IDB) *taskRepository {
 	return &taskRepository{
 		db: db,
 	}
