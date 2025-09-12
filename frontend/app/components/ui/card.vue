@@ -85,10 +85,10 @@
         <div class="gap-2 flex">
             <Button v-if="concluida === false" class="bg-neutral-700"><LoaderIcon/> Em andamento</Button>
             <Button v-else class="bg-green-500"> <PartyPopperIcon /> Concluída</Button>
-            <Button v-if="concluida === false" @click="finishTask" size="icon" class="bg-red-600 hover:bg-red-500">
-                <SquareCheckBig class="w-4 h-4 text-red-200" />
+            <Button v-if="concluida === false" @click="finishTask" size="icon" class="bg-green-600 hover:bg-green-500">
+                <SquareCheckBig class="w-4 h-4 text-green-200" />
             </Button>
-            <Button @click="deleteTask" size="icon" class="bg-gray-600 hover:bg-gray-500">
+            <Button @click="deleteTask" size="icon" class="bg-red-600 hover:bg-red-500">
                 <Trash2 class="w-4 h-4 text-white" />
             </Button>
         </div>
