@@ -27,20 +27,20 @@ CREATE TABLE IF NOT EXISTS patient (
  upid VARCHAR,
  created_at VARCHAR,
  resource_json JSON,
- data_source VARCHAR,
-)
+ data_source VARCHAR
+);
 
-CREATE TABLE IF NOT EXISTS identifier(
-id PRIMARY KEY,
-system VARCHAR,
-value VARCHAR,
-use VARCHAR,
-type_display VARCHAR,
-type_code VARCHAR,
-assigner_display VARCHAR,
-)
+CREATE TABLE IF NOT EXISTS identifier (
+  id SERIAL PRIMARY KEY,
+  system VARCHAR,
+  value VARCHAR,
+  use VARCHAR,
+  type_display VARCHAR,
+  type_code VARCHAR,
+  assigner_display VARCHAR
+);
 
-CREATE TABLE ORGANIZATION (
+CREATE TABLE IF NOT EXISTS ORGANIZATION (
     id VARCHAR PRIMARY KEY,
     version INT,
     last_updated TIMESTAMP,
@@ -52,13 +52,6 @@ CREATE TABLE ORGANIZATION (
     address_postal_code VARCHAR,
     builder_id VARCHAR,
     created_at TIMESTAMP,
-    resource_json VARIANT,
-    data_source VARCHAR,
+    resource_json JSONB,
+    data_source VARCHAR
 );
-
-
-
-
-
-
-)
