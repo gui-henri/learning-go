@@ -30,6 +30,19 @@ CREATE TABLE IF NOT EXISTS patient (
  data_source VARCHAR
 );
 
+CREATE TABLE IF NOT EXISTS HUMAN_NAME (
+    id VARCHAR(255) PRIMARY KEY,
+    use VARCHAR(255),
+    display VARCHAR(255),
+    family VARCHAR(255),
+    given_1 VARCHAR(255),
+    given_2 VARCHAR(255),
+    prefix_1 VARCHAR(255),
+    suffix_1 VARCHAR(255),
+    period_start TIMESTAMP,
+    period_end TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS identifier (
   id SERIAL PRIMARY KEY,
   system VARCHAR,
@@ -52,6 +65,6 @@ CREATE TABLE IF NOT EXISTS ORGANIZATION (
     address_postal_code VARCHAR,
     builder_id VARCHAR,
     created_at TIMESTAMP,
-    resource_json JSONB,
+    resource_json JSON,
     data_source VARCHAR
 );
