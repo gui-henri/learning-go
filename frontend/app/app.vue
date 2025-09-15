@@ -25,7 +25,7 @@
  
     <nav class="barra-nav">
       <NuxtLink to="/" class="nav-link"> <b>Abrir Tarefa</b></NuxtLink>
-      <NuxtLink to="/" class="nav-link"><b>Cadastro de Pacientes</b></NuxtLink>
+      <NuxtLink to="/cadastro" class="nav-link"><b>Cadastro de Pacientes</b></NuxtLink>
       <NuxtLink to="/" class="nav-link"><b>W.I.P</b></NuxtLink>
       <NuxtLink to="/tarefas" class="nav-link"><b>Visualizar tarefas</b></NuxtLink>
     </nav>
