@@ -7,7 +7,7 @@
     <div v-else id="task-container">
       
      
-      <h4 class="text-red-600 text-2xl font-semibold mb-2"><b>Tarefas Pendentes</b></h4>
+      <h4 class="text-red-600 text-2xl font-semibold mb-2"><b>Tarefas Pendentes({{ pendingTasks.length }})</b></h4>
       <Card
         v-for="task in pendingTasks"
         :key="task.id"
@@ -20,7 +20,7 @@
       />
 
     
-      <h4 class="text-green-600 text-2xl font-semibold mt-5 mb-2"><b>Concluídas</b></h4>
+      <h4 class="text-green-600 text-2xl font-semibold mt-5 mb-2"><b>Concluídas({{ completedTasks.length }})</b></h4>
       <Card
         v-for="task in completedTasks"
         :key="task.id"
