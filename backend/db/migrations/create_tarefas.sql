@@ -31,14 +31,14 @@ CREATE TABLE IF NOT EXISTS patient (
 );
 
 CREATE TABLE IF NOT EXISTS HUMAN_NAME (
-    id VARCHAR(255) PRIMARY KEY,
-    use VARCHAR(255),
-    display VARCHAR(255),
-    family VARCHAR(255),
-    given_1 VARCHAR(255),
-    given_2 VARCHAR(255),
-    prefix_1 VARCHAR(255),
-    suffix_1 VARCHAR(255),
+    id SERIAL PRIMARY KEY,
+    use VARCHAR,
+    display VARCHAR
+    family VARCHAR,
+    given_1 VARCHAR,
+    given_2 VARCHAR,
+    prefix_1 VARCHAR,
+    suffix_1 VARCHAR,
     period_start TIMESTAMP,
     period_end TIMESTAMP
 );

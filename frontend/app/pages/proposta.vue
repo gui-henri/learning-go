@@ -44,12 +44,7 @@
               </p>
               <p class="mt-2 text-center text-white-700 text-sm text-justify">
               O Home Care pode ser dividido em dois formatos: Internação Domiciliar e Assistência Domiciliar.<br>
-              Em ambos, o serviço traz os seguintes benefícios ao paciente:
-
-              Conforto
-              Humanização e presença constante dos familiares
-              Atendimento com equipe multidisciplinar
-              Diminuição no risco de infecção hospitalar 
+              Em ambos, o serviço traz os seguintes benefícios ao paciente: Conforto, Humanização e presença constante dos familiares, Atendimento com equipe multidisciplinar e diminuição no risco de infecção hospitalar 
             </p>
 
             </div>
