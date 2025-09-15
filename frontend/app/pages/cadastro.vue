@@ -27,8 +27,8 @@ async function submitForm() {
 </script>
 
 <template>
-  <div>
-    <h2 class=" justify-center ">Cadastro de Paciente</h2>
+  <div class="text-3xl mb-5 font-bold flex flex-col items-center" >
+    <h2>Cadastro de Paciente</h2>
     <input v-model="family" placeholder="Sobrenome" />
     <input v-model="given1" placeholder="Nome 1" />
     <input v-model="given2" placeholder="Nome 2" />
