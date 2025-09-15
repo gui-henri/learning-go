@@ -18,7 +18,7 @@
 
 <template>
     <main class="gap-2">
-        <h3 class="text-3xl mb-5 font-bold">Tarefas</h3>
+        <h3 class="text-3xl mb-5 font-bold"><b>Histórico de Tarefas</b></h3>
         <div v-if="pending">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>    
         <div v-else id="task-container">

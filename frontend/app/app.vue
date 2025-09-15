@@ -10,10 +10,10 @@
     </div>
 
     <nav class="barra-nav">
-      <NuxtLink to="/" class="nav-link">Página inicial</NuxtLink>
-      <NuxtLink to="/equipe" class="nav-link">Equipe</NuxtLink>
-      <NuxtLink to="/proposta" class="nav-link">Nossa proposta</NuxtLink>
-      <NuxtLink to="/tarefas" class="nav-link">Visualizar tarefas</NuxtLink>
+      <NuxtLink to="/" class="nav-link"> <b>Abrir Chamado </b></NuxtLink>
+      <NuxtLink to="/cadastro" class="nav-link"><b>Cadastro de Pacientes</b></NuxtLink>
+      <NuxtLink to="/proposta" class="nav-link"><b>W.I.P</b></NuxtLink>
+      <NuxtLink to="/tarefas" class="nav-link"><b>Visualizar tarefas</b></NuxtLink>
     </nav>
 
     <NuxtPage />
