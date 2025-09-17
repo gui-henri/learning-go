@@ -19,6 +19,7 @@
       class="h-12 cursor-pointer hover:opacity-80"
     />
   </a>
+  
 </div>
 
 
@@ -26,7 +27,7 @@
     <nav class="barra-nav">
       <NuxtLink to="/" class="nav-link"> <b>Abrir Tarefa</b></NuxtLink>
       <NuxtLink to="/cadastro" class="nav-link"><b>Cadastro de Pacientes</b></NuxtLink>
-      <NuxtLink to="/Dashboard" class="nav-link"><b>Dashboard</b></NuxtLink>
+      <NuxtLink to="/pacientes" class="nav-link"><b>Pacientes</b></NuxtLink>
       <NuxtLink to="/tarefas" class="nav-link"><b>Visualizar tarefas</b></NuxtLink>
     </nav>
 
