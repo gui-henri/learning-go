@@ -79,7 +79,7 @@
     <div class="card-body pl-3 pr-3 pt-2 pb-2 rounded-2xl border-2 border-b-red-600 border-l-red-400 border-r-red-600 border-t-red-400">
         <div>
             <h3 class="font-bold text-xl">{{ descricao }}</h3>
-            <p>{{ formatedPrazo === "Indefinido" ? "Sem prazo" : formatedPrazo}}</p>
+            <p>{{ formatedPrazo === "Indefinido" ? "Sem prazo" : `Prazo: ${formatedPrazo}`}}</p>
             <h4>Criada em: {{ formattedDate }}</h4>
         </div>
         <div class="gap-2 flex">
