@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE IF NOT EXISTS tasks (
   id SERIAL PRIMARY KEY,
   descricao TEXT NOT NULL,
@@ -7,7 +9,8 @@ CREATE TABLE IF NOT EXISTS tasks (
 );
 
 CREATE TABLE IF NOT EXISTS patient (
- id SERIAL PRIMARY KEY,
+ internal_id SERIAL PRIMARY KEY,
+ id UUID DEFAULT uuid_generate_v4(),
  version INT DEFAULT 0,
  last_updated TIMESTAMP,
  active BOOLEAN DEFAULT TRUE,
