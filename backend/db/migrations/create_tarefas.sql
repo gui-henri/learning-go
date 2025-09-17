@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS patient (
 CREATE TABLE IF NOT EXISTS HUMAN_NAME (
     id SERIAL PRIMARY KEY,
     use VARCHAR,
-    display VARCHAR
+    display VARCHAR,
     family VARCHAR,
     given_1 VARCHAR,
     given_2 VARCHAR,
