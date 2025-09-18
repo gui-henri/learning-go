@@ -20,7 +20,7 @@
       />
 
     
-      <h4 class="text-green-600 text-2xl font-semibold mt-5 mb-2"><b>Concluídas ({{ completedTasks.length }})</b></h4>
+      <h4 class="text-green-600 text-2xl font-semibold mt-5 mb-2"><b>Tarefas Concluídas ({{ completedTasks.length }})</b></h4>
       <Card
         v-for="task in completedTasks"
         :key="task.id"

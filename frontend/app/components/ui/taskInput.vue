@@ -35,13 +35,8 @@
 
     // Lista de pacientes de exemplo (substitua por uma chamada à API no futuro)
     const pacientes = [
-      "Maria Silva",
-      "João Santos",
-      "Ana Souza",
-      "Pedro Alves",
-      "Carla Oliveira",
-      "Lucas Ferreira",
-      "Mariana Costa"
+      "Samuel Vitor",
+      "Guilherme Henrique"
     ];
 
     // Propriedade computada para filtrar pacientes com base na busca
