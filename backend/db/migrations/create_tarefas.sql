@@ -13,11 +13,11 @@ CREATE TABLE IF NOT EXISTS patient (
  id VARCHAR UNIQUE NOT NULL,
  last_updated TIMESTAMPTZ,
  active BOOLEAN DEFAULT TRUE,
- gender VARCHAR(20),
- birth_date DATE,
+ gender VARCHAR(20),      -- PROMOTED FIELD
+ birth_date DATE,         -- PROMOTED FIELD
  deceased BOOLEAN,
- full_name VARCHAR(255),
- cpf VARCHAR(11) UNIQUE,
+ full_name VARCHAR(255),  -- PROMOTED FIELD
+ cpf VARCHAR(11) UNIQUE,  -- PROMOTED FIELD
  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
  resource_json JSONB NOT NULL
 );

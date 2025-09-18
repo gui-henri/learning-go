@@ -1,32 +1,25 @@
 package patient
 
 import (
+	"encoding/json"
 	"time"
 
-	"github.com/go-playground/validator/v10"
-	apperrors "github.com/gui-henri/learning-go/pkg/errors"
 	"github.com/gui-henri/learning-go/pkg/fhir"
+	"github.com/gui-henri/learning-go/pkg/util"
 )
 
 type paciente struct {
-	Id                     string    `json:"id"`
-	InternalId             int       `json:"internal_id"`
-	Version                int       `json:"version" validate:"required"`
-	LastUpdated            time.Time `json:"last_updated" validate:"required"`
-	Active                 bool      `json:"concluida"`
-	Gender                 string    `json:"gender"`
-	BirthDate              *string
-	Deceased               bool
-	DeceasedDatetime       *string
-	MaritalStatus          string
-	MaritalStatusDisplay   string
-	ManagingOrganizationId string
-	NameFamily             string
-	NameGiven1             string
-	NameGiven2             string
-	Upid                   string
-	CreatedAt              time.Time `json:"criada_em" validate:"lte"`
-	ResourceJson           []byte
+	InternalID   int64           `db:"internal_id" json:"internal_id"` //criado no banco
+	ID           string          `db:"id" json:"id"`                   //criado no banco
+	LastUpdated  *time.Time      `db:"last_updated" json:"last_updated,omitempty"`
+	Active       bool            `db:"active" json:"active"` //forçado true
+	Gender       *string         `db:"gender" json:"gender,omitempty"`
+	BirthDate    *time.Time      `db:"birth_date" json:"birth_date,omitempty"`
+	Deceased     *bool           `db:"deceased" json:"deceased,omitempty"` //forçado false
+	FullName     *string         `db:"full_name" json:"full_name,omitempty"`
+	CPF          *string         `db:"cpf" json:"cpf,omitempty"`
+	CreatedAt    time.Time       `db:"created_at" json:"created_at"` //criado no banco
+	ResourceJSON json.RawMessage `db:"resource_json" json:"resource_json"`
 }
 
 func NewPaciente(p fhir.Patient) (paciente, error) {
@@ -34,32 +27,78 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 	if err != nil {
 		return paciente{}, err
 	}
-	pt := paciente{
-		Version:                1,
-		LastUpdated:            time.Now(),
-		Active:                 true,
-		Gender:                 p.Gender.Code(),
-		BirthDate:              p.BirthDate,
-		Deceased:               *p.DeceasedBoolean,
-		DeceasedDatetime:       p.DeceasedDateTime,
-		MaritalStatus:          *p.MaritalStatus.Id,
-		MaritalStatusDisplay:   *p.MaritalStatus.Text,
-		ManagingOrganizationId: *p.ManagingOrganization.Id,
-		NameFamily:             *p.Name[0].Family,
-		NameGiven1:             p.Name[0].Given[0],
-		NameGiven2:             p.Name[0].Given[1],
-		Upid:                   *p.Identifier[0].Id,
-		CreatedAt:              time.Now(),
-		ResourceJson:           j,
+
+	t, err := time.Parse("", *p.BirthDate)
+	if err != nil {
+		return paciente{}, err
 	}
 
-	validate := validator.New()
-
-	err = validate.Struct(pt)
-
-	if err != nil {
-		return paciente{}, apperrors.InvalidInput
+	// Campos omitidos serão criados pelo banco
+	pt := paciente{
+		LastUpdated:  util.Ptr(time.Now()),
+		Active:       true,
+		Gender:       util.Ptr(p.Gender.Code()),
+		BirthDate:    &t,
+		FullName:     util.Ptr("a"),  // TODO: adicionar pré-processamento correto de nome
+		CPF:          util.Ptr("aa"), // TODO: adicionar pré-processamento correto de CPF
+		ResourceJSON: j,
 	}
 
 	return pt, nil
 }
+
+// EXEMPLO DE PACIENTE fhir
+// p := fhir.Patient{
+// 	Id: Ptr("<uuid>"),
+// 	Meta: &fhir.Meta{
+// 		VersionId:   Ptr("1"),
+// 		LastUpdated: Ptr(time.Now().String()), TODO: usar ISO 8601
+// 		Source:      Ptr("https://interne.com.br"),
+// 	},
+// 	Text: &fhir.Narrative{
+// 		Status: fhir.NarrativeStatusAdditional,
+// 	},
+// 	Name: []fhir.HumanName{
+// 		{
+// 			Text:   Ptr("Guilherme Henrique Freitas da Silva"),
+// 			Family: Ptr("Silva"),
+// 			Given:  []string{"Guilherme", "Henrique", "Freitas"},
+// 		},
+// 	},
+// 	BirthDate:       Ptr("24/09/2002"), TODO: usar ano/mes/dia
+// 	Gender:          Ptr(fhir.AdministrativeGenderMale),
+// 	Active:          Ptr(true),
+// 	DeceasedBoolean: Ptr(false),
+//
+//  	Address: []fhir.Address{
+// 		{
+// 			City:    Ptr("Vitória de Santo Antão"),
+// 			State:   Ptr("Pernambuco"),
+// 			Country: Ptr("Brasil"),
+// 			Type:    Ptr(fhir.AddressTypePhysical),
+// 		},
+// 	},
+// 	Communication: []fhir.PatientCommunication{
+// 		{
+// 			Language: fhir.CodeableConcept{
+// 				Text: Ptr("pt-br"),
+// 				Coding: []fhir.Coding{
+// 					{
+// 						UserSelected: Ptr(true),
+// 						Code:         Ptr("pt-br"),
+// 						Version:      Ptr("1"),
+// 					},
+// 				},
+// 			},
+// 			Preferred: Ptr(true),
+// 		},
+// 	},
+// }
+
+// jsonBytes, err := json.MarshalIndent(p, "", "  ")
+// if err != nil {
+// 	fmt.Println("Error marshaling:", err)
+// 	return
+// }
+
+// fmt.Println(string(jsonBytes))
