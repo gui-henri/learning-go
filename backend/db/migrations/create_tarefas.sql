@@ -9,65 +9,23 @@ CREATE TABLE IF NOT EXISTS tasks (
 );
 
 CREATE TABLE IF NOT EXISTS patient (
- internal_id SERIAL PRIMARY KEY,
- id UUID DEFAULT uuid_generate_v4(),
- version INT DEFAULT 0,
- last_updated TIMESTAMP,
+ internal_id BIGSERIAL PRIMARY KEY,
+ id VARCHAR UNIQUE NOT NULL,
+ last_updated TIMESTAMPTZ,
  active BOOLEAN DEFAULT TRUE,
- gender VARCHAR,
+ gender VARCHAR(20),
  birth_date DATE,
- ethnicity VARCHAR,
- race VARCHAR,
  deceased BOOLEAN,
- deceased_datetime TIMESTAMP,
- marital_status VARCHAR,
- marital_status_display VARCHAR,
- managing_organization_id VARCHAR,
- name_family VARCHAR,
- name_given_1 VARCHAR,
- name_given_2 VARCHAR,
- builder_id VARCHAR,
- upid VARCHAR,
- created_at VARCHAR,
- resource_json JSON,
- data_source VARCHAR
+ full_name VARCHAR(255),
+ cpf VARCHAR(11) UNIQUE,
+ created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+ resource_json JSONB NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS HUMAN_NAME (
-    id SERIAL PRIMARY KEY,
-    use VARCHAR,
-    display VARCHAR,
-    family VARCHAR,
-    given_1 VARCHAR,
-    given_2 VARCHAR,
-    prefix_1 VARCHAR,
-    suffix_1 VARCHAR,
-    period_start TIMESTAMP,
-    period_end TIMESTAMP
-);
+CREATE INDEX idx_patient_id ON patient(id);
+CREATE INDEX idx_patient_cpf ON patient(cpf);
+CREATE INDEX idx_patient_birth_date ON patient(birth_date);
+CREATE INDEX idx_patient_full_name ON patient USING GIN (to_tsvector('portuguese', full_name));
 
-CREATE TABLE IF NOT EXISTS identifier (
-  id SERIAL PRIMARY KEY,
-  system VARCHAR,
-  value VARCHAR,
-  use VARCHAR,
-  type_display VARCHAR,
-  type_code VARCHAR,
-  assigner_display VARCHAR
-);
-
-CREATE TABLE IF NOT EXISTS ORGANIZATION (
-    id VARCHAR PRIMARY KEY,
-    version INT,
-    last_updated TIMESTAMP,
-    name VARCHAR,
-    address_line_1 VARCHAR,
-    address_line_2 VARCHAR,
-    address_city VARCHAR,
-    address_state VARCHAR,
-    address_postal_code VARCHAR,
-    builder_id VARCHAR,
-    created_at TIMESTAMP,
-    resource_json JSON,
-    data_source VARCHAR
-);
+-- Índice GIN para buscas flexíveis dentro do JSONB (para campos não promovidos).
+CREATE INDEX idx_patient_recurso_gin ON patient USING GIN(resource_json);
