@@ -13,10 +13,10 @@ type PatientService interface {
 }
 
 type patientService struct {
-	repository PatientRepository
+	repository patientRepository
 }
 
-func NewPatientService(r PatientRepository) PatientService {
+func NewPatientService(r patientRepository) *patientService {
 	return &patientService{
 		repository: r,
 	}
