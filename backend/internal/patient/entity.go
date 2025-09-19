@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/gui-henri/learning-go/pkg/fhir"
 	"github.com/gui-henri/learning-go/pkg/util"
 )
 
 type paciente struct {
 	InternalID   int64           `db:"internal_id" json:"internal_id"` //criado no banco
-	ID           string          `db:"id" json:"id"`                   //criado no banco
+	ID           string          `db:"id" json:"id"`
 	LastUpdated  *time.Time      `db:"last_updated" json:"last_updated,omitempty"`
 	Active       bool            `db:"active" json:"active"` //forçado true
 	Gender       *string         `db:"gender" json:"gender,omitempty"`
@@ -35,6 +36,7 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 
 	// Campos omitidos serão criados pelo banco
 	pt := paciente{
+		ID:           uuid.NewString(),
 		LastUpdated:  util.Ptr(time.Now()),
 		Active:       true,
 		Gender:       util.Ptr(p.Gender.Code()),

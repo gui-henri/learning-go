@@ -1,4 +1,9 @@
 services:
+  hapi-fhir:
+    image: hapiproject/hapi:latest
+    container_name: hapi-fhir
+    ports:
+      - "8092:8080"
   db:
     image: postgres
     restart: always
@@ -39,3 +44,4 @@ services:
 volumes:
   node_modules_frontend:
   pgdata:
+  hapipgdata:

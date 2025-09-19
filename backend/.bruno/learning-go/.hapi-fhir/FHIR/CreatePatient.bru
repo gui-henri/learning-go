@@ -1,0 +1,36 @@
+meta {
+  name: CreatePatient
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8092/fhir/Patient
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/fhir+json
+  Accept: application/fhir+json
+}
+
+body:json {
+  {
+    "resourceType": "Patient",
+    "active": true,
+    "name": [
+      {
+        "use": "official",
+        "family": "Silva",
+        "given": ["Guilherme"]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1990-01-01"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
