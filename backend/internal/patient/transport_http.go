@@ -10,7 +10,7 @@ import (
 
 func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux) *http.ServeMux {
 	patientRepository := NewPatientRepository(db)
-	patientService := NewPatientService(patientRepository)
+	patientService := NewPatientService(*patientRepository)
 
 	insertPatient := httptransport.NewServer(
 		makeInsertPatientEndpoint(patientService),
