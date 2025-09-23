@@ -2,6 +2,7 @@ package patient
 
 import (
 	"encoding/json"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -52,12 +53,77 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 		Active:       true,
 		Gender:       genderCode,
 		BirthDate:    birthDateTime,
-		FullName:     util.Ptr("a"),  // TODO: adicionar pré-processamento correto de nome
+		FullName:     util.Ptr(proccessFullName(p.Name)),
 		CPF:          util.Ptr("aa"), // TODO: adicionar pré-processamento correto de CPF
 		ResourceJSON: j,
 	}
 
 	return pt, nil
+}
+
+func proccessFullName(n []fhir.HumanName) string {
+
+	if len(n) == 0 {
+		return "Sem nome"
+	}
+
+	// caso ele tenha apenas um nome
+	if len(n) == 1 {
+		return proccessSingleName(n[0])
+	}
+
+	// caso ele tenha múltiplos nomes registrados,
+	// Procuramos um com o nome "usual".
+	// Caso não exista, o primeiro nome encontrado é usado
+
+	var officialName *fhir.HumanName
+	var usualName *fhir.HumanName
+
+	for idx, name := range n {
+		if name.Use == nil {
+			continue
+		}
+		if name.Use.Code() == "usual" && usualName == nil {
+			usualName = &n[idx]
+		}
+		if name.Use.Code() == "official" && officialName == nil {
+			officialName = &n[idx]
+		}
+	}
+
+	if usualName != nil {
+		return proccessSingleName(*usualName)
+	}
+
+	if officialName != nil {
+		return proccessSingleName(*officialName)
+	}
+
+	return proccessSingleName(n[0])
+}
+
+func proccessSingleName(n fhir.HumanName) string {
+	if n.Text != nil && *n.Text != "" {
+		return *n.Text
+	}
+
+	parts := []string{}
+
+	for _, given := range n.Given {
+		if given != "" {
+			parts = append(parts, given)
+		}
+	}
+
+	if n.Family != nil && *n.Family != "" {
+		parts = append(parts, *n.Family)
+	}
+
+	if len(parts) == 0 {
+		return "Sem nome"
+	}
+
+	return strings.Join(parts, " ")
 }
 
 // EXEMPLO DE PACIENTE fhir
