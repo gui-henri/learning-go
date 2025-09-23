@@ -24,7 +24,7 @@ func NewPatientRepository(db db.IDB) *patientRepository {
 func (p *patientRepository) InsertPatient(pt fhir.Patient) (paciente, error) {
 	sql := `
 		INSERT INTO patient (last_updated, gender, birth_date, full_name, cpf, resource_json)
-		VALUES ($1, $2, $3, $4, 5$, 6$)
+		VALUES ($1, $2, $3, $4, $5, $6)
 	`
 
 	patient, err := NewPaciente(pt)

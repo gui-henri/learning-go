@@ -26,6 +26,10 @@ func (s *patientService) InsertPatient(ctx context.Context, p fhir.Patient) (pac
 	now := time.Now().UTC()
 	formattedDate := now.Format("2006-01-02T15:04:05.000Z07:00")
 
+	if p.Meta == nil {
+		p.Meta = &fhir.Meta{}
+	}
+
 	p.Meta.VersionId = util.Ptr("1")
 	p.Meta.LastUpdated = util.Ptr(formattedDate)
 	pt, err := s.repository.InsertPatient(p)
