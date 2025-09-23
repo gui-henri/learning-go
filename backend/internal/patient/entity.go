@@ -24,6 +24,11 @@ type paciente struct {
 	ResourceJSON json.RawMessage `db:"resource_json" json:"resource_json"`
 }
 
+const (
+	SystemCPFOficial = "http://hl7.org.br/fhir/r4/sid/CPF"
+	SystemCPFAntigo  = "urn:cpf"
+)
+
 func NewPaciente(p fhir.Patient) (paciente, error) {
 	j, err := p.MarshalJSON()
 	if err != nil {
@@ -54,7 +59,7 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 		Gender:       genderCode,
 		BirthDate:    birthDateTime,
 		FullName:     util.Ptr(proccessFullName(p.Name)),
-		CPF:          util.Ptr("aa"), // TODO: adicionar pré-processamento correto de CPF
+		CPF:          util.Ptr(getPatientCPF(&p)),
 		ResourceJSON: j,
 	}
 
@@ -124,6 +129,25 @@ func proccessSingleName(n fhir.HumanName) string {
 	}
 
 	return strings.Join(parts, " ")
+}
+
+func getPatientCPF(p *fhir.Patient) string {
+	if len(p.Identifier) == 0 {
+		return "CPF não encontrado"
+	}
+
+	for _, identifier := range p.Identifier {
+		if identifier.System == nil || identifier.Value == nil || *identifier.Value == "" {
+			continue
+		}
+
+		systemURI := *identifier.System
+		if systemURI == SystemCPFOficial || systemURI == SystemCPFAntigo {
+			return *identifier.Value
+		}
+	}
+
+	return "CPF não encontrado"
 }
 
 // EXEMPLO DE PACIENTE fhir
