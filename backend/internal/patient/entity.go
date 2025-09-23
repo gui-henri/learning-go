@@ -29,9 +29,20 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 		return paciente{}, err
 	}
 
-	t, err := time.Parse("", *p.BirthDate)
-	if err != nil {
-		return paciente{}, err
+	var birthDateTime *time.Time
+	var genderCode *string
+
+	if p.BirthDate != nil && *p.BirthDate != "" {
+		t, err := time.Parse("2006-01-02", *p.BirthDate)
+		if err != nil {
+			return paciente{}, err
+		}
+		birthDateTime = &t
+	}
+
+	if p.Gender != nil {
+		code := p.Gender.Code()
+		genderCode = &code
 	}
 
 	// Campos omitidos serão criados pelo banco
@@ -39,8 +50,8 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 		ID:           uuid.NewString(),
 		LastUpdated:  util.Ptr(time.Now()),
 		Active:       true,
-		Gender:       util.Ptr(p.Gender.Code()),
-		BirthDate:    &t,
+		Gender:       genderCode,
+		BirthDate:    birthDateTime,
 		FullName:     util.Ptr("a"),  // TODO: adicionar pré-processamento correto de nome
 		CPF:          util.Ptr("aa"), // TODO: adicionar pré-processamento correto de CPF
 		ResourceJSON: j,
