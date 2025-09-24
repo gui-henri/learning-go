@@ -70,7 +70,6 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 		ID:           uuid.NewString(),
 		LastUpdated:  util.Ptr(time.Now()),
 		Active:       true,
-		Deceased:     util.Ptr(false),
 		Gender:       genderCode,
 		BirthDate:    birthDateTime,
 		FullName:     util.Ptr(fn),
