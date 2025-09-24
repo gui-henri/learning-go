@@ -74,11 +74,10 @@
         <div class="p-0.5 rounded-full border-2 border-red-500 flex items-center">
             <Input v-model="descricao" class="p-3 border-0 focus-visible:border-0 focus-visible:ring-ring/0 focus-visible:ring-[3px]" type="text" name="description" placeholder="Digite a tarefa" />
 
-            <!-- Popover para selecionar a data -->
             <Popover>
                 <PopoverTrigger as-child>
                     <Button variant="outline"
-                        class="w-34 bg-amber-200 hover:bg-red-400 transition justify-start text-left font-normal border-0 rounded-full"
+                        class="w-34 bg-amber-200 hover:bg-red-400 transition justify-start text-left font-normal border-0 rounded-l-full"
                     >
                         <CalendarIcon />
                         {{ dateValue ? new DateFormatter("pt-BR", {}).format(dateValue.toDate(getLocalTimeZone())) : "Definir prazo" }}
@@ -93,10 +92,10 @@
               <PopoverTrigger as-child>
                 <Button
                   variant="outline"
-                  class="w-39 bg-blue-300 hover:bg-red-400 transition justify-start text-left font-normal border-0 rounded-full"
+                  class="w-36 bg-blue-300 hover:bg-red-400 transition justify-start text-left font-normal border-0 rounded-r-full contain-content "
                 >
-                  <SearchIcon class="mr-2 h-4 w-4" />
-                  {{ pacienteSelecionado ? pacienteSelecionado : "Definir paciente" }}
+                  <SearchIcon class=" h-4 w-4" />
+                  {{ pacienteSelecionado ? pacienteSelecionado.split(" ")[0] : "Definir paciente" }}
                 </Button>
               </PopoverTrigger>
 
