@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/gui-henri/learning-go/pkg/errors"
 	"github.com/gui-henri/learning-go/pkg/fhir"
 	"github.com/gui-henri/learning-go/pkg/util"
 )
@@ -52,6 +53,19 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 	}
 
 	// Campos omitidos serão criados pelo banco
+
+	fn, err := proccessFullName(p.Name)
+
+	if err != nil {
+		return paciente{}, err
+	}
+
+	cpf, err := getPatientCPF(&p)
+
+	if err != nil {
+		return paciente{}, err
+	}
+
 	pt := paciente{
 		ID:           uuid.NewString(),
 		LastUpdated:  util.Ptr(time.Now()),
@@ -59,23 +73,29 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 		Deceased:     util.Ptr(false),
 		Gender:       genderCode,
 		BirthDate:    birthDateTime,
-		FullName:     util.Ptr(proccessFullName(p.Name)),
-		CPF:          util.Ptr(getPatientCPF(&p)),
+		FullName:     util.Ptr(fn),
+		CPF:          util.Ptr(cpf),
 		ResourceJSON: j,
 	}
 
 	return pt, nil
 }
 
-func proccessFullName(n []fhir.HumanName) string {
+func proccessFullName(n []fhir.HumanName) (string, error) {
 
 	if len(n) == 0 {
-		return "Sem nome"
+		return "", errors.InvalidInput
 	}
 
 	// caso ele tenha apenas um nome
 	if len(n) == 1 {
-		return proccessSingleName(n[0])
+		val, err := proccessSingleName(n[0])
+
+		if err != nil {
+			return "", err
+		}
+
+		return val, nil
 	}
 
 	// caso ele tenha múltiplos nomes registrados,
@@ -98,19 +118,31 @@ func proccessFullName(n []fhir.HumanName) string {
 	}
 
 	if usualName != nil {
-		return proccessSingleName(*usualName)
+		val, err := proccessSingleName(*usualName)
+		if err != nil {
+			return "", err
+		}
+		return val, nil
 	}
 
 	if officialName != nil {
-		return proccessSingleName(*officialName)
+		val, err := proccessSingleName(*officialName)
+		if err != nil {
+			return "", err
+		}
+		return val, nil
 	}
 
-	return proccessSingleName(n[0])
+	val, err := proccessSingleName(n[0])
+	if err != nil {
+		return "", err
+	}
+	return val, nil
 }
 
-func proccessSingleName(n fhir.HumanName) string {
+func proccessSingleName(n fhir.HumanName) (string, error) {
 	if n.Text != nil && *n.Text != "" {
-		return *n.Text
+		return *n.Text, nil
 	}
 
 	parts := []string{}
@@ -126,15 +158,15 @@ func proccessSingleName(n fhir.HumanName) string {
 	}
 
 	if len(parts) == 0 {
-		return "Sem nome"
+		return "", errors.InvalidInput
 	}
 
-	return strings.Join(parts, " ")
+	return strings.Join(parts, " "), nil
 }
 
-func getPatientCPF(p *fhir.Patient) string {
+func getPatientCPF(p *fhir.Patient) (string, error) {
 	if len(p.Identifier) == 0 {
-		return "CPF não encontrado"
+		return "CPF não encontrado", errors.InvalidInput
 	}
 
 	for _, identifier := range p.Identifier {
@@ -144,11 +176,11 @@ func getPatientCPF(p *fhir.Patient) string {
 
 		systemURI := *identifier.System
 		if systemURI == SystemCPFOficial || systemURI == SystemCPFAntigo {
-			return *identifier.Value
+			return *identifier.Value, nil
 		}
 	}
 
-	return "CPF não encontrado"
+	return "CPF não encontrado", errors.InvalidInput
 }
 
 // EXEMPLO DE PACIENTE fhir
