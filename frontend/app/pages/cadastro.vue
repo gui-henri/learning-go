@@ -4,7 +4,7 @@ import { ref } from "vue";
 // Recurso FHIR Patient
 const paciente = ref({
   resourceType: "Patient",
-  identifier: [{ system: "http://gov.br/cpf", value: "" }],
+  identifier: [{ system: "http://hl7.org.br/fhir/r4/sid/CPF", value: "" }],
   name: [{ use: "official", family: "", given: [] }],
   gender: "",
   birthDate: "",
@@ -14,10 +14,12 @@ const paciente = ref({
 // Função de cadastro com envio para backend
 const cadastrar = async () => {
   try {
-    // Envia JSON FHIR para o backend Go
-    const res = await $fetch('http://localhost:8080/pacientes', {
+    console.log("[INFO] Patient being send: ", paciente.value)
+    const res = await $fetch('http://localhost:8090/Patient', {
       method: 'POST',
-      body: paciente.value,
+      body: JSON.stringify({
+        paciente: paciente.value
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -130,7 +132,7 @@ const formatarTelefone = (e) => {
             title="Utilize apenas números."
             class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
             @input="formatarTelefone"
-            maxlength="15"
+            maxlength="16"
           />
         </div>
 
