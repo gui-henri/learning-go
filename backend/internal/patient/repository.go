@@ -23,8 +23,8 @@ func NewPatientRepository(db db.IDB) *patientRepository {
 
 func (p *patientRepository) InsertPatient(pt fhir.Patient) (paciente, error) {
 	sql := `
-		INSERT INTO patient (last_updated, gender, birth_date, full_name, cpf, resource_json)
-		VALUES ($1, $2, $3, $4, $5, $6)
+		INSERT INTO patient (id, last_updated, gender, birth_date, full_name, cpf, resource_json)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
 	`
 
 	patient, err := NewPaciente(pt)
@@ -35,6 +35,7 @@ func (p *patientRepository) InsertPatient(pt fhir.Patient) (paciente, error) {
 	p.db.QueryRow(
 		context.Background(),
 		sql,
+		patient.ID,
 		patient.LastUpdated,
 		patient.Gender,
 		patient.BirthDate,
