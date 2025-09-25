@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref, watch, computed } from "vue"
+    import { ref, watch, computed, defineEmits } from "vue"
     import type { DateValue } from "@internationalized/date"
     import {
         DateFormatter,
@@ -24,10 +24,14 @@
         }
     }
 
+    const config = useRuntimeConfig();
+
     // Variáveis reativas para os campos do formulário
     const descricao = ref('');
     const dateValue = ref<DateValue | null>(null)
     const todayDate = today(getLocalTimeZone())
+
+    const emit = defineEmits(['taskSended'])
 
     // Lógica para o popover de paciente
     const buscaPaciente = ref('');
@@ -54,13 +58,39 @@
       pacienteSelecionado.value = paciente;
     };
 
+
+
     // Função de exemplo para simular o envio da tarefa
-    function sendTask() {
-        console.log("Tarefa enviada (apenas front-end):", {
-            descricao: descricao.value,
-            prazo: dateValue.value ? dateValue.value.toDate(getLocalTimeZone()).toISOString() : "sem prazo",
-            paciente: pacienteSelecionado.value
-        });
+    async function sendTask() {
+        try {
+            const response = await fetch(config.public.apiBase + "/tasks", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ 
+                    descricao: descricao.value, 
+                    prazo: dateValue.value ? 
+                        dateValue.value.toDate(getLocalTimeZone()).toISOString() 
+                        : "sem prazo" 
+                })
+            })
+
+            if (!response.ok) {
+                console.log(response.status)
+                console.log(response.url)
+                throw new Error(String(response.status))
+            }
+
+            const responseJson: InsertResponse = await response.json()
+
+            emit("taskSended", responseJson.tarefa);
+            descricao.value = ""
+            dateValue.value = null;
+
+        } catch (error) {
+            console.log("Erro ao realizar requisição", error)
+        }
         // Resetar os campos após a "ação de envio"
         descricao.value = "";
         dateValue.value = null;
