@@ -38,7 +38,7 @@
           </div>
 
           <div v-else class="bg-white text-center p-8 rounded-lg border border-dashed border-gray-300">
-            <p class="font-medium text-gray-600"> Ótimo trabalho! Nenhuma tarefa pendente.</p>
+            <p class="font-medium text-gray-600"> <b>Ótimo trabalho! Nenhuma tarefa pendente.</b></p>
           </div>
         </section>
 
@@ -62,7 +62,7 @@
           </div>
           
           <div v-else class="bg-white text-center p-8 rounded-lg border border-dashed border-gray-300">
-            <p class="font-medium text-gray-600">Aguardando conclusão de tarefas.</p>
+            <p class="font-medium text-gray-600"><b>Aguardando conclusão de tarefas.</b></p>
           </div>
         </section>
         

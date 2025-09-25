@@ -33,70 +33,74 @@ const cadastrar = async () => {
   }
 };
 
-// Função para formatar telefone enquanto digita
+// Função para formatar telefone (com suporte ao 9º dígito)
 const formatarTelefone = (e) => {
-  let valor = e.target.value.replace(/\D/g, ""); // remove tudo que não é número
-  if (valor.length > 2) {
-    valor = `(${valor.slice(0, 2)}) ${valor.slice(2)}`;
+  let numeros = e.target.value.replace(/\D/g, "").slice(0, 11);
+
+  if (numeros.length > 10) {
+    // Máscara para celular com 9º dígito: (XX) 9XXXX-XXXX
+    numeros = numeros.replace(/^(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+  } else if (numeros.length > 6) {
+    // Máscara para telefone fixo: (XX) XXXX-XXXX
+    numeros = numeros.replace(/^(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+  } else if (numeros.length > 2) {
+    // Máscara para DDD e início do número: (XX) XXXX
+    numeros = numeros.replace(/^(\d{2})(\d*)/, "($1) $2");
+  } else {
+    if (numeros.length > 0) {
+      numeros = numeros.replace(/^(\d*)/, "($1");
+    }
   }
-  if (valor.length > 9) {
-    valor = `${valor.slice(0, 9)}-${valor.slice(9, 13)}`;
-  }
-  paciente.value.telecom[0].value = valor;
+  paciente.value.telecom[0].value = numeros;
+};
+
+// Função para formatar o CPF
+const formatarCPF = (e) => {
+  let valor = e.target.value.replace(/\D/g, "");
+  valor = valor.slice(0, 11);
+  valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+  valor = valor.replace(/(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
+  valor = valor.replace(/(\d{3})\.(\d{3})\.(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+  paciente.value.identifier[0].value = valor;
 };
 </script>
 
 <template>
   <div class="min-h-screen flex items-center justify-center p-6">
-    <!-- Caixa com borda vermelha interna -->
     <div class="bg-white shadow-2xl rounded-2xl w-full max-w-lg p-6 border-4 border-red-600">
       <h1 class="text-3xl font-bold text-red-600 text-center mb-6">
         Cadastro de Paciente (FHIR)
       </h1>
 
       <form @submit.prevent="cadastrar" class="space-y-4">
-<!-- Nome -->
-<div>
-  <label class="block text-gray-700 font-semibold">Nome</label>
-  <input
-    v-model="paciente.name[0].given[0]"
-    type="text"
-    required
-    pattern="[A-Za-zÀ-ÿ\s]+"
-    title="Apenas letras são permitidas"
-    @input="paciente.name[0].given[0] = paciente.name[0].given[0].replace(/[^A-Za-zÀ-ÿ\s]/g, '')"
-    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
-  />
-</div>
-
-<!-- Sobrenome -->
-<div>
-  <label class="block text-gray-700 font-semibold">Sobrenome</label>
-  <input
-    v-model="paciente.name[0].family"
-    type="text"
-    required
-    pattern="[A-Za-zÀ-ÿ\s]+"
-    title="Apenas letras são permitidas"
-    @input="paciente.name[0].family = paciente.name[0].family.replace(/[^A-Za-zÀ-ÿ\s]/g, '')"
-    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
-  />
-</div>
-
-
-        <!-- CPF -->
         <div>
-          <label class="block text-gray-700 font-semibold">CPF</label>
+          <label class="block text-gray-700 font-semibold">Nome Completo</label>
           <input
-            v-model="paciente.identifier[0].value"
-            type="text"   
-            title="Apenas números."
+            v-model="paciente.name[0].given[0]"
+            placeholder="João Almeida do Carmo"
+            type="text"
             required
+            pattern="[A-Za-zÀ-ÿ\s]+"
+            title="Apenas letras são permitidas"
+            @input="paciente.name[0].given[0] = paciente.name[0].given[0].replace(/[^A-Za-zÀ-ÿ\s]/g, '')"
             class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
           />
         </div>
 
-        <!-- Data de Nascimento -->
+        <div>
+          <label class="block text-gray-700 font-semibold">CPF</label>
+          <input
+            v-model="paciente.identifier[0].value"
+            type="text"
+            required
+            maxlength="14"
+            placeholder="000.000.000-00"
+            title="Digite apenas números. O formato será aplicado automaticamente."
+            @input="formatarCPF"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
+          />
+        </div>
+
         <div>
           <label class="block text-gray-700 font-semibold">Data de Nascimento</label>
           <input
@@ -108,7 +112,6 @@ const formatarTelefone = (e) => {
           />
         </div>
 
-        <!-- Gênero -->
         <div>
           <label class="block text-gray-700 font-semibold">Gênero</label>
           <select
@@ -123,35 +126,33 @@ const formatarTelefone = (e) => {
           </select>
         </div>
 
-        <!-- Telefone -->
         <div>
           <label class="block text-gray-700 font-semibold">Telefone</label>
           <input
             v-model="paciente.telecom[0].value"
             type="tel"
+            placeholder="(XX) 9XXXX-XXXX"
             title="Utilize apenas números."
             class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
             @input="formatarTelefone"
-            maxlength="16"
+            maxlength="15"
           />
         </div>
 
-        <!-- Email -->
         <div>
           <label class="block text-gray-700 font-semibold">Email</label>
           <input
+            placeholder="seuemail@gmail.com"
             v-model="paciente.telecom[1].value"
             type="email"
             class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
           />
         </div>
 
-        <!-- Botão -->
         <button
           type="submit"
-          class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg"
-        >
-          Cadastrar (FHIR JSON)
+          class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg">
+          Cadastrar
         </button>
       </form>
     </div>
