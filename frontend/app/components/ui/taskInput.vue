@@ -102,7 +102,7 @@
 <template>
     <div class="items-center justify-center gap-2">
         <div class="p-0.5 rounded-full border-2 border-red-500 flex items-center">
-            <Input v-model="descricao" class="p-3 border-0 focus-visible:border-0 focus-visible:ring-ring/0 focus-visible:ring-[3px]" type="text" name="description" placeholder="Digite a tarefa" />
+            <Input maxlength="25" v-model="descricao" class="p-3 border-0 focus-visible:border-0 focus-visible:ring-ring/0 focus-visible:ring-[3px]" type="text" name="description" placeholder="Digite a tarefa" />
 
             <Popover>
                 <PopoverTrigger as-child>
