@@ -9,3 +9,7 @@ type InsertPatientRequest struct {
 type InsertPatientResponse struct {
 	Patient *paciente `json:"paciente"`
 }
+
+type ListPatientResponse struct {
+	Data []paciente `json:"data"`
+}
