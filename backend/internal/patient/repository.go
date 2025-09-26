@@ -9,6 +9,7 @@ import (
 
 type PatientRepository interface {
 	InsertPatient(p fhir.Patient) (paciente, error)
+	ListPatients() ([]paciente, error)
 }
 
 type patientRepository struct {
@@ -46,4 +47,10 @@ func (p *patientRepository) InsertPatient(pt fhir.Patient) (paciente, error) {
 
 	return patient, nil
 
+}
+
+func (p *patientRepository) ListPatients() (paciente, error) {
+	sql := `
+		SELECT * FROM patient LIMIT 100
+	`
 }
