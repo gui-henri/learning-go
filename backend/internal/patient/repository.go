@@ -11,7 +11,7 @@ import (
 
 type PatientRepository interface {
 	InsertPatient(p fhir.Patient) (paciente, error)
-	ListPatients() ([]paciente, error)
+	ListPatients(count, page int) (pagedPatientResult, error)
 }
 
 type patientRepository struct {
@@ -56,8 +56,76 @@ func (p *patientRepository) InsertPatient(pt fhir.Patient) (paciente, error) {
 
 }
 
-func (p *patientRepository) ListPatients() (paciente, error) {
+type pagedPatientResult struct {
+	Patients []paciente
+	Total    int
+}
+
+func (p *patientRepository) ListPatients(count, page int) (pagedPatientResult, error) {
+
 	sql := `
-		SELECT * FROM patient LIMIT 100
+		SELECT
+            id,
+            last_updated,
+            active,
+            gender,
+            birth_date,
+            deceased,
+            full_name,
+            cpf,
+            created_at,
+            resource_json,
+            COUNT(*) OVER() AS total_count 
+        FROM 
+            patient 
+        ORDER BY 
+            id 
+        LIMIT $1 OFFSET $2
 	`
+
+	if count > 100 {
+		return pagedPatientResult{}, errors.InvalidInput
+	}
+
+	offset := count * page
+
+	rows, err := p.db.Query(context.Background(), sql, count, offset)
+
+	if err != nil {
+		return pagedPatientResult{}, err
+	}
+
+	defer rows.Close()
+
+	patients := []paciente{}
+
+	var totalCount int = 0
+
+	for rows.Next() {
+		var pt paciente
+
+		err := rows.Scan(
+			&pt.ID,
+			&pt.LastUpdated,
+			&pt.Active,
+			&pt.Gender,
+			&pt.BirthDate,
+			&pt.Deceased,
+			&pt.FullName,
+			&pt.CPF,
+			&pt.CreatedAt,
+			&pt.ResourceJSON,
+			&totalCount,
+		)
+
+		if err != nil {
+			return pagedPatientResult{}, errors.InvalidInput
+		}
+		patients = append(patients, pt)
+	}
+
+	return pagedPatientResult{
+		Patients: patients,
+		Total:    totalCount,
+	}, nil
 }
