@@ -2,8 +2,10 @@ package patient
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/gui-henri/learning-go/db"
+	"github.com/gui-henri/learning-go/pkg/errors"
 	"github.com/gui-henri/learning-go/pkg/fhir"
 )
 
@@ -33,7 +35,7 @@ func (p *patientRepository) InsertPatient(pt fhir.Patient) (paciente, error) {
 		return paciente{}, err
 	}
 
-	p.db.QueryRow(
+	_, err = p.db.Exec(
 		context.Background(),
 		sql,
 		patient.ID,
@@ -44,6 +46,11 @@ func (p *patientRepository) InsertPatient(pt fhir.Patient) (paciente, error) {
 		patient.CPF,
 		patient.ResourceJSON,
 	)
+
+	if err != nil {
+		fmt.Println("[ERR] Database error happened: ", err)
+		return paciente{}, errors.InvalidInput
+	}
 
 	return patient, nil
 
