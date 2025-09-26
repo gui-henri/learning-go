@@ -2,6 +2,7 @@ package patient
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 	"time"
 
@@ -69,6 +70,7 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 	pt := paciente{
 		ID:           uuid.NewString(),
 		LastUpdated:  util.Ptr(time.Now()),
+		CreatedAt:    time.Now(),
 		Active:       true,
 		Gender:       genderCode,
 		BirthDate:    birthDateTime,
@@ -175,7 +177,18 @@ func getPatientCPF(p *fhir.Patient) (string, error) {
 
 		systemURI := *identifier.System
 		if systemURI == SystemCPFOficial || systemURI == SystemCPFAntigo {
-			return *identifier.Value, nil
+			cpf := *identifier.Value
+			cpf = strings.ReplaceAll(cpf, "-", "")
+			cpf = strings.ReplaceAll(cpf, " ", "")
+			cpf = strings.ReplaceAll(cpf, ".", "")
+			fmt.Println("[INFO] CPF: ", cpf)
+			fmt.Println("[INFO] CPF len: ", len(cpf))
+
+			if len(cpf) > 11 {
+				return "CPF inválido", errors.InvalidInput
+			}
+
+			return cpf, nil
 		}
 	}
 
