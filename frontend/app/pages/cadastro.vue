@@ -66,6 +66,16 @@ const formatarCPF = (e) => {
 </script>
 
 <template>
+
+  <div class="w-full flex justify-center mt-4">
+    <NuxtLink 
+      to="/pacientes" 
+      class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-15 rounded-xl transition-all shadow-lg"
+    >
+      <b>Lista de Pacientes</b>
+    </NuxtLink>
+  </div>
+
   <div class="min-h-screen flex items-center justify-center p-6">
     <div class="bg-white shadow-2xl rounded-2xl w-full max-w-lg p-6 border-4 border-red-600">
       <h1 class="text-3xl font-bold text-red-600 text-center mb-6">
@@ -123,6 +133,7 @@ const formatarCPF = (e) => {
             <option value="male">Masculino</option>
             <option value="female">Feminino</option>
             <option value="other">Outro</option>
+            
           </select>
         </div>
 
@@ -153,7 +164,9 @@ const formatarCPF = (e) => {
           type="submit"
           class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg">
           Cadastrar
-        </button>
+        </button type="submit"
+          class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg">
+          
       </form>
     </div>
   </div>
