@@ -81,6 +81,7 @@
             <h3 class="font-bold text-xl">{{ descricao }}</h3>
             <p>{{ formatedPrazo === "Indefinido" ? "Sem prazo" : `Prazo: ${formatedPrazo}`}}</p>
             <h4>Criada em: {{ formattedDate }}</h4>
+            <h4>Paciente: AINDA Á SER IMPLEMENTADO</h4>
         </div>
         <div class="gap-2 flex">
             <Button v-if="concluida === false" class="bg-neutral-700"><LoaderIcon/> Em andamento</Button>
