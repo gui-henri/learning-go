@@ -2,6 +2,7 @@ package tasks
 
 import (
 	"context"
+	"fmt"
 
 	apperrors "github.com/gui-henri/learning-go/pkg/errors"
 )
@@ -67,6 +68,7 @@ func (s *service) GetAllIncompleteTasks(ctx context.Context) ([]Tarefa, error) {
 func (s *service) GetAllTasks(ctx context.Context) ([]Tarefa, error) {
 	tarefas, err := s.repository.GetAll()
 	if err != nil {
+		fmt.Println("[INFO] Retornando not found após erro no GET ALL TASKS.")
 		return make([]Tarefa, 0), apperrors.NotFound
 	}
 
