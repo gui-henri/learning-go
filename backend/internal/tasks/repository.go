@@ -2,6 +2,7 @@ package tasks
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/gui-henri/learning-go/db"
 	"github.com/gui-henri/learning-go/pkg/errors"
@@ -100,9 +101,10 @@ func (s *taskRepository) GetAllIncomplete() ([]Tarefa, error) {
 
 func (s *taskRepository) GetAll() ([]Tarefa, error) {
 	tarefas := make([]Tarefa, 0)
-	rows, err := s.db.Query(context.Background(), "select * from tasks")
+	rows, err := s.db.Query(context.Background(), "select id, descricao, prazo, concluida, criada_em from tasks")
 
 	if err != nil {
+		fmt.Println("[ERROR] Erro ao realizar query: ", err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -111,12 +113,14 @@ func (s *taskRepository) GetAll() ([]Tarefa, error) {
 		var t Tarefa
 		err := rows.Scan(&t.Id, &t.Descricao, &t.Prazo, &t.Concluida, &t.CriadaEm)
 		if err != nil {
+			fmt.Println("[ERROR] Erro ao fazer scan dos dados: ", err)
 			return nil, err
 		}
 		tarefas = append(tarefas, t)
 	}
 
 	if err = rows.Err(); err != nil {
+		fmt.Println("[ERROR] Erro ao ler as linhas do banco: ", err)
 		return nil, err
 	}
 
