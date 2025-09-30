@@ -1,15 +1,5 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE IF NOT EXISTS tasks (
-    id SERIAL PRIMARY KEY,
-    descricao TEXT NOT NULL,
-    prazo TEXT,
-    concluida BOOLEAN DEFAULT FALSE,
-    patient_id VARCHAR,
-    criada_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP CONSTRAINT,
-    fk_patient Foreign Key (patient_id) REFERENCES patient (id) ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS patient (
     internal_id BIGSERIAL PRIMARY KEY,
     id VARCHAR UNIQUE NOT NULL,
@@ -36,3 +26,13 @@ CREATE INDEX idx_patient_full_name ON patient USING GIN (
 
 -- Índice GIN para buscas flexíveis dentro do JSONB (para campos não promovidos).
 CREATE INDEX idx_patient_recurso_gin ON patient USING GIN (resource_json);
+
+CREATE TABLE IF NOT EXISTS tasks (
+    id SERIAL PRIMARY KEY,
+    descricao TEXT NOT NULL,
+    prazo TEXT,
+    concluida BOOLEAN DEFAULT FALSE,
+    patient_id VARCHAR,
+    criada_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_patient Foreign Key (patient_id) REFERENCES patient (id) ON DELETE CASCADE
+);
