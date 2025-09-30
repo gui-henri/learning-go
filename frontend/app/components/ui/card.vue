@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { SquareCheckBig, LoaderIcon, PartyPopperIcon, Trash2 } from "lucide-vue-next"
     import { Button } from "@/components/ui/button"
+    import { computed } from "vue"
 
     const props = defineProps<{
         id: number
@@ -11,6 +12,19 @@
     }>()
 
     const emit = defineEmits(["taskFinished"])
+
+    
+
+    const prazoAtrasado = computed(() => {
+    try {
+        const hoje = new Date()
+        const prazo = new Date(props.prazo)
+        return !props.concluida && props.prazo && prazo < hoje
+    } catch {
+        return false
+    }
+})
+
 
     const formattedDate = (() => {
         try {
@@ -56,6 +70,8 @@
         }
     }
 
+
+
     async function deleteTask() {
         try {
             const res = await fetch("http://localhost:8090/tasks", {
@@ -77,23 +93,42 @@
 
 <template>
     <div class="card-body pl-3 pr-3 pt-2 pb-2 rounded-2xl border-2 border-b-red-600 border-l-red-400 border-r-red-600 border-t-red-400">
-        <div>
-            <h3 class="font-bold text-xl">{{ descricao }}</h3>
-            <p>{{ formatedPrazo === "Indefinido" ? "Sem prazo" : `Prazo: ${formatedPrazo}`}}</p>
-            <h4>Criada em: {{ formattedDate }}</h4>
-            <h4>Paciente: AINDA Á SER IMPLEMENTADO</h4>
-        </div>
-        <div class="gap-2 flex">
-            <Button v-if="concluida === false" class="bg-neutral-700"><LoaderIcon/> Em andamento</Button>
-            <Button v-else class="bg-green-500"> <PartyPopperIcon /> Concluída</Button>
-            <Button v-if="concluida === false" @click="finishTask" size="icon" class="bg-green-600 hover:bg-green-500">
-                <SquareCheckBig class="w-4 h-4 text-green-200" />
-            </Button>
-            <Button @click="deleteTask" size="icon" class="bg-red-600 hover:bg-red-500">
-                <Trash2 class="w-4 h-4 text-white" />
-            </Button>
-        </div>
-    </div>
+  <div>
+    <h3 class="font-bold text-xl">{{ descricao }}</h3>
+    <p>{{ formatedPrazo === "Indefinido" ? "Sem prazo" : `Prazo: ${formatedPrazo}`}}</p>
+    <h4>Criada em: {{ formattedDate }}</h4>
+    <h4>Paciente: AINDA Á SER IMPLEMENTADO</h4>
+  </div>
+
+  <div class="gap-2 flex">
+    <Button v-if="concluida" class="bg-green-500"><PartyPopperIcon /> Concluída</Button>
+
+    <Button v-else-if="prazoAtrasado" class="bg-red-600">  ⚠️ Em atraso </Button>
+
+    <Button v-else class="bg-neutral-700">
+      <LoaderIcon /> Em andamento
+    </Button>
+
+    <!-- Ações -->
+    <Button
+      v-if="!concluida"
+      @click="finishTask"
+      size="icon"
+      class="bg-green-600 hover:bg-green-500"
+    >
+      <SquareCheckBig class="w-4 h-4 text-green-200" />
+    </Button>
+
+    <Button
+      @click="deleteTask"
+      size="icon"
+      class="bg-red-600 hover:bg-red-500"
+    >
+      <Trash2 class="w-4 h-4 text-white" />
+    </Button>
+  </div>
+</div>
+
 </template>
 
 <style lang="css" scoped>
