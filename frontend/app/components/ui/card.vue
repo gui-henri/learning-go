@@ -13,6 +13,22 @@
 
     const emit = defineEmits(["taskFinished"])
 
+    const cardClasses = computed(() => {
+    // Classes base que o card sempre terá
+    const baseClasses = "card-body pl-3 pr-3 pt-2 pb-2 rounded-2xl border-2"
+
+    // ✅ Verde se a tarefa estiver concluída
+    if (props.concluida) {
+        return `${baseClasses} border-green-500 bg-green-500/10`
+    }
+    // ⚠️ Laranja se estiver em atraso
+    if (prazoAtrasado.value) {
+        return `${baseClasses} border-orange-500 bg-orange-500/10`
+    }
+    // ⚙️ Cinza para tarefas em andamento
+    return `${baseClasses} border-neutral-600 bg-neutral-600/10`
+})
+
     
 
     const prazoAtrasado = computed(() => {
@@ -92,7 +108,7 @@
 </script>
 
 <template>
-    <div class="card-body pl-3 pr-3 pt-2 pb-2 rounded-2xl border-2 border-b-red-600 border-l-red-400 border-r-red-600 border-t-red-400">
+    <div :class="cardClasses">
   <div>
     <h3 class="font-bold text-xl">{{ descricao }}</h3>
     <p>{{ formatedPrazo === "Indefinido" ? "Sem prazo" : `Prazo: ${formatedPrazo}`}}</p>
