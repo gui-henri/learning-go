@@ -11,7 +11,7 @@ import (
 
 type PatientRepository interface {
 	InsertPatient(p fhir.Patient) (paciente, error)
-	ListPatients(count, page int) (pagedPatientResult, error)
+	ListPatients(count, offset int) (pagedPatientResult, error)
 }
 
 type patientRepository struct {
@@ -61,7 +61,7 @@ type pagedPatientResult struct {
 	Total    int
 }
 
-func (p *patientRepository) ListPatients(count, page int) (pagedPatientResult, error) {
+func (p *patientRepository) ListPatients(count, offset int) (pagedPatientResult, error) {
 
 	sql := `
 		SELECT
@@ -86,8 +86,6 @@ func (p *patientRepository) ListPatients(count, page int) (pagedPatientResult, e
 	if count > 100 {
 		return pagedPatientResult{}, errors.InvalidInput
 	}
-
-	offset := count * page
 
 	rows, err := p.db.Query(context.Background(), sql, count, offset)
 

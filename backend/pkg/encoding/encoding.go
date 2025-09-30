@@ -13,10 +13,17 @@ import (
 type NoBodyRequest struct {
 }
 
+type HTTPRequest[T any] struct {
+	Params []string
+	Body   T
+}
+
 func EncodeRequest[T any](_ context.Context, r *http.Request) (any, error) {
 	var request T
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		return nil, err
+	if r.Body != nil && r.ContentLength > 0 {
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil && err != io.EOF {
+			return nil, err
+		}
 	}
 	return request, nil
 }

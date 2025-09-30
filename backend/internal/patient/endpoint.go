@@ -16,3 +16,17 @@ func makeInsertPatientEndpoint(svc PatientService) endpoint.Endpoint {
 		return InsertPatientResponse{Patient: &t}, nil
 	}
 }
+
+func makeListPatientEndpoint(svc PatientService) endpoint.Endpoint {
+	return func(ctx context.Context, request any) (response any, err error) {
+		req := request.(ListPatientRequest)
+		b, err := svc.ListPatients(context.Background(), req.Count, req.Offset)
+		if err != nil {
+			return nil, err
+		}
+
+		return ListPatientResponse{
+			Data: b,
+		}, nil
+	}
+}

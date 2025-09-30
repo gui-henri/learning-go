@@ -2,7 +2,6 @@ package patient
 
 import (
 	"context"
-	"math"
 	"net/url"
 	"strconv"
 	"time"
@@ -13,7 +12,7 @@ import (
 
 type PatientService interface {
 	InsertPatient(ctx context.Context, p fhir.Patient) (paciente, error)
-	ListPatients(ctx context.Context, count, page int) (fhir.Bundle, error)
+	ListPatients(ctx context.Context, count, currentOffset int) (fhir.Bundle, error)
 }
 
 type patientService struct {
@@ -56,29 +55,38 @@ func (s *patientService) InsertPatient(ctx context.Context, p fhir.Patient) (pac
 	return pt, nil
 }
 
-func (s *patientService) ListPatients(ctx context.Context, count, page int) (fhir.Bundle, error) {
-	pPage, err := s.repository.ListPatients(count, page)
+func (s *patientService) ListPatients(ctx context.Context, count, currentOffset int) (fhir.Bundle, error) {
+	pPage, err := s.repository.ListPatients(count, currentOffset)
 	if err != nil {
 		return fhir.Bundle{}, err
 	}
-
-	totalPages := int(math.Ceil(float64(pPage.Total) / float64(count)))
-
-	currentOffset := page * count
-	nextOffset := (page + 1) * count
-	previousOffset := (page - 1) * count
 
 	var links []fhir.BundleLink
 
 	links = append(links, fhir.BundleLink{
 		Relation: "self",
-		Url:      buildLinkURL("http://localhost:8090/Patient", count, page),
+		Url:      buildLinkURL("http://localhost:8090/Patient", count, currentOffset),
 	})
 
-	if page < totalPages-1 && len(pPage.Patients) == count {
+	if currentOffset+count < pPage.Total {
 		links = append(links, fhir.BundleLink{
 			Relation: "next",
-			Url:      buildLinkURL("http://localhost:8090/Patient", count, nextOffset),
+			Url:      buildLinkURL("http://localhost:8090/Patient", count, currentOffset+count),
+		})
+	}
+
+	if currentOffset > 0 {
+		prevOffset := max(currentOffset-count, 0)
+		links = append(links, fhir.BundleLink{
+			Relation: "previous",
+			Url:      buildLinkURL("http://localhost:8090/Patient", count, prevOffset),
+		})
+	}
+
+	var entries []fhir.BundleEntry
+	for _, p := range pPage.Patients {
+		entries = append(entries, fhir.BundleEntry{
+			Resource: p.ResourceJSON,
 		})
 	}
 
@@ -86,5 +94,8 @@ func (s *patientService) ListPatients(ctx context.Context, count, page int) (fhi
 		Type:  fhir.BundleTypeSearchset,
 		Total: &pPage.Total,
 		Link:  links,
+		Entry: entries,
 	}
+
+	return bundle, nil
 }
