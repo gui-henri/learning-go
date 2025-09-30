@@ -19,7 +19,15 @@ func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux) *http.ServeMux {
 		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
 	)
 
+	listPatient := httptransport.NewServer(
+		makeListPatientEndpoint(patientService),
+		decodeListPatientRequest,
+		transport_encoding.EncodeResponse,
+		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
+	)
+
 	mux.HandleFunc("POST /Patient", insertPatient.ServeHTTP)
+	mux.HandleFunc("GET /Patient", listPatient.ServeHTTP)
 
 	return mux
 }
