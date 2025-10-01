@@ -6,7 +6,7 @@
         getLocalTimeZone,
         today
     } from "@internationalized/date"
-    import { CalendarIcon, SendIcon, SearchIcon } from "lucide-vue-next"
+    import { CalendarIcon, SendIcon, SearchIcon, FunnelIcon } from "lucide-vue-next"
     import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
     import { Calendar } from "@/components/ui/calendar"
     import { Input } from "@/components/ui/input"
@@ -155,7 +155,8 @@
               </PopoverContent>
             </Popover>
         </div>
-        <Button @click="sendTask" class="bg-red-600 hover:bg-red-500 p-5 rounded-2xl cursor-pointer"><SendIcon /></Button>
+        <Button @click="sendTask" class="bg-red-600 hover:bg-red-500 p-5 rounded-2xl cursor-pointer"title="Clique para enviar tarefas"><SendIcon /></Button>
+        <Button @click="" class="bg-red-600 hover:bg-red-500 p-5 rounded-2xl cursor-pointer"title="Clique para filtrar resultados"><FunnelIcon></FunnelIcon></Button>
     </div>
 </template>
 
