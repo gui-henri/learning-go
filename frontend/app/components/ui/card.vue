@@ -14,32 +14,39 @@
     const emit = defineEmits(["taskFinished"])
 
     const cardClasses = computed(() => {
-    // Classes base que o card sempre terá
+
     const baseClasses = "card-body pl-3 pr-3 pt-2 pb-2 rounded-2xl border-2"
 
-    // ✅ Verde se a tarefa estiver concluída
+
     if (props.concluida) {
         return `${baseClasses} border-green-500 bg-green-500/10`
     }
-    // ⚠️ Laranja se estiver em atraso
     if (prazoAtrasado.value) {
         return `${baseClasses} border-orange-500 bg-orange-500/10`
     }
-    // ⚙️ Cinza para tarefas em andamento
+
     return `${baseClasses} border-neutral-600 bg-neutral-600/10`
 })
 
     
 
-    const prazoAtrasado = computed(() => {
-    try {
-        const hoje = new Date()
-        const prazo = new Date(props.prazo)
-        return !props.concluida && props.prazo && prazo < hoje
-    } catch {
-        return false
-    }
+   const prazoAtrasado = computed(() => {
+  try {
+    if (!props.prazo || props.concluida) return false
+
+    const hoje = new Date()
+    const prazo = new Date(props.prazo)
+
+  
+    hoje.setHours(0, 0, 0, 0)
+    prazo.setHours(0, 0, 0, 0)
+
+    return prazo < hoje
+  } catch {
+    return false
+  }
 })
+
 
 
     const formattedDate = (() => {
@@ -86,8 +93,7 @@
         }
     }
 
-
-
+    
     async function deleteTask() {
         try {
             const res = await fetch("http://localhost:8090/tasks", {

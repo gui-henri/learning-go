@@ -1,4 +1,5 @@
 <script setup>
+import { ArrowLeft } from "lucide-vue-next";
 import { ref } from "vue";
 
 // Recurso FHIR Patient
@@ -66,108 +67,115 @@ const formatarCPF = (e) => {
 </script>
 
 <template>
+  <div>
+    <div class="min-h-screen flex items-start justify-center p-4 sm:p-6 mt-8">
+      <div class="bg-white shadow-2xl rounded-2xl w-full max-w-6xl p-6 sm:p-8 border-t-8 border-red-600">
+        
+        <div class="relative w-full text-center mb-8">
 
-  <div class="w-full flex justify-center mt-4">
-    <NuxtLink 
-      to="/pacientes" 
-      class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-15 rounded-xl transition-all shadow-lg"
-    >
-      <b>Lista de Pacientes</b>
-    </NuxtLink>
-  </div>
-
-  <div class="min-h-screen flex items-center justify-center p-6">
-    <div class="bg-white shadow-2xl rounded-2xl w-full max-w-lg p-6 border-4 border-red-600">
-      <h1 class="text-3xl font-bold text-red-600 text-center mb-6">
-        Cadastro de Paciente (FHIR)
-      </h1>
-
-      <form @submit.prevent="cadastrar" class="space-y-4">
-        <div>
-          <label class="block text-gray-700 font-semibold">Nome Completo</label>
-          <input
-            v-model="paciente.name[0].given[0]"
-            placeholder="João Almeida do Carmo"
-            type="text"
-            required
-            pattern="[A-Za-zÀ-ÿ\s]+"
-            title="Apenas letras são permitidas"
-            @input="paciente.name[0].given[0] = paciente.name[0].given[0].replace(/[^A-Za-zÀ-ÿ\s]/g, '')"
-            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-semibold">CPF</label>
-          <input
-            v-model="paciente.identifier[0].value"
-            type="text"
-            required
-            maxlength="14"
-            placeholder="000.000.000-00"
-            title="Digite apenas números. O formato será aplicado automaticamente."
-            @input="formatarCPF"
-            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-semibold">Data de Nascimento</label>
-          <input
-            v-model="paciente.birthDate"
-            type="date"
-            title="Utilize o padrão dd/mm/aaaa."
-            required
-            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-semibold">Gênero</label>
-          <select
-            v-model="paciente.gender"
-            required
-            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
+          <NuxtLink 
+            to="/pacientes" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 bg-red-600 hover:bg-red-700 p-3 rounded-full transition-colors duration-200"
+            aria-label="Voltar para a lista de pacientes"
+            title="Voltar para a lista de pacientes"
           >
-            <option disabled value="">Selecione</option>
-            <option value="male">Masculino</option>
-            <option value="female">Feminino</option>
-            <option value="other">Outro</option>
-            
-          </select>
+            <ArrowLeft />
+          </NuxtLink>
+  
+          <h1 class="text-3xl font-bold text-gray-800 inline-block">
+            Ficha de Cadastro do Paciente
+          </h1>
         </div>
+        
 
-        <div>
-          <label class="block text-gray-700 font-semibold">Telefone</label>
-          <input
-            v-model="paciente.telecom[0].value"
-            type="tel"
-            placeholder="(XX) 9XXXX-XXXX"
-            title="Utilize apenas números."
-            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
-            @input="formatarTelefone"
-            maxlength="15"
-          />
-        </div>
-
-        <div>
-          <label class="block text-gray-700 font-semibold">Email</label>
-          <input
-            placeholder="seuemail@gmail.com"
-            v-model="paciente.telecom[1].value"
-            type="email"
-            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-
-        <button
-          type="submit"
-          class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg">
-          Cadastrar
-        </button type="submit"
-          class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg">
+        <form @submit.prevent="cadastrar" class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6">
           
-      </form>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Nome Completo</label>
+            <input
+              v-model="paciente.name[0].given[0]"
+              placeholder="Ex: João Almeida do Carmo"
+              type="text"
+              required
+              pattern="[A-Za-zÀ-ÿ\s]+"
+              title="Apenas letras são permitidas"
+              @input="paciente.name[0].given[0] = paciente.name[0].given[0].replace(/[^A-Za-zÀ-ÿ\s]/g, '')"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 transition"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">CPF</label>
+            <input
+              v-model="paciente.identifier[0].value"
+              type="text"
+              required
+              maxlength="14"
+              placeholder="000.000.000-00"
+              title="Digite apenas números. O formato será aplicado automaticamente."
+              @input="formatarCPF"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 transition"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Data de Nascimento</label>
+            <input
+              v-model="paciente.birthDate"
+              type="date"
+              title="Utilize o padrão dd/mm/aaaa."
+              required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 transition"
+            />
+          </div>
+          
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Gênero</label>
+            <select
+              v-model="paciente.gender"
+              required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 transition bg-white"
+            >
+              <option disabled value="">Selecione uma opção</option>
+              <option value="male">Masculino</option>
+              <option value="female">Feminino</option>
+              <option value="other">Outro</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Telefone</label>
+            <input
+              v-model="paciente.telecom[0].value"
+              type="tel"
+              placeholder="(XX) 9XXXX-XXXX"
+              title="Utilize apenas números."
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 transition"
+              @input="formatarTelefone"
+              maxlength="15"
+            />
+          </div>
+          
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">Email</label>
+            <input
+              placeholder="Ex: seuemail@dominio.com"
+              v-model="paciente.telecom[1].value"
+              type="email"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 transition"
+            />
+          </div>
+        
+          <div class="md:col-span-3 flex justify-center mt-4">
+            <button
+              type="submit"
+              class="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg">
+              Cadastrar Paciente
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
+
