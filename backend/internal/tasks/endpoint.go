@@ -20,7 +20,7 @@ func makeGetTaskEndpoint(svc TaskService) endpoint.Endpoint {
 func makeInsertTaskEndpoint(svc TaskService) endpoint.Endpoint {
 	return func(ctx context.Context, request any) (response any, err error) {
 		req := request.(InsertTaskRequest)
-		task, err := svc.InsertTask(ctx, req.Descricao, req.Prazo)
+		task, err := svc.InsertTask(ctx, req.Descricao, req.Prazo, req.PacienteID)
 		if err != nil {
 			return nil, err
 		}

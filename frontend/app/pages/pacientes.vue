@@ -11,7 +11,6 @@ const { data, pending, error, refresh } = await useAsyncData('Patient/all', () =
 
 <template>
   <div class="w-full flex justify-center mt-4">
-    
   </div>
   <div class="w-full flex flex-col items-center">
     <div class="mt-2 flex flex-col items-end gap-6">

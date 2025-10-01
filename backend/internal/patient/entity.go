@@ -32,6 +32,10 @@ const (
 )
 
 func NewPaciente(p fhir.Patient) (paciente, error) {
+
+	id := uuid.NewString()
+	p.Id = &id
+
 	j, err := p.MarshalJSON()
 	if err != nil {
 		return paciente{}, err
@@ -68,7 +72,7 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 	}
 
 	pt := paciente{
-		ID:           uuid.NewString(),
+		ID:           id,
 		LastUpdated:  util.Ptr(time.Now()),
 		CreatedAt:    time.Now(),
 		Active:       true,
