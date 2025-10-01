@@ -35,7 +35,7 @@
 
     // Lógica para o popover de paciente
     const buscaPaciente = ref('');
-    const pacienteSelecionado = ref<string | null>(null);
+    const pacienteSelecionado = ref<any | null>(null);
 
     // Lista de pacientes de exemplo (substitua por uma chamada à API no futuro)
     const { data, pending, error } = await useAsyncData('patients', () =>
@@ -52,7 +52,11 @@
       const nameObj = entry.resource.name?.find(n => n.use === 'official' || n.use === 'usual')
       const given = nameObj?.given?.join(' ') ?? ''
       const family = nameObj?.family ?? ''
-      return `${given} ${family}`.trim()
+      console.log(entry)
+      return {
+        name: `${given} ${family}`.trim(),
+        id: entry.resource.id
+      }
     })
   })
 
@@ -64,46 +68,50 @@
     )
   })
 
-  const selecionarPaciente = (paciente: string) => {
+  const selecionarPaciente = (paciente: any) => {
     pacienteSelecionado.value = paciente
   }
 
     // Função de exemplo para simular o envio da tarefa
     async function sendTask() {
-        try {
-            const response = await fetch(config.public.apiBase + "/tasks", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ 
-                    descricao: descricao.value, 
-                    prazo: dateValue.value ? 
-                        dateValue.value.toDate(getLocalTimeZone()).toISOString() 
-                        : "sem prazo" 
-                })
-            })
-
-            if (!response.ok) {
-                console.log(response.status)
-                console.log(response.url)
-                throw new Error(String(response.status))
-            }
-
-            const responseJson: InsertResponse = await response.json()
-
-            emit("taskSended", responseJson.tarefa);
-            descricao.value = ""
-            dateValue.value = null;
-
-        } catch (error) {
-            console.log("Erro ao realizar requisição", error)
+      try {
+        if (!pacienteSelecionado.value?.id) {
+          return;
         }
-        // Resetar os campos após a "ação de envio"
-        descricao.value = "";
+        const response = await fetch(config.public.apiBase + "/tasks", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ 
+                descricao: descricao.value, 
+                prazo: dateValue.value ? 
+                    dateValue.value.toDate(getLocalTimeZone()).toISOString() 
+                    : "sem prazo",
+                pacienteId: pacienteSelecionado.value.id
+            })
+        })
+
+        if (!response.ok) {
+            console.log(response.status)
+            console.log(response.url)
+            throw new Error(String(response.status))
+        }
+
+        const responseJson: InsertResponse = await response.json()
+
+        emit("taskSended", responseJson.tarefa);
+        descricao.value = ""
         dateValue.value = null;
-        pacienteSelecionado.value = null;
-    }
+
+      } catch (error) {
+          console.log("Erro ao realizar requisição", error)
+      }
+      // Resetar os campos após a "ação de envio"
+      descricao.value = "";
+      dateValue.value = null;
+      pacienteSelecionado.value = null;
+  }
 
 </script>
 
@@ -133,7 +141,7 @@
                   class="w-36 bg-blue-300 hover:bg-red-400 transition justify-start text-left font-normal border-0 rounded-r-full contain-content "
                 >
                   <SearchIcon class=" h-4 w-4" />
-                  {{ pacienteSelecionado ? pacienteSelecionado.split(" ")[0] : "Definir paciente" }}
+                  {{ pacienteSelecionado ? pacienteSelecionado.name.split(" ")[0] : "Definir paciente" }}
                 </Button>
               </PopoverTrigger>
 
@@ -156,7 +164,7 @@
                     class="px-3 py-2 hover:bg-gray-100 rounded cursor-pointer"
                     @click="selecionarPaciente(paciente)"
                   >
-                    {{ paciente }}
+                    {{ paciente.name }}
                   </li>
                 </ul>
                 <p v-else class="text-sm text-gray-400 mt-2">Nenhum paciente encontrado.</p>

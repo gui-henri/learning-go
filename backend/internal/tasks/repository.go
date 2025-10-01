@@ -53,13 +53,14 @@ func (s *taskRepository) InsertTask(descricao string, prazo string, pacienteId s
 	}
 
 	sql := `
-        INSERT INTO tasks (descricao, prazo)
-        VALUES ($1, $2)
+        INSERT INTO tasks (descricao, prazo, patient_id)
+        VALUES ($1, $2, $3)
         RETURNING id, descricao, prazo, concluida, criada_em
 	`
 
 	var tarefa Tarefa
-	err = s.db.QueryRow(context.Background(), sql, tarefaValidation.Descricao, tarefaValidation.Prazo).Scan(
+	// TODO: VALIDAR SE PACIENTE EXISTE ANTES DE ADICIONAR
+	err = s.db.QueryRow(context.Background(), sql, tarefaValidation.Descricao, tarefaValidation.Prazo, pacienteId).Scan(
 		&tarefa.Id,
 		&tarefa.Descricao,
 		&tarefa.Prazo,
@@ -68,7 +69,7 @@ func (s *taskRepository) InsertTask(descricao string, prazo string, pacienteId s
 	)
 
 	if err != nil {
-		return &Tarefa{}, err
+		return &Tarefa{}, errors.InvalidInput
 	}
 
 	return &tarefa, nil
