@@ -20,7 +20,8 @@
             prazo: string,
             concluida: boolean,
             criada_em: string,
-            paciente?: string
+            paciente?: string,
+            patient_id: string
         }
     }
 
@@ -29,7 +30,6 @@
     // Variáveis reativas para os campos do formulário
     const descricao = ref('');
     const dateValue = ref<DateValue | null>(null)
-    const todayDate = today(getLocalTimeZone())
 
     const emit = defineEmits(['taskSended'])
 
@@ -38,27 +38,35 @@
     const pacienteSelecionado = ref<string | null>(null);
 
     // Lista de pacientes de exemplo (substitua por uma chamada à API no futuro)
-    const pacientes = [
-      "Samuel Vitor",
-      "Guilherme Henrique"
-    ];
+    const { data, pending, error } = await useAsyncData('patients', () =>
+      $fetch('/Patient', {
+        baseURL: config.apiBase ?? "http://localhost:8090"
+      })
+    )
 
     // Propriedade computada para filtrar pacientes com base na busca
-    const pacientesFiltrados = computed(() => {
-      if (!buscaPaciente.value) {
-        return pacientes;
-      }
-      return pacientes.filter(p =>
-        p.toLowerCase().includes(buscaPaciente.value.toLowerCase())
-      );
-    });
+    const pacientes = computed(() => {
+    const entries = data.value?.data.entry ?? []
 
-    // Função para selecionar um paciente da lista
-    const selecionarPaciente = (paciente: string) => {
-      pacienteSelecionado.value = paciente;
-    };
+    return entries.map(entry => {
+      const nameObj = entry.resource.name?.find(n => n.use === 'official' || n.use === 'usual')
+      const given = nameObj?.given?.join(' ') ?? ''
+      const family = nameObj?.family ?? ''
+      return `${given} ${family}`.trim()
+    })
+  })
 
+  const pacientesFiltrados = computed(() => {
+    if (!buscaPaciente.value) return pacientes.value
 
+    return pacientes.value.filter(p =>
+      p.toLowerCase().includes(buscaPaciente.value.toLowerCase())
+    )
+  })
+
+  const selecionarPaciente = (paciente: string) => {
+    pacienteSelecionado.value = paciente
+  }
 
     // Função de exemplo para simular o envio da tarefa
     async function sendTask() {

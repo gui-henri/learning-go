@@ -10,8 +10,9 @@ type GetTaskResponse struct {
 }
 
 type InsertTaskRequest struct {
-	Descricao string `json:"descricao"`
-	Prazo     string `json:"prazo"`
+	Descricao  string `json:"descricao"`
+	Prazo      string `json:"prazo"`
+	PacienteID string `json:"paciente_id"`
 }
 
 type InsertTaskResponse struct {
