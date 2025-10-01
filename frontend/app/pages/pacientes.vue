@@ -23,22 +23,24 @@ const { data, pending, error, refresh } = await useAsyncData('Patient/all', () =
     <strong>Ocorreu um erro:</strong>
     <p>{{ error.message }}</p>
   </div>
+  
   <table v-else class="w-[896px]">
-    {{ data }}
     <thead>
       <tr>
-        <th class="text-start">Invoice</th>
-        <th class="text-start">Payment Status</th>
-        <th class="text-start">Payment Method</th>
-        <th class="text-start">Amount</th>
+        <th class="text-start">Nome</th>
+        <th class="text-start">Email</th>
+        <th class="text-start">CPF</th>
+        <th class="text-start">Data de Nascimento</th>
+        <th class="text-start">Gênero</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="invoice in invoices" :key="invoice.invoice">
-        <td>{{ invoice.invoice }}</td>
-        <td>{{ invoice.paymentStatus }}</td>
-        <td>{{ invoice.paymentMethod }}</td>
-        <td>{{ invoice.totalAmount }}</td>
+      <tr v-for="(patient, index) in data.data.entry" :key="index">
+        <td>{{ (patient.resource.name.find(n => n.use === "official" || n.use === "usual")?.given || ["Sem nome"]).join(" ") + patient.resource.name.find(n => n.use === "official" || n.use === "usual")?.family }}</td>
+        <td>{{ (patient.resource.telecom.find(t => t.system ==="email"))?.value || "Sem Email" }}</td>
+        <td>{{ (patient.resource.identifier.find(t => t.system ==="http://hl7.org.br/fhir/r4/sid/CPF")?.value) || "Sem CPF" }}</td>
+        <td>{{ (patient.resource.birthDate) || "Sem Data" }}</td>
+        <td>{{ (patient.resource.gender === "male" ? "Masculino" : patient.resource.gender === "female" ? "Feminino" : "Outro") }}</td>
       </tr>
     </tbody>
   </table>
