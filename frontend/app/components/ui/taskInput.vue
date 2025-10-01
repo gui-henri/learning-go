@@ -25,11 +25,10 @@
         }
     }
 
-    const config = useRuntimeConfig();
-
-    // Variáveis reativas para os campos do formulário
     const descricao = ref('');
-    const dateValue = ref<DateValue | null>(null)
+  const dateValue = ref<DateValue | null>(today(getLocalTimeZone()))
+
+    const config = useRuntimeConfig();
 
     const emit = defineEmits(['taskSended'])
 
