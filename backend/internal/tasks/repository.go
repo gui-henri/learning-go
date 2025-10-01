@@ -10,7 +10,7 @@ import (
 
 type TaskRepository interface {
 	GetTask(id int) (Tarefa, error)
-	InsertTask(descricao string, prazo string) (Tarefa, error)
+	InsertTask(descricao string, prazo string, pacienteId string) (Tarefa, error)
 	GetAll() ([]Tarefa, error)
 	GetAllIncomplete() ([]Tarefa, error)
 	UpdateTask(t Tarefa) error
@@ -45,7 +45,7 @@ func (s *taskRepository) GetTask(id int) (*Tarefa, error) {
 	return &newTarefa, nil
 }
 
-func (s *taskRepository) InsertTask(descricao string, prazo string) (*Tarefa, error) {
+func (s *taskRepository) InsertTask(descricao string, prazo string, pacienteId string) (*Tarefa, error) {
 	tarefaValidation, err := newTarefa(descricao, prazo)
 
 	if err != nil {
