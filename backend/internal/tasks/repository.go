@@ -30,7 +30,7 @@ func NewTaskRepository(db db.IDB) *taskRepository {
 func (s *taskRepository) GetTask(id int) (*Tarefa, error) {
 
 	var newTarefa Tarefa
-	err := s.db.QueryRow(context.Background(), "select * from tasks where id=$1", id).Scan(
+	err := s.db.QueryRow(context.Background(), "select id, descricao, prazo, concluida, criada_em from tasks where id=$1", id).Scan(
 		&newTarefa.Id,
 		&newTarefa.Descricao,
 		&newTarefa.Prazo,
@@ -39,6 +39,7 @@ func (s *taskRepository) GetTask(id int) (*Tarefa, error) {
 	)
 
 	if err != nil {
+		fmt.Println(err)
 		return &Tarefa{}, errors.NotFound
 	}
 
@@ -137,6 +138,7 @@ func (s *taskRepository) UpdateTask(t Tarefa) error {
 	_, err := s.db.Exec(context.Background(), sql, t.Descricao, t.Prazo, t.Concluida, t.CriadaEm, t.Id)
 
 	if err != nil {
+		fmt.Println("[ERROR] Erro ao executar sql. ", err)
 		return err
 	}
 
@@ -151,6 +153,7 @@ func (s *taskRepository) DeleteTask(id int) error {
 	_, err := s.db.Exec(context.Background(), sql, id)
 
 	if err != nil {
+		fmt.Println("[ERROR] Erro ao executar sql. ", err)
 		return err
 	}
 

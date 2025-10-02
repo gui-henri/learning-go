@@ -2,6 +2,7 @@ package tasks
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/go-kit/kit/endpoint"
 )
@@ -31,6 +32,7 @@ func makeInsertTaskEndpoint(svc TaskService) endpoint.Endpoint {
 func makeFinishTaskEndpoint(svc TaskService) endpoint.Endpoint {
 	return func(ctx context.Context, request any) (response any, err error) {
 		req := request.(FinishTaskRequest)
+		fmt.Println("[INFO] Finalizando tarefa: ", req.Id)
 		t, err := svc.FinishTask(ctx, req.Id)
 		if err != nil {
 			return nil, err
