@@ -37,6 +37,7 @@ func (s *service) InsertTask(ctx context.Context, descricao string, prazo string
 func (s *service) FinishTask(ctx context.Context, id int) (*Tarefa, error) {
 	t, err := s.repository.GetTask(id)
 	if err != nil {
+		fmt.Println("[ERROR] Não encontrou a tarefa: ", id)
 		return &Tarefa{}, err
 	}
 
@@ -78,6 +79,7 @@ func (s *service) GetAllTasks(ctx context.Context) ([]Tarefa, error) {
 func (s *service) DeleteTasks(ctx context.Context, id int) error {
 	_, err := s.repository.GetTask(id)
 	if err != nil {
+		fmt.Println("[ERROR] Não encontrou a tarefa: ", id)
 		return apperrors.NotFound
 	}
 
