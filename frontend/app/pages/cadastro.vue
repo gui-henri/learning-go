@@ -133,12 +133,14 @@ const formatarCPF = (e) => {
             <label class="block text-gray-700 font-semibold mb-1">Gênero</label>
             <select
               v-model="paciente.gender"
+              title="Escolha seu genêro."
               required
               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 transition bg-white"
             >
               <option disabled value="">Selecione uma opção</option>
               <option value="male">Masculino</option>
               <option value="female">Feminino</option>
+              <option value="other">Desconhecido</option>
               <option value="other">Outro</option>
             </select>
           </div>
@@ -162,6 +164,7 @@ const formatarCPF = (e) => {
               placeholder="Ex: seuemail@dominio.com"
               v-model="paciente.telecom[1].value"
               type="email"
+              title="Utilize um email válido"
               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 transition"
             />
           </div>
