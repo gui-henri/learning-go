@@ -5,16 +5,17 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/gui-henri/learning-go/internal/patient"
 	apperrors "github.com/gui-henri/learning-go/pkg/errors"
 )
 
 type Tarefa struct {
-	Id         int       `json:"id"`
-	Descricao  string    `json:"descricao" validate:"required"`
-	Prazo      string    `json:"prazo" validate:"required"`
-	Concluida  bool      `json:"concluida"`
-	CriadaEm   time.Time `json:"criada_em" validate:"lte"`
-	PacienteID string    `json:"patient_id"`
+	Id        int               `json:"id"`
+	Descricao string            `json:"descricao" validate:"required"`
+	Prazo     string            `json:"prazo" validate:"required"`
+	Concluida bool              `json:"concluida"`
+	CriadaEm  time.Time         `json:"criada_em" validate:"lte"`
+	Paciente  *patient.Paciente `json:"paciente,omitempty"`
 }
 
 func newTarefa(descricao string, prazo string) (Tarefa, error) {
