@@ -188,7 +188,7 @@ func getPatientCPF(p *fhir.Patient) (string, error) {
 			fmt.Println("[INFO] CPF: ", cpf)
 			fmt.Println("[INFO] CPF len: ", len(cpf))
 
-			if len(cpf) > 11 {
+			if len(cpf) != 11 {
 				return "CPF inválido", errors.InvalidInput
 			}
 
