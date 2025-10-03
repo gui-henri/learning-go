@@ -103,7 +103,21 @@ func (s *taskRepository) GetAllIncomplete() ([]Tarefa, error) {
 
 func (s *taskRepository) GetAll() ([]Tarefa, error) {
 	tarefas := make([]Tarefa, 0)
-	rows, err := s.db.Query(context.Background(), "select id, descricao, prazo, concluida, criada_em from tasks")
+
+	sql := `
+		select 
+			t.id, 
+			t.descricao, 
+			t.prazo, 
+			t.concluida, 
+			t.criada_em
+			p.full_name
+			p.id
+		from tasks t
+		join patient p ON t.patient_id = p.id
+	`
+
+	rows, err := s.db.Query(context.Background(), sql)
 
 	if err != nil {
 		fmt.Println("[ERROR] Erro ao realizar query: ", err)
@@ -113,7 +127,7 @@ func (s *taskRepository) GetAll() ([]Tarefa, error) {
 
 	for rows.Next() {
 		var t Tarefa
-		err := rows.Scan(&t.Id, &t.Descricao, &t.Prazo, &t.Concluida, &t.CriadaEm)
+		err := rows.Scan(&t.Id, &t.Descricao, &t.Prazo, &t.Concluida, &t.CriadaEm, &t.Paciente.FullName, &t.Paciente.ID)
 		if err != nil {
 			fmt.Println("[ERROR] Erro ao fazer scan dos dados: ", err)
 			return nil, err

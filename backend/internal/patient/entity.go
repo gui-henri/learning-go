@@ -26,6 +26,11 @@ type paciente struct {
 	ResourceJSON json.RawMessage `db:"resource_json" json:"resource_json"`
 }
 
+type Paciente struct {
+	ID       string  `db:"id" json:"id"`
+	FullName *string `db:"full_name" json:"full_name,omitempty"`
+}
+
 const (
 	SystemCPFOficial = "http://hl7.org.br/fhir/r4/sid/CPF"
 	SystemCPFAntigo  = "urn:cpf"
