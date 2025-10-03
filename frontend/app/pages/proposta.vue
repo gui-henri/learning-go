@@ -89,14 +89,14 @@ const completionPercentage = computed(() => {
           <div class="flex flex-col items-center">
             <img 
               src="https://telemedicinamorsch.com.br/wp-content/uploads/2017/02/iStock-592647828.jpg" 
-              class="w-full h-auto rounded-lg"
+              class="w-150 h-80 rounded-lg"
             >
             <p class="mt-2 text-center text-blue-700 text-sm">
               <b>Tecnologia em medicina</b>
             </p>
-            <p class="mt-2 text-center text-white-700 text-sm">
-              O Home Care pode ser dividido em dois formatos: Internação Domiciliar e Assistência Domiciliar.<br>
-              Em ambos, o serviço traz os seguintes benefícios ao paciente: Conforto, Humanização e presença constante dos familiares, Atendimento com equipe multidisciplinar e diminuição no risco de infecção hospitalar 
+            <p class="mt-2 text-justify text-white-700 text-sm">
+              O Home Care pode ser dividido em dois formatos: Internação Domiciliar e Assistência Domiciliar.
+              Ambos possuem benefícios ao paciente: Conforto, Humanização e presença constante dos familiares, Atendimento com equipe multidisciplinar e diminuição no risco de infecção hospitalar 
             </p>
 
             <div class="mt-6 p-4 w-full bg-blue-50 border-t-4 border-blue-500 rounded-b text-blue-900 shadow-md text-left">
@@ -119,15 +119,14 @@ const completionPercentage = computed(() => {
           <div class="flex flex-col items-center">
             <img 
               src="https://cdn.prod.website-files.com/647e410aa35e6ce70fed96cd/67449063bc02321b87ce595a_bom-atendimento-medico.jpeg" 
-              class="w-full h-auto rounded-lg"
+              class="w-150 h-80 rounded-lg"
             >
             <p class="mt-2 text-center text-green-700 text-sm">
               <b>Atendimento humanizado com qualidade</b>
             </p>
             <p class="mt-2 text-center text-white-700 text-sm">
               Serviço de atendimento do paciente para aplicações de medicamentos, terapias entre outras necessidades específicas por período pré-determinado com objetivo de evolução do paciente.
-              Esse serviço atende às necessidades pontuais do paciente. Ele recebe em casa os cuidados da nossa equipe de profissionais, que realiza práticas terapêuticas como a administração de antibióticos, curativos, terapia de oxigênio, entre outras. A Assistência Domiciliar é recomendada nos casos que não exigem internação ou atenção permanente, mas precisam de tratamento especial em momentos distintos.
-            </p>
+              Esse serviço atende às necessidades pontuais do paciente.</p>
           </div>
         </CarouselItem>
 
@@ -155,7 +154,7 @@ const completionPercentage = computed(() => {
               </ul>
             </div>
           </div>
-        </CarouselItem>
+        </CarouselItem> 
 
       </CarouselContent> 
       <CarouselPrevious />
