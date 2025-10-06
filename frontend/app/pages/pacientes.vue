@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue' // Adicionado
 import { Ellipsis, Eye, Trash2, BookCheck, Plus } from "lucide-vue-next"
 const config = useRuntimeConfig();
 
@@ -7,6 +8,11 @@ const { data, pending, error, refresh } = await useAsyncData('Patient/all', () =
     baseURL: config.apiBase ?? "http://localhost:8090"
   })
 )
+
+// Lógica de contagem adicionada
+const totalPacientes = computed(() => {
+  return data.value?.data?.entry?.length ?? 0;
+})
 </script>
 
 <template>
@@ -15,13 +21,15 @@ const { data, pending, error, refresh } = await useAsyncData('Patient/all', () =
   <div class="w-full flex flex-col items-center">
     <div class="mt-2 flex flex-col items-end gap-6">
       <div class="w-full flex justify-between">
-        <h1 class="font-bold text-3xl">Pacientes</h1>
+        <h1 class="font-bold text-3xl">{{ totalPacientes }} Paciente(s) em nosso cuidado.</h1>
         <NuxtLink 
           to="/cadastro" 
         >
           <Button class="bg-red-600 hover:bg-red-700"><Plus />Novo Paciente</Button>
         </NuxtLink>
       </div>
+
+      
       <div v-if="pending" class="text-center text-gray-500">
           <p>Carregando pacientes...</p>
         </div>

@@ -4,6 +4,11 @@
       <h3 class="text-3xl font-bold text-gray-800 text-center mb-5">
         Requisite sua tarefa abaixo
       </h3>
+      
+      <p v-if="!pending && !error" class="text-center text-gray-500 -mt-2 mb-8">
+        {{ completionPercentage }}% de conclusão ({{ completedTasks.length }} de {{ totalTasks }} tarefas finalizadas)
+      </p>
+
       <div class="mb-12">
         <TaskInput @taskSended="handleTaskChange" />
       </div>
@@ -68,14 +73,13 @@
 
 <script setup>
 import Card from "@/components/ui/card.vue";
-import TaskInput from "@/components/ui/taskInput.vue"; // Importação adicionada
+import TaskInput from "@/components/ui/taskInput.vue";
 import { computed } from 'vue';
 
 const config = useRuntimeConfig();
 
-// Busca TODAS as tarefas de uma única vez
 const { data, pending, error, refresh } = await useAsyncData('tasks/all', () =>
-  $fetch('/tasks/all', { // Endpoint unificado para buscar todas as tarefas
+  $fetch('/tasks/all', {
     baseURL: config.apiBase ?? "http://localhost:8090"
   })
 )
@@ -84,16 +88,26 @@ async function handleTaskChange() {
   await refresh();
 }
 
-// Propriedades computadas para separar as tarefas em pendentes e concluídas
 const pendingTasks = computed(() => {
   const tasks = data.value?.tarefas || [];
-  // Exibe as tarefas pendentes mais recentes primeiro
   return tasks.filter(t => !t.concluida).slice().reverse();
 });
 
 const completedTasks = computed(() => {
   const tasks = data.value?.tarefas || [];
-  // Exibe as tarefas concluídas mais recentes primeiro
   return tasks.filter(t => t.concluida).slice().reverse();
+});
+
+const totalTasks = computed(() => {
+  return data.value?.tarefas?.length ?? 0;
+});
+
+// Lógica da porcentagem adicionada aqui
+const completionPercentage = computed(() => {
+  if (totalTasks.value === 0) {
+    return 0;
+  }
+  const percentage = (completedTasks.value.length / totalTasks.value) * 100;
+  return Math.round(percentage);
 });
 </script>
