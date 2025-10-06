@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/gui-henri/learning-go/db"
+	"github.com/gui-henri/learning-go/internal/patient"
 	"github.com/gui-henri/learning-go/pkg/errors"
 )
 
@@ -110,8 +111,8 @@ func (s *taskRepository) GetAll() ([]Tarefa, error) {
 			t.descricao, 
 			t.prazo, 
 			t.concluida, 
-			t.criada_em
-			p.full_name
+			t.criada_em,
+			p.full_name,
 			p.id
 		from tasks t
 		join patient p ON t.patient_id = p.id
@@ -127,7 +128,13 @@ func (s *taskRepository) GetAll() ([]Tarefa, error) {
 
 	for rows.Next() {
 		var t Tarefa
-		err := rows.Scan(&t.Id, &t.Descricao, &t.Prazo, &t.Concluida, &t.CriadaEm, &t.Paciente.FullName, &t.Paciente.ID)
+		var p patient.Paciente
+		err := rows.Scan(&t.Id, &t.Descricao, &t.Prazo, &t.Concluida, &t.CriadaEm, &p.FullName, &p.ID)
+
+		if p.FullName != nil {
+			t.Paciente = &p
+		}
+
 		if err != nil {
 			fmt.Println("[ERROR] Erro ao fazer scan dos dados: ", err)
 			return nil, err
