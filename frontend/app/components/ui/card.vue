@@ -9,6 +9,7 @@
         criadaEm: string
         concluida: boolean
         prazo: string
+        nomePaciente: string
     }>()
 
     const emit = defineEmits(["taskFinished"])
@@ -119,7 +120,7 @@
     <h3 class="font-bold text-xl">{{ descricao }}</h3>
     <p>{{ formatedPrazo === "Indefinido" ? "Sem prazo" : `Prazo: ${formatedPrazo}`}}</p>
     <h4>Criada em: {{ formattedDate }}</h4>
-    <h4>{{.paciente.task}}</h4>
+    <h4>Paciente : {{ nomePaciente }} </h4>
   </div>
 
   <div class="gap-2 flex">

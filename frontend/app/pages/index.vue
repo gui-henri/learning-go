@@ -31,6 +31,7 @@
               :prazo="task.prazo"
               :criadaEm="task['criada_em']"
               :concluida="task.concluida"
+              :nomePaciente="task.paciente.full_name"
               @taskFinished="handleTaskChange"
             />
           </div>
