@@ -1,6 +1,9 @@
 <script setup>
 import { computed } from 'vue' // Adicionado
-import { Ellipsis, Eye, Trash2, BookCheck, Plus } from "lucide-vue-next"
+import { Ellipsis, Eye, Trash2, BookCheck, Plus, CrossIcon, MailWarningIcon } from "lucide-vue-next"
+import Popover from '~/components/ui/popover/Popover.vue';
+import PopoverTrigger from '~/components/ui/popover/PopoverTrigger.vue';
+import PopoverContent from '~/components/ui/popover/PopoverContent.vue';
 const config = useRuntimeConfig();
 
 const { data, pending, error, refresh } = await useAsyncData('Patient/all', () =>
@@ -22,11 +25,13 @@ const totalPacientes = computed(() => {
     <div class="mt-2 flex flex-col items-end gap-6">
       <div class="w-full flex justify-between">
         <h1 class="font-bold text-3xl">{{ totalPacientes }} Paciente(s) em nosso cuidado.</h1>
-        <NuxtLink 
-          to="/cadastro" 
-        >
+        <NuxtLink to="/dashboard" >
+          <Button class="bg-red-600 hover:bg-red-700"><BookCheck></BookCheck> Entender Meus Pacientes</Button>
+        </NuxtLink>
+        <NuxtLink to="/cadastro" >
           <Button class="bg-red-600 hover:bg-red-700"><Plus />Novo Paciente</Button>
         </NuxtLink>
+       
       </div>
 
       
@@ -58,9 +63,13 @@ const totalPacientes = computed(() => {
                   <Button class="bg-red-300 text-red-800 hover:bg-red-400"><Ellipsis /></Button>
                 </PopoverTrigger>
                 <PopoverContent class="flex flex-col gap-2 w-36 border-2 border-red-300">
-                  <Button class="w-28 flex justify-start bg-white text-gray-700 hover:bg-red-300"><Eye />Detalhes</Button>
-                  <Button class="w-28 flex justify-start bg-white text-green-700 hover:bg-red-300"><BookCheck />Tarefas</Button>
-                  <Button class="w-28 flex justify-start bg-white text-red-700 hover:bg-red-300"><Trash2 />Deletar</Button>
+
+                   <NuxtLink to="/dashboard" >
+                  <Button class="w-30 flex justify-start bg-white text-gray-700 hover:bg-red-300"><Eye />Detalhes</Button>
+                  </NuxtLInk>
+                  <Button class="w-30 flex justify-start bg-white text-green-700 hover:bg-red-300"><BookCheck />Tarefas</Button>
+                  <Button class="w-30 flex justify-start bg-white text-red-700 hover:bg-red-300"><Trash2 />Deletar</Button>
+
                 </PopoverContent>
               </Popover>
             </td>
