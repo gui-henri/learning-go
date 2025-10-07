@@ -14,10 +14,26 @@ const { data, pending, error, refresh } = await useAsyncData('Patient/all', () =
 
 // Lógica de contagem adicionada
 const totalPacientes = computed(() => {
-  return data.value?.data?.entry?.length ?? 0;
-})
-</script>
+  if (!data.value?.data?.entry) {
+    return 0;
+  }
+  const activePatients = data.value.data.entry.filter(p => p.resource.active);
+  return activePatients.length;
+});
 
+async function deactivatePatient(id, patient) {
+  await $fetch(`/Patient/${id}`, {
+    method: 'PUT',
+    baseURL: config.apiBase ?? "http://localhost:8090",
+    body: {
+      ...patient,
+      active: false
+    }
+  })
+
+  refresh()
+}
+</script>
 <template>
   <div class="w-full flex justify-center mt-4">
   </div>
@@ -52,7 +68,7 @@ const totalPacientes = computed(() => {
           </tr>
         </thead>
         <tbody>
-          <tr class="border-2 border-red-600" v-for="(patient, index) in data.data.entry" :key="index">
+          <tr class="border-2 border-red-600" v-for="(patient, index) in data.data.entry.filter(p => p.resource.active)" :key="index">
             <td class="p-2">{{ (patient.resource.name.find(n => n.use === "official" || n.use === "usual")?.given || ["Sem nome"]).join(" ") + patient.resource.name.find(n => n.use === "official" || n.use === "usual")?.family }}</td>
             <td class="p-2">{{ (patient.resource.identifier.find(t => t.system ==="http://hl7.org.br/fhir/r4/sid/CPF")?.value) || "Sem CPF" }}</td>
             <td class="p-2">{{ (patient.resource.birthDate) || "Sem Data" }}</td>
@@ -68,7 +84,7 @@ const totalPacientes = computed(() => {
                   <Button class="w-30 flex justify-start bg-white text-gray-700 hover:bg-red-300"><Eye />Detalhes</Button>
                   </NuxtLInk>
                   <Button class="w-30 flex justify-start bg-white text-green-700 hover:bg-red-300"><BookCheck />Tarefas</Button>
-                  <Button class="w-30 flex justify-start bg-white text-red-700 hover:bg-red-300"><Trash2 />Deletar</Button>
+                  <Button @click="() => deactivatePatient(patient.resource.id, patient.resource)" class="w-30 flex justify-start bg-white text-red-700 hover:bg-red-300"><Trash2 />Deletar</Button>
 
                 </PopoverContent>
               </Popover>
