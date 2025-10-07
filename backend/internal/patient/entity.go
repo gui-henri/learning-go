@@ -77,17 +77,23 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 	}
 
 	deceased := false
+	active := true
+	if p.Active != nil && !*p.Active {
+		active = false
+	}
 	if p.DeceasedBoolean != nil && *p.DeceasedBoolean {
 		deceased = true
+		active = false
 	} else if p.DeceasedDateTime != nil && *p.DeceasedDateTime != "" {
 		deceased = true
+		active = false
 	}
 
 	pt := paciente{
 		ID:           id,
 		LastUpdated:  util.Ptr(time.Now()),
 		CreatedAt:    time.Now(),
-		Active:       true,
+		Active:       active,
 		Gender:       genderCode,
 		BirthDate:    birthDateTime,
 		FullName:     util.Ptr(fn),
