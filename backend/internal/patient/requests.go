@@ -2,6 +2,8 @@ package patient
 
 import (
 	"context"
+	"encoding/json"
+	"io"
 	"net/http"
 	"strconv"
 
@@ -52,4 +54,29 @@ func decodeListPatientRequest(_ context.Context, r *http.Request) (any, error) {
 	}
 	return req, nil
 
+}
+
+type UpdatePatientRequest struct {
+	ID      string       `param:"id"`
+	Patient fhir.Patient `json:"paciente"`
+}
+
+type UpdatePatientResponse struct {
+	Patient *paciente `json:"paciente"`
+}
+
+func decodeUpdatePatientRequest(ctx context.Context, r *http.Request) (request any, err error) {
+	var req UpdatePatientRequest
+
+	var p fhir.Patient
+	if r.Body != nil && r.ContentLength > 0 {
+		if err := json.NewDecoder(r.Body).Decode(&p); err != nil && err != io.EOF {
+			return nil, err
+		}
+	}
+
+	req.ID = r.PathValue("id")
+	req.Patient = p
+
+	return req, nil
 }

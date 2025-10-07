@@ -76,6 +76,13 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 		return paciente{}, err
 	}
 
+	deceased := false
+	if p.DeceasedBoolean != nil && *p.DeceasedBoolean {
+		deceased = true
+	} else if p.DeceasedDateTime != nil && *p.DeceasedDateTime != "" {
+		deceased = true
+	}
+
 	pt := paciente{
 		ID:           id,
 		LastUpdated:  util.Ptr(time.Now()),
@@ -85,6 +92,7 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 		BirthDate:    birthDateTime,
 		FullName:     util.Ptr(fn),
 		CPF:          util.Ptr(cpf),
+		Deceased:     &deceased,
 		ResourceJSON: j,
 	}
 

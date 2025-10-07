@@ -12,6 +12,8 @@ import (
 type PatientRepository interface {
 	InsertPatient(p fhir.Patient) (paciente, error)
 	ListPatients(count, offset int) (pagedPatientResult, error)
+	UpdatePatient(id string, p fhir.Patient) (paciente, error)
+	GetPatient(id string) (paciente, error)
 }
 
 type patientRepository struct {
@@ -126,4 +128,86 @@ func (p *patientRepository) ListPatients(count, offset int) (pagedPatientResult,
 		Patients: patients,
 		Total:    totalCount,
 	}, nil
+}
+
+func (p *patientRepository) UpdatePatient(id string, pt fhir.Patient) (paciente, error) {
+	sql := `
+		UPDATE patient
+		SET
+			last_updated = $1,
+			gender = $2,
+			birth_date = $3,
+			full_name = $4,
+			cpf = $5,
+			resource_json = $6,
+			deceased = $7
+		WHERE id = $8
+	`
+
+	patient, err := NewPaciente(pt)
+	if err != nil {
+		return paciente{}, err
+	}
+
+	_, err = p.db.Exec(
+		context.Background(),
+		sql,
+		patient.LastUpdated,
+		patient.Gender,
+		patient.BirthDate,
+		patient.FullName,
+		patient.CPF,
+		patient.ResourceJSON,
+		patient.Deceased,
+		id,
+	)
+
+	if err != nil {
+		fmt.Println("[ERR] Database error happened: ", err)
+		return paciente{}, errors.InvalidInput
+	}
+
+	return patient, nil
+}
+
+func (p *patientRepository) GetPatient(id string) (paciente, error) {
+	sql := `
+		SELECT
+			id,
+			last_updated,
+			active,
+			gender,
+			birth_date,
+			deceased,
+			full_name,
+			cpf,
+			created_at,
+			resource_json
+		FROM
+			patient
+		WHERE id = $1
+	`
+
+	row := p.db.QueryRow(context.Background(), sql, id)
+
+	var pt paciente
+
+	err := row.Scan(
+		&pt.ID,
+		&pt.LastUpdated,
+		&pt.Active,
+		&pt.Gender,
+		&pt.BirthDate,
+		&pt.Deceased,
+		&pt.FullName,
+		&pt.CPF,
+		&pt.CreatedAt,
+		&pt.ResourceJSON,
+	)
+
+	if err != nil {
+		return paciente{}, err
+	}
+
+	return pt, nil
 }
