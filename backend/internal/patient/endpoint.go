@@ -30,3 +30,14 @@ func makeListPatientEndpoint(svc PatientService) endpoint.Endpoint {
 		}, nil
 	}
 }
+
+func makeUpdatePatientEndpoint(svc PatientService) endpoint.Endpoint {
+	return func(ctx context.Context, request any) (response any, err error) {
+		req := request.(UpdatePatientRequest)
+		t, err := svc.UpdatePatient(ctx, req.ID, req.Patient)
+		if err != nil {
+			return nil, err
+		}
+		return UpdatePatientResponse{Patient: &t}, nil
+	}
+}

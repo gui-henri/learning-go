@@ -2,10 +2,12 @@ package patient
 
 import (
 	"context"
+	"encoding/json"
 	"net/url"
 	"strconv"
 	"time"
 
+	"github.com/gui-henri/learning-go/pkg/errors"
 	"github.com/gui-henri/learning-go/pkg/fhir"
 	"github.com/gui-henri/learning-go/pkg/util"
 )
@@ -13,6 +15,7 @@ import (
 type PatientService interface {
 	InsertPatient(ctx context.Context, p fhir.Patient) (paciente, error)
 	ListPatients(ctx context.Context, count, currentOffset int) (fhir.Bundle, error)
+	UpdatePatient(ctx context.Context, id string, p fhir.Patient) (paciente, error)
 }
 
 type patientService struct {
@@ -49,7 +52,7 @@ func (s *patientService) InsertPatient(ctx context.Context, p fhir.Patient) (pac
 	pt, err := s.repository.InsertPatient(p)
 
 	if err != nil {
-		return paciente{}, err
+		return paciente{}, errors.InvalidInput
 	}
 
 	return pt, nil
@@ -98,4 +101,39 @@ func (s *patientService) ListPatients(ctx context.Context, count, currentOffset 
 	}
 
 	return bundle, nil
+}
+
+func (s *patientService) UpdatePatient(ctx context.Context, id string, p fhir.Patient) (paciente, error) {
+	existingPatient, err := s.repository.GetPatient(id)
+	if err != nil {
+		return paciente{}, errors.InvalidInput
+	}
+
+	var fhirPatient fhir.Patient
+	err = json.Unmarshal(existingPatient.ResourceJSON, &fhirPatient)
+	if err != nil {
+		return paciente{}, errors.InvalidInput
+	}
+
+	if fhirPatient.Meta != nil && fhirPatient.Meta.VersionId != nil {
+		versionId, _ := strconv.Atoi(*fhirPatient.Meta.VersionId)
+		fhirPatient.Meta.VersionId = util.Ptr(strconv.Itoa(versionId + 1))
+	} else {
+		if fhirPatient.Meta == nil {
+			fhirPatient.Meta = &fhir.Meta{}
+		}
+		fhirPatient.Meta.VersionId = util.Ptr("1")
+	}
+
+	now := time.Now().UTC()
+	formattedDate := now.Format("2006-01-02T15:04:05.000Z07:00")
+	fhirPatient.Meta.LastUpdated = util.Ptr(formattedDate)
+
+	pt, err := s.repository.UpdatePatient(id, p)
+
+	if err != nil {
+		return paciente{}, errors.InvalidInput
+	}
+
+	return pt, nil
 }
