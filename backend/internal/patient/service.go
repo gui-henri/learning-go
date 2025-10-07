@@ -3,11 +3,13 @@ package patient
 import (
 	"context"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"net/url"
 	"strconv"
 	"time"
 
-	"github.com/gui-henri/learning-go/pkg/errors"
+	apperrors "github.com/gui-henri/learning-go/pkg/errors"
 	"github.com/gui-henri/learning-go/pkg/fhir"
 	"github.com/gui-henri/learning-go/pkg/util"
 )
@@ -52,7 +54,7 @@ func (s *patientService) InsertPatient(ctx context.Context, p fhir.Patient) (pac
 	pt, err := s.repository.InsertPatient(p)
 
 	if err != nil {
-		return paciente{}, errors.InvalidInput
+		return paciente{}, apperrors.InvalidInput
 	}
 
 	return pt, nil
@@ -106,34 +108,48 @@ func (s *patientService) ListPatients(ctx context.Context, count, currentOffset 
 func (s *patientService) UpdatePatient(ctx context.Context, id string, p fhir.Patient) (paciente, error) {
 	existingPatient, err := s.repository.GetPatient(id)
 	if err != nil {
-		return paciente{}, errors.InvalidInput
+		if errors.Is(err, apperrors.NotFound) {
+			return paciente{}, fmt.Errorf("paciente com id '%s' não encontrado: %w", id, apperrors.NotFound)
+		}
+		return paciente{}, fmt.Errorf("falha ao buscar paciente: %w", err)
 	}
 
 	var fhirPatient fhir.Patient
-	err = json.Unmarshal(existingPatient.ResourceJSON, &fhirPatient)
+	if err := json.Unmarshal(existingPatient.ResourceJSON, &fhirPatient); err != nil {
+		return paciente{}, fmt.Errorf("falha ao desserializar paciente existente: %w", err)
+	}
+
+	// Preserva o ID original e o Meta
+	p.Id = fhirPatient.Id
+	p.Meta = fhirPatient.Meta
+
+	if p.Meta == nil {
+		p.Meta = &fhir.Meta{}
+	}
+
+	newVersion, err := incrementVersion(p.Meta.VersionId)
 	if err != nil {
-		return paciente{}, errors.InvalidInput
+		return paciente{}, fmt.Errorf("versão inválida no metadado do paciente: %w", err)
 	}
-
-	if fhirPatient.Meta != nil && fhirPatient.Meta.VersionId != nil {
-		versionId, _ := strconv.Atoi(*fhirPatient.Meta.VersionId)
-		fhirPatient.Meta.VersionId = util.Ptr(strconv.Itoa(versionId + 1))
-	} else {
-		if fhirPatient.Meta == nil {
-			fhirPatient.Meta = &fhir.Meta{}
-		}
-		fhirPatient.Meta.VersionId = util.Ptr("1")
-	}
-
-	now := time.Now().UTC()
-	formattedDate := now.Format("2006-01-02T15:04:05.000Z07:00")
-	fhirPatient.Meta.LastUpdated = util.Ptr(formattedDate)
+	p.Meta.VersionId = util.Ptr(newVersion)
+	p.Meta.LastUpdated = util.Ptr(time.Now().UTC().Format("2006-01-02T15:04:05.000Z07:00"))
 
 	pt, err := s.repository.UpdatePatient(id, p)
-
 	if err != nil {
-		return paciente{}, errors.InvalidInput
+		return paciente{}, fmt.Errorf("falha ao atualizar paciente no repositório: %w", err)
 	}
 
 	return pt, nil
+}
+
+func incrementVersion(currentVersion *string) (string, error) {
+	if currentVersion == nil || *currentVersion == "" {
+		return "1", nil
+	}
+
+	v, err := strconv.Atoi(*currentVersion)
+	if err != nil {
+		return "", err
+	}
+	return strconv.Itoa(v + 1), nil
 }

@@ -78,9 +78,11 @@ func NewPaciente(p fhir.Patient) (paciente, error) {
 
 	deceased := false
 	active := true
-	if p.Active != nil && !*p.Active {
-		active = false
+
+	if p.Active != nil {
+		active = *p.Active
 	}
+
 	if p.DeceasedBoolean != nil && *p.DeceasedBoolean {
 		deceased = true
 		active = false

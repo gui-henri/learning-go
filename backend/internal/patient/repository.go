@@ -80,6 +80,8 @@ func (p *patientRepository) ListPatients(count, offset int) (pagedPatientResult,
             COUNT(*) OVER() AS total_count 
         FROM 
             patient 
+		WHERE
+			active = true
         ORDER BY 
             id 
         LIMIT $1 OFFSET $2
@@ -140,10 +142,10 @@ func (p *patientRepository) UpdatePatient(id string, pt fhir.Patient) (paciente,
 			full_name = $4,
 			cpf = $5,
 			resource_json = $6,
-			deceased = $7,
+ 			deceased = $7,
 			active = $8
 		WHERE id = $9
-	`
+		`
 
 	patient, err := NewPaciente(pt)
 	if err != nil {
@@ -163,7 +165,6 @@ func (p *patientRepository) UpdatePatient(id string, pt fhir.Patient) (paciente,
 		patient.Active,
 		id,
 	)
-
 	if err != nil {
 		fmt.Println("[ERR] Database error happened: ", err)
 		return paciente{}, errors.InvalidInput
