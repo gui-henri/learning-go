@@ -21,6 +21,8 @@ const totalPacientes = computed(() => {
   return activePatients.length;
 });
 
+console.log(data.value.data.entry)
+
 async function deactivatePatient(id, patient) {
   await $fetch(`/Patient/${id}`, {
     method: 'PUT',
@@ -68,7 +70,7 @@ async function deactivatePatient(id, patient) {
           </tr>
         </thead>
         <tbody>
-          <tr class="border-2 border-red-600" v-for="(patient, index) in data.data.entry.filter(p => p.resource.active)" :key="index">
+          <tr class="border-2 border-red-600" v-for="(patient, index) in data.data.entry" :key="index">
             <td class="p-2">{{ (patient.resource.name.find(n => n.use === "official" || n.use === "usual")?.given || ["Sem nome"]).join(" ") + patient.resource.name.find(n => n.use === "official" || n.use === "usual")?.family }}</td>
             <td class="p-2">{{ (patient.resource.identifier.find(t => t.system ==="http://hl7.org.br/fhir/r4/sid/CPF")?.value) || "Sem CPF" }}</td>
             <td class="p-2">{{ (patient.resource.birthDate) || "Sem Data" }}</td>
