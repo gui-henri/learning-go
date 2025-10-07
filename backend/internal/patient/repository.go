@@ -140,8 +140,9 @@ func (p *patientRepository) UpdatePatient(id string, pt fhir.Patient) (paciente,
 			full_name = $4,
 			cpf = $5,
 			resource_json = $6,
-			deceased = $7
-		WHERE id = $8
+			deceased = $7,
+			active = $8
+		WHERE id = $9
 	`
 
 	patient, err := NewPaciente(pt)
@@ -159,6 +160,7 @@ func (p *patientRepository) UpdatePatient(id string, pt fhir.Patient) (paciente,
 		patient.CPF,
 		patient.ResourceJSON,
 		patient.Deceased,
+		patient.Active,
 		id,
 	)
 
