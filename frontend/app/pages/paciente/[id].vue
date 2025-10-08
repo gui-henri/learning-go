@@ -7,16 +7,22 @@ const route = useRoute();
 const pacienteId = route.params.id;
 
 
-const { data: paciente, pending, error } = useAsyncData(
+const { data: paciente, pending: pacientePending, error: pacienteError } = useAsyncData(
   `paciente-${pacienteId}`,
   () => $fetch(`http://localhost:8090/Patient/${pacienteId}`)
+);
+
+// ADICIONADO: Busca de dados das tarefas do paciente
+const { data: tarefas, pending: tarefasPending, error: tarefasError } = useAsyncData(
+  `tarefas-paciente-${pacienteId}`,
+  () => $fetch(`http://localhost:8090/tasks?patientId=${pacienteId}`)
 );
 
 
 useHead({
   title: computed(() => {
-    if (pending.value) return 'Carregando Paciente...';
-    if (error.value || !paciente.value) return 'Paciente não encontrado';
+    if (pacientePending.value) return 'Carregando Paciente...';
+    if (pacienteError.value || !paciente.value) return 'Paciente não encontrado';
     
 
     const nameArray = paciente.value?.name?.[0]?.given ?? [];
@@ -28,26 +34,27 @@ useHead({
 
 <template>
   <div>
-    <div v-if="pending" class="min-h-screen flex items-center justify-center">
+    <div v-if="pacientePending" class="min-h-screen flex items-center justify-center">
       <p class="text-xl text-gray-500 animate-pulse">Carregando informações do paciente...</p>
     </div>
 
-    <div v-else-if="error" class="min-h-screen flex items-center justify-center p-4">
+    <div v-else-if="pacienteError" class="min-h-screen flex items-center justify-center p-4">
        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-center" role="alert">
         <strong>Ocorreu um erro ao buscar o paciente:</strong>
-        <p>{{ error.message || 'Verifique se o backend está rodando e o ID é válido.' }}</p>
+        <p>{{ pacienteError.message || 'Verifique se o backend está rodando e o ID é válido.' }}</p>
         <NuxtLink to="/pacientes" class="text-blue-600 hover:underline mt-4 inline-block">
           &larr; Voltar para a lista
         </NuxtLink>
       </div>
     </div>
 
-    <div v-else-if="paciente" class="min-h-screen flex items-start justify-start p-4 sm:p-6">
-      <div class="bg-white shadow-2xl rounded-2xl w-full md:w-1/2 p-6 sm:p-8 border-t-8 border-red-600">
+    <div v-else-if="paciente" class="flex flex-col md:flex-row items-start justify-start p-4 sm:p-6 gap-x-8">
+      
+      <div class="bg-white shadow-2xl rounded-2xl w-full md:w-1/2 p-6 sm:p-8 border-t-8 border-red-600 mb-8 md:mb-0">
         
         <header class="relative w-full text-center mb-8">
           <NuxtLink 
-            to="/" 
+            to="/pacientes" 
             class="absolute left-0 top-1/2 -translate-y-1/2 bg-red-600 hover:bg-red-700 text-white p-3 rounded-full transition-colors"
             title="Voltar"
           >
@@ -94,6 +101,32 @@ useHead({
 
         </main>
       </div>
+
+      <div class="bg-white shadow-2xl rounded-2xl w-full md:w-1/3 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Tarefas Associadas</h2>
+        
+        <div v-if="tarefasPending">
+          <p class="text-gray-500">Carregando tarefas...</p>
+        </div>
+        <div v-else-if="tarefasError">
+          <p class="text-red-500">Erro ao buscar as tarefas.</p>
+        </div>
+        <ul v-else-if="tarefas && tarefas.length > 0" class="space-y-4 max-h-96 overflow-y-auto">
+          <li v-for="tarefa in tarefas" :key="tarefa.id" class="p-3 rounded-lg border" :class="tarefa.concluida ? 'bg-green-50 border-green-200' : 'bg-orange-50 border-orange-200'">
+            <p class="font-semibold">{{ tarefa.descricao }}</p>
+            <p class="text-sm text-gray-600">
+              Prazo: {{ tarefa.prazo ? new Date(tarefa.prazo).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : 'Não definido' }}
+            </p>
+            <span class="text-xs font-medium px-2 py-0.5 rounded-full" :class="tarefa.concluida ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'">
+              {{ tarefa.concluida ? 'Concluída' : 'Pendente' }}
+            </span>
+          </li>
+        </ul>
+        <div v-else class="text-center p-6 bg-gray-50 rounded-lg">
+          <p class="text-gray-600">Nenhuma tarefa encontrada para este paciente.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
