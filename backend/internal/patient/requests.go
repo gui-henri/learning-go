@@ -14,6 +14,18 @@ type InsertPatientRequest struct {
 	Patient fhir.Patient `json:"paciente"`
 }
 
+type GetPatientRequest struct {
+	ID string `param:"id"`
+}
+
+type GetPatientResponse = fhir.Patient
+
+func decodeGetPatientRequest(ctx context.Context, r *http.Request) (request any, err error) {
+	var req GetPatientRequest
+	req.ID = r.PathValue("id")
+	return req, nil
+}
+
 type InsertPatientResponse struct {
 	Patient *paciente `json:"paciente"`
 }
