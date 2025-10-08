@@ -21,8 +21,6 @@ const totalPacientes = computed(() => {
   return activePatients.length;
 });
 
-console.log(data.value.data.entry)
-
 async function deactivatePatient(id, patient) {
   await $fetch(`/Patient/${id}`, {
     method: 'PUT',
@@ -34,6 +32,11 @@ async function deactivatePatient(id, patient) {
   })
 
   refresh()
+}
+
+function viewPatientDetails(id) {
+  // navigateTo is a Nuxt composable for programmatic routing
+  navigateTo(`/paciente/${id}`);
 }
 </script>
 <template>
@@ -76,20 +79,15 @@ async function deactivatePatient(id, patient) {
             <td class="p-2">{{ (patient.resource.birthDate) || "Sem Data" }}</td>
             <td class="p-2">{{ (patient.resource.gender === "male" ? "Masculino" : patient.resource.gender === "female" ? "Feminino" : "Outro") }}</td>
             <td class="flex gap-1 justify-center items-center">
-              <Popover>
-                <PopoverTrigger>
-                  <Button class="bg-red-300 text-red-800 hover:bg-red-400"><Ellipsis /></Button>
-                </PopoverTrigger>
-                <PopoverContent class="flex flex-col gap-2 w-36 border-2 border-red-300">
-
-                   <NuxtLink to="/dashboard" >
-                  <Button class="w-30 flex justify-start bg-white text-gray-700 hover:bg-red-300"><Eye />Detalhes</Button>
-                  </NuxtLInk>
-                  <Button class="w-30 flex justify-start bg-white text-green-700 hover:bg-red-300"><BookCheck />Tarefas</Button>
-                  <Button @click="() => deactivatePatient(patient.resource.id, patient.resource)" class="w-30 flex justify-start bg-white text-red-700 hover:bg-red-300"><Trash2 />Deletar</Button>
-
-                </PopoverContent>
-              </Popover>
+                <Popover>
+                  <PopoverTrigger>
+                    <Button class="bg-red-300 text-red-800 hover:bg-red-400"><Ellipsis /></Button>
+                  </PopoverTrigger>
+                  <PopoverContent class="flex flex-col gap-2 w-36 border-2 border-red-300">
+                    <Button @click="() => viewPatientDetails(patient.resource.id)" class="w-28 flex justify-start bg-white text-gray-700 hover:bg-red-300"><Eye />Detalhes</Button>
+                    <Button @click="() => deactivatePatient(patient.resource.id, patient.resource)" class="w-28 flex justify-start bg-white text-red-700 hover:bg-red-300"><Trash2 />Deletar</Button>
+                  </PopoverContent>
+                </Popover>
             </td>
           </tr>
         </tbody>
