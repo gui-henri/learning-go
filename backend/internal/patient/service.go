@@ -18,6 +18,7 @@ type PatientService interface {
 	InsertPatient(ctx context.Context, p fhir.Patient) (paciente, error)
 	ListPatients(ctx context.Context, count, currentOffset int) (fhir.Bundle, error)
 	UpdatePatient(ctx context.Context, id string, p fhir.Patient) (paciente, error)
+	GetPatient(ctx context.Context, id string) (fhir.Patient, error)
 }
 
 type patientService struct {
@@ -58,6 +59,21 @@ func (s *patientService) InsertPatient(ctx context.Context, p fhir.Patient) (pac
 	}
 
 	return pt, nil
+}
+
+func (s *patientService) GetPatient(ctx context.Context, id string) (fhir.Patient, error) {
+	p, err := s.repository.GetPatient(id)
+	if err != nil {
+		return fhir.Patient{}, apperrors.NotFound
+	}
+
+	var patient fhir.Patient
+	err = json.Unmarshal(p.ResourceJSON, &patient)
+	if err != nil {
+		return fhir.Patient{}, fmt.Errorf("failed to unmarshal patient: %w", err)
+	}
+
+	return patient, nil
 }
 
 func (s *patientService) ListPatients(ctx context.Context, count, currentOffset int) (fhir.Bundle, error) {
