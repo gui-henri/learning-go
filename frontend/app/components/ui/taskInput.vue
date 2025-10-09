@@ -63,7 +63,7 @@
     if (!buscaPaciente.value) return pacientes.value
 
     return pacientes.value.filter(p =>
-      p.toLowerCase().includes(buscaPaciente.value.toLowerCase())
+      p.name.toLowerCase().includes(buscaPaciente.value.toLowerCase())
     )
   })
 
