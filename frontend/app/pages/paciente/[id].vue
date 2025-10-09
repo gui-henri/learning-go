@@ -29,19 +29,26 @@ const tarefas = computed(() => {
 })
 
 async function deadPatient(id, patient) {
-  await $fetch(`/Patient/${id}`, {
-    method: 'PUT',
-    baseURL: config.apiBase ?? "http://localhost:8090",
-    body: {
-      ...patient,
-      active: false,
-      deceasedBoolean: true
-    }
-  })
+  try {
+    // 1. Espera a requisição para o backend finalizar
+    await $fetch(`/Patient/${id}`, {
+      method: 'PUT',
+      baseURL: config.apiBase ?? "http://localhost:8090",
+      body: {
+        ...patient,
+        active: false,
+        deceasedBoolean: true
+      }
+    });
 
-  refresh()
+    await navigateTo('/pacientes');
+
+  } catch (error) {
+
+    console.error("Erro ao atualizar o paciente:", error);
+
+  }
 }
-
 </script>
 
 <template>
