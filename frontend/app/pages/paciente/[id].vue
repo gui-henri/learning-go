@@ -1,6 +1,10 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { ArrowLeft } from "lucide-vue-next";
+import { Button } from '~/components/ui/button';
+import { Popover } from '~/components/ui/popover';
+import PopoverTrigger from '~/components/ui/popover/PopoverTrigger.vue';
+import PopoverContent from '~/components/ui/popover/PopoverContent.vue';
 
 const route = useRoute();
 const { id } = route.params;
@@ -24,6 +28,19 @@ const tarefas = computed(() => {
   return tarefasData.value.tarefas.filter(t => t.paciente.id === id)
 })
 
+async function deadPatient(id, patient) {
+  await $fetch(`/Patient/${id}`, {
+    method: 'PUT',
+    baseURL: config.apiBase ?? "http://localhost:8090",
+    body: {
+      ...patient,
+      active: false,
+      deceasedBoolean: true
+    }
+  })
+
+  refresh()
+}
 
 </script>
 
@@ -93,6 +110,16 @@ const tarefas = computed(() => {
             <h3 class="text-sm font-semibold text-gray-600">Email</h3>
             <p class="text-lg text-gray-900 mt-1">{{ data.telecom.find(t => t.system === 'email')?.value || 'Não informado' }}</p>
           </div>
+
+          <Popover>
+            <PopoverTrigger>
+              <Button class="bg-gray-600 hover:bg-gray-700">Registrar falecimento</Button>
+            </PopoverTrigger>
+            <PopoverContent class="flex flex-col gap-2">
+              <b>Você tem certeza?</b>
+              <Button @click="() => deadPatient(id, data)" class="bg-red-600 hover:bg-red-400">Sim</Button>
+            </PopoverContent>
+          </Popover>
 
         </main>
       </div>
