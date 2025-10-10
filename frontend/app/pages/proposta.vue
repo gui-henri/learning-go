@@ -8,7 +8,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 
-// --- LÓGICA UNIFICADA PARA PACIENTES E TAREFAS ---
 
 const config = useRuntimeConfig();
 
@@ -139,19 +138,7 @@ const completionPercentage = computed(() => {
             >
             <p class="mt-2 text-sm text-red-700 text-justify"><b>INTERNE SOLUÇÕES EM SAÚDE, A ESCOLHA CERTA PARA HOME CARE</b></p>
             <div class="mt-2 text-sm text-white-700 whitespace-pre-line text-justify">
-              <ul class="space-y-3 justify-middle">
-                <li><b>O Home Care engloba serviços de saúde oferecidos em domicílio.</b></li>
-                <li>Técnicos qualificados.</li>
-                <li>Atendimento humanizado.</li>
-                <li>Colaboradores especializado.</li>
-                <li>Sistemas internos ágeis e seguros.</li>
-                <li>Espaço amplo para atendimento.</li>
-                <li>Equipamentos eficientes.</li>
-                <li>Focada no bem-estar de seus pacientes.</li>
-                <li><b>Saiba mais em : </b><a href="https://interne.com.br" target="_blank" class="text-blue-500 underline">
-                  Nosso site parceiro.
-                </a></li>
-              </ul>
+              
             </div>
           </div>
         </CarouselItem> 

@@ -1,54 +1,73 @@
 <script setup>
-
+import { useRoute } from 'vue-router';
 import { ArrowLeft } from "lucide-vue-next";
-
+import { Button } from '~/components/ui/button';
+import { Popover } from '~/components/ui/popover';
+import PopoverTrigger from '~/components/ui/popover/PopoverTrigger.vue';
+import PopoverContent from '~/components/ui/popover/PopoverContent.vue';
 
 const route = useRoute();
-const pacienteId = route.params.id;
+const { id } = route.params;
 
+const config = useRuntimeConfig();
 
-const { data: paciente, pending: pacientePending, error: pacienteError } = useAsyncData(
-  `paciente-${pacienteId}`,
-  () => $fetch(`http://localhost:8090/Patient/${pacienteId}`)
+const { data, pending, error } = await useAsyncData(`patient/${id}`, () =>
+  $fetch(`/Patient/${id}`, {
+    baseURL: config.apiBase ?? "http://localhost:8090"
+  })
 );
 
-// ADICIONADO: Busca de dados das tarefas do paciente
-const { data: tarefas, pending: tarefasPending, error: tarefasError } = useAsyncData(
-  `tarefas-paciente-${pacienteId}`,
-  () => $fetch(`http://localhost:8090/tasks?patientId=${pacienteId}`)
-);
+const { data: tarefasData, pending: tarefasPending, error: tarefasError } = await useAsyncData('tasks/all', () =>
+  $fetch('/tasks/all', {
+    baseURL: config.apiBase ?? "http://localhost:8090"
+  })
+)
 
+const tarefas = computed(() => {
+  if (!tarefasData.value || !tarefasData.value.tarefas) return []
+  return tarefasData.value.tarefas.filter(t => t.paciente.id === id)
+})
 
-useHead({
-  title: computed(() => {
-    if (pacientePending.value) return 'Carregando Paciente...';
-    if (pacienteError.value || !paciente.value) return 'Paciente não encontrado';
-    
+async function deadPatient(id, patient) {
+  try {
+    // 1. Espera a requisição para o backend finalizar
+    await $fetch(`/Patient/${id}`, {
+      method: 'PUT',
+      baseURL: config.apiBase ?? "http://localhost:8090",
+      body: {
+        ...patient,
+        active: false,
+        deceasedBoolean: true
+      }
+    });
 
-    const nameArray = paciente.value?.name?.[0]?.given ?? [];
-    const name = nameArray.join(' ');
-    return `Detalhes de ${name || 'Paciente'}`;
-  }),
-});
+    await navigateTo('/pacientes');
+
+  } catch (error) {
+
+    console.error("Erro ao atualizar o paciente:", error);
+
+  }
+}
 </script>
 
 <template>
   <div>
-    <div v-if="pacientePending" class="min-h-screen flex items-center justify-center">
+    <div v-if="pending" class="min-h-screen flex items-center justify-center">
       <p class="text-xl text-gray-500 animate-pulse">Carregando informações do paciente...</p>
     </div>
 
-    <div v-else-if="pacienteError" class="min-h-screen flex items-center justify-center p-4">
+    <div v-else-if="error" class="min-h-screen flex items-center justify-center p-4">
        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-center" role="alert">
         <strong>Ocorreu um erro ao buscar o paciente:</strong>
-        <p>{{ pacienteError.message || 'Verifique se o backend está rodando e o ID é válido.' }}</p>
+        <p>{{ error.message || 'Verifique se o backend está rodando e o ID é válido.' }}</p>
         <NuxtLink to="/pacientes" class="text-blue-600 hover:underline mt-4 inline-block">
           &larr; Voltar para a lista
         </NuxtLink>
       </div>
     </div>
 
-    <div v-else-if="paciente" class="flex flex-col md:flex-row items-start justify-start p-4 sm:p-6 gap-x-8">
+    <div v-else-if="data" class="flex flex-col md:flex-row items-start justify-center p-4 sm:p-6 gap-x-8">
       
       <div class="bg-white shadow-2xl rounded-2xl w-full md:w-1/2 p-6 sm:p-8 border-t-8 border-red-600 mb-8 md:mb-0">
         
@@ -69,42 +88,51 @@ useHead({
           
           <div>
             <h3 class="text-sm font-semibold text-gray-600">Nome Completo</h3>
-            <p class="text-lg text-gray-900 mt-1">{{ paciente.name[0].given.join(' ') }}</p>
+            <p class="text-lg text-gray-900 mt-1">{{ data.name[0].given.join(' ') }}</p>
           </div>
 
           <div>
             <h3 class="text-sm font-semibold text-gray-600">CPF</h3>
-            <p class="text-lg text-gray-900 mt-1">{{ paciente.identifier[0].value }}</p>
+            <p class="text-lg text-gray-900 mt-1">{{ data.identifier[0].value }}</p>
           </div>
 
           <div>
             <h3 class="text-sm font-semibold text-gray-600">Data de Nascimento</h3>
             <p class="text-lg text-gray-900 mt-1">
-              {{ new Date(paciente.birthDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }}
+              {{ new Date(data.birthDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }}
             </p>
           </div>
           
           <div>
             <h3 class="text-sm font-semibold text-gray-600">Gênero</h3>
-            <p class="text-lg text-gray-900 mt-1 capitalize">{{ paciente.gender }}</p>
+            <p class="text-lg text-gray-900 mt-1 capitalize">{{ data.gender }}</p>
           </div>
 
           <div>
             <h3 class="text-sm font-semibold text-gray-600">Telefone</h3>
-            <p class="text-lg text-gray-900 mt-1">{{ paciente.telecom.find(t => t.system === 'phone')?.value || 'Não informado' }}</p>
+            <p class="text-lg text-gray-900 mt-1">{{ data.telecom.find(t => t.system === 'phone')?.value || 'Não informado' }}</p>
           </div>
           
           <div>
             <h3 class="text-sm font-semibold text-gray-600">Email</h3>
-            <p class="text-lg text-gray-900 mt-1">{{ paciente.telecom.find(t => t.system === 'email')?.value || 'Não informado' }}</p>
+            <p class="text-lg text-gray-900 mt-1">{{ data.telecom.find(t => t.system === 'email')?.value || 'Não informado' }}</p>
           </div>
+
+          <Popover>
+            <PopoverTrigger>
+              <Button class="bg-gray-600 hover:bg-gray-700">Registrar falecimento</Button>
+            </PopoverTrigger>
+            <PopoverContent class="flex flex-col gap-2">
+              <b>Você tem certeza?</b>
+              <Button @click="() => deadPatient(id, data)" class="bg-red-600 hover:bg-red-400">Sim</Button>
+            </PopoverContent>
+          </Popover>
 
         </main>
       </div>
 
       <div class="bg-white shadow-2xl rounded-2xl w-full md:w-1/3 p-6 sm:p-8">
         <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Tarefas Associadas</h2>
-        
         <div v-if="tarefasPending">
           <p class="text-gray-500">Carregando tarefas...</p>
         </div>
