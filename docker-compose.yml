@@ -4,7 +4,8 @@ services:
     ports:
       - "5678:5678"
     volumes:
-      - ~/.n8n:/home/node/.n8n
+      # ALTERAÇÃO: Trocado o bind mount por um volume nomeado para maior estabilidade e evitar problemas de permissão.
+      - n8n_data:/home/node/.n8n
     environment:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
@@ -51,7 +52,10 @@ services:
       - ./frontend:/frontend
       - node_modules_frontend:/frontend/node_modules
     working_dir: /frontend
+
 volumes:
   node_modules_frontend:
   pgdata:
-  hapipgdata:
+  # ADIÇÃO: O volume para o n8n precisa ser declarado aqui.
+  n8n_data:
+  # REMOÇÃO: hapipgdata foi removido pois não estava sendo utilizado.
