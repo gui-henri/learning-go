@@ -15,14 +15,14 @@
       "type": "n8n-nodes-base.microsoftOutlookTrigger",
       "typeVersion": 1,
       "position": [
-        -176,
-        0
+        -3120,
+        448
       ],
-      "id": "6b0c260d-f0c8-459c-97a6-2872336efe55",
+      "id": "527fca47-d07b-4434-ab43-5d142933ed67",
       "name": "Microsoft Outlook Trigger",
       "credentials": {
         "microsoftOutlookOAuth2Api": {
-          "id": "S7uC66cr9DHod0tW",
+          "id": "7W5TDaXGauh2OBzL",
           "name": "Microsoft Outlook account"
         }
       }
@@ -30,21 +30,21 @@
     {
       "parameters": {
         "chatId": "8436440465",
-        "text": "=**Um email acaba de chegar. Ele foi considerado não relevante e foi ignorado.**\n\nAssunto: {{ $json.subject }}\nDe: {{ $json.from }}\nPreview: {{ $json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
+        "text": "=**Um email acaba de chegar. Ele foi considerado não relevante e foi ignorado.**\n\nAssunto: {{ $('Microsoft Outlook Trigger').item.json.subject }}\nDe: {{ $('Microsoft Outlook Trigger').item.json.from }}\nPreview: {{ $('Microsoft Outlook Trigger').item.json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        368,
-        80
+        -2352,
+        512
       ],
-      "id": "9403aa63-812c-4ab9-a00f-7f5991de7405",
+      "id": "b02df67c-c56d-40f2-b6d6-4434c85e1242",
       "name": "Apenas avisa que algo chegou mas foi ignorado",
       "webhookId": "16c0a8a4-fbfb-492c-9d79-fdd16ce23179",
       "credentials": {
         "telegramApi": {
-          "id": "TPvBmNXYdJpSGb9Q",
+          "id": "0UCasPM0OYtZP1Gu",
           "name": "Telegram account"
         }
       }
@@ -55,7 +55,7 @@
         "operation": "getAll",
         "messageId": {
           "__rl": true,
-          "value": "={{ $json.id }}",
+          "value": "={{ $('Microsoft Outlook Trigger').item.json.id }}",
           "mode": "id"
         },
         "options": {}
@@ -63,15 +63,15 @@
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        912,
-        -112
+        -1808,
+        320
       ],
-      "id": "7651ebe3-10b7-46e9-aab9-462a605688de",
+      "id": "25548ce6-3de9-4ffa-a534-0d8f145a89be",
       "name": "Get many attachments",
       "webhookId": "14d226b1-3859-4b51-bbf4-d4730cc55955",
       "credentials": {
         "microsoftOutlookOAuth2Api": {
-          "id": "S7uC66cr9DHod0tW",
+          "id": "7W5TDaXGauh2OBzL",
           "name": "Microsoft Outlook account"
         }
       }
@@ -84,10 +84,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1104,
-        -112
+        -1616,
+        320
       ],
-      "id": "2d067766-bf0d-4ee7-8023-ca6727d8540a",
+      "id": "78c4c6ae-cefa-4c16-9124-7fa9e031d865",
       "name": "Code in JavaScript"
     },
     {
@@ -169,10 +169,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        1280,
-        -128
+        -1440,
+        304
       ],
-      "id": "6c76e6e4-97d5-41a4-8650-650b9f4aacd6",
+      "id": "1a8946a0-27d4-489c-827e-29c475f17f84",
       "name": "Switch"
     },
     {
@@ -184,15 +184,15 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2816,
-        -304
+        96,
+        128
       ],
-      "id": "82a39f98-3814-41af-8b4b-05a06fcc06da",
+      "id": "4618e8fe-da8f-4416-abda-3c93cc5a3535",
       "name": "Mensagem avisando sobre boleto",
       "webhookId": "53ce3aa8-3868-42b4-b39f-8dcad5e59f88",
       "credentials": {
         "telegramApi": {
-          "id": "TPvBmNXYdJpSGb9Q",
+          "id": "0UCasPM0OYtZP1Gu",
           "name": "Telegram account"
         }
       }
@@ -200,21 +200,21 @@
     {
       "parameters": {
         "chatId": "8436440465",
-        "text": "=**Um email acaba de chegar. Ele contém uma nota fiscal que já foi enviada ao ClickSign. Verifique caso se trate de um erro.**  \n\nArquivos:{{ $json.input.map(item => \" \" + item.json.name) }}\n\nAssunto: {{ $('Microsoft Outlook Trigger').first().json.subject }}\nDe: {{ $('Microsoft Outlook Trigger').first().json.from }}\nPreview: {{ $('Microsoft Outlook Trigger').first().json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
+        "text": "=**Um email acaba de chegar. Ele contém uma nota fiscal que já foi enviada ao ClickSign. Verifique caso se trate de um erro.**  \n\nArquivos:{{ $json.input.map(item => \" \" + item.json.name) }}\n\n\nAssunto: {{ $('Microsoft Outlook Trigger').first().json.subject }}\nDe: {{ $('Microsoft Outlook Trigger').first().json.from }}\nPreview: {{ $('Microsoft Outlook Trigger').first().json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3232,
-        -224
+        512,
+        208
       ],
-      "id": "8665ba1f-f7e5-49a3-9663-619fbf87e3f5",
+      "id": "fccf0c75-e762-4157-946f-e4781aebc016",
       "name": "Mensagem sobre nota fiscal",
       "webhookId": "73295dd7-3e5f-4dec-a073-9e428c87a3df",
       "credentials": {
         "telegramApi": {
-          "id": "TPvBmNXYdJpSGb9Q",
+          "id": "0UCasPM0OYtZP1Gu",
           "name": "Telegram account"
         }
       }
@@ -222,21 +222,21 @@
     {
       "parameters": {
         "chatId": "8436440465",
-        "text": "=**Um email acaba de chegar. Ele possívelmente contém uma nota ou boleto, mas não conseguimos indentificar qual arquivo enviar ao ClickSign.\n\nAssunto: {{ $('Microsoft Outlook Trigger').item.json.subject }}\nDe: {{ $('Microsoft Outlook Trigger').item.json.from }}\n\nAnexo: {{ $('Get many attachments').item.json.name }}\n\nPreview: {{ $('Microsoft Outlook Trigger').item.json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
+        "text": "=**Um email acaba de chegar. Ele possívelmente contém uma nota ou boleto, mas não conseguimos indentificar qual arquivo enviar ao ClickSign.\n\nAssunto: {{ $('Microsoft Outlook Trigger').first().json.subject }}\nDe: {{ $('Microsoft Outlook Trigger').first().json.from }}\n\nAnexo: {{ $json.input.map(item => \" \" + item.json.name) }}\n\nPreview: {{ $('Microsoft Outlook Trigger').first().json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2496,
-        -16
+        -224,
+        416
       ],
-      "id": "46f47ac5-cb89-4a17-b3b8-a6d7f184d85b",
+      "id": "f8b8c756-a720-4743-ba7a-a90f296d7f74",
       "name": "Mensagem sobre não saber o tipo de arquivo",
       "webhookId": "73295dd7-3e5f-4dec-a073-9e428c87a3df",
       "credentials": {
         "telegramApi": {
-          "id": "TPvBmNXYdJpSGb9Q",
+          "id": "0UCasPM0OYtZP1Gu",
           "name": "Telegram account"
         }
       }
@@ -349,10 +349,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        16,
-        0
+        -2704,
+        432
       ],
-      "id": "6279f1ee-423c-4088-bc3b-a30797031336",
+      "id": "aaa571ec-2b1e-4bc8-bb7d-f6ce8011eaaa",
       "name": "Checa se é uma nota ou boleto"
     },
     {
@@ -362,46 +362,200 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        1776,
-        -128
+        -944,
+        304
       ],
-      "id": "8f90343a-9431-4509-999f-6b602f55be3c",
+      "id": "24d0af15-d6f3-4b3a-ac32-822e7887fe32",
       "name": "Merge"
     },
     {
       "parameters": {
-        "jsCode": "let quantNotas = 0;\nlet quantBoletos = 0;\nlet quantOutros = 0;\nlet boletos = []\nlet notas = []\nlet outros = []\n\nfor (const item of $input.all()) {\n  if (item.json.tipo === \"boleto\") {\n    quantBoletos += 1;\n    boletos.push(item.json.name);\n  }\n  if (item.json.tipo === \"nota\") {\n    quantNotas += 1;\n    notas.push(item.json.name);\n  }\n  if (item.json.tipo === \"outro\") {\n    quantOutros += 1;\n    outros.push(item.json.name)\n  }\n}\n\nreturn {\n  input: $input.all(),\n  quantNotas,\n  quantBoletos,\n  quantOutros,\n  outros,\n  boletos,\n  notas\n};"
+        "jsCode": "let quantNotas = 0;\nlet quantBoletos = 0;\nlet quantOutros = 0;\nlet boletos = []\nlet notas = []\nlet outros = []\n\nfor (const item of $input.all()) {\n  if (item.json.tipo === \"nota\") {\n    quantNotas += 1;\n    notas.push(item.json.name);\n  }\n  else if (item.json.tipo === \"boleto\") {\n    quantBoletos += 1;\n    boletos.push(item.json.name);\n  }\n  else if (item.json.tipo === \"outro\") {\n    quantOutros += 1;\n    outros.push(item.json.name)\n  }\n}\n\nreturn {\n  input: $input.all(),\n  quantNotas,\n  quantBoletos,\n  quantOutros,\n  outros,\n  boletos,\n  notas\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2016,
-        -112
+        -704,
+        320
       ],
-      "id": "a515fbb6-7d71-4629-9c18-87f22bc461bd",
+      "id": "752bc75e-683e-4733-b60b-e0ae08288c5a",
       "name": "Code in JavaScript1"
     },
     {
       "parameters": {
         "chatId": "8436440465",
-        "text": "=**Um email acaba de chegar. Ele provavelmente contém informações sobre uma nota, mas não contém anexos. Verifique se ele possui algum link relevante ou acesso a um portal.**\n\nAssunto: {{ $json.subject }}\nDe: {{ $json.from }}\nPreview: {{ $json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
+        "text": "=**Um email acaba de chegar. Ele provavelmente contém informações sobre uma nota, mas não contém anexos. Verifique se ele possui algum link relevante ou acesso a um portal.**\n\nAssunto: {{ $('Microsoft Outlook Trigger').item.json.subject }}\nDe: {{ $('Microsoft Outlook Trigger').item.json.from }}\nPreview: {{ $('Microsoft Outlook Trigger').item.json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        912,
-        96
+        -1808,
+        528
       ],
-      "id": "87b24643-e567-4df7-a03c-cc11f510dffc",
+      "id": "7ce95ca1-afbd-4fe7-9daa-cc00432cacfa",
       "name": "Avisa que email sem anexo chegou",
       "webhookId": "8a4fc069-9b57-46a2-ba8c-9c16e4e61567",
       "credentials": {
         "telegramApi": {
-          "id": "TPvBmNXYdJpSGb9Q",
+          "id": "0UCasPM0OYtZP1Gu",
           "name": "Telegram account"
         }
       }
+    },
+    {
+      "parameters": {
+        "chatId": "8436440465",
+        "text": "=**Um email acaba de chegar. Ele contém um conjunto de nota fiscal e boleto. Eles já foram enviados ao ClickSign. Verifique caso se trate de um erro.**  \n\nArquivos:{{ $json.input.map(item => \" \" + item.json.name) }}\n\nAssunto: {{ $('Microsoft Outlook Trigger').first().json.subject }}\nDe: {{ $('Microsoft Outlook Trigger').first().json.from }}\nPreview: {{ $('Microsoft Outlook Trigger').first().json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        512,
+        432
+      ],
+      "id": "a4f4ae70-fac0-42ce-8f76-ca6f0b93e099",
+      "name": "Mensagem avisando que chegaram notas e boletos",
+      "webhookId": "73295dd7-3e5f-4dec-a073-9e428c87a3df",
+      "credentials": {
+        "telegramApi": {
+          "id": "0UCasPM0OYtZP1Gu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toRecipients": "={{ $json.from }}",
+        "subject": "Resposta sobre pagamento",
+        "bodyContent": "Confirmo o recebimento do documento. Estou encaminhando para o financeiro.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        -2352,
+        336
+      ],
+      "id": "ecd8584a-ed4e-4f3b-8ade-9635aa054d29",
+      "name": "Send a message",
+      "webhookId": "77633e10-4789-42f4-afd2-1a18b097d9eb",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "7W5TDaXGauh2OBzL",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e747ad55-ad74-4571-9ef9-35fd778b39c6",
+              "leftValue": "={{ $('Microsoft Outlook Trigger').item.json.hasAttachments }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2128,
+        336
+      ],
+      "id": "52053ea5-5ba4-4c04-9227-831b3fb08b1f",
+      "name": "hasAttachments"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "684a1ed2-487c-41a9-b084-54616b156d69",
+              "leftValue": "={{ $json.from }}",
+              "rightValue": "guilherme.freitas@interne.com.br",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2912,
+        448
+      ],
+      "id": "5a53b6c0-fd37-4e1e-8f6a-81dbdcd4a3d4",
+      "name": "Has Same email as user"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "323304b6-ae90-459b-8812-87c3ac44b8ae",
+              "leftValue": "={{ $json.quantNotas }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "d9d9e63a-b9a9-416a-82e6-394fb41154d1",
+              "leftValue": "={{ $json.quantBoletos }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -496,
+        320
+      ],
+      "id": "6d8c2186-c704-4338-b62b-6d15d7695212",
+      "name": "há nota ou boleto?"
     },
     {
       "parameters": {
@@ -439,11 +593,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2496,
-        -224
+        -224,
+        208
       ],
-      "id": "35f6ceaa-afe8-40b4-be0d-21d74a0ee0fb",
-      "name": "Se há boleto mas não nota"
+      "id": "1bd39f1b-11e9-40f2-b371-01c67c3eb732",
+      "name": "Se houver boleto mas não nota"
     },
     {
       "parameters": {
@@ -481,132 +635,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2816,
-        -96
+        96,
+        336
       ],
-      "id": "955f6a33-02fc-49ec-85a8-224afc90d3a3",
-      "name": "Se há nota, mas não boleto"
-    },
-    {
-      "parameters": {
-        "chatId": "8436440465",
-        "text": "=**Um email acaba de chegar. Ele contém um conjunto de nota fiscal e boleto. Eles já foram enviados ao ClickSign. Verifique caso se trate de um erro.**  \n\nArquivos:{{ $json.input.map(item => \" \" + item.json.name) }}\n\nAssunto: {{ $('Microsoft Outlook Trigger').first().json.subject }}\nDe: {{ $('Microsoft Outlook Trigger').first().json.from }}\nPreview: {{ $('Microsoft Outlook Trigger').first().json.bodyPreview.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(\"Visualizar este e-mail como página web\", \"\").replace(\"       \", \" \") }}",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        3232,
-        0
-      ],
-      "id": "682e5d1b-41e8-4096-8960-8fc4acf4668c",
-      "name": "Mensagem avisando que chegaram notas e boletos",
-      "webhookId": "73295dd7-3e5f-4dec-a073-9e428c87a3df",
-      "credentials": {
-        "telegramApi": {
-          "id": "TPvBmNXYdJpSGb9Q",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "toRecipients": "={{ $json.to[0] }}",
-        "subject": "Resposta sobre pagamento",
-        "bodyContent": "Confirmo o recebimento do documento. Estou encaminhando para o financeiro.",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.microsoftOutlook",
-      "typeVersion": 2,
-      "position": [
-        368,
-        -96
-      ],
-      "id": "d626c917-e99e-4a1c-a249-2b9819ac3b05",
-      "name": "Send a message",
-      "webhookId": "77633e10-4789-42f4-afd2-1a18b097d9eb",
-      "credentials": {
-        "microsoftOutlookOAuth2Api": {
-          "id": "S7uC66cr9DHod0tW",
-          "name": "Microsoft Outlook account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "e747ad55-ad74-4571-9ef9-35fd778b39c6",
-              "leftValue": "={{ $json.hasAttachments }}",
-              "rightValue": "true",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        592,
-        -96
-      ],
-      "id": "0bf417b1-0d0f-435f-844f-5872bae47a23",
-      "name": "hasAttachments"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "323304b6-ae90-459b-8812-87c3ac44b8ae",
-              "leftValue": "={{ $json.quantNotas }}",
-              "rightValue": 0,
-              "operator": {
-                "type": "number",
-                "operation": "equals"
-              }
-            },
-            {
-              "id": "d9d9e63a-b9a9-416a-82e6-394fb41154d1",
-              "leftValue": "={{ $json.quantBoletos }}",
-              "rightValue": 0,
-              "operator": {
-                "type": "number",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        2224,
-        -112
-      ],
-      "id": "49039a06-b781-4f36-aca1-d0ab2a3efb6e",
-      "name": "se não sei se há nota ou boleto"
+      "id": "1f8c691d-f990-43ea-9143-d63bdd8a1b43",
+      "name": "se houver nota mas não boleto"
     }
   ],
   "connections": {
@@ -614,7 +647,7 @@
       "main": [
         [
           {
-            "node": "Checa se é uma nota ou boleto",
+            "node": "Has Same email as user",
             "type": "main",
             "index": 0
           }
@@ -668,11 +701,6 @@
         ]
       ]
     },
-    "Mensagem sobre não saber o tipo de arquivo": {
-      "main": [
-        []
-      ]
-    },
     "Checa se é uma nota ou boleto": {
       "main": [
         [
@@ -706,43 +734,7 @@
       "main": [
         [
           {
-            "node": "se não sei se há nota ou boleto",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Se há boleto mas não nota": {
-      "main": [
-        [
-          {
-            "node": "Mensagem avisando sobre boleto",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Se há nota, mas não boleto",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Se há nota, mas não boleto": {
-      "main": [
-        [
-          {
-            "node": "Mensagem sobre nota fiscal",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Mensagem avisando que chegaram notas e boletos",
+            "node": "há nota ou boleto?",
             "type": "main",
             "index": 0
           }
@@ -778,11 +770,22 @@
         ]
       ]
     },
-    "se não sei se há nota ou boleto": {
+    "Has Same email as user": {
       "main": [
         [
           {
-            "node": "Se há boleto mas não nota",
+            "node": "Checa se é uma nota ou boleto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "há nota ou boleto?": {
+      "main": [
+        [
+          {
+            "node": "Se houver boleto mas não nota",
             "type": "main",
             "index": 0
           }
@@ -795,11 +798,47 @@
           }
         ]
       ]
+    },
+    "Se houver boleto mas não nota": {
+      "main": [
+        [
+          {
+            "node": "Mensagem avisando sobre boleto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "se houver nota mas não boleto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "se houver nota mas não boleto": {
+      "main": [
+        [
+          {
+            "node": "Mensagem sobre nota fiscal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mensagem avisando que chegaram notas e boletos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "pinData": {},
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "f5fee10fec9987a148cf4bc248241ed9d3bf22539ef313541cbf4aab52cddf2e"
+    "instanceId": "909023f97f59c39e7274696c75691f5239c576c7d7e0c1ae64d95f070486c7d1"
   }
 }
