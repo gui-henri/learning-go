@@ -36,7 +36,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -2352,
+        -2448,
         512
       ],
       "id": "b02df67c-c56d-40f2-b6d6-4434c85e1242",
@@ -63,7 +63,7 @@
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        -1808,
+        -1968,
         320
       ],
       "id": "25548ce6-3de9-4ffa-a534-0d8f145a89be",
@@ -84,7 +84,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1616,
+        -1776,
         320
       ],
       "id": "78c4c6ae-cefa-4c16-9124-7fa9e031d865",
@@ -169,7 +169,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        -1440,
+        -1600,
         304
       ],
       "id": "1a8946a0-27d4-489c-827e-29c475f17f84",
@@ -184,8 +184,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        96,
-        128
+        -256,
+        32
       ],
       "id": "4618e8fe-da8f-4416-abda-3c93cc5a3535",
       "name": "Mensagem avisando sobre boleto",
@@ -206,8 +206,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        512,
-        208
+        -256,
+        240
       ],
       "id": "fccf0c75-e762-4157-946f-e4781aebc016",
       "name": "Mensagem sobre nota fiscal",
@@ -228,7 +228,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -224,
+        -768,
         416
       ],
       "id": "f8b8c756-a720-4743-ba7a-a90f296d7f74",
@@ -362,7 +362,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -944,
+        -1424,
         304
       ],
       "id": "24d0af15-d6f3-4b3a-ac32-822e7887fe32",
@@ -375,7 +375,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -704,
+        -1248,
         320
       ],
       "id": "752bc75e-683e-4733-b60b-e0ae08288c5a",
@@ -390,7 +390,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -1808,
+        -1968,
         528
       ],
       "id": "7ce95ca1-afbd-4fe7-9daa-cc00432cacfa",
@@ -412,7 +412,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        512,
+        -256,
         432
       ],
       "id": "a4f4ae70-fac0-42ce-8f76-ca6f0b93e099",
@@ -435,7 +435,7 @@
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        -2352,
+        -2448,
         336
       ],
       "id": "ecd8584a-ed4e-4f3b-8ade-9635aa054d29",
@@ -476,7 +476,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2128,
+        -2224,
         336
       ],
       "id": "52053ea5-5ba4-4c04-9227-831b3fb08b1f",
@@ -551,7 +551,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -496,
+        -1040,
         320
       ],
       "id": "6d8c2186-c704-4338-b62b-6d15d7695212",
@@ -593,7 +593,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -224,
+        -768,
         208
       ],
       "id": "1bd39f1b-11e9-40f2-b371-01c67c3eb732",
@@ -635,11 +635,198 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        96,
+        -512,
         336
       ],
       "id": "1f8c691d-f990-43ea-9143-d63bdd8a1b43",
       "name": "se houver nota mas não boleto"
+    },
+    {
+      "parameters": {
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "{{access_token}}"
+            },
+            {
+              "name": "accept",
+              "value": "application/vnd.api+json"
+            },
+            {
+              "name": "Accept",
+              "value": "application/vnd.api+json"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/vnd.api+json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        32,
+        240
+      ],
+      "id": "f4d7e77c-ca4b-40d4-bfc3-125fcecaf01b",
+      "name": "Get Envelopes"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c5933e5c-b7cc-484a-972c-01d4293a3b5f",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        240
+      ],
+      "id": "3370c4f0-e474-43bc-99ec-91da0ee76c80",
+      "name": "há um envelope aberto?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelopeid/documents",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "body": "0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        768,
+        64
+      ],
+      "id": "28b37b0c-d89f-45c6-a58a-da9540c8cc94",
+      "name": "Salva no primeiro envelope aberto"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "SSOOOON"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        256
+      ],
+      "id": "4a1bd3d5-da14-48dc-9297-5a9345666bbd",
+      "name": "Cria um envelope"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelope_id/signers",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "body": "0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        976,
+        64
+      ],
+      "id": "b74cc85a-f350-4182-ac3b-351050087a45",
+      "name": "Adiciona Signatário"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelopeid/requirements",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "body": "0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1184,
+        64
+      ],
+      "id": "a1999d6e-a5d0-4a6c-9100-5dfbb50e3ba4",
+      "name": "Adiciona Requisitos"
     }
   ],
   "connections": {
@@ -701,6 +888,28 @@
         ]
       ]
     },
+    "Mensagem avisando sobre boleto": {
+      "main": [
+        [
+          {
+            "node": "Get Envelopes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensagem sobre nota fiscal": {
+      "main": [
+        [
+          {
+            "node": "Get Envelopes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Checa se é uma nota ou boleto": {
       "main": [
         [
@@ -735,6 +944,17 @@
         [
           {
             "node": "há nota ou boleto?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensagem avisando que chegaram notas e boletos": {
+      "main": [
+        [
+          {
+            "node": "Get Envelopes",
             "type": "main",
             "index": 0
           }
@@ -829,6 +1049,68 @@
         [
           {
             "node": "Mensagem avisando que chegaram notas e boletos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Envelopes": {
+      "main": [
+        [
+          {
+            "node": "há um envelope aberto?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "há um envelope aberto?": {
+      "main": [
+        [
+          {
+            "node": "Salva no primeiro envelope aberto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Cria um envelope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Salva no primeiro envelope aberto": {
+      "main": [
+        [
+          {
+            "node": "Adiciona Signatário",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cria um envelope": {
+      "main": [
+        [
+          {
+            "node": "Salva no primeiro envelope aberto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adiciona Signatário": {
+      "main": [
+        [
+          {
+            "node": "Adiciona Requisitos",
             "type": "main",
             "index": 0
           }
