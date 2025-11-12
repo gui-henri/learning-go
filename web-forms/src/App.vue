@@ -24,7 +24,7 @@ const value = ref<typeof frameworks[0]>()
     Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
     documentation.
   </p>
-  <Card class="p-6">
+  <Card>
     <h2>Card box</h2>
     <Input />
     <div class="flex items-center gap-2 ">
