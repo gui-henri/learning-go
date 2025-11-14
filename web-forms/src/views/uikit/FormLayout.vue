@@ -52,6 +52,13 @@ const selectedGender = ref(null);
                                 <InputGroupAddon>cm</InputGroupAddon>
                             </InputGroup>
                         </div>
+                        <div class="flex flex-wrap gap-2 w-28">
+                            <label for="zip">Idade</label>
+                            <InputGroup>
+                                <InputText id="age" type="text" maxlength="3" placeholder="32"/>
+                                <InputGroupAddon>anos</InputGroupAddon>
+                            </InputGroup>
+                        </div>
                     </div>
 
                     <div class="flex flex-wrap gap-2 lg:w-40">
