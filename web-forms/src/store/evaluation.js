@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue';
 
-export const useEvaluationStore = defineStore('evaluation', () => {
-    const evaluation = ref({
+export const evaluationModel = {
         genero: null,
         complexidade: null,
         peso: null,
@@ -10,7 +9,10 @@ export const useEvaluationStore = defineStore('evaluation', () => {
         nome_paciente: null,
         idade: null,
         previsao_alta: null
-    })
+    }
+
+export const useEvaluationStore = defineStore('evaluation', () => {
+    const evaluation = ref(evaluationModel)
 
     function setGenero(genero) {
         evaluation.value.genero = genero
