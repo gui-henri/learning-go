@@ -7,6 +7,14 @@ const genero = ref([
     
 ]);
 
+const complexidade = ref([
+    { name: 'Baixa', code: 'baixa' },
+    { name: 'Média', code: 'media' },
+    { name: 'Alta', code: 'alta' }
+    
+]);
+
+const selectedComplexidade = ref(null);
 const selectedGender = ref(null);
 </script>
 
@@ -22,7 +30,7 @@ const selectedGender = ref(null);
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-wrap gap-2 w-full">
                         <label for="lastname2">Nome completo</label>
-                        <InputText id="lastname2" type="text" placeholder="GLAUBERTHY"/>
+                        <InputText id="lastname2" type="text" placeholder="Glauberthy glauberthy"/>
                     </div>
                 </div>
 
@@ -31,19 +39,25 @@ const selectedGender = ref(null);
                         <label for="state">Gênero</label>
                         <Select id="state" v-model="selectedGender" :options="genero" optionLabel="name" placeholder="Selecione Gênero" class="w-full"></Select>
                     </div>
-                    <div class="flex flex-wrap gap-2 w-full">
+                    <div class="flex flex-wrap gap-2 w-72">
                         <label for="zip">Peso</label>
-                        <InputText id="zip" type="text" />
+                        <InputGroup>
+                            <InputText id="weight" type="text" maxlength="3"/>
+                            <InputGroupAddon>kg</InputGroupAddon>
+                        </InputGroup>
                     </div>
 
-                     <div class="flex flex-wrap gap-2 w-full">
+                     <div class="flex flex-wrap gap-2 w-72">
                         <label for="zip">Altura</label>
-                        <InputText id="zip" type="text" />
+                        <InputGroup>
+                            <InputText id="height" type="text" maxlength="3"/>
+                            <InputGroupAddon>cm</InputGroupAddon>
+                        </InputGroup>
                     </div>
 
-                     <div class="flex flex-wrap gap-2 w-full">
-                        <label for="zip">Zip</label>
-                        <InputText id="zip" type="text" />
+                    <div class="flex flex-wrap gap-2 w-full">
+                        <label for="state">Complexidade</label>
+                        <Select id="state" v-model="selectedComplexidade" :options="complexidade" optionLabel="name" placeholder="Selecione Complexidade" class="w-full"></Select>
                     </div>
 
                 </div>
