@@ -61,11 +61,7 @@ const complexidade = ref([
                             </InputGroup>
                         </div>
                         <div class="flex flex-col gap-2"> <label for="zip">Previsão de alta?</label>
-                         <InputSwitch v-model="checked" />
-                    </div>
-                     <div class="flex flex-col md:flex-row gap-4 flex-wrap">
-                       <label for="zip">Previsão de alta?</label>
-                        <InputSwitch v-model="store.previsao_alta" />
+                         <InputSwitch v-model="store.evaluation.previsao_alta" />
                     </div>
                     <div class="flex flex-wrap gap-2 lg:w-40">
                         <label for="state">Complexidade</label>
@@ -95,6 +91,7 @@ const complexidade = ref([
 
                 </div>
 
+            </div>
             </div>
         </div>
     </Fluid>
