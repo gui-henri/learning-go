@@ -60,7 +60,12 @@ const selectedGender = ref(null);
                             </InputGroup>
                         </div>
                     </div>
+                     <div class="flex flex-col md:flex-row gap-4 flex-wrap">
+                       <label for="zip">Previsão de alta?</label>
+                            <InputSwitch v-model="checked" />
+                        
 
+                    </div>
                     <div class="flex flex-wrap gap-2 lg:w-40">
                         <label for="state">Complexidade</label>
                         <Select id="state" v-model="selectedComplexidade" :options="complexidade" optionLabel="name" placeholder="Selecione" class="w-full"></Select>
