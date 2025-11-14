@@ -1,6 +1,8 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
 import Aura from '@primeuix/themes/aura';
 import PrimeVue from 'primevue/config';
@@ -12,8 +14,12 @@ import '@/assets/tailwind.css';
 import '@/assets/styles.scss';
 
 const app = createApp(App);
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+
 
 app.use(router);
+
 
 const Interne = definePreset(Aura, {
     semantic: {
@@ -32,4 +38,5 @@ app.use(PrimeVue, {
 app.use(ToastService);
 app.use(ConfirmationService);
 
+app.use(pinia)
 app.mount('#app');
