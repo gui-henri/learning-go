@@ -1,7 +1,7 @@
-<script setup lang="ts">
-  import General  from "@/components/sections/general.vue";
-</script>
+<script setup></script>
 
 <template>
-  <General />
+    <router-view />
 </template>
+
+<style scoped></style>
