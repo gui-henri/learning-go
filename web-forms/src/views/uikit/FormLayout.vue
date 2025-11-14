@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue';
+import { useEvaluationStore } from '@/store/evaluation'
+
+const store = useEvaluationStore();
 
 const genero = ref([
     { name: 'Feminino', code: 'feminino' },
@@ -14,8 +17,6 @@ const complexidade = ref([
     
 ]);
 
-const selectedComplexidade = ref(null);
-const selectedGender = ref(null);
 </script>
 
 <template>
@@ -27,20 +28,20 @@ const selectedGender = ref(null);
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-wrap gap-2 w-full">
                         <label for="lastname2">Nome completo</label>
-                        <InputText id="lastname2" type="text" placeholder="Glauberthy glauberthy"/>
+                        <InputText id="lastname2" v-model="store.evaluation.nome_paciente" type="text" placeholder="Glauberthy glauberthy"/>
                     </div>
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-4 flex-wrap">
                     <div class="flex flex-wrap gap-2 lg:w-40">
                         <label for="state">Gênero</label>
-                        <Select id="state" v-model="selectedGender" :options="genero" optionLabel="name" placeholder="Selecione" class="w-full"></Select>
+                        <Select id="state" v-model="store.evaluation.genero" :options="genero" optionLabel="name" placeholder="Selecione" class="w-full"></Select>
                     </div>
                     <div class="flex gap-4">
                         <div class="flex flex-wrap gap-2 w-24">
                             <label for="zip">Peso</label>
                             <InputGroup>
-                                <InputText id="weight" type="text" maxlength="3" placeholder="64"/>
+                                <InputText id="weight" v-model="store.evaluation.peso" type="text" maxlength="3" placeholder="64"/>
                                 <InputGroupAddon>kg</InputGroupAddon>
                             </InputGroup>
                         </div>
@@ -48,27 +49,25 @@ const selectedGender = ref(null);
                         <div class="flex flex-wrap gap-2 w-24">
                             <label for="zip">Altura</label>
                             <InputGroup>
-                                <InputText id="height" type="text" maxlength="3" placeholder="181"/>
+                                <InputText id="height" v-model="store.evaluation.altura" type="text" maxlength="3" placeholder="181"/>
                                 <InputGroupAddon>cm</InputGroupAddon>
                             </InputGroup>
                         </div>
                         <div class="flex flex-wrap gap-2 w-28">
                             <label for="zip">Idade</label>
                             <InputGroup>
-                                <InputText id="age" type="text" maxlength="3" placeholder="32"/>
+                                <InputText id="age" v-model="store.evaluation.idade" type="text" maxlength="3" placeholder="32"/>
                                 <InputGroupAddon>anos</InputGroupAddon>
                             </InputGroup>
                         </div>
                     </div>
                      <div class="flex flex-col md:flex-row gap-4 flex-wrap">
                        <label for="zip">Previsão de alta?</label>
-                            <InputSwitch v-model="checked" />
-                        
-
+                        <InputSwitch v-model="store.previsao_alta" />
                     </div>
                     <div class="flex flex-wrap gap-2 lg:w-40">
                         <label for="state">Complexidade</label>
-                        <Select id="state" v-model="selectedComplexidade" :options="complexidade" optionLabel="name" placeholder="Selecione" class="w-full"></Select>
+                        <Select id="state" v-model="store.evaluation.complexidade" :options="complexidade" optionLabel="name" placeholder="Selecione" class="w-full"></Select>
                     </div>
 
                 </div>
