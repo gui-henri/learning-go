@@ -7,7 +7,7 @@ const genero = ref([
     
 ]);
 
-const dropdownItem = ref(null);
+const selectedGender = ref(null);
 </script>
 
 <template>
@@ -29,16 +29,18 @@ const dropdownItem = ref(null);
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-wrap gap-2 w-full">
                         <label for="state">Gênero</label>
-                        <Select id="state" v-model="genero" :options="genero" optionLabel="name" placeholder="Selecione Gênero" class="w-full"></Select>
+                        <Select id="state" v-model="selectedGender" :options="genero" optionLabel="name" placeholder="Selecione Gênero" class="w-full"></Select>
                     </div>
                     <div class="flex flex-wrap gap-2 w-full">
                         <label for="zip">Peso</label>
                         <InputText id="zip" type="text" />
                     </div>
+
                      <div class="flex flex-wrap gap-2 w-full">
                         <label for="zip">Altura</label>
                         <InputText id="zip" type="text" />
                     </div>
+
                      <div class="flex flex-wrap gap-2 w-full">
                         <label for="zip">Zip</label>
                         <InputText id="zip" type="text" />
