@@ -24,14 +24,12 @@ const complexidade = ref([
         <div class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
             <div class="flex flex-col gap-4 w-full">
                 <h4 class="font-semibold text-xl">Dados Gerais</h4>
-
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full">
                         <label for="nome_paciente">Nome completo</label>
                         <InputText id="nome_paciente" v-model="store.evaluation.nome_paciente" type="text" placeholder="Glauberthy júnior"/>
                     </div>
                 </div>
-
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2  md:w-1/4">
                         <label for="genero">Gênero</label>
@@ -39,20 +37,17 @@ const complexidade = ref([
                     </div>
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="birthdate">Data de nascimento</label>
-                        <Calendar id="birthdate" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full"/>
+                        <Calendar id="birthdate" v-model="store.evaluation.dat_nascimento" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full"/>
                     </div>
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="birthdate">CPF</label>
-                        <inputText id="cpf"  placeholder="123.456.789-00"class="w-full"/>
+                        <inputText id="cpf" v-model="store.evaluation.cpf" placeholder="123.456.789-00"class="w-full"/>
                     </div>
-
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="birthdate">RG</label>
-                        <inputText id="rg" placeholder="12.123-456" class="w-full"/>
+                        <inputText id="rg" v-model="store.evaluation.rg" placeholder="12.123-456" class="w-full"/>
                     </div>
-
                 </div>
-
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="weight">Peso</label>
@@ -84,62 +79,45 @@ const complexidade = ref([
                         <InputSwitch id="previsao_alta" v-model="store.evaluation.previsao_alta" />
                     </div>
                 </div>
-
-            
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full">
                         <label for="nome_pai">Nome do pai</label>
-                        <InputText id="nome_pai" type="text" placeholder="Glauberthy glauberthy"/>
+                        <InputText id="nome_pai" v-model="store.evaluation.nome_pai" type="text" placeholder="Glauberthy glauberthy"/>
                     </div>
                 </div>
-
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full">
                         <label for="nome_mae">Nome da mãe</label>
-                        <InputText id="nome_mae" type="text" placeholder="Júlia silva"/>
+                        <InputText id="nome_mae" v-model="store.evaluation.nome_mae" type="text" placeholder="Júlia silva"/>
                     </div>
                 </div>
-
                 <div class="flex flex-col md:flex-row gap-4">
-
                     <div class="flex flex-col gap-2 w-full md:w-1/2">
                         <label for="nome_mae">Convenio médico</label>
-                        <InputText id="convenio" type="text" placeholder="Convenio médico xyz"/>
+                        <InputText id="convenio" v-model="store.evaluation.convenio" type="text" placeholder="Convenio médico xyz"/>
                     </div>
                     <div class="flex flex-col gap-2 w-full md:w-1/2" >
                         <label for="nome_mae">Hospital de internação</label>
-                        <InputText id="hospital" type="text" placeholder="Portugês"/>
+                        <InputText id="hospital" v-model="store.evaluation.hospital" type="text" placeholder="Portugês"/>
                     </div>
-
-
-
                 </div>
                   <div class="flex flex-col md:flex-row gap-4">
-
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="birthdate">Data de admissão</label>
-                        <Calendar id="admissao" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full"/>
+                        <Calendar id="admissao" v-model="store.evaluation.dat_admissao" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full"/>
                     </div>
                     <div class="flex flex-col gap-2 w-full md:w-1/4" >
                         <label for="nome_mae">Apartamento hospitalar</label>
-                        <InputText id="apartamento" type="text" placeholder="Portugês"/>
+                        <InputText id="apartamento" v-model="store.evaluation.apartamento" type="text" placeholder="Portugês"/>
                     </div>
-
-
-
-
                     <div class="flex flex-col gap-2 md:w-1/8" >
                         <label for="nome_mae">Nº Carteirinha</label>
-                        <InputText id="carteirinha " type="text" placeholder="198310293"/>
+                        <InputText id="carteirinha" v-model="store.evaluation.carteirinha" type="text" placeholder="198310293"/>
                     </div>
                     <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="birthdate">Data de validade da Carteirinha</label>
-                        <Calendar id="vencimento-carteirinha" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full"/>
+                        <Calendar id="vencimento-carteirinha" v-model="store.evaluation.vencimento_carteirinha" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full"/>
                     </div>
-                   
-
-
-
                 </div>
             </div>
         </div>

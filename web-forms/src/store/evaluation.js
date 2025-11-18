@@ -8,7 +8,18 @@ export const evaluationModel = {
         altura: null,
         nome_paciente: null,
         idade: null,
-        previsao_alta: null
+        previsao_alta: null,
+        dat_nascimento: null,
+        cpf: null,
+        rg: null,
+        nome_pai: null,
+        nome_mae: null,
+        convenio: null,
+        hospital: null,
+        dat_admissao: null,
+        apartamento: null,
+        carteirinha: null,
+        vencimento_carteirinha: null,
     }
 
 export const useEvaluationStore = defineStore('evaluation', () => {
@@ -42,6 +53,51 @@ export const useEvaluationStore = defineStore('evaluation', () => {
         evaluation.value.previsao_alta = previsaoAlta
     }
 
+    function setDatNascimento(dat_nascimento) {
+        evaluation.value.dat_nascimento = dat_nascimento
+    }
+
+    function setCpf(cpf) {
+        evaluation.value.cpf = cpf
+    }
+
+    function setRg(rg) {
+        evaluation.value.rg = rg
+    }
+
+    function setNomePai(nome_pai) {
+        evaluation.value.nome_pai = nome_pai
+    }
+
+    function setNomeMae(nome_mae) {
+        evaluation.value.nome_mae = nome_mae
+    }
+
+    function setConvenio(convenio) {
+        evaluation.value.convenio = convenio
+    }
+
+    function setHospital(hospital) {
+        evaluation.value.hospital = hospital
+    }
+
+    function setDatAdmissao(dat_admissao) {
+        evaluation.value.dat_admissao = dat_admissao
+    }
+
+    function setApartamento(apartamento) {
+        evaluation.value.apartamento = apartamento
+    }
+
+    function setCarteirinha(carteirinha) {
+        evaluation.value.carteirinha = carteirinha
+    }
+
+    function setVencimentoCarteirinha(vencimento_carteirinha) {
+        evaluation.value.vencimento_carteirinha = vencimento_carteirinha
+    }
+
+
     return {
         evaluation,
         setGenero,
@@ -50,7 +106,18 @@ export const useEvaluationStore = defineStore('evaluation', () => {
         setIdade,
         setNomePaciente,
         setPeso,
-        setPrevisaoAlta
+        setPrevisaoAlta,
+        setDatNascimento,
+        setCpf,
+        setRg,
+        setNomePai,
+        setNomeMae,
+        setConvenio,
+        setHospital,
+        setDatAdmissao,
+        setApartamento,
+        setCarteirinha,
+        setVencimentoCarteirinha
     }
 }, {
     persist: true

@@ -11,7 +11,7 @@ const model = ref([
     {
         label: 'Expansão',
         items: [
-            { label: 'Avaliação de paciente', icon: 'pi pi-fw pi-id-card', to: '/uikit/formlayout' },
+            { label: 'Avaliação de paciente', icon: 'pi pi-fw pi-id-card', to: '/avaliacao' },
         ]
     },
     // {
