@@ -65,6 +65,8 @@ const piccline = ref([
     { name: 'Triplolumen', code: 'triplolumen' }
 ]);
 
+
+
 </script>
 
 <template>
@@ -672,7 +674,7 @@ const piccline = ref([
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-4 border-t border-gray-200 pt-4">
+                <div class="flex flex-col gap-4 border-t pt-4">
                     <div class="flex flex-col md:flex-row gap-4 items-center">
                         <div class="flex flex-col gap-2 w-full md:w-1/6">
                             <label for="possui_dreno">Drenos?</label>
@@ -683,13 +685,13 @@ const piccline = ref([
                         </div>
                     </div>
 
-                    <div v-if="store.evaluation.possui_dreno" class="flex flex-col md:flex-row gap-4 bg-gray-50 p-4 rounded-lg">
+                    <div v-if="store.evaluation.possui_dreno" class="flex flex-col md:flex-row gap-4 p-4 rounded-lg">
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
                             <label for="local_dreno">Local do dreno</label>
                             <InputText 
                                 id="local_dreno" 
                                 v-model="store.evaluation.local_dreno" 
-                                placeholder="Local" 
+                                placeholder="Ex: Braço direito" 
                                 class="w-full"
                             />
                         </div>
@@ -714,336 +716,35 @@ const piccline = ref([
                         </div>
                     </div>
                 </div>
-
-                <div class="flex flex-col gap-4 border-t border-gray-200 pt-4">
-                    <h5 class="font-semibold text-lg text-gray-700">Acessos</h5>
-                    
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="possui_acessos">Possui acessos?</label>
-                        <Select 
-                            id="possui_acessos" 
-                            v-model="store.evaluation.possui_acessos" 
-                            :options="opcoes_binarias" 
-                            optionLabel="name" 
-                            placeholder="Selecione" 
-                            class="w-full"
-                        ></Select>
-                    </div>
-
-                    <div v-if="store.evaluation.possui_acessos === 1" class="flex flex-col gap-4 pl-2">
-
-                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <div class="flex flex-col gap-2 w-full md:w-1/4">
-                                    <label for="cateter_implantado">Cateter total implantado?</label>
-                                    <Select 
-                                        id="cateter_implantado" 
-                                        v-model="store.evaluation.cateter_implantado" 
-                                        :options="opcoes_binarias" 
-                                        optionLabel="name" 
-                                        placeholder="Selecione" 
-                                        class="w-full"
-                                    ></Select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
-                            <div class="flex flex-col md:flex-row gap-4 mb-2">
-                                <div class="flex flex-col gap-2 w-full md:w-1/4">
-                                    <label for="piccline">PiccLine?</label>
-                                    <Select 
-                                        id="piccline" 
-                                        v-model="store.evaluation.piccline" 
-                                        :options="opcoes_binarias" 
-                                        optionLabel="name" 
-                                        placeholder="Selecione" 
-                                        class="w-full"
-                                    ></Select>
-                                </div>
-                            </div>
-                            <template v-if="store.evaluation.piccline === 1">
-                                <div class="flex flex-col md:flex-row gap-4 mt-2">
-                                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                        <label for="tipo_piccline">Tipo</label>
-                                        <Select 
-                                            id="tipo_piccline" 
-                                            v-model="store.evaluation.tipo_piccline" 
-                                            :options="tipo_piccline" 
-                                            optionLabel="name" 
-                                            placeholder="Selecione" 
-                                            class="w-full"
-                                        ></Select>
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                        <label for="data_implante_piccline">Data implantação</label>
-                                        <Calendar 
-                                            id="data_implante_piccline" 
-                                            v-model="store.evaluation.data_implante_piccline" 
-                                            dateFormat="dd/mm/yy" 
-                                            placeholder="dd/mm/aaaa" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                        <label for="troca_piccline">Data última troca</label>
-                                        <Calendar 
-                                            id="troca_piccline" 
-                                            v-model="store.evaluation.troca_piccline" 
-                                            dateFormat="dd/mm/yy" 
-                                            placeholder="dd/mm/aaaa" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full flex-1">
-                                        <label for="curativo_piccline">Nome do curativo</label>
-                                        <InputText 
-                                            id="curativo_piccline" 
-                                            v-model="store.evaluation.curativo_piccline" 
-                                            placeholder="Curativo" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-
-                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
-                            <div class="flex flex-col md:flex-row gap-4 mb-2">
-                                <div class="flex flex-col gap-2 w-full md:w-1/4">
-                                    <label for="acesso_venoso_central">Acesso venoso central?</label>
-                                    <Select 
-                                        id="acesso_venoso_central" 
-                                        v-model="store.evaluation.acesso_venoso_central" 
-                                        :options="opcoes_binarias" 
-                                        optionLabel="name" 
-                                        placeholder="Selecione" 
-                                        class="w-full"
-                                    ></Select>
-                                </div>
-                            </div>
-                            <template v-if="store.evaluation.acesso_venoso_central === 1">
-                                <div class="flex flex-col md:flex-row gap-4 mt-2">
-                                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                        <label for="data_implante_avc">Data implantação</label>
-                                        <Calendar 
-                                            id="data_implante_avc" 
-                                            v-model="store.evaluation.data_implante_avc" 
-                                            dateFormat="dd/mm/yy" 
-                                            placeholder="dd/mm/aaaa" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                        <label for="troca_avc">Data última troca</label>
-                                        <Calendar 
-                                            id="troca_avc" 
-                                            v-model="store.evaluation.troca_avc" 
-                                            dateFormat="dd/mm/yy" 
-                                            placeholder="dd/mm/aaaa" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full md:w-1/4">
-                                        <label for="local_avc">Local do acesso</label>
-                                        <InputText 
-                                            id="local_avc" 
-                                            v-model="store.evaluation.local_avc" 
-                                            placeholder="Parte do corpo" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full flex-1">
-                                        <label for="curativo_avc">Nome do curativo</label>
-                                        <InputText 
-                                            id="curativo_avc" 
-                                            v-model="store.evaluation.curativo_avc" 
-                                            placeholder="Curativo" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-
-                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
-                            <div class="flex flex-col md:flex-row gap-4 mb-2">
-                                <div class="flex flex-col gap-2 w-full md:w-1/4">
-                                    <label for="acesso_venoso_periferico">Acesso venoso periférico?</label>
-                                    <Select 
-                                        id="acesso_venoso_periferico" 
-                                        v-model="store.evaluation.acesso_venoso_periferico" 
-                                        :options="opcoes_binarias" 
-                                        optionLabel="name" 
-                                        placeholder="Selecione" 
-                                        class="w-full"
-                                    ></Select>
-                                </div>
-                            </div>
-                            <template v-if="store.evaluation.acesso_venoso_periferico === 1">
-                                <div class="flex flex-col md:flex-row gap-4 mt-2">
-                                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                        <label for="troca_avp">Data última troca</label>
-                                        <Calendar 
-                                            id="troca_avp" 
-                                            v-model="store.evaluation.troca_avp" 
-                                            dateFormat="dd/mm/yy" 
-                                            placeholder="dd/mm/aaaa" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full md:w-1/4">
-                                        <label for="local_avp">Local do acesso</label>
-                                        <InputText 
-                                            id="local_avp" 
-                                            v-model="store.evaluation.local_avp" 
-                                            placeholder="Parte do corpo" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full flex-1">
-                                        <label for="curativo_avp">Nome do curativo</label>
-                                        <InputText 
-                                            id="curativo_avp" 
-                                            v-model="store.evaluation.curativo_avp" 
-                                            placeholder="Curativo" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-
-                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
-                            <div class="flex flex-col md:flex-row gap-4 mb-2">
-                                <div class="flex flex-col gap-2 w-full md:w-1/4">
-                                    <label for="hipodermoclise">Hipodermóclise?</label>
-                                    <Select 
-                                        id="hipodermoclise" 
-                                        v-model="store.evaluation.hipodermoclise" 
-                                        :options="opcoes_binarias" 
-                                        optionLabel="name" 
-                                        placeholder="Selecione" 
-                                        class="w-full"
-                                    ></Select>
-                                </div>
-                            </div>
-                            <template v-if="store.evaluation.hipodermoclise === 1">
-                                <div class="flex flex-col md:flex-row gap-4 mt-2">
-                                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                        <label for="troca_hipodermoclise">Data última troca</label>
-                                        <Calendar 
-                                            id="troca_hipodermoclise" 
-                                            v-model="store.evaluation.troca_hipodermoclise" 
-                                            dateFormat="dd/mm/yy" 
-                                            placeholder="dd/mm/aaaa" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full flex-1">
-                                        <label for="curativo_hipodermoclise">Nome do curativo</label>
-                                        <InputText 
-                                            id="curativo_hipodermoclise" 
-                                            v-model="store.evaluation.curativo_hipodermoclise" 
-                                            placeholder="Curativo" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-
-                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
-                            <div class="flex flex-col md:flex-row gap-4 mb-2">
-                                <div class="flex flex-col gap-2 w-full md:w-1/4">
-                                    <label for="outros_acessos">Outros acessos?</label>
-                                    <Select 
-                                        id="outros_acessos" 
-                                        v-model="store.evaluation.outros_acessos" 
-                                        :options="opcoes_binarias" 
-                                        optionLabel="name" 
-                                        placeholder="Selecione" 
-                                        class="w-full"
-                                    ></Select>
-                                </div>
-                            </div>
-                            <template v-if="store.evaluation.outros_acessos === 1">
-                                <div class="flex flex-col md:flex-row gap-4 mt-2">
-                                    <div class="flex flex-col gap-2 w-full md:w-1/3">
-                                        <label for="nome_outros_acessos">Nome do acesso</label>
-                                        <InputText 
-                                            id="nome_outros_acessos" 
-                                            v-model="store.evaluation.nome_outros_acessos" 
-                                            placeholder="Especifique" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                        <label for="data_outro_acesso">Data do acesso</label>
-                                        <Calendar 
-                                            id="data_outro_acesso" 
-                                            v-model="store.evaluation.data_outro_acesso" 
-                                            dateFormat="dd/mm/yy" 
-                                            placeholder="dd/mm/aaaa" 
-                                            class="w-full"
-                                        />
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-
-                    </div> 
-                </div>
-
-                <div class="flex flex-col gap-4 border-t border-gray-200 pt-4">
-                    <h5 class="font-semibold text-lg text-gray-700">Antimicrobianos</h5>
-
-                    <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex flex-col gap-4 border-t pt-4">
+                
                         <div class="flex flex-col gap-2 w-full md:w-1/6">
-                            <label for="uso_antimicrobiano">Uso Antimicrobiano?</label>
-                            <Select 
-                                id="uso_antimicrobiano" 
-                                v-model="store.evaluation.uso_antimicrobiano" 
-                                :options="opcoes_binarias" 
+                            <label for="possui_acessos">Acessos?</label>
+                            <InputSwitch 
+                                id="possui_acesso" 
+                                v-model="store.evaluation.possui_acesso" 
+                            />
+                        </div>
+                        </div>
+                        <div v-if="store.evaluation.possui_dreno" class="flex flex-col md:flex-row gap-4 p-4 rounded-lg">
+                            <div class="flex flex-col gap-2 w-full md:w-1/2">
+                                <label for="estado_geral">Estado geral</label>
+                                <Select 
+                                id="estado_geral" 
+                                v-model="store.evaluation.estado_geral" 
+                                :options="estado_geral" 
                                 optionLabel="name" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             ></Select>
-                        </div>
-                        
-                        <template v-if="store.evaluation.uso_antimicrobiano === 1">
-                            <div class="flex flex-col gap-2 w-full md:w-1/3">
-                                <label for="nome_antimicrobiano">Nome do antimicrobiano</label>
-                                <InputText 
-                                    id="nome_antimicrobiano" 
-                                    v-model="store.evaluation.nome_antimicrobiano" 
-                                    placeholder="Nome" 
-                                    class="w-full"
-                                />
                             </div>
-                            <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                <label for="inicio_antimicrobiano">Data de início</label>
-                                <Calendar 
-                                    id="inicio_antimicrobiano" 
-                                    v-model="store.evaluation.inicio_antimicrobiano" 
-                                    dateFormat="dd/mm/yy" 
-                                    placeholder="dd/mm/aaaa" 
-                                    class="w-full"
-                                />
-                            </div>
-                            <div class="flex flex-col gap-2 w-full md:w-1/6">
-                                <label for="termino_antimicrobiano">Data de término</label>
-                                <Calendar 
-                                    id="termino_antimicrobiano" 
-                                    v-model="store.evaluation.termino_antimicrobiano" 
-                                    dateFormat="dd/mm/yy" 
-                                    placeholder="dd/mm/aaaa" 
-                                    class="w-full"
-                                />
-                            </div>
-                        </template>
-                    </div>
+
+
+                
+                    
                 </div>
+
+               
 
             </div>
         </div>
