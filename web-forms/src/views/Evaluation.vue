@@ -9,6 +9,7 @@ import { useCuidadoresStore } from '@/store/evaluation/cuidadores';
 import { useSegurancaStore } from '@/store/evaluation/seguranca';
 import { useHistoricoStore } from '@/store/evaluation/historico';
 import { useExameFisicoStore } from '@/store/evaluation/exameFisico';
+import Cardiorrespiratório from '@/components/Evaluation/Cardiorrespiratório.vue';
 
 const dadosGeraisStore = useDadosGeraisStore();
 const enderecoStore = useEnderecoStore();
@@ -541,6 +542,7 @@ const piccline = ref([
                 </div>
             </div>
         </div>
+        <Cardiorrespiratório />
     </Fluid>
 </template>
 ```
