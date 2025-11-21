@@ -13,7 +13,7 @@ const enderecoStore = useEnderecoStore();
                 <h4 class="font-semibold text-xl">Endereço</h4>
 
                 <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex flex-col gap-2 w-full md:w-1/10">
+                    <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="cep">CEP</label>
                         <InputText 
                             id="cep" 
@@ -49,7 +49,7 @@ const enderecoStore = useEnderecoStore();
                             class="w-full"
                         />
                     </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/4">
+                    <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="logradoro">Logradoro</label>
                         <InputText 
                             id="logradoro" 
@@ -58,7 +58,7 @@ const enderecoStore = useEnderecoStore();
                             class="w-full"
                         />
                     </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/8">
+                    <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="numero-logradoro">Número</label>
                         <InputText 
                             id="numero-logradoro" 

@@ -67,10 +67,8 @@ const modalidadeOxigenioOpts = ref([
     <Fluid>
         <div class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
             <div class="flex flex-col gap-4 w-full">
-                
-                <h4 class="font-semibold text-xl">Avaliação Respiratória</h4>
 
-                <!-- Linha 1: Padrão e Via Aérea -->
+                <h4 class="font-semibold text-xl">Cardiorrespiratório</h4>
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/3">
                         <label for="padrao_respiratorio">Padrão respiratório <span class="text-red-500">*</span></label>
@@ -98,7 +96,6 @@ const modalidadeOxigenioOpts = ref([
                     </div>
                 </div>
 
-                <!-- Condicional: Detalhes Via Aérea Orotraqueal -->
                 <div v-if="respiratorioStore.respiratorio.via_aerea === 'orotraqueal'" class="flex flex-col md:flex-row gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="numero_tubo">Número do tubo</label>
@@ -124,7 +121,6 @@ const modalidadeOxigenioOpts = ref([
 
                 <div class="border-t my-2"></div>
 
-                <!-- Linha 2: Suporte Ventilatório -->
                 <div class="flex flex-col gap-2 w-full md:w-1/2">
                     <label for="suporte_ventilatorio">Suporte ventilatório <span class="text-red-500">*</span></label>
                     <Select 
@@ -138,7 +134,6 @@ const modalidadeOxigenioOpts = ref([
                     />
                 </div>
 
-                <!-- Condicional: Campos VNI -->
                 <div v-if="respiratorioStore.respiratorio.suporte_ventilatorio === 'vni'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
                     <h5 class="font-medium text-gray-700">Detalhes da VNI</h5>
                     
@@ -211,7 +206,6 @@ const modalidadeOxigenioOpts = ref([
 
                 <div class="border-t my-2"></div>
 
-                <!-- Linha 3: Oxigenioterapia -->
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="usa_oxigenioterapia">Oxigenioterapia?</label>
@@ -221,7 +215,6 @@ const modalidadeOxigenioOpts = ref([
                         />
                     </div>
 
-                    <!-- Condicional: Campos Oxigenioterapia -->
                     <div v-if="respiratorioStore.respiratorio.usa_oxigenioterapia" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                         <div class="flex flex-col md:flex-row gap-4">
                             <div class="flex flex-col gap-2 w-full md:w-1/4">

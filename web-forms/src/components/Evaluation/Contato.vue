@@ -14,7 +14,7 @@ const contatoStore = useContatoStore();
                 <h4 class="font-semibold text-xl">Contato</h4>
                 <p class="text-red-600">TODO: adicionar mais de um responsável</p>
                 <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex flex-col gap-2 w-full md:w-1/8">
+                    <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="telefone_residencial">Telefone residencial</label>
                         <InputText 
                             id="telefone_residencial" 
@@ -23,7 +23,7 @@ const contatoStore = useContatoStore();
                             class="w-full"
                         />
                     </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/8">
+                    <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="telefone_paciente">Telefone paciente</label>
                         <InputText 
                             id="telefone_paciente" 

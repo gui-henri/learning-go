@@ -21,7 +21,7 @@ const tipo_precaucao = ref([
 </script>
 
 <template>
-    <div class="flex flex-col gap-8"> 
+    
         
         <div class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
             <div class="flex flex-col gap-4 w-full">
@@ -88,7 +88,7 @@ const tipo_precaucao = ref([
                 </div>
             </div>
         </div>
-    </div>
+
 
         
 </template>
