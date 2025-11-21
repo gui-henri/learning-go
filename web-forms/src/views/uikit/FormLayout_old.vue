@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { useEvaluationStore } from '@/store/evaluation'
+import { useEvaluationStore } from '@/store/evaluation/dadosGerais'
 
 const store = useEvaluationStore();
 
