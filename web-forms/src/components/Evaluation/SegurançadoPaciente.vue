@@ -27,6 +27,7 @@ const tipo_precaucao = ref([
             <div class="flex flex-col gap-4 w-full">
                 
                 <h4 class="font-semibold text-xl">Segurança do paciente</h4>
+                <p class="text-red-600">TODO: É necessário outro termo para alergia atualmente </p>
 
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/10">
