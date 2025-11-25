@@ -24,12 +24,22 @@ const complexidade = ref([
 
 const handleSave = () => {
     activeIndex.value = null;
+    
+    setTimeout(() => {
+        const self = document.getElementById("dados-gerais");
+        if (self) {
+            self.scrollIntoView({ 
+                behavior: 'instant', 
+                block: 'start',
+            });
+        }
+    }, 0);
     emit('next-step');
 };
 </script>
 <template>
 
-<Accordion v-model:activeIndex="activeIndex" class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+<Accordion v-model:activeIndex="activeIndex" id="dados-gerais" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
     <AccordionTab>
     <template #header>
         <div class="flex items-center gap-3 w-full">
@@ -39,7 +49,7 @@ const handleSave = () => {
             <div class="flex flex-col text-left">
                 <h4 class="font-semibold text-xl p-0 m-0" id="dados-gerais">Dados Gerais</h4>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
-                    {{ isFilled ? 'Preenchido' : 'Toque para preencher' }}
+                    {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
             </div>
         </div>
