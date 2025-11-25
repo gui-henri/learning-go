@@ -1,8 +1,16 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
 
+const emit = defineEmits(['next-step']);
 const dadosGeraisStore = useDadosGeraisStore();
+const activeIndex = ref(null);
+
+const isFilled = computed(() => {
+    return !!dadosGeraisStore.dadosGerais.nome_paciente && 
+           dadosGeraisStore.dadosGerais.nome_paciente.length > 3;
+});
+
 const genero = ref([
     { name: 'Feminino', code: 'feminino' },
     { name: 'Masculino', code: 'masculino' }
@@ -13,205 +21,226 @@ const complexidade = ref([
     { name: 'Média', code: 'media' },
     { name: 'Alta', code: 'alta' }
 ]);
+
+const handleSave = () => {
+    activeIndex.value = null;
+    emit('next-step');
+};
 </script>
 <template>
 
-<div class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
-            <div class="flex flex-col gap-4 w-full">
-                
-                <h4 class="font-semibold text-xl">Dados Gerais</h4>
-
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex flex-col gap-2 w-full md:w-1/3 ">
-                        <label for="nome_paciente">Nome completo</label>
-                        <InputText 
-                            id="nome_paciente" 
-                            v-model="dadosGeraisStore.dadosGerais.nome_paciente" 
-                            type="text" 
-                            placeholder="Glauberthy júnior"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/7">
-                        <label for="genero">Gênero</label>
-                        <Select 
-                            id="genero" 
-                            v-model="dadosGeraisStore.dadosGerais.genero" 
-                            :options="genero" 
-                            optionLabel="name" 
-                            placeholder="Selecione" 
-                            class="w-full"
-                        ></Select>
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="nascimento">Data de nascimento</label>
-                        <Calendar 
-                            id="nascimento" 
-                            v-model="dadosGeraisStore.dadosGerais.data_nascimento" 
-                            dateFormat="dd/mm/yy" 
-                            placeholder="dd/mm/aaaa" 
-                            class="w-full"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="cpf">CPF</label>
-                        <InputText 
-                            id="cpf" 
-                            v-model="dadosGeraisStore.dadosGerais.cpf" 
-                            placeholder="123.456.789-00" 
-                            class="w-full"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="rg">RG</label>
-                        <InputText 
-                            id="rg" 
-                            v-model="dadosGeraisStore.dadosGerais.rg" 
-                            placeholder="12.123-456" 
-                            class="w-full"
-                        />
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex flex-col gap-2 w-full md:w-1/8">
-                        <label for="peso">Peso</label>
-                        <InputGroup>
-                            <InputText 
-                                id="peso" 
-                                v-model="dadosGeraisStore.dadosGerais.peso" 
-                                type="text" 
-                                maxlength="3" 
-                                placeholder="64"
-                            />
-                            <InputGroupAddon>kg</InputGroupAddon>
-                        </InputGroup>
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/8">
-                        <label for="altura">Altura</label>
-                        <InputGroup>
-                            <InputText 
-                                id="altura" 
-                                v-model="dadosGeraisStore.dadosGerais.altura" 
-                                type="text" 
-                                maxlength="3" 
-                                placeholder="181"
-                            />
-                            <InputGroupAddon>cm</InputGroupAddon>
-                        </InputGroup>
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/8">
-                        <label for="age">Idade</label>
-                        <InputGroup>
-                            <InputText 
-                                id="idade" 
-                                v-model="dadosGeraisStore.dadosGerais.idade" 
-                                type="text" 
-                                maxlength="3" 
-                                placeholder="32"
-                            />
-                            <InputGroupAddon>anos</InputGroupAddon>
-                        </InputGroup>
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="complexidade">Complexidade</label>
-                        <Select 
-                            id="complexidade" 
-                            v-model="dadosGeraisStore.dadosGerais.complexidade" 
-                            :options="complexidade" 
-                            optionLabel="name" 
-                            placeholder="Selecione" 
-                            class="w-full"
-                        ></Select>
-                    </div>
-                    <div class="flex flex-col gap-2 py-2 w-full md:w-1/6">
-                        <label for="previsao_alta">Previsão de alta?</label>
-                        <InputSwitch 
-                            id="previsao_alta" 
-                            v-model="dadosGeraisStore.dadosGerais.previsao_alta" 
-                        />
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex flex-col gap-2 w-full md:w-1/2">
-                        <label for="nome_pai">Nome do pai</label>
-                        <InputText 
-                            id="nome_pai" 
-                            v-model="dadosGeraisStore.dadosGerais.nome_pai" 
-                            type="text" 
-                            placeholder="Glauberthy glauberthy"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/2">
-                        <label for="nome_mae">Nome da mãe</label>
-                        <InputText 
-                            id="nome_mae" 
-                            v-model="dadosGeraisStore.dadosGerais.nome_mae" 
-                            type="text" 
-                            placeholder="Júlia silva"
-                        />
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="convenio">Convenio médico</label>
-                        <InputText 
-                            id="convenio" 
-                            v-model="dadosGeraisStore.dadosGerais.convenio" 
-                            type="text" 
-                            placeholder="Convenio médico xyz"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="hospital">Hospital de internação</label>
-                        <InputText 
-                            id="hospital" 
-                            v-model="dadosGeraisStore.dadosGerais.hospital" 
-                            type="text" 
-                            placeholder="Português"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="data_admissao">Data de admissão</label>
-                        <Calendar 
-                            id="data_admissao" 
-                            v-model="dadosGeraisStore.dadosGerais.data_admissao" 
-                            dateFormat="dd/mm/yy" 
-                            placeholder="dd/mm/aaaa" 
-                            class="w-full"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="apartamento-hospital">Apartamento hospitalar</label>
-                        <InputText 
-                            id="apartamento_hospital" 
-                            v-model="dadosGeraisStore.dadosGerais.apartamento" 
-                            type="text" 
-                            placeholder="Portugês"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 md:w-1/6">
-                        <label for="carteirinha">Nº Carteirinha</label>
-                        <InputText 
-                            id="carteirinha" 
-                            v-model="dadosGeraisStore.dadosGerais.carteirinha" 
-                            type="text" 
-                            placeholder="198310293"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="vencimento_carteirinha">Validade da carteirinha</label>
-                        <Calendar 
-                            id="vencimento_carteirinha" 
-                            v-model="dadosGeraisStore.dadosGerais.vencimento_carteirinha" 
-                            dateFormat="dd/mm/yy" 
-                            placeholder="dd/mm/aaaa" 
-                            class="w-full"
-                        />
-                    </div>
-                </div>
+<Accordion v-model:activeIndex="activeIndex" class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+    <AccordionTab>
+    <template #header>
+        <div class="flex items-center gap-3 w-full">
+            <i class="pi text-xl" 
+                :class="isFilled ? 'pi-check-circle text-green-600' : 'pi-plus-circle text-gray-400'">
+            </i>
+            <div class="flex flex-col text-left">
+                <h4 class="font-semibold text-xl p-0 m-0" id="dados-gerais">Dados Gerais</h4>
+                <span class="text-xs text-gray-500 font-normal -mt-4">
+                    {{ isFilled ? 'Preenchido' : 'Toque para preencher' }}
+                </span>
             </div>
         </div>
+    </template>
+    <div class="flex flex-col gap-4 w-full">
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex flex-col gap-2 w-full md:w-1/3 ">
+                <label for="nome_paciente">Nome completo</label>
+                <InputText 
+                    id="nome_paciente" 
+                    v-model="dadosGeraisStore.dadosGerais.nome_paciente" 
+                    type="text" 
+                    placeholder="Glauberthy júnior"
+                />
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/7">
+                <label for="genero">Gênero</label>
+                <Select 
+                    id="genero" 
+                    v-model="dadosGeraisStore.dadosGerais.genero" 
+                    :options="genero" 
+                    optionLabel="name" 
+                    placeholder="Selecione" 
+                    class="w-full"
+                ></Select>
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="nascimento">Data de nascimento</label>
+                <Calendar 
+                    id="nascimento" 
+                    v-model="dadosGeraisStore.dadosGerais.data_nascimento" 
+                    dateFormat="dd/mm/yy" 
+                    placeholder="dd/mm/aaaa" 
+                    class="w-full"
+                />
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="cpf">CPF</label>
+                <InputText 
+                    id="cpf" 
+                    v-model="dadosGeraisStore.dadosGerais.cpf" 
+                    placeholder="123.456.789-00" 
+                    class="w-full"
+                />
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="rg">RG</label>
+                <InputText 
+                    id="rg" 
+                    v-model="dadosGeraisStore.dadosGerais.rg" 
+                    placeholder="12.123-456" 
+                    class="w-full"
+                />
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex flex-col gap-2 w-full md:w-1/8">
+                <label for="peso">Peso</label>
+                <InputGroup>
+                    <InputText 
+                        id="peso" 
+                        v-model="dadosGeraisStore.dadosGerais.peso" 
+                        type="text" 
+                        maxlength="3" 
+                        placeholder="64"
+                    />
+                    <InputGroupAddon>kg</InputGroupAddon>
+                </InputGroup>
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/8">
+                <label for="altura">Altura</label>
+                <InputGroup>
+                    <InputText 
+                        id="altura" 
+                        v-model="dadosGeraisStore.dadosGerais.altura" 
+                        type="text" 
+                        maxlength="3" 
+                        placeholder="181"
+                    />
+                    <InputGroupAddon>cm</InputGroupAddon>
+                </InputGroup>
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/8">
+                <label for="age">Idade</label>
+                <InputGroup>
+                    <InputText 
+                        id="idade" 
+                        v-model="dadosGeraisStore.dadosGerais.idade" 
+                        type="text" 
+                        maxlength="3" 
+                        placeholder="32"
+                    />
+                    <InputGroupAddon>anos</InputGroupAddon>
+                </InputGroup>
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="complexidade">Complexidade</label>
+                <Select 
+                    id="complexidade" 
+                    v-model="dadosGeraisStore.dadosGerais.complexidade" 
+                    :options="complexidade" 
+                    optionLabel="name" 
+                    placeholder="Selecione" 
+                    class="w-full"
+                ></Select>
+            </div>
+            <div class="flex flex-col gap-2 py-2 w-full md:w-1/6">
+                <label for="previsao_alta">Previsão de alta?</label>
+                <InputSwitch 
+                    id="previsao_alta" 
+                    v-model="dadosGeraisStore.dadosGerais.previsao_alta" 
+                />
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex flex-col gap-2 w-full md:w-1/2">
+                <label for="nome_pai">Nome do pai</label>
+                <InputText 
+                    id="nome_pai" 
+                    v-model="dadosGeraisStore.dadosGerais.nome_pai" 
+                    type="text" 
+                    placeholder="Glauberthy glauberthy"
+                />
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/2">
+                <label for="nome_mae">Nome da mãe</label>
+                <InputText 
+                    id="nome_mae" 
+                    v-model="dadosGeraisStore.dadosGerais.nome_mae" 
+                    type="text" 
+                    placeholder="Júlia silva"
+                />
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="convenio">Convenio médico</label>
+                <InputText 
+                    id="convenio" 
+                    v-model="dadosGeraisStore.dadosGerais.convenio" 
+                    type="text" 
+                    placeholder="Convenio médico xyz"
+                />
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="hospital">Hospital de internação</label>
+                <InputText 
+                    id="hospital" 
+                    v-model="dadosGeraisStore.dadosGerais.hospital" 
+                    type="text" 
+                    placeholder="Português"
+                />
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="data_admissao">Data de admissão</label>
+                <Calendar 
+                    id="data_admissao" 
+                    v-model="dadosGeraisStore.dadosGerais.data_admissao" 
+                    dateFormat="dd/mm/yy" 
+                    placeholder="dd/mm/aaaa" 
+                    class="w-full"
+                />
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="apartamento-hospital">Apartamento hospitalar</label>
+                <InputText 
+                    id="apartamento_hospital" 
+                    v-model="dadosGeraisStore.dadosGerais.apartamento" 
+                    type="text" 
+                    placeholder="Portugês"
+                />
+            </div>
+            <div class="flex flex-col gap-2 md:w-1/6">
+                <label for="carteirinha">Nº Carteirinha</label>
+                <InputText 
+                    id="carteirinha" 
+                    v-model="dadosGeraisStore.dadosGerais.carteirinha" 
+                    type="text" 
+                    placeholder="198310293"
+                />
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <label for="vencimento_carteirinha">Validade da carteirinha</label>
+                <Calendar 
+                    id="vencimento_carteirinha" 
+                    v-model="dadosGeraisStore.dadosGerais.vencimento_carteirinha" 
+                    dateFormat="dd/mm/yy" 
+                    placeholder="dd/mm/aaaa" 
+                    class="w-full"
+                />
+            </div>
+        </div>
+    </div>
+    <Button class="mt-3" v-on:click="handleSave">
+        <i class="pi text-xl" :class="'pi-check-circle text-white dark:text-black'" />
+        Próximo
+    </Button>
+    </AccordionTab>
+</Accordion>
 
 </template>
