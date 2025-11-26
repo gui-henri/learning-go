@@ -30,7 +30,7 @@ const handleSave = () => {
     activeIndex.value = null;
     
     setTimeout(() => {
-        const self = document.getElementById("cuidadores");
+        const self = document.getElementById("segurança");
         if (self) {
             self.scrollIntoView({ 
                 behavior: 'instant', 
@@ -44,7 +44,7 @@ const handleSave = () => {
 </script>
 
 <template>
-<Accordion v-model:activeIndex="activeIndex" id="segurança" class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+<Accordion v-model:activeIndex="activeIndex" id="segurança" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
     <AccordionTab>
         <template #header>
             <div class="flex items-center gap-3 w-full">
