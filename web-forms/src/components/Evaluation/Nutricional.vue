@@ -1,8 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue'; 
 import { useNutricionalStore } from '@/store/evaluation/nutricional';
 
+const emit = defineEmits(['next-step']);
+
 const nutricionalStore = useNutricionalStore();
+const activeIndex = ref(null);
 
 const viaEnteralOpts = ref([
     { name: 'Nasogástrica', code: 'nasogastrica' },
@@ -36,14 +39,45 @@ const formaAdministracaoOpts = ref([
     { name: 'Bomba de seringa', code: 'bomba_seringa' }
 ]);
 
+
+const isFilled = computed(() => {
+    return !!nutricionalStore.nutricional.restricao_alimentar;
+});
+
+const handleSave = () => {
+    activeIndex.value = null;
+    
+    setTimeout(() => {
+        const self = document.getElementById("nutricional");
+        if (self) {
+            self.scrollIntoView({ 
+                behavior: 'instant', 
+                block: 'start',
+            });
+        }
+    }, 0);
+    emit('next-step');
+};
 </script>
 
 <template>
-
-   <div class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600 mb-8 mt-8">
+    <Accordion v-model:activeIndex="activeIndex" id="nutricional" class="scroll-mt-24 mt-8 mb-8 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+        <AccordionTab>
+        <template #header>
+            <div class="flex items-center gap-3 w-full">
+                <i class="pi text-xl" 
+                    :class="isFilled ? 'pi-check-circle text-green-600' : 'pi-plus-circle text-gray-400'">
+            </i>
+            <div class="flex flex-col text-left">
+                <h4 class="font-semibold text-xl p-0 m-0">Nutricional</h4>
+                <span class="text-xs text-gray-500 font-normal -mt-4">
+                    {{ isFilled ? '' : 'Toque para preencher' }}
+                </span>
+            </div>
+        </div>
+    </template>
+        
         <div class="flex flex-col gap-4 w-full">
-            
-            <h4 class="font-semibold text-xl">Nutricional</h4>
 
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/6">
@@ -227,5 +261,11 @@ const formaAdministracaoOpts = ref([
             </div>
 
         </div>
-    </div>
+
+        <Button class="mt-3" v-on:click="handleSave">
+            <i class="pi text-xl" :class="'pi-check-circle text-white dark:text-black'" />
+            Próximo
+        </Button>
+    </AccordionTab>
+</Accordion>
 </template>

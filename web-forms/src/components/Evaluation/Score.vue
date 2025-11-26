@@ -1,10 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useScoreStore } from '@/store/evaluation/score';
 
 const scoreStore = useScoreStore();
+const activeIndex = ref(null);
 
-// --- OPÇÕES GRUPO 2 ---
 const freq12hOpts = ref([
     { name: 'Não utiliza', code: 'nao_utiliza' },
     { name: 'Até 12 horas por dia', code: 'ate_12h' },
@@ -23,14 +23,14 @@ const freq4xOpts = ref([
     { name: 'Mais que 4x por dia', code: 'mais_4x' }
 ]);
 
-// --- OPÇÕES KATZ ---
+
 const katzOpts = ref([
     { name: 'Independente', code: 'independente' },
     { name: 'Com ajuda', code: 'com_ajuda' },
     { name: 'Dependente', code: 'dependente' }
 ]);
 
-// --- OPÇÕES GRUPO 3 ---
+
 const estadoNutricionalOpts = ref([
     { name: 'Eutrófico', code: 'eutrofico' },
     { name: 'Sobrepeso/Emagrecido', code: 'sobrepeso_emagrecido' },
@@ -80,13 +80,45 @@ const nivelConscienciaOpts = ref([
     { name: 'Comatoso', code: 'comatoso' }
 ]);
 
+const isFilled = computed(() => {
+    return !!scoreStore.score.diagnostico_primario && 
+           scoreStore.score.diagnostico_primario.length > 3;
+});
+
+const handleSave = () => {
+    activeIndex.value = null;
+    
+    setTimeout(() => {
+        const self = document.getElementById("score");
+        if (self) {
+            self.scrollIntoView({ 
+                behavior: 'instant', 
+                block: 'start',
+            });
+        }
+    }, 0);
+    emit('next-step');
+};
+
 </script>
 
 <template>
-    <div class="card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600 mb-8 mt-8">
+    <Accordion v-model:activeIndex="activeIndex" id="score" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+        <AccordionTab>
+        <template #header>
+            <div class="flex items-center gap-3 w-full">
+                <i class="pi text-xl" 
+                    :class="isFilled ? 'pi-check-circle text-green-600' : 'pi-plus-circle text-gray-400'">
+            </i>
+            <div class="flex flex-col text-left">
+                <h4 class="font-semibold text-xl p-0 m-0">Score NEAD e Katz</h4>
+                <span class="text-xs text-gray-500 font-normal -mt-4">
+                    {{ isFilled ? '' : 'Toque para preencher' }}
+                </span>
+            </div>
+        </div>
+    </template>
         <div class="flex flex-col gap-6 w-full">
-            
-            <h4 class="font-semibold text-xl">Score NEAD e Katz</h4>
 
             <h5 class="font-medium text-gray-700 border-b pb-2">Diagnóstico e Elegibilidade (Grupo 1)</h5>
             <div class="flex flex-col md:flex-row gap-4">
@@ -368,5 +400,11 @@ const nivelConscienciaOpts = ref([
             </div>
 
         </div>
-    </div>
+<Button class="mt-3" v-on:click="handleSave">
+        <i class="pi text-xl" :class="'pi-check-circle text-white dark:text-black'" />
+        Próximo
+    </Button>
+    </AccordionTab>
+</Accordion>
+
 </template>
