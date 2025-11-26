@@ -18,8 +18,6 @@ const turnos_cuidador = ref([
         <div class="flex flex-col gap-4 w-full">
             
             <h4 class="font-semibold text-xl">Cuidadores</h4>
-            <p class="text-red-600">TODO: adicionar mais de um cuidador</p>
-
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/2">
                     <label for="medico_solicitante">Médico solicitante</label>
@@ -39,7 +37,8 @@ const turnos_cuidador = ref([
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
+            </div>
+             <div class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="possui_cuidador">Possui cuidador?</label>
                     <InputSwitch 
                         id="possui_cuidador" 
@@ -47,7 +46,6 @@ const turnos_cuidador = ref([
                         class="w-full"
                     ></InputSwitch>
                 </div>
-            </div>
 
             <template v-if="cuidadorStore.cuidadores.possui_cuidador">
                 
