@@ -41,7 +41,7 @@ const formaAdministracaoOpts = ref([
 
 
 const isFilled = computed(() => {
-    return !!nutricionalStore.nutricional.restricao_alimentar;
+    return !!nutricionalStore.nutricional.alimentacao_oral;
 });
 
 const handleSave = () => {
