@@ -48,6 +48,14 @@ const handleSave = () => {
     emit('next-step');
 };
 
+const addAntimicrobiano = () => {
+    exameFisicoStore.adicionarAntimicrobiano();
+};
+
+const removeAntimicrobiano = (index) => {
+    exameFisicoStore.removerAntimicrobiano(index);
+};
+
 </script>
 <template>
     <Accordion v-model:activeIndex="activeIndex" id="exame-fisico" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
@@ -286,40 +294,42 @@ const handleSave = () => {
             <div class="border-t my-2"></div>
 
             <div class="flex flex-col gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/4">
-                    <label for="uso_antimicrobiano">Uso de antimicrobiano?</label>
-                    <InputSwitch 
-                        id="uso_antimicrobiano" 
-                        v-model="exameFisicoStore.exameFisico.uso_antimicrobiano" 
-                    />
-                </div>
+                <div v-for="(item, index) in exameFisicoStore.exameFisico.antimicrobianos" :key="index" class="p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10 flex flex-col gap-4 relative">
+                    
+                    <div class="flex justify-between items-center">
+                        <h6 class="font-bold text-gray-600 m-0">Medicamento {{ index + 1 }}</h6>
+                        <Button v-if="exameFisicoStore.exameFisico.antimicrobianos.length > 0" 
+                                icon="pi pi-trash" 
+                                class="p-button-rounded p-button-danger p-button-text w-8 h-8" 
+                                @click="removeAntimicrobiano(index)" 
+                                v-tooltip="'Remover item'" />
+                    </div>
 
-                <div v-if="exameFisicoStore.exameFisico.uso_antimicrobiano" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                     <div class="flex flex-col md:flex-row gap-4">
                         <div class="flex flex-col gap-2 w-full md:w-1/2">
-                            <label for="nome_antimicrobiano">Nome do Antimicrobiano</label>
+                            <label :for="'nome_antimicrobiano_' + index">Nome do Antimicrobiano</label>
                             <InputText 
-                                id="nome_antimicrobiano" 
-                                v-model="exameFisicoStore.exameFisico.nome_antimicrobiano" 
+                                :id="'nome_antimicrobiano_' + index" 
+                                v-model="item.nome_antimicrobiano" 
                                 placeholder="Nome da medicação" 
                                 class="w-full"
                             />
                         </div>
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
-                            <label for="data_inicio_atb">Data Início</label>
+                            <label :for="'data_inicio_' + index">Data Início</label>
                             <Calendar 
-                                id="data_inicio_atb" 
-                                v-model="exameFisicoStore.exameFisico.data_inicio_atb" 
+                                :id="'data_inicio_' + index" 
+                                v-model="item.data_inicio" 
                                 dateFormat="dd/mm/yy" 
                                 placeholder="dd/mm/aaaa" 
                                 class="w-full"
                             />
                         </div>
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
-                            <label for="data_termino_atb">Data Término</label>
+                            <label :for="'data_termino_' + index">Data Término</label>
                             <Calendar 
-                                id="data_termino_atb" 
-                                v-model="exameFisicoStore.exameFisico.data_termino_atb" 
+                                :id="'data_termino_' + index" 
+                                v-model="item.data_termino" 
                                 dateFormat="dd/mm/yy" 
                                 placeholder="dd/mm/aaaa" 
                                 class="w-full"
@@ -327,11 +337,12 @@ const handleSave = () => {
                         </div>
                     </div>
                 </div>
+
+                <div class="flex justify-end w-full">
+                    <Button label="Adicionar antimicrobiano" icon="pi pi-plus" class="p-button-outlined p-button-secondary p-button-sm" @click="addAntimicrobiano" />
+                </div>
             </div>
         </div>
-
-
-  
     <Button class="mt-3" v-on:click="handleSave">
         <i class="pi text-xl" :class="'pi-check-circle text-white dark:text-black'" />
         Próximo
