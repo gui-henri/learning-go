@@ -4,17 +4,23 @@ import { ref } from 'vue';
 export const respiratorioModel = {
     padrao_respiratorio: null,
     via_aerea: null,
-    
+
     numero_tubo: null,
     data_orotraqueal: null,
 
     suporte_ventilatorio: null,
-    
+
     modo_vni: null,
     frequencia_vni: null,
     fio2_vni: null,
     mascara_vni: null,
     tamanho_mascara_vni: null,
+
+    modo_avm: null,
+    frequencia_avm: null,
+    fio2_avm: null,
+    mascara_avm: null,
+    tamanho_mascara_avm: null,
 
     usa_oxigenioterapia: false,
     fonte_oxigenio: null,

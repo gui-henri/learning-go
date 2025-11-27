@@ -20,7 +20,7 @@ const viaAereaOpts = ref([
 const suporteVentilatorioOpts = ref([
     { name: 'Espontânea', code: 'espontanea' },
     { name: 'Ventilação Não Invasiva (VNI)', code: 'vni' },
-    { name: 'Assistência Ventilatória Mecânica', code: 'mecanica' }
+    { name: 'Assistência Ventilatória Mecânica', code: 'avm' }
 ]);
 
 const modoVniOpts = ref([
@@ -237,18 +237,89 @@ const handleSave = () => {
                     </div>
                 </div>
 
+                <div v-if="respiratorioStore.respiratorio.suporte_ventilatorio === 'avm'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
+                    <h5 class="font-medium text-gray-700">Detalhes da AVM</h5>
+                    
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex flex-col gap-2 w-full md:w-1/3">
+                            <label for="modo_avm">Modo</label>
+                            <Select 
+                                id="modo_avm" 
+                                v-model="respiratorioStore.respiratorio.modo_avm" 
+                                :options="modoVniOpts" 
+                                optionLabel="name"
+                                optionValue="code" 
+                                placeholder="Selecione" 
+                                class="w-full"
+                            />
+                        </div>
+                        <div class="flex flex-col gap-2 w-full md:w-1/3">
+                            <label for="frequencia_avm">Frequência</label>
+                            <Select 
+                                id="frequencia_avm" 
+                                v-model="respiratorioStore.respiratorio.frequencia_avm" 
+                                :options="frequenciaVniOpts" 
+                                optionLabel="name"
+                                optionValue="code" 
+                                placeholder="Selecione" 
+                                class="w-full"
+                            />
+                        </div>
+                        <div class="flex flex-col gap-2 w-full md:w-1/3">
+                            <label for="fio2_avm">FIO2 (%)</label>
+                            <InputGroup>
+                                <InputText 
+                                    id="fio2_avm" 
+                                    v-model="respiratorioStore.respiratorio.fio2_avm" 
+                                    placeholder="Ex: 40" 
+                                    type="number"
+                                />
+                                <InputGroupAddon>%</InputGroupAddon>
+                            </InputGroup>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex flex-col gap-2 w-full md:w-1/3">
+                            <label for="mascara_avm">Tipo de Máscara</label>
+                            <Select 
+                                id="mascara_avm" 
+                                v-model="respiratorioStore.respiratorio.mascara_avm" 
+                                :options="mascaraVniOpts" 
+                                optionLabel="name"
+                                optionValue="code" 
+                                placeholder="Selecione" 
+                                class="w-full"
+                            />
+                        </div>
+                        <div class="flex flex-col gap-2 w-full md:w-1/3">
+                            <label for="tamanho_mascara_avm">Tamanho da Máscara</label>
+                            <Select 
+                                id="tamanho_mascara_avm" 
+                                v-model="respiratorioStore.respiratorio.tamanho_mascara_avm" 
+                                :options="tamanhoMascaraOpts" 
+                                optionLabel="name"
+                                optionValue="code" 
+                                placeholder="Selecione" 
+                                class="w-full"
+                            />
+                        </div>
+                    </div>
+                </div>
+
                 <div class="border-t my-2"></div>
 
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="usa_oxigenioterapia">Oxigenioterapia?</label>
                         <InputSwitch 
-                            id="usa_oxigenioterapia" 
+                            id="usa_oxigenioterapia"
                             v-model="respiratorioStore.respiratorio.usa_oxigenioterapia" 
                         />
                     </div>
 
                     <div v-if="respiratorioStore.respiratorio.usa_oxigenioterapia" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
+                        <span class="text-red-600">TODO*: verificar se seria mais adequado esconder o campo de vezes ao dia ou manter da forma que está.</span>
                         <div class="flex flex-col md:flex-row gap-4">
                             <div class="flex flex-col gap-2 w-full md:w-1/4">
                                 <label for="fonte_oxigenio">Fonte</label>

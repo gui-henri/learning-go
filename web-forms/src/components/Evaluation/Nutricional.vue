@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'; 
+import { ref, computed, watch } from 'vue'; 
 import { useNutricionalStore } from '@/store/evaluation/nutricional';
 
 const emit = defineEmits(['next-step']);
@@ -36,12 +36,19 @@ const tipoDietaOpts = ref([
 const formaAdministracaoOpts = ref([
     { name: 'Gravitacional', code: 'gravitacional' },
     { name: 'Bomba de infusão', code: 'bomba_infusao' },
-    { name: 'Bomba de seringa', code: 'bomba_seringa' }
 ]);
 
 
 const isFilled = computed(() => {
     return !!nutricionalStore.nutricional.alimentacao_oral;
+});
+
+watch(() => nutricionalStore.nutricional.via_enteral, (novoValor) => {
+    if (novoValor === 'gastrostomia' || novoValor === 'nasoenteral') {
+        nutricionalStore.nutricional.sonda = true;
+    } else {
+        nutricionalStore.nutricional.sonda = false;
+    }
 });
 
 const handleSave = () => {
@@ -165,15 +172,14 @@ const handleSave = () => {
                             class="w-full"
                         />
                     </div>
+                    <div class="flex flex-col gap-2 w-full md:w-1/6">
+                        <label for="botton">Usa Botton?</label>
+                        <InputSwitch 
+                            id="botton" 
+                            v-model="nutricionalStore.nutricional.botton" 
+                        />
+                    </div>
                 </template>
-
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
-                    <label for="botton">Usa Botton?</label>
-                    <InputSwitch 
-                        id="botton" 
-                        v-model="nutricionalStore.nutricional.botton" 
-                    />
-                </div>
             </div>
 
             <div class="flex flex-col gap-2 w-full border-t pt-4">
@@ -185,11 +191,12 @@ const handleSave = () => {
                     class="w-full"
                 />
             </div>
-
+            <span class="text-red-600">TODO*: verificar se seria mais adequado esconder o campo com um switch ou trazer ele já selecionado com um default que mostra os campos.</span>
             <div class="flex flex-col gap-4 border-t pt-4">
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/3">
                         <label for="tipo_dieta">Tipo de dieta <span class="text-red-500">*</span></label>
+                        
                         <Select 
                             id="tipo_dieta" 
                             v-model="nutricionalStore.nutricional.tipo_dieta" 
