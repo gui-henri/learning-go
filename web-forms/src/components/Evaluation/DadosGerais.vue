@@ -188,7 +188,7 @@ const handleSave = () => {
         </div>
 
         <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="convenio">Convenio médico</label>
                 <InputText 
                     id="convenio" 
@@ -197,7 +197,7 @@ const handleSave = () => {
                     placeholder="Convenio médico xyz"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="hospital">Hospital de internação</label>
                 <InputText 
                     id="hospital" 
@@ -206,7 +206,7 @@ const handleSave = () => {
                     placeholder="Português"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="data_admissao">Data de admissão</label>
                 <Calendar 
                     id="data_admissao" 
@@ -216,7 +216,7 @@ const handleSave = () => {
                     class="w-full"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="apartamento-hospital">Apartamento hospitalar</label>
                 <InputText 
                     id="apartamento_hospital" 
@@ -225,7 +225,10 @@ const handleSave = () => {
                     placeholder="Portugês"
                 />
             </div>
-            <div class="flex flex-col gap-2 md:w-1/6">
+          
+        </div>
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex flex-col gap-2 md:w-1/4">
                 <label for="carteirinha">Nº Carteirinha</label>
                 <InputText 
                     id="carteirinha" 
@@ -234,7 +237,7 @@ const handleSave = () => {
                     placeholder="198310293"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="vencimento_carteirinha">Validade da carteirinha</label>
                 <Calendar 
                     id="vencimento_carteirinha" 
