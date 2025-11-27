@@ -51,7 +51,68 @@ const handleSave = () => {
                 </div>
             </div>
         </template>
-
+        <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <label for="possui_cuidador">Possui cuidador?</label>
+            <InputSwitch 
+                id="possui_cuidador" 
+                v-model="cuidadorStore.cuidadores.possui_cuidador" 
+                class="w-full"
+            ></InputSwitch>
+        </div>
+        <template v-if="cuidadorStore.cuidadores.possui_cuidador">   
+            <hr class="border-gray-200 my-2"/>
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex flex-col gap-2 w-full md:w-1/2">
+                    <label for="nome_cuidador">Nome do cuidador</label>
+                    <InputText 
+                        id="nome_cuidador" 
+                        v-model="cuidadorStore.cuidadores.nome_cuidador" 
+                        placeholder="Nome completo" 
+                        class="w-full"
+                    />
+                </div>
+                <div class="flex flex-col gap-2 w-full md:w-1/4">
+                    <label for="contato_cuidador">Contato do cuidador</label>
+                    <InputText 
+                        id="contato_cuidador" 
+                        v-model="cuidadorStore.cuidadores.contato_cuidador" 
+                        placeholder="(XX) 9 9999-9999" 
+                        class="w-full"
+                    />
+                </div>
+                <div class="flex flex-col gap-2 w-full md:w-1/4">
+                    <label for="turno_cuidador">Turno</label>
+                    <Select 
+                        id="turno_cuidador" 
+                        v-model="cuidadorStore.cuidadores.turno_cuidador" 
+                        :options="turnos_cuidador" 
+                        optionLabel="name" 
+                        placeholder="Selecione o turno" 
+                        class="w-full"
+                    ></Select>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row gap-4 items-center mt-6 min-h-16">
+                <div class="flex flex-col gap-2 w-full md:w-1/6">
+                    <label for="precisa_treinamento">Precisa de treinamento?</label>
+                    <InputSwitch 
+                        id="precisa_treinamento" 
+                        v-model="cuidadorStore.cuidadores.precisa_treinamento" 
+                        class="w-full"
+                    ></InputSwitch>
+                </div>
+                <div v-if="cuidadorStore.cuidadores.precisa_treinamento" class="flex flex-col gap-2 w-full flex-1 transition-all duration-300">
+                    <label for="obs_treinamento">Observações do treinamento</label>
+                    <InputText 
+                        id="obs_treinamento" 
+                        v-model="cuidadorStore.cuidadores.obs_treinamento" 
+                        placeholder="Descreva a necessidade..." 
+                        class="w-full"
+                    />
+                </div>
+            </div>
+        </template>
+        <hr class="border-gray-200 my-2"/>
         <div class="flex flex-col gap-4 w-full">
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/2">
@@ -73,78 +134,11 @@ const handleSave = () => {
                     />
                 </div>
             </div>
-             <div class="flex flex-col gap-2 w-full md:w-1/6">
-                    <label for="possui_cuidador">Possui cuidador?</label>
-                    <InputSwitch 
-                        id="possui_cuidador" 
-                        v-model="cuidadorStore.cuidadores.possui_cuidador" 
-                        class="w-full"
-                    ></InputSwitch>
-                </div>
-
-            <template v-if="cuidadorStore.cuidadores.possui_cuidador">
-                
-                <hr class="border-gray-200 my-2"/>
-
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex flex-col gap-2 w-full md:w-1/2">
-                        <label for="nome_cuidador">Nome do cuidador</label>
-                        <InputText 
-                            id="nome_cuidador" 
-                            v-model="cuidadorStore.cuidadores.nome_cuidador" 
-                            placeholder="Nome completo" 
-                            class="w-full"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/4">
-                        <label for="contato_cuidador">Contato do cuidador</label>
-                        <InputText 
-                            id="contato_cuidador" 
-                            v-model="cuidadorStore.cuidadores.contato_cuidador" 
-                            placeholder="(XX) 9 9999-9999" 
-                            class="w-full"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full md:w-1/4">
-                        <label for="turno_cuidador">Turno</label>
-                        <Select 
-                            id="turno_cuidador" 
-                            v-model="cuidadorStore.cuidadores.turno_cuidador" 
-                            :options="turnos_cuidador" 
-                            optionLabel="name" 
-                            placeholder="Selecione o turno" 
-                            class="w-full"
-                        ></Select>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-4 items-center">
-                    <div class="flex flex-col gap-2 w-full md:w-1/6">
-                        <label for="precisa_treinamento">Precisa de treinamento?</label>
-                        <InputSwitch 
-                            id="precisa_treinamento" 
-                            v-model="cuidadorStore.cuidadores.precisa_treinamento" 
-                            class="w-full"
-                        ></InputSwitch>
-                    </div>
-                    
-                    <div v-if="cuidadorStore.cuidadores.precisa_treinamento" class="flex flex-col gap-2 w-full flex-1 transition-all duration-300">
-                        <label for="obs_treinamento">Observações do treinamento</label>
-                        <InputText 
-                            id="obs_treinamento" 
-                            v-model="cuidadorStore.cuidadores.obs_treinamento" 
-                            placeholder="Descreva a necessidade..." 
-                            class="w-full"
-                        />
-                    </div>
-                </div>
-
-            </template>
-            </div>
-            <Button class="mt-3" v-on:click="handleSave">
-                <i class="pi text-xl" :class="'pi-check-circle text-white dark:text-black'" />
-                Próximo
-            </Button>
-        </AccordionTab>
-    </Accordion>
+        </div>
+        <Button class="mt-3" v-on:click="handleSave">
+            <i class="pi text-xl" :class="'pi-check-circle text-white dark:text-black'" />
+            Próximo
+        </Button>
+    </AccordionTab>
+</Accordion>
 </template>

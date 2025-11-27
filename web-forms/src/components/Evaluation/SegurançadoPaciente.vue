@@ -22,8 +22,20 @@ const tipo_precaucao = ref([
 const emit = defineEmits(['next-step']);
 const activeIndex = ref(null);
 
+const addAlergia = () => {
+    segurancaStore.adicionarAlergia();
+};
+
+const removeAlergia = (index) => {
+    segurancaStore.removerAlergia(index);
+};
+
 const isFilled = computed(() => {
-    return !!segurancaStore.seguranca.tipo_alergia;
+    const temAlergia = segurancaStore.seguranca.alergias.length > 0 && 
+                       !!segurancaStore.seguranca.alergias[0].tipo_alergia;
+    const temCuidado = !!segurancaStore.seguranca.cuidados_paliativos;
+    
+    return temAlergia || temCuidado;
 });
 
 const handleSave = () => {
@@ -59,24 +71,23 @@ const handleSave = () => {
                 </div>
             </div>
         </template>
-    <div class="flex flex-col gap-4 w-full">
-        <p class="text-red-600">TODO: É necessário outro termo para alergia atualmente </p>
-        <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-1/10">
-                <label for="alergia_relatada">Alergia relatada?</label>
-                <InputSwitch 
-                    id="alergia_relatada" 
-                    v-model="segurancaStore.seguranca.alergia_relatada" 
-                    class="w-full"
-                ></InputSwitch>
-            </div>
+    <div class="flex flex-col gap-4 w-full">        
+        <div v-for="(item, index) in segurancaStore.seguranca.alergias" :key="index" class="p-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-col gap-4">
             
-            <template v-if="segurancaStore.seguranca.alergia_relatada">
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
-                    <label for="tipo_alergia">Tipo de alergia</label>
+            <div class="flex justify-between items-center">
+                <h5 class="font-bold text-gray-600">Alergia {{ index + 1 }}</h5>
+                <Button v-if="segurancaStore.seguranca.alergias.length > 0" 
+                        icon="pi pi-trash" 
+                        class="p-button-rounded p-button-danger p-button-text" 
+                        @click="removeAlergia(index)" />
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex flex-col gap-2 w-full md:w-1/4">
+                    <label :for="'tipo_alergia_' + index">Tipo de alergia</label>
                     <Select 
-                        id="tipo_alergia" 
-                        v-model="segurancaStore.seguranca.tipo_alergia" 
+                        :id="'tipo_alergia_' + index" 
+                        v-model="item.tipo_alergia" 
                         :options="tipo_alergia" 
                         optionLabel="name" 
                         placeholder="Selecione" 
@@ -85,40 +96,44 @@ const handleSave = () => {
                 </div>
 
                 <div class="flex flex-col gap-2 w-full flex-1">
-                    <label for="quais_alergias">Quais alergias?</label>
+                    <label :for="'quais_alergias_' + index">Descrição (Quais?)</label>
                     <InputText 
-                        id="quais_alergias" 
-                        v-model="segurancaStore.seguranca.quais_alergias" 
+                        :id="'quais_alergias_' + index" 
+                        v-model="item.quais_alergias" 
                         placeholder="Descreva as alergias..." 
                         class="w-full"
                     />
                 </div>
-            </template>
-        </div>
-
-        <div v-if="segurancaStore.seguranca.alergia_relatada" class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-1/4">
-                <label for="precaucao">Precaução</label>
-                <Select 
-                    id="precaucao" 
-                    v-model="segurancaStore.seguranca.precaucao" 
-                    :options="tipo_precaucao" 
-                    optionLabel="name" 
-                    placeholder="Selecione" 
-                    class="w-full"
-                ></Select>
             </div>
 
-            <div class="flex flex-col gap-2 w-full flex-1">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex flex-col gap-2 w-full md:w-1/2">
+                    <label :for="'precaucao_' + index">Precaução</label>
+                    <Select 
+                        :id="'precaucao_' + index" 
+                        v-model="item.precaucao" 
+                        :options="tipo_precaucao" 
+                        optionLabel="name" 
+                        placeholder="Selecione" 
+                        class="w-full"
+                    ></Select>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2 w-full">
                 <label for="cuidados_paliativos">Cuidados Paliativos</label>
                 <InputText 
                     id="cuidados_paliativos" 
-                    v-model="segurancaStore.seguranca.cuidados_paliativos" 
-                    placeholder="Descreva os cuidados..." 
+                    v-model="item.cuidados_paliativos" 
+                    placeholder="Descreva os cuidados gerais com o paciente..." 
                     class="w-full"
                 />
             </div>
         </div>
+
+        <div class="flex justify-end w-full">
+            <Button label="Adicionar alergia" icon="pi pi-plus" class="p-button-outlined p-button-secondary" @click="addAlergia" />
+        </div>
+        <Divider />
     </div>
     <Button class="mt-3" v-on:click="handleSave">
         <i class="pi text-xl" :class="'pi-check-circle text-white dark:text-black'" />

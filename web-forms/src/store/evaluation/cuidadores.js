@@ -5,7 +5,7 @@ export const cuidadoresModel = {
     medico_solicitante: null,
     contato_medico: null,
 
-    possui_cuidador: false,
+    possui_cuidador: true,
     nome_cuidador: null,
     contato_cuidador: null,
     turno_cuidador: null,
@@ -15,7 +15,7 @@ export const cuidadoresModel = {
 }
 
 export const useCuidadoresStore = defineStore('cuidadores', () => {
-    
+
     const cuidadores = ref(cuidadoresModel)
 
     return {

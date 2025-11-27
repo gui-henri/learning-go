@@ -33,6 +33,15 @@ const handleSave = () => {
     }, 0);
     emit('next-step');
 };
+
+const addResponsavel = () => {
+    contatoStore.adicionarResponsavel();
+};
+
+const removeResponsavel = (index) => {
+    contatoStore.removerResponsavel(index);
+};
+
 </script>
 
 <template>
@@ -52,7 +61,6 @@ const handleSave = () => {
             </div>
         </template>
         <div class="flex flex-col gap-4 w-full">
-            <p class="text-red-600">TODO: adicionar mais de um responsável</p>            
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="telefone_residencial">Telefone residencial</label>
@@ -81,63 +89,83 @@ const handleSave = () => {
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/2">
-                    <label for="nome_responsavel">Nome do responsável</label>
-                    <InputText 
-                        id="nome_responsavel" 
-                        v-model="contatoStore.contato.nome_responsavel" 
-                        placeholder="João albério" 
-                        class="w-full"
-                    />
+            </div>
+            <div v-for="(responsavel, index) in contatoStore.contato.responsaveis" :key="index" class="flex flex-col gap-4 p-4 border border-gray-200 rounded-lg relative bg-gray-50 dark:bg-gray-800">
+                
+                <div class="flex justify-between items-center">
+                    <h5 class="font-bold text-gray-600">Responsável {{ index + 1 }}</h5>
+                    <Button v-if="contatoStore.contato.responsaveis.length > 1" 
+                            icon="pi pi-trash" 
+                            class="p-button-rounded p-button-danger p-button-text" 
+                            @click="removeResponsavel(index)" 
+                            v-tooltip="'Remover este responsável'" />
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex flex-col gap-2 w-full md:w-1/2">
+                        <label :for="'nome_responsavel_' + index">Nome do responsável</label>
+                        <InputText 
+                            :id="'nome_responsavel_' + index" 
+                            v-model="responsavel.nome" 
+                            placeholder="João albério" 
+                            class="w-full"
+                        />
+                    </div>
+                    
+                    <div class="flex flex-col gap-2 w-full md:w-1/6">
+                        <label :for="'parentesco_responsavel_' + index">Parentesco</label>
+                        <InputText 
+                            :id="'parentesco_responsavel_' + index" 
+                            v-model="responsavel.parentesco" 
+                            placeholder="Pai, mãe..." 
+                            class="w-full"
+                        />
+                    </div>
+                
+                    <div class="flex flex-col gap-2 w-full md:w-1/3">
+                        <label :for="'email_responsavel_' + index">E-mail do responsável</label>
+                        <InputText 
+                            :id="'email_responsavel_' + index" 
+                            v-model="responsavel.email" 
+                            placeholder="resp@email.com" 
+                            class="w-full"
+                        />
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex flex-col gap-2 w-full md:w-1/3">
+                        <label :for="'telefone_responsavel_' + index">Telefone do responsável</label>
+                        <InputText 
+                            :id="'telefone_responsavel_' + index" 
+                            v-model="responsavel.telefone" 
+                            placeholder="(81) 9 9999-9999" 
+                            class="w-full"
+                        />
+                    </div>
+                    <div class="flex flex-col gap-2 md:w-1/3">
+                        <label :for="'forma_contato_' + index">Forma de contato</label>
+                        <Select 
+                            :id="'forma_contato_' + index" 
+                            v-model="responsavel.forma_contato" 
+                            :options="forma_contato" 
+                            optionLabel="name" 
+                            placeholder="Selecione" 
+                            class="w-full"
+                        ></Select>
+                    </div>
+                    <div class="flex flex-col gap-2 w-full md:w-1/3 items-start justify-center">
+                        <label :for="'numero_prioritario_' + index" class="mb-2">Contato prioritário?</label>
+                        <InputSwitch 
+                            :id="'numero_prioritario_' + index" 
+                            v-model="responsavel.numero_prioritario" 
+                        />
+                    </div>
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
-                    <label for="parentesco_responsavel">Parentesco do responsável</label>
-                    <InputText 
-                        id="parentesco_responsavel" 
-                        v-model="contatoStore.contato.parentesco_responsavel" 
-                        placeholder="Pai, mãe, irmão etc" 
-                        class="w-full"
-                    />
-                </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
-                    <label for="email_responsavel">E-mail do responsável</label>
-                    <InputText 
-                        id="email_responsavel" 
-                        v-model="contatoStore.contato.email_responsavel" 
-                        placeholder="responsavel@gmail.com" 
-                        class="w-full"
-                    />
-                </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
-                    <label for="telefone_responsavel">Telefone do responsável</label>
-                    <InputText 
-                        id="telefone_responsavel" 
-                        v-model="contatoStore.contato.telefone_responsavel" 
-                        placeholder="(81) 9 9999-9999" 
-                        class="w-full"
-                    />
-                </div>
-                <div class="flex flex-col gap-2 md:w-1/6">
-                    <label for="forma_contato">Forma de contato</label>
-                    <Select 
-                        id="forma_contato" 
-                        v-model="contatoStore.contato.forma_contato" 
-                        :options="forma_contato" 
-                        optionLabel="name" 
-                        placeholder="Selecione" 
-                        class="w-full"
-                    ></Select>
-                </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
-                    <label for="numero_prioritario">Contato prioritário?</label>
-                    <InputSwitch 
-                        id="numero_prioritario" 
-                        v-model="contatoStore.contato.numero_prioritario" 
-                    />
-                </div>
+            <div class="flex justify-end w-full">
+                <Button label="Adicionar responsável" icon="pi pi-plus" class="p-button-outlined p-button-secondary" @click="addResponsavel" />
             </div>
         </div>
     <Button class="mt-3" v-on:click="handleSave">
