@@ -292,12 +292,16 @@ const removeAntimicrobiano = (index) => {
             </div>
 
             <div class="border-t my-2"></div>
-
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2 w-full md:w-1/6">
+                    <span for="possui_dreno">Antimicrobianos</span>
+                </div>
+            </div>
             <div class="flex flex-col gap-4">
                 <div v-for="(item, index) in exameFisicoStore.exameFisico.antimicrobianos" :key="index" class="p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10 flex flex-col gap-4 relative">
                     
                     <div class="flex justify-between items-center">
-                        <h6 class="font-bold text-gray-600 m-0">Medicamento {{ index + 1 }}</h6>
+                        <h6 class="font-bold text-gray-600 m-0">Antimicrobiano {{ index + 1 }}</h6>
                         <Button v-if="exameFisicoStore.exameFisico.antimicrobianos.length > 0" 
                                 icon="pi pi-trash" 
                                 class="p-button-rounded p-button-danger p-button-text w-8 h-8" 
