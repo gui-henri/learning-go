@@ -3,6 +3,7 @@ package avaliation
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -21,6 +22,8 @@ func decodeSaveFormRequest(_ context.Context, r *http.Request) (interface{}, err
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		return nil, err
 	}
+
+	fmt.Println(body)
 
 	return SaveAvaliationRequest{Data: body}, nil
 }

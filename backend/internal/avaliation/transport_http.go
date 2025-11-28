@@ -14,8 +14,8 @@ func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux) *http.ServeMux {
 
 	saveAvaliation := httptransport.NewServer(
 		MakeSaveFormEndpoint(*avaliationService),
-		transport_encoding.EncodeRequest[SaveAvaliationRequest],
-		transport_encoding.EncodeResponse,
+		decodeSaveFormRequest,
+		encodeResponse,
 		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
 	)
 
