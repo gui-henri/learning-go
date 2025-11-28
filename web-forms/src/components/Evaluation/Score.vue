@@ -294,7 +294,6 @@ const handleSave = () => {
                 <!-- KATZ -->
                 <div class="flex justify-between items-center border-b pb-2 mt-4 dark:border-gray-700">
                     <h5 class="font-medium text-gray-700 m-0 dark:text-gray-300">Escore de Katz</h5>
-                    <span class="text-sm font-bold text-blue-600 dark:text-blue-400">Score Katz: {{ pontosNeadKatz }}</span>
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-4">
@@ -378,14 +377,13 @@ const handleSave = () => {
                 <!-- CARD RESULTADO KATZ -->
                 <div class="p-4 rounded-lg mt-4 border" :class="katzColorClass">
                     <h3 class="text-lg font-bold mb-1">Resultado Katz: {{ totalKatzRaw }} / 6</h3>
-                    <p class="font-medium m-0">{{ classificacaoKatz }} ({{ pontosNeadKatz }} pts no NEAD)</p>
+                    <p class="font-medium m-0">{{ classificacaoKatz }} </p>
                 </div>
 
                 <!-- GRUPO 3: CRITÉRIOS DE APOIO -->
                 <div class="flex justify-between items-center border-b pb-2 mt-4 dark:border-gray-700">
                     <h5 class="font-medium text-gray-700 m-0 dark:text-gray-300">Critérios de Apoio (Grupo 3)</h5>
-                    <span class="text-sm font-bold text-red-600 dark:text-red-400">Pontuação NEAD: {{ totalNead }}</span>
-                </div>
+                    </div>
 
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/3">

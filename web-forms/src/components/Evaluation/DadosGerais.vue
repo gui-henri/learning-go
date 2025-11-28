@@ -36,6 +36,37 @@ const handleSave = () => {
     }, 0);
     emit('next-step');
 };
+
+const estadosOpts = ref([
+    "Acre",
+"Alagoas",
+"Amapá",
+"Amazonas",
+"Bahia",
+"Ceará",
+"Distrito Federal",
+"Espírito Santo",
+"Goiás",
+"Maranhão",
+"Mato Grosso",
+"Mato Grosso do Sul",
+"Minas Gerais",
+"Pará",
+"Paraíba",
+"Paraná",
+"Pernambuco",
+"Piauí",
+"Rio de Janeiro",
+"Rio Grande do Norte",
+"Rio Grande do Sul",
+"Rondônia",
+"Roraima",
+"Santa Catarina",
+"São Paulo",
+"Sergipe",
+"Tocantins"
+]);
+
 </script>
 <template>
 
@@ -48,8 +79,6 @@ const handleSave = () => {
             </i>
             <div class="flex flex-col text-left">
                 <h4 class="font-semibold text-xl p-0 m-0">Dados Gerais</h4>
-                 <span class="text-red-600">TODO*: Implementar máscara de CPF e RG nos campos em todo o forms</span>
-               <span class="text-red-600">TODO*: Implementar os campos obrigatorios em todo o forms</span>
                 <span class="text-red-600">TODO*: Implementar limite de texto nos campos em todo o forms</span>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
