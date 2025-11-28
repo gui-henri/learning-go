@@ -65,6 +65,27 @@ const handleSave = () => {
     }, 0);
     emit('next-step');
 };
+
+const marcasBombaOpts = ref([
+    'Kangaroo', 
+    'Halyard', 
+    'Kimberly-Clark', 
+    'Wilson Cook', 
+    'Folley'
+]);
+
+const marcasFiltradas = ref([]);
+
+const searchMarcaBomba = (event) => {
+    if (!event.query.trim().length) {
+        marcasFiltradas.value = [...marcasBombaOpts.value];
+    } else {
+        marcasFiltradas.value = marcasBombaOpts.value.filter((marca) => {
+            return marca.toLowerCase().startsWith(event.query.toLowerCase());
+        });
+    }
+};
+
 </script>
 
 <template>
@@ -240,6 +261,18 @@ const handleSave = () => {
                                 optionValue="code"
                                 placeholder="Selecione" 
                                 class="w-full"
+                            />
+                        </div>
+                        <div v-if="nutricionalStore.nutricional.forma_administracao === 'bomba_infusao'" class="flex flex-col gap-2 w-full md:w-1/3 fadein animation-duration-300">
+                            <label for="marca_bomba">Marca da Bomba <span class="text-red-500">*</span></label>  
+                            <AutoComplete 
+                                id="marca_bomba" 
+                                v-model="nutricionalStore.nutricional.marca_bomba" 
+                                :suggestions="marcasFiltradas" 
+                                @complete="searchMarcaBomba" 
+                                placeholder="Ex: Kangaroo, Halyard..." 
+                                class="w-full"
+                                :dropdown="true" 
                             />
                         </div>
                     </template>

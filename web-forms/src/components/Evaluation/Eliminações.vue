@@ -154,6 +154,17 @@ const handleSave = () => {
                         class="w-full"
                     />
                 </div>
+
+                <div v-if="eliminacoesStore.eliminacoes.diurese === 'induzida'" class="flex flex-col gap-2 w-full md:w-1/4">
+                    <label for="num_snd_diurese">Nº da sonda (Fr)</label>
+                    <InputText 
+                        id="num_snd_diurese" 
+                        v-model="eliminacoesStore.eliminacoes.num_snd_diurese" 
+                        placeholder="Ex: 16" 
+                        class="w-full"
+                    />
+                </div>
+                
                 
                 <div class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="usa_fralda">Usa Fralda?</label>

@@ -68,7 +68,7 @@ const handleSave = () => {
                     placeholder="Glauberthy júnior"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/9">
+            <div class="flex flex-col gap-2 w-full md:w-1/9 lg:w-2/12">
                 <label for="genero">Gênero</label>
                 <Select 
                     id="genero" 
@@ -79,7 +79,7 @@ const handleSave = () => {
                     class="w-full"
                 ></Select>
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-3/9">
+            <div class="flex flex-col gap-2 w-full md:w-2/9 lg:w-3/14">
                 <label for="nascimento">Data de nascimento</label>
                 <Calendar 
                     id="nascimento" 
@@ -89,13 +89,14 @@ const handleSave = () => {
                     class="w-full"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-2/9 ">
+            <div class="flex flex-col gap-2 w-full md:w-2/9 lg:w-2/12">
                 <label for="cpf">CPF</label>
-                <InputText 
+                <InputMask 
                     id="cpf" 
                     v-model="dadosGeraisStore.dadosGerais.cpf" 
-                    placeholder="123.456.789-00" 
+                    placeholder="123.456.789-00"
                     class="w-full"
+                    mask="999.999.999-99"
                 />
             </div>
         </div>
@@ -103,11 +104,12 @@ const handleSave = () => {
         <div class="flex flex-col md:flex-row gap-4">
             <div class="flex flex-col gap-2 w-full md:w-2/12">
                 <label for="rg">RG</label>
-                <InputText 
+                <InputMask 
                     id="rg" 
                     v-model="dadosGeraisStore.dadosGerais.rg" 
                     placeholder="12.123-456" 
                     class="w-full"
+                    mask="99.999-999"
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-2/12">
@@ -116,7 +118,8 @@ const handleSave = () => {
                     <InputText 
                         id="peso" 
                         v-model="dadosGeraisStore.dadosGerais.peso" 
-                        type="text" 
+                        type="text"
+                        v-keyfilter.int
                         maxlength="3" 
                         placeholder="64"
                     />
@@ -129,7 +132,8 @@ const handleSave = () => {
                     <InputText 
                         id="altura" 
                         v-model="dadosGeraisStore.dadosGerais.altura" 
-                        type="text" 
+                        type="text"
+                        v-keyfilter.int
                         maxlength="3" 
                         placeholder="181"
                     />
@@ -142,8 +146,9 @@ const handleSave = () => {
                     <InputText 
                         id="idade" 
                         v-model="dadosGeraisStore.dadosGerais.idade" 
-                        type="text" 
-                        maxlength="3" 
+                        type="text"
+                        v-keyfilter.int
+                        maxlength="3"
                         placeholder="32"
                     />
                     <InputGroupAddon>anos</InputGroupAddon>
@@ -240,7 +245,7 @@ const handleSave = () => {
                     placeholder="198310293"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-2/4">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="vencimento_carteirinha">Validade da carteirinha</label>
                 <Calendar 
                     id="vencimento_carteirinha" 

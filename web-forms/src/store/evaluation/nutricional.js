@@ -11,14 +11,13 @@ export const useNutricionalStore = defineStore('nutricional', {
             botton: false,
             suplemento: false,
 
-
             via_enteral: null,
             via_parenteral: null,
             adaptador_sonda: null,
             restricao_alimentar: '',
             tipo_dieta: null,
             forma_administracao: null,
-            
+            marca_bomba: null,
 
             data_ultima_troca: null,
             gavando: '',
@@ -41,6 +40,7 @@ export const useNutricionalStore = defineStore('nutricional', {
                 restricao_alimentar: '',
                 tipo_dieta: null,
                 forma_administracao: null,
+                marca_bomba: null,
                 data_ultima_troca: null,
                 gavando: '',
                 volume_diario: '',
