@@ -54,6 +54,7 @@ const removeResponsavel = (index) => {
                 </i>
                 <div class="flex flex-col text-left">
                     <h4 class="font-semibold text-xl p-0 m-0">Contato</h4>
+                    <span class="text-red-600">TODO*: Configurar para apenas um responsável ser o responsável primário </span>
                     <span class="text-xs text-gray-500 font-normal -mt-4">
                         {{ isFilled ? '' : 'Toque para preencher' }}
                     </span>
