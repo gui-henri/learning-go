@@ -124,7 +124,7 @@ const handleSave = () => {
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/8">
+                <div class="flex flex-col gap-2 w-full md:w-1/4">
                     <label for="contato_medico">Contato do médico</label>
                     <InputText 
                         id="contato_medico" 

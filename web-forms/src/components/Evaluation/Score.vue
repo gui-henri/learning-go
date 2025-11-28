@@ -143,14 +143,14 @@ const handleSave = () => {
             </div>
             
             <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/3">
+                <div class="flex flex-col gap-2 w-full md:w-1/2">
                     <label for="domicilio_risco">O domicílio é de risco?</label>
                     <InputSwitch 
                         id="domicilio_risco" 
                         v-model="scoreStore.score.domicilio_risco" 
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/3">
+                <div class="flex flex-col gap-2 w-full md:w-1/2">
                     <label for="impedimento_deslocamento">Impedimento de deslocamento?</label>
                     <InputSwitch 
                         id="impedimento_deslocamento" 
@@ -302,7 +302,7 @@ const handleSave = () => {
                     />
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label for="via_alimentacao_medicacao">Alimentação/Medicação Enteral</label>
+                    <label for="via_alimentacao_medicacao">Aliment / Medic Enteral</label>
                     <Select 
                         id="via_alimentacao_medicacao" 
                         v-model="scoreStore.score.via_alimentacao_medicacao" 

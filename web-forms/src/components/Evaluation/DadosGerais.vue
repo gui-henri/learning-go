@@ -56,7 +56,7 @@ const handleSave = () => {
     </template>
     <div class="flex flex-col gap-4 w-full">
         <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-1/3 ">
+            <div class="flex flex-col gap-2 w-full md:w-3/9 ">
                 <label for="nome_paciente">Nome completo</label>
                 <InputText 
                     id="nome_paciente" 
@@ -65,7 +65,7 @@ const handleSave = () => {
                     placeholder="Glauberthy júnior"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/7">
+            <div class="flex flex-col gap-2 w-full md:w-1/9">
                 <label for="genero">Gênero</label>
                 <Select 
                     id="genero" 
@@ -76,7 +76,7 @@ const handleSave = () => {
                     class="w-full"
                 ></Select>
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-3/9">
                 <label for="nascimento">Data de nascimento</label>
                 <Calendar 
                     id="nascimento" 
@@ -86,7 +86,7 @@ const handleSave = () => {
                     class="w-full"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-2/9 ">
                 <label for="cpf">CPF</label>
                 <InputText 
                     id="cpf" 
@@ -95,7 +95,10 @@ const handleSave = () => {
                     class="w-full"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex flex-col gap-2 w-full md:w-2/12">
                 <label for="rg">RG</label>
                 <InputText 
                     id="rg" 
@@ -104,10 +107,7 @@ const handleSave = () => {
                     class="w-full"
                 />
             </div>
-        </div>
-
-        <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-1/8">
+            <div class="flex flex-col gap-2 w-full md:w-2/12">
                 <label for="peso">Peso</label>
                 <InputGroup>
                     <InputText 
@@ -120,7 +120,7 @@ const handleSave = () => {
                     <InputGroupAddon>kg</InputGroupAddon>
                 </InputGroup>
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/8">
+            <div class="flex flex-col gap-2 w-full md:w-2/12">
                 <label for="altura">Altura</label>
                 <InputGroup>
                     <InputText 
@@ -133,7 +133,7 @@ const handleSave = () => {
                     <InputGroupAddon>cm</InputGroupAddon>
                 </InputGroup>
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/8">
+            <div class="flex flex-col gap-2 w-full md:w-2/12">
                 <label for="age">Idade</label>
                 <InputGroup>
                     <InputText 
@@ -146,7 +146,7 @@ const handleSave = () => {
                     <InputGroupAddon>anos</InputGroupAddon>
                 </InputGroup>
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-2/12">
                 <label for="complexidade">Complexidade</label>
                 <Select 
                     id="complexidade" 
@@ -157,7 +157,7 @@ const handleSave = () => {
                     class="w-full"
                 ></Select>
             </div>
-            <div class="flex flex-col gap-2 py-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 py-2 w-full md:w-2/12">
                 <label for="previsao_alta">Previsão de alta?</label>
                 <InputSwitch 
                     id="previsao_alta" 
@@ -188,8 +188,8 @@ const handleSave = () => {
         </div>
 
         <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-1/4">
-                <label for="convenio">Convenio médico</label>
+            <div class="flex flex-col gap-2 w-full md:w-1/8">
+                <label for="convenio">Convênio</label>
                 <InputText 
                     id="convenio" 
                     v-model="dadosGeraisStore.dadosGerais.convenio" 
@@ -197,7 +197,7 @@ const handleSave = () => {
                     placeholder="Convenio médico xyz"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/4">
+            <div class="flex flex-col gap-2 w-full md:w-3/8">
                 <label for="hospital">Hospital de internação</label>
                 <InputText 
                     id="hospital" 
@@ -206,7 +206,7 @@ const handleSave = () => {
                     placeholder="Português"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/4">
+            <div class="flex flex-col gap-2 w-full md:w-2/8">
                 <label for="data_admissao">Data de admissão</label>
                 <Calendar 
                     id="data_admissao" 
@@ -216,13 +216,13 @@ const handleSave = () => {
                     class="w-full"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/4">
-                <label for="apartamento-hospital">Apartamento hospitalar</label>
+            <div class="flex flex-col gap-2 w-full md:w-2/8">
+                <label for="apartamento-hospital">Apartamento</label>
                 <InputText 
                     id="apartamento_hospital" 
                     v-model="dadosGeraisStore.dadosGerais.apartamento" 
                     type="text" 
-                    placeholder="Portugês"
+                    placeholder="Português"
                 />
             </div>
           
@@ -237,7 +237,7 @@ const handleSave = () => {
                     placeholder="198310293"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/4">
+            <div class="flex flex-col gap-2 w-full md:w-2/4">
                 <label for="vencimento_carteirinha">Validade da carteirinha</label>
                 <Calendar 
                     id="vencimento_carteirinha" 

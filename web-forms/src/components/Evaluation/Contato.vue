@@ -62,7 +62,7 @@ const removeResponsavel = (index) => {
         </template>
         <div class="flex flex-col gap-4 w-full">
             <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <div class="flex flex-col gap-2 w-full md:w-1/3">
                     <label for="telefone_residencial">Telefone residencial</label>
                     <InputText 
                         id="telefone_residencial" 
@@ -71,7 +71,7 @@ const removeResponsavel = (index) => {
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <div class="flex flex-col gap-2 w-full md:w-1/3">
                     <label for="telefone_paciente">Telefone paciente</label>
                     <InputText 
                         id="telefone_paciente" 
@@ -80,7 +80,7 @@ const removeResponsavel = (index) => {
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <div class="flex flex-col gap-2 w-full md:w-1/3">
                     <label for="email_paciente">E-mail paciente</label>
                     <InputText 
                         id="email_paciente" 

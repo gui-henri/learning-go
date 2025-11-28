@@ -87,7 +87,7 @@ const removeAntimicrobiano = (index) => {
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/4">
+                <div class="flex flex-col gap-2 w-full md:w-2/4">
                     <label for="avaliacao_locomotora">Avaliação locomotora <span class="text-red-500">*</span></label>
                     <Select 
                         id="avaliacao_locomotora" 

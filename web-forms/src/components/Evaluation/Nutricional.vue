@@ -77,6 +77,7 @@ const handleSave = () => {
             </i>
             <div class="flex flex-col text-left">
                 <h4 class="font-semibold text-xl p-0 m-0">Nutricional</h4>
+                <span class="text-red-600">TODO*: Verificar se o paciente pode possuir: Alimentação oral e parenteral ou parenteral e enteral </span>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
@@ -194,7 +195,7 @@ const handleSave = () => {
             <span class="text-red-600">TODO*: verificar se seria mais adequado esconder o campo com um switch ou trazer ele já selecionado com um default que mostra os campos.</span>
             <div class="flex flex-col gap-4 border-t pt-4">
                 <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex flex-col gap-2 w-full md:w-1/3">
+                    <div class="flex flex-col gap-2 w-full md:w-2/10">
                         <label for="tipo_dieta">Tipo de dieta <span class="text-red-500">*</span></label>
                         
                         <Select 
@@ -209,7 +210,7 @@ const handleSave = () => {
                     </div>
 
                     <template v-if="nutricionalStore.nutricional.tipo_dieta === 'industrializada' || nutricionalStore.nutricional.tipo_dieta === 'mista'">
-                        <div class="flex flex-col gap-2 w-full md:w-1/4">
+                        <div class="flex flex-col gap-2 w-full md:w-2/10">
                             <label for="gavando">Gavando (ml/h) <span class="text-red-500">*</span></label>
                             <InputText 
                                 id="gavando" 
@@ -219,7 +220,7 @@ const handleSave = () => {
                                 class="w-full"
                             />
                         </div>
-                        <div class="flex flex-col gap-2 w-full md:w-1/4">
+                        <div class="flex flex-col gap-2 w-full md:w-2/10">
                             <label for="volume_diario">Volume diário <span class="text-red-500">*</span></label>
                             <InputText 
                                 id="volume_diario" 
@@ -229,7 +230,7 @@ const handleSave = () => {
                                 class="w-full"
                             />
                         </div>
-                        <div class="flex flex-col gap-2 w-full md:w-1/3">
+                        <div class="flex flex-col gap-2 w-full md:w-3/10">
                             <label for="forma_administracao">Forma de administração <span class="text-red-500">*</span></label>
                             <Select 
                                 id="forma_administracao" 
