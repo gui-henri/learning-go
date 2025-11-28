@@ -11,6 +11,7 @@ export const useEliminacoesStore = defineStore('eliminacoes', {
             bolsa_estomia: '',
 
             diurese: null,
+            num_snd_diurese: null,
             usa_fralda: false,
             trocas_fralda_dia: '',
             sva: false, 
