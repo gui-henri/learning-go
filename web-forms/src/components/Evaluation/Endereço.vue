@@ -25,6 +25,51 @@ const handleSave = () => {
     }, 0);
     emit('next-step');
 };
+
+const estadosOpts = ref([
+    "Acre",
+"Alagoas",
+"Amapá",
+"Amazonas",
+"Bahia",
+"Ceará",
+"Distrito Federal",
+"Espírito Santo",
+"Goiás",
+"Maranhão",
+"Mato Grosso",
+"Mato Grosso do Sul",
+"Minas Gerais",
+"Pará",
+"Paraíba",
+"Paraná",
+"Pernambuco",
+"Piauí",
+"Rio de Janeiro",
+"Rio Grande do Norte",
+"Rio Grande do Sul",
+"Rondônia",
+"Roraima",
+"Santa Catarina",
+"São Paulo",
+"Sergipe",
+"Tocantins"
+]);
+
+const estadoFiltrados = ref([]);
+
+
+const searchEstado = (event) => {
+    if (!event.query.trim().length) {
+
+        estadoFiltrados.value = [...estadosOpts.value];
+    } else {
+        estadoFiltrados.value = estadosOpts.value.filter((estado) => {
+            return estado.toLowerCase().startsWith(event.query.toLowerCase());
+        });
+    }
+};
+
 </script>
 
 <template>
@@ -57,12 +102,15 @@ const handleSave = () => {
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/6">
                 <label for="estado">Estado</label>
-                <InputText 
+                <AutoComplete
                     id="estado" 
                     v-model="enderecoStore.endereco.estado" 
+                    :suggestions="estadoFiltrados" 
+                    @complete="searchEstado" 
+                    dropdown
                     placeholder="Pernambuco" 
                     class="w-full"
-                />
+                    />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/6">
                 <label for="cidade">Cidade</label>

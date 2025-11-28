@@ -319,7 +319,6 @@ const handleSave = () => {
                     </div>
 
                     <div v-if="respiratorioStore.respiratorio.usa_oxigenioterapia" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
-                        <span class="text-red-600">TODO*: verificar se seria mais adequado esconder o campo de vezes ao dia ou manter da forma que está.</span>
                         <div class="flex flex-col md:flex-row gap-4">
                             <div class="flex flex-col gap-2 w-full md:w-1/4">
                                 <label for="fonte_oxigenio">Fonte</label>
