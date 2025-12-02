@@ -1,14 +1,50 @@
 <script setup>
-import { ref, computed } from 'vue';
 import { useEnderecoStore } from '@/store/evaluation/endereco';
+import { computed, ref, watch } from 'vue';
 
 const emit = defineEmits(['next-step']);
 const enderecoStore = useEnderecoStore();
 const activeIndex = ref(null);
+const isLoadingCep = ref(false);
 
 const isFilled = computed(() => {
     return !!enderecoStore.endereco.cep && 
            enderecoStore.endereco.cep.length > 3;
+});
+
+const buscarCep = async (cep) => {
+    isLoadingCep.value = true;
+    try {
+        const cepLimpo = cep.replace(/\D/g, '');
+        
+        const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+        const data = await response.json();
+
+        if (!data.erro) {
+            enderecoStore.endereco.cidade = data.localidade; 
+            enderecoStore.endereco.logradouro = data.logradouro; 
+            enderecoStore.endereco.bairro = data.bairro;
+            enderecoStore.endereco.estado = data.estado; 
+            
+            if(data.complemento) {
+                enderecoStore.endereco.complemento = data.complemento;
+            }
+            document.getElementById('numero-logradoro')?.focus();
+        } else {
+            alert('CEP não encontrado. Verifique os números.');
+        }
+    } catch (error) {
+        console.error("Erro ao buscar CEP:", error);
+    } finally {
+        isLoadingCep.value = false;
+    }
+};
+
+watch(() => enderecoStore.endereco.cep, (novoCep) => {
+    const apenasNumeros = novoCep?.replace(/\D/g, '') || '';
+    if (apenasNumeros.length === 8) {
+        buscarCep(apenasNumeros);
+    }
 });
 
 const handleSave = () => {
@@ -93,12 +129,17 @@ const searchEstado = (event) => {
         <div class="flex flex-col md:flex-row gap-4">
             <div class="flex flex-col gap-2 w-full md:w-1/6">
                 <label for="cep">CEP</label>
-                <InputText 
-                    id="cep" 
-                    v-model="enderecoStore.endereco.cep" 
-                    placeholder="55050-550" 
-                    class="w-full"
-                />
+                <div class="p-input-icon-right w-full">
+                    <i v-if="isLoadingCep" class="pi pi-spin pi-spinner" />
+                    <InputMask 
+                        id="cep" 
+                        v-model="enderecoStore.endereco.cep" 
+                        placeholder="55050-550"
+                        mask="99999-999" 
+                        class="w-full"
+                        :disabled="isLoadingCep"
+                    />
+                </div>
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/6">
                 <label for="estado">Estado</label>
@@ -131,10 +172,10 @@ const searchEstado = (event) => {
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/6">
-                <label for="logradoro">Logradoro</label>
+                <label for="logradouro">Logradouro</label>
                 <InputText 
-                    id="logradoro" 
-                    v-model="enderecoStore.endereco.logradoro" 
+                    id="logradouro" 
+                    v-model="enderecoStore.endereco.logradouro" 
                     placeholder="Agamenon magalhães" 
                     class="w-full"
                 />
