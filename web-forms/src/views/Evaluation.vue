@@ -18,6 +18,7 @@ import { useEliminacoesStore } from '@/store/evaluation/eliminacoes';
 import { useCondicoesPeleStore } from '@/store/evaluation/condicoesPele';
 import { useScoreStore } from '@/store/evaluation/score';
 import { useObservacoesStore } from '@/store/evaluation/observacao';
+import { useExameFisicoStore } from '@/store/evaluation/exameFisico';
 
 const dadosGeraisStore = useDadosGeraisStore();
 const enderecoStore = useEnderecoStore();
@@ -25,7 +26,7 @@ const contatoStore = useContatoStore();
 const cuidadoresStore = useCuidadoresStore();
 const segurancaPacienteStore = useSegurancaStore();
 const historicoClinicoStore = useHistoricoStore();
-const exameFisicoStore = useHistoricoStore();
+const exameFisicoStore = useExameFisicoStore();
 const cardioRespiratorioStore = useRespiratorioStore();
 const nutricionalStore = useNutricionalStore();
 const eliminacoes = useEliminacoesStore();
@@ -36,20 +37,22 @@ const obs = useObservacoesStore();
 async function submitFormData() {
   try {
     const payload = {
-      dadosGerais: dadosGeraisStore.$state,
-      endereco: enderecoStore.$state,
-      contato: contatoStore.$state,
-      cuidadores: cuidadoresStore.$state,
-      seguranca: segurancaPacienteStore.$state,
-      historicoClinico: historicoClinicoStore.$state,
-      exameFisico: exameFisicoStore.$state,
-      cardioRespiratorio: cardioRespiratorioStore.$state,
-      nutricional: nutricionalStore.$state,
-      eliminacoes: eliminacoes.$state,
-      condicoesPele: condicoesPele.$state,
-      score: score.$state,
-      observacoes: obs.$state
-    };
+      dadosGerais: dadosGeraisStore.dadosGerais,
+      endereco: enderecoStore.endereco,
+      contato: contatoStore.contato,
+      cuidadores: cuidadoresStore.cuidadores,
+      seguranca: segurancaPacienteStore.seguranca,
+      historicoClinico: historicoClinicoStore.historico,
+      exameFisico: exameFisicoStore.exameFisico,
+      cardioRespiratorio: cardioRespiratorioStore.respiratorio,
+      nutricional: nutricionalStore.nutricional,
+      eliminacoes: eliminacoes.eliminacoes,
+      condicoesPele: condicoesPele.condicoesPele,
+      score: score.score,
+      observacoes: obs.observacoes
+  };
+
+    console.log(JSON.stringify(payload))
 
     const response = await fetch('http://localhost:8090/Avaliation', { 
       method: 'POST',

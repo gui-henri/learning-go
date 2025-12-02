@@ -8,7 +8,7 @@ import (
 )
 
 type SaveAvaliationRequest struct {
-	Data map[string]interface{}
+	Data entity.AvaliacaoRequest
 }
 
 type SaveAvaliationResponse struct {
@@ -17,7 +17,7 @@ type SaveAvaliationResponse struct {
 }
 
 func decodeSaveFormRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	var body map[string]interface{}
+	var body AvaliacaoRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		return nil, err

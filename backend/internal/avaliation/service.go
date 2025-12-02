@@ -6,7 +6,7 @@ import (
 )
 
 type AvaliationService interface {
-	Save(ctx context.Context, data map[string]interface{}) error
+	Save(ctx context.Context, data AvaliacaoRequest) error
 }
 
 type avaliationService struct {
@@ -17,7 +17,7 @@ func NewAvaliationService(r avaliationRepository) *avaliationService {
 	return &avaliationService{repository: r}
 }
 
-func (s *avaliationService) Save(ctx context.Context, data map[string]interface{}) error {
+func (s *avaliationService) Save(ctx context.Context, data AvaliacaoRequest) error {
 	dataBytes, err := json.Marshal(data)
 	if err != nil {
 		return err

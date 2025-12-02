@@ -17,26 +17,26 @@ cabecalho = {
     "internacao": {
         "data_inicio": "14/10/2025",
         "data_fim": "31/10/2025",
-        "quantidade_dias": "18",
+        "quantidade_dias": "20",
         "tipo": "INDETERMINADO",
-        "complexidade": "MEDIA COMPLEXIDADE"
+        "complexidade": "ALTA COMPLEXIDADE"
     },
     "valores_proposta": {
-        "total_periodo": "38.388,68",
-        "medio_diario": "2.132,70"
+        "total_periodo": "41.132,06",
+        "medio_diario": "2.285,11"
     }
 }
 
 orcamento = [
   {
     "descricao": "DIARIA HC - ALTA COMPLEXIDADE",
-    "quantidade": 18.0,
+    "quantidade": 20.0,
     "unidade": "UN",
     "valor_unitario": "785,00",
-    "valor_total": "14.130,00",
+    "valor_total": "15.700,00",
     "grupo_procedimento": "DIARIAS",
     "custo_unitario": "316,63",
-    "custo_total": "5.699,34"
+    "custo_total": "6.332,60"
   },
   {
     "descricao": "TAXA CONCENTRADOR DE O2 - 24HS",
@@ -139,7 +139,7 @@ orcamento = [
     "custo_total": "6,12"
   },
   {
-    "descricao": "DOMPERIDONA 10MG CPRS (GERMED) - ORÇ",
+    "descricao": "DOMPERIDONA 10MG CPRS (GERMED) - ORC",
     "quantidade": 54.0,
     "unidade": "COM",
     "valor_unitario": "0,60",
@@ -189,7 +189,7 @@ orcamento = [
     "custo_total": "3,96"
   },
   {
-    "descricao": "SIMETICONA 75MG/ML FRAS/ 10ML - ORÇ",
+    "descricao": "SIMETICONA 75MG/ML FRAS/ 10ML - ORC",
     "quantidade": 3510.0,
     "unidade": "GTS",
     "valor_unitario": "0,03",
@@ -230,13 +230,13 @@ orcamento = [
   },
   {
     "descricao": "CLORETO DE SODIO 0,9% 100ML SIST FECHADO (FRESENIUS)",
-    "quantidade": 18.0,
+    "quantidade": 15.0,
     "unidade": "UN",
     "valor_unitario": "8,30",
-    "valor_total": "149,40",
+    "valor_total": "124,50",
     "grupo_procedimento": "MEDICAMENTOS RESTRITO HOSP.",
     "custo_unitario": "0,04",
-    "custo_total": "0,81"
+    "custo_total": "0,60"
   },
   {
     "descricao": "PIPERACILINA SODICA + TAZOBACTAM 4,5MG (NOVAFARMA)",
@@ -250,13 +250,13 @@ orcamento = [
   },
   {
     "descricao": "FRESUBIN HP ENERGY 1000ML (FRESENIUS) - ORC",
-    "quantidade": 1710.0,
+    "quantidade": 2000.0,
     "unidade": "ML",
     "valor_unitario": "0,00",
     "valor_total": "0,00",
     "grupo_procedimento": "ALIMENTACOES E DIETAS",
     "custo_unitario": "0,04",
-    "custo_total": "633,22"
+    "custo_total": "740,02"
   },
   {
     "descricao": "AGULHA DESCARTAVEL 13X4,5MM (0097045)",
@@ -370,33 +370,33 @@ orcamento = [
   },
   {
     "descricao": "EQUIPO P/ NUTRIÇÃO ENTERAL ESCALONADO",
-    "quantidade": 3.0,
+    "quantidade": 5.0,
     "unidade": "UN",
     "valor_unitario": "45,55",
-    "valor_total": "136,65",
+    "valor_total": "227,75",
     "grupo_procedimento": "MATERIAIS",
     "custo_unitario": "2,92",
-    "custo_total": "8,77"
+    "custo_total": "14,61"
   },
   {
     "descricao": "EQUIPO P/ SORO PINÇA MACRO EMBRAMED (280861)",
-    "quantidade": 6.0,
+    "quantidade": 10.0,
     "unidade": "UN",
     "valor_unitario": "51,00",
-    "valor_total": "306,00",
+    "valor_total": "510,00",
     "grupo_procedimento": "MATERIAIS",
     "custo_unitario": "1,13",
-    "custo_total": "6,78"
+    "custo_total": "11,30"
   },
   {
     "descricao": "EQUIPO P/BOMBA INF KANGAROO ENTERAL E-PUMP (0261767)",
-    "quantidade": 9.0,
+    "quantidade": 10.0,
     "unidade": "UN",
     "valor_unitario": "850,00",
-    "valor_total": "7.650,00",
+    "valor_total": "8.500,00",
     "grupo_procedimento": "MATERIAIS",
-    "custo_unitario": "14,72",
-    "custo_total": "132,48"
+    "custo_unitario": "14,76",
+    "custo_total": "147,56"
   },
   {
     "descricao": "FILTRO.AUTO.UMID. BARREIRA BACT.VIRUS (CEI) (0041526)",
@@ -430,16 +430,16 @@ orcamento = [
   },
   {
     "descricao": "FRASCO P/NUTRICAO ENTERAL NUTRIZ 300ML (0106816)",
-    "quantidade": 21.0,
+    "quantidade": 25.0,
     "unidade": "UN",
     "valor_unitario": "6,25",
-    "valor_total": "131,25",
+    "valor_total": "156,25",
     "grupo_procedimento": "MATERIAIS",
-    "custo_unitario": "1,09",
-    "custo_total": "22,80"
+    "custo_unitario": "0,94",
+    "custo_total": "23,52"
   },
   {
-    "descricao": "LUVA P/PROCEDIMENTO NAO ESTERIL TAM M (0057334) - ORÇ",
+    "descricao": "LUVA P/PROCEDIMENTO NAO ESTERIL TAM M (0057334) - ORC",
     "quantidade": 237.0,
     "unidade": "UN",
     "valor_unitario": "0,85",
@@ -500,13 +500,13 @@ orcamento = [
   },
   {
     "descricao": "SERINGA 20ML S/AGUL. DESC. (INJEX) - (0074275)",
-    "quantidade": 18.0,
+    "quantidade": 20.0,
     "unidade": "UN",
     "valor_unitario": "14,09",
-    "valor_total": "253,62",
+    "valor_total": "281,80",
     "grupo_procedimento": "MATERIAIS",
-    "custo_unitario": "1,00",
-    "custo_total": "18,05"
+    "custo_unitario": "1,05",
+    "custo_total": "20,95"
   },
   {
     "descricao": "SERINGA 5ML S/AGUL. DESC. (0074273) - INJEX",
@@ -539,7 +539,7 @@ orcamento = [
     "custo_total": "13,51"
   },
   {
-    "descricao": "TOUCA DESCARTAVEL (0114553) - ORÇ",
+    "descricao": "TOUCA DESCARTAVEL (0114553) - ORC",
     "quantidade": 36.0,
     "unidade": "UN",
     "valor_unitario": "1,08",
