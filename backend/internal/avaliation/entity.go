@@ -1,5 +1,18 @@
 package avaliation
 
+import (
+	"encoding/json"
+	"time"
+)
+
+type AvaliacaoSchema struct {
+	Id           int             `db:"id" json:"id"`
+	ResourceJSON json.RawMessage `db:"resource_json" json:"resource_json"`
+	CreatedAt    time.Time       `db:"created_at" json:"created_at"`
+	LastUpdated  time.Time       `db:"last_updated" json:"last_updated"`
+	Active       bool            `db:"active" json:"active"`
+}
+
 type AvaliacaoRequest struct {
 	DadosGerais        DadosGerais        `json:"dadosGerais"`
 	EnderecoWrapper    Endereco           `json:"endereco"`

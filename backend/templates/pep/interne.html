@@ -341,8 +341,8 @@
         <div style="margin-bottom: 5px;">
             <span class="label">Alergia?</span>
             {{ $temAlergia := gt (len .Seguranca.Alergias) 0 }}
-            <span class="checkbox-box">{{check (not $temAlergia)}}</span> Não
-            <span class="checkbox-box">{{check $temAlergia}}</span> Sim
+            <span class="checkbox-box"></span> Não
+            <span class="checkbox-box">{{ $temAlergia}}</span> Sim
         </div>
 
         {{if $temAlergia}}
@@ -399,20 +399,20 @@
         <div class="row">
             <div class="col w-50">
                 <span class="label">Possui Dreno?</span>
-                <span class="checkbox-box">{{check .ExameFisico.PossuiDreno}}</span> Sim
+                <span class="checkbox-box">{{ .ExameFisico.PossuiDreno}}</span> Sim
                 {{if .ExameFisico.PossuiDreno}}
                 (Local: {{.ExameFisico.LocalDreno}})
                 {{end}}
             </div>
             <div class="col w-50">
                 <span class="label">Possui Acesso?</span>
-                <span class="checkbox-box">{{check .ExameFisico.PossuiAcesso}}</span> Sim
+                <span class="checkbox-box">{{.ExameFisico.PossuiAcesso}}</span> Sim
             </div>
         </div>
     </div>
 
     <div style="margin-top: 20px; font-size: 8px; text-align: right;">
-        Gerado eletronicamente em {{now}}
+        Gerado eletronicamente em
     </div>
 
 </body>
