@@ -203,11 +203,30 @@
                 <span class="label">Idade:</span>
                 <span class="value">{{.DadosGerais.num_carteirinha}}</span>
             </div>
-            <div class="col w-30">
+            <div class="col w-10">
                 <span class="label">Sexo:</span>
-                <span class="value">Masculino</span>
+                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
             </div>
-            <div class="col w-20">
+            <div class="col w-10">
+                <span class="label">Peso</span>
+                <span class="value">VALIDAR</span>
+            </div>
+            <div class="col w-10">
+                <span class="label">Altura</span>
+                <span class="value">VALIDAR</span>
+            </div>
+             <div class="col w-10">
+                <span class="label">Complexidade</span>
+                <span class="value">VALIDAR</span>
+            </div>
+             <div class="col w-20">
+                <span class="label">Previsão de alta</span>
+                <span class="value">VALIDAR</span>
+            </div>
+
+        </div>
+        <div class="row">
+                        <div class="col w-20">
                 <span class="label">RG:</span>
                 <span class="value">{{.DadosGerais.num_carteirinha}}</span>
             </div>
@@ -215,6 +234,7 @@
                 <span class="label">CPF:</span>
                 <span class="value">{{.DadosGerais.num_carteirinha}}</span>
             </div>
+
         </div>
         <div class="row">
             <div class="col w-50">
@@ -335,85 +355,159 @@
             </div>
         </div>
     </div>
-
     <div class="section-title">SEGURANÇA DO PACIENTE</div>
-    <div class="section-box" style="padding: 5px;">
-        <div style="margin-bottom: 5px;">
-            <span class="label">Alergia?</span>
-            {{ $temAlergia := gt (len .Seguranca.Alergias) 0 }}
-            <span class="checkbox-box">{{check (not $temAlergia)}}</span> Não
-            <span class="checkbox-box">{{check $temAlergia}}</span> Sim
+    <div class="section-box">
+    <span class="label" style="margin: 5px;">Alergia</span>
+        <div class="group" style="margin: 5px; border: 1px solid #000;">
+            <div class="row">
+                <div class="col w-20    ">
+                    <span class="label">Possui alergia(s)?</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-10">
+                    <span class="label">Tipo alergia:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-10">
+                    <span class="label">Precaução:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                 <div class="col w-30">
+                    <span class="label">Descrição:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col w-30">
+                    <span class="label">Cuidados paleativos:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+            </div>
         </div>
+    </div>
 
-        {{if $temAlergia}}
-        <table>
-            <thead>
-                <tr style="background-color: #eee;">
-                    <th>Tipo</th>
-                    <th>Quais?</th>
-                    <th>Precaução</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{range .Seguranca.Alergias}}
-                <tr>
-                    <td>{{.TipoAlergia}}</td>
-                    <td>{{.QuaisAlergias}}</td>
-                    <td>{{.Precaucao}}</td>
-                </tr>
-                {{end}}
-            </tbody>
-        </table>
-        {{end}}
+        <div class="section-title">HISTÓRIA DA DOENÇA ATUAL</div>
+        <div class="section-box">
+            <div class="col w-100">
+                        
+                        <span class="value">{{.HistóricoClínico.historia-atual}}</span>
+                    </div>
+    </div>
+     <div class="section-title">PLANO TERAPÊUTICO</div>
+    <div class="section-box">
+        <div class="col w-100">
+                    
+                    <span class="value">{{.HistóricoClínico.historia-atual}}</span>
+                </div>
+    </div>
+     <div class="section-title">ANAMNESE DE ENFERMAGEM</div>
+    <div class="section-box">
+        <div class="col w-100">
+                    
+                    <span class="value">{{.HistóricoClínico.historia-atual}}</span>
+                </div>
     </div>
 
     <div class="section-title">EXAME FÍSICO / TERAPIA</div>
     <div class="section-box">
-        <div class="row">
-            <div class="col w-100">
-                <span class="label">Antimicrobianos em Uso:</span>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Medicamento</th>
-                            <th>Início</th>
-                            <th>Término</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{range .ExameFisico.Antimicrobianos}}
-                        <tr>
-                            <td>{{.Nome}}</td>
-                            <td>{{.DataInicio}}</td>
-                            <td>{{.DataTermino}}</td>
-                        </tr>
-                        {{else}}
-                        <tr>
-                            <td colspan="3" style="text-align:center">Nenhum registrado</td>
-                        </tr>
-                        {{end}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col w-50">
-                <span class="label">Possui Dreno?</span>
-                <span class="checkbox-box">{{check .ExameFisico.PossuiDreno}}</span> Sim
-                {{if .ExameFisico.PossuiDreno}}
-                (Local: {{.ExameFisico.LocalDreno}})
-                {{end}}
-            </div>
-            <div class="col w-50">
-                <span class="label">Possui Acesso?</span>
-                <span class="checkbox-box">{{check .ExameFisico.PossuiAcesso}}</span> Sim
-            </div>
-        </div>
-    </div>
+        <span class="label" style="margin: 5px;">Estado geral</span>
 
+        <div class="group" style="margin: 5px; border: 1px solid #000;">
+            <div class="row">
+                <div class="col w-20">
+                    <span class="label">Estado geral:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Avaliação locomotora:</span>
+                    <span class="value">VALIDAR</span>
+                </div>
+            </div>
+        </div>
+        <span class="label" style="margin: 5px;">Drenos</span>
+        <div class="group" style="margin: 5px; border: 1px solid #000;">
+            <div class="row">
+                <div class="col w-10">
+                    <span class="label">Possui dreno(s)?</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Local do dreno:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Data da Implantação:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Realizando curativos?</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Curativos do dreno:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+            </div>
+        </div>  
+        <span class="label" style="margin: 5px;">Acessos</span>
+        <div class="group" style="margin: 5px; border: 1px solid #000;">
+            <div class="row">
+                <div class="col w-10">
+                    <span class="label">Cateter Total Implantado</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+            </div>
+
+             <div class="row">
+                <div class="col w-10">
+                    <span class="label">Picc Line</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Tipo</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Data da Implantação:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Data da Última troca</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Curativos</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+             </div>
+              <div class="row">
+                <div class="col w-10">
+                    <span class="label">Hipodermóclise</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Tipo</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Data da Última Troca:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+
+             </div>
+             
+        </div>  
+       
+    
+    
+              
+
+    
+    </div>
     <div style="margin-top: 20px; font-size: 8px; text-align: right;">
         Gerado eletronicamente em {{now}}
     </div>
+
 
 </body>
 
