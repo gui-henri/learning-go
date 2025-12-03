@@ -26,6 +26,8 @@ services:
     container_name: hapi-fhir
     ports:
       - "8092:8080"
+  gotenberg:
+    image: gotenberg/gotenberg:8
   db:
     image: postgres
     restart: always

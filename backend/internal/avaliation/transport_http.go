@@ -1,6 +1,7 @@
 package avaliation
 
 import (
+	"fmt"
 	"net/http"
 
 	httptransport "github.com/go-kit/kit/transport/http"
@@ -8,9 +9,15 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux) *http.ServeMux {
+func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux, gotenbergUrl string, templateInternePath string) (*http.ServeMux, error) {
 	avaliationRepository := NewAvaliationRepository(db)
-	avaliationService := NewAvaliationService(*avaliationRepository)
+	avaliationService, err := NewAvaliationService(*avaliationRepository, gotenbergUrl, templateInternePath)
+
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("[ERROR] Não foi possível ler o template para criação do AvaliationService. Avaliação fora do ar.")
+		return nil, fmt.Errorf("[ERROR] Não foi possível ler o template para criação do AvaliationService")
+	}
 
 	saveAvaliation := httptransport.NewServer(
 		MakeSaveFormEndpoint(*avaliationService),
@@ -19,7 +26,15 @@ func NewHttpTransportLayer(db *pgx.Conn, mux *http.ServeMux) *http.ServeMux {
 		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
 	)
 
-	mux.HandleFunc("POST /Avaliation", saveAvaliation.ServeHTTP)
+	exportAvaliation := httptransport.NewServer(
+		MakeExportAvaliationEndpoint(*avaliationService),
+		decodeExportAvaliationRequest,
+		encodeExportAvaliationResponse,
+		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
+	)
 
-	return mux
+	mux.HandleFunc("POST /Avaliation", saveAvaliation.ServeHTTP)
+	mux.HandleFunc("GET /Avaliation/{id}/export", exportAvaliation.ServeHTTP)
+
+	return mux, nil
 }

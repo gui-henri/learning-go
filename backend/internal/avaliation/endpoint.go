@@ -18,3 +18,16 @@ func MakeSaveFormEndpoint(s avaliationService) endpoint.Endpoint {
 		return SaveAvaliationResponse{Status: "success"}, nil
 	}
 }
+
+func MakeExportAvaliationEndpoint(s avaliationService) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+		req := request.(ExportAvaliationRequest)
+
+		pdf, err := s.Export(ctx, req.Id, req.Format)
+
+		return ExportAvaliationResponse{
+			Data: pdf,
+			Err:  err,
+		}, nil
+	}
+}
