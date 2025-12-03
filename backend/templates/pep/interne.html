@@ -417,96 +417,87 @@
         {{end}}
     </div>
 
-        <div class="section-title">HISTÓRIA DA DOENÇA ATUAL</div>
-        <div class="section-box">
-            <div class="col w-100">
-                        
-                        <span class="value">{{.HistoricoClinico.HistoriaDoencaAtual}}</span>
-                    </div>
+    <div class="section-title">HISTÓRIA DA DOENÇA ATUAL</div>
+    <div class="section-box">
+        <div class="col w-100">        
+            <span class="value">{{.HistoricoClinico.HistoriaDoencaAtual}}</span>
+        </div>
     </div>
-     <div class="section-title">PLANO TERAPÊUTICO</div>
+    <div class="section-title">PLANO TERAPÊUTICO</div>
     <div class="section-box">
         <div class="col w-100">
-                    
-                    <span class="value">{{.HistoricoClinico.PlanoTerapeutico}}</span>
-                </div>
+            <span class="value">{{.HistoricoClinico.PlanoTerapeutico}}</span>
+        </div>
     </div>
-     <div class="section-title">ANAMNESE DE ENFERMAGEM</div>
+    <div class="section-title">ANAMNESE DE ENFERMAGEM</div>
     <div class="section-box">
         <div class="col w-100">
-                    
-                    <span class="value">{{.HistoricoClinico.AnamneseEnfermagem}}</span>
-                </div>
+            <span class="value">{{.HistoricoClinico.AnamneseEnfermagem}}</span>
+        </div>
     </div>
 
     <div class="section-title">EXAME FÍSICO / TERAPIA</div>
     <div class="section-box">
-        <span class="label" style="margin: 5px;">Estado geral</span>
-
-        <div class="group" style="margin: 5px; border: 1px solid #000;">
-            <div class="row">
-                <div class="col w-20">
-                    <span class="label">Estado geral:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-20">
-                    <span class="label">Avaliação locomotora:</span>
-                    <span class="value">VALIDAR</span>
-                </div>
+        <div class="row">
+            <div class="col w-20">
+                <span class="label">Estado geral:</span>
+                <span class="value">{{.ExameFisico.EstadoGeral.Name}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Avaliação locomotora:</span>
+                <span class="value">{{.ExameFisico.AvaliacaoLocomotora.Name}}</span>
             </div>
         </div>
         <div class="row">
             <div class="col w-50">
                 <span class="label">Possui Dreno?</span>
-                <span class="checkbox-box">{{ .ExameFisico.PossuiDreno}}</span> Sim
-                {{if .ExameFisico.PossuiDreno}}
-                (Local: {{.ExameFisico.LocalDreno}})
-                {{end}}
+                {{if .ExameFisico.PossuiDreno}}Sim{{end}}
+                {{if not .ExameFisico.PossuiDreno}}Não{{end}}
             </div>
+        </div>
+        <div class="row">
             <div class="col w-50">
                 <span class="label">Possui Acesso?</span>
-                <span class="checkbox-box">{{.ExameFisico.PossuiAcesso}}</span> Sim
+                {{if .ExameFisico.PossuiAcesso}}Sim{{end}}
+                {{if not .ExameFisico.PossuiAcesso}}Não{{end}}
             </div>
-
-             <div class="row">
-                <div class="col w-10">
-                    <span class="label">Picc Line</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-20">
-                    <span class="label">Tipo</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-20">
-                    <span class="label">Data da Implantação:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-20">
-                    <span class="label">Data da Última troca</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-20">
-                    <span class="label">Curativos</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-             </div>
-              <div class="row">
-                <div class="col w-10">
-                    <span class="label">Hipodermóclise</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-20">
-                    <span class="label">Tipo</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-20">
-                    <span class="label">Data da Última Troca:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-
-             </div>
-    
-        </div>  
+        </div>
+        <div class="row">
+            <div class="col w-10">
+                <span class="label">Picc Line</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Tipo</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Data da Implantação:</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Data da Última troca</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Curativos</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-10">
+                <span class="label">Hipodermóclise</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Tipo</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Data da Última Troca:</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+        </div>
     </div>
     <div style="margin-top: 20px; font-size: 8px; text-align: right;">
         Gerado eletronicamente em
