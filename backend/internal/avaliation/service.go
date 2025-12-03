@@ -61,7 +61,7 @@ func (s *avaliationService) Export(ctx context.Context, id int, format string) (
 		return nil, err
 	}
 
-	if err := s.templates.ExecuteTemplate(&renderedHTML, "avaliation.html", avaliation); err != nil {
+	if err := s.templates.ExecuteTemplate(&renderedHTML, "interne.html", avaliation); err != nil {
 		return nil, fmt.Errorf("failed to render template: %w", err)
 	}
 

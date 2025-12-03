@@ -183,47 +183,47 @@
         <div class="row">
             <div class="col w-20">
                 <span class="label">N° da carteira:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.DadosGerais.Carteirinha}}</span>
             </div>
             <div class="col w-20">
                 <span class="label">Validade:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.DadosGerais.VencimentoCarteirinha}}</span>
             </div>
             <div class="col w-40">
                 <span class="label">Médico Assistente:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.Cuidadores.MedicoSolicitante}}</span>
             </div>
         </div>
         <div class="row">
             <div class="col w-20">
                 <span class="label">Data de nascimento:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.DadosGerais.DataNascimento}}</span>
             </div>
             <div class="col w-10">
                 <span class="label">Idade:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.DadosGerais.Idade}}</span>
             </div>
             <div class="col w-30">
                 <span class="label">Sexo:</span>
-                <span class="value">Masculino</span>
+                <span class="value">{{.DadosGerais.Genero.Name}}</span>
             </div>
             <div class="col w-20">
                 <span class="label">RG:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.DadosGerais.RG}}</span>
             </div>
             <div class="col w-20">
                 <span class="label">CPF:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.DadosGerais.CPF}}</span>
             </div>
         </div>
         <div class="row">
             <div class="col w-50">
                 <span class="label">Nome do Pai:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.DadosGerais.NomePai}}</span>
             </div>
             <div class="col w-50">
                 <span class="label">Nome da mãe:</span>
-                <span class="value">{{.DadosGerais.num_carteirinha}}</span>
+                <span class="value">{{.DadosGerais.NomeMae}}</span>
             </div>
         </div>
     </div>
@@ -261,46 +261,59 @@
         <div class="row">
             <div class="col w-30">
                 <span class="label">Complemento:</span>
-                <span class="value">{{.Endereco.Estado}}</span>
+                <span class="value">{{.Endereco.Complemento}}</span>
             </div>
             <div class="col w-30">
                 <span class="label">Ponto de referência:</span>
-                <span class="value">{{.Endereco.Estado}}</span>
+                <span class="value">{{.Endereco.PontoReferencia}}</span>
             </div>
         </div>
         <div class="row">
             <div class="col w-50">
                 <span class="label">Telefone Celular:</span>
-                <span class="value">{{.Endereco.Estado}}</span>
+                <span class="value">{{.Contato.TelefonePaciente}}</span>
             </div>
             <div class="col w-50">
                 <span class="label">Telefone Residencial:</span>
-                <span class="value">{{.Endereco.Estado}}</span>
+                <span class="value">{{.Contato.TelefoneResidencial}}</span>
             </div>
         </div>
         <span class="label" style="margin: 5px;">Responsáveis:</span>
-        <div class="group" style="margin: 5px; border: 1px solid #000;">
+
+        {{range .Contato.Responsaveis}}
+        <div class="group" style="margin: 5px; border: 1px solid #000; margin-bottom: 10px;">
             <div class="row">
                 <div class="col w-50">
                     <span class="label">Nome do responsável:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
+                    <span class="value">
+                        {{.Nome}} {{if .Parentesco}}({{.Parentesco}}){{end}}
+                    </span>
                 </div>
                 <div class="col w-50">
                     <span class="label">Telefone do responsável:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
+                    <span class="value">{{.Telefone}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col w-60">
                     <span class="label">Email do responsável:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
+                    <span class="value">{{.Email}}</span>
                 </div>
-                <div class="col w-30">
-                    <span class="label">Forma de contato:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
+                <div class="col w-40"> <span class="label">Forma de contato:</span>
+                    <span class="value">{{.FormaContato}}</span>
                 </div>
             </div>
+            {{if .NumeroPrioritario}}
+            <div class="row">
+                <div class="col w-100">
+                    <span class="label" style="font-weight:bold;">★ Contato Prioritário</span>
+                </div>
+            </div>
+            {{end}}
         </div>
+        {{else}}
+            <div style="margin: 5px; font-style: italic;">Nenhum responsável registrado.</div>
+        {{end}}
         <span class="label" style="margin: 5px;">Cuidadores:</span>
         <div class="group" style="margin: 5px; border: 1px solid #000;">
             <div class="row">

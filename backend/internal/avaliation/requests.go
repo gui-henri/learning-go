@@ -17,14 +17,13 @@ type SaveAvaliationResponse struct {
 	Err    string `json:"error,omitempty"`
 }
 
-func decodeSaveFormRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func decodeSaveFormRequest(_ context.Context, r *http.Request) (any, error) {
 	var body AvaliacaoRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		fmt.Println("JSON Error:", err)
 		return nil, err
 	}
-
-	fmt.Println(body)
 
 	return SaveAvaliationRequest{Data: body}, nil
 }
@@ -44,7 +43,7 @@ type ExportAvaliationResponse struct {
 	Err  error
 }
 
-func decodeExportAvaliationRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func decodeExportAvaliationRequest(_ context.Context, r *http.Request) (any, error) {
 	id := r.PathValue("id")
 
 	// Parse ID from string to int...

@@ -13,9 +13,15 @@ type AvaliacaoSchema struct {
 	Active       bool            `db:"active" json:"active"`
 }
 
+type SelectField struct {
+	Name  string `json:"name"`
+	Code  string `json:"code"`
+	Value string `json:"value"` // Added Value because 'Seguranca' uses 'value' instead of 'code'
+}
+
 type AvaliacaoRequest struct {
 	DadosGerais        DadosGerais        `json:"dadosGerais"`
-	EnderecoWrapper    Endereco           `json:"endereco"`
+	Endereco           Endereco           `json:"endereco"`
 	Contato            Contato            `json:"contato"`
 	Cuidadores         Cuidadores         `json:"cuidadores"`
 	Seguranca          Seguranca          `json:"seguranca"`
@@ -31,24 +37,28 @@ type AvaliacaoRequest struct {
 
 // --- DADOS GERAIS ---
 type DadosGerais struct {
-	Genero                string  `json:"genero"`
-	Complexidade          string  `json:"complexidade"`
-	Peso                  float64 `json:"peso"`
-	Altura                float64 `json:"altura"`
-	NomePaciente          string  `json:"nome_paciente"`
-	Idade                 int     `json:"idade"`
-	PrevisaoAlta          string  `json:"previsao_alta"`
-	DataNascimento        string  `json:"dat_nascimento"`
-	CPF                   string  `json:"cpf"`
-	RG                    string  `json:"rg"`
-	NomePai               string  `json:"nome_pai"`
-	NomeMae               string  `json:"nome_mae"`
-	Convenio              string  `json:"convenio"`
-	Hospital              string  `json:"hospital"`
-	DataAdmissao          string  `json:"dat_admissao"`
-	Apartamento           string  `json:"apartamento"`
-	Carteirinha           string  `json:"carteirinha"`
-	VencimentoCarteirinha string  `json:"vencimento_carteirinha"`
+	Genero       SelectField `json:"genero"` // FIXED: Changed from string to Struct
+	Complexidade string      `json:"complexidade"`
+
+	// FIXED: JSON sends "123" (string), not 123 (number). Changed to string.
+	// You can convert these to float/int inside your Service layer using strconv.
+	Peso   string `json:"peso"`
+	Altura string `json:"altura"`
+	Idade  string `json:"idade"`
+
+	NomePaciente          string `json:"nome_paciente"`
+	PrevisaoAlta          bool   `json:"previsao_alta"`   // JSON sends boolean true/false
+	DataNascimento        string `json:"data_nascimento"` // Matches ISO string
+	CPF                   string `json:"cpf"`
+	RG                    string `json:"rg"`
+	NomePai               string `json:"nome_pai"`
+	NomeMae               string `json:"nome_mae"`
+	Convenio              string `json:"convenio"`
+	Hospital              string `json:"hospital"`
+	DataAdmissao          string `json:"dat_admissao"`
+	Apartamento           string `json:"apartamento"`
+	Carteirinha           string `json:"carteirinha"`
+	VencimentoCarteirinha string `json:"vencimento_carteirinha"`
 }
 
 // --- ENDEREÇO ---
@@ -82,14 +92,14 @@ type Responsavel struct {
 
 // --- CUIDADORES ---
 type Cuidadores struct {
-	MedicoSolicitante  string `json:"medico_solicitante"`
-	ContatoMedico      string `json:"contato_medico"`
-	PossuiCuidador     bool   `json:"possui_cuidador"`
-	NomeCuidador       string `json:"nome_cuidador"`
-	ContatoCuidador    string `json:"contato_cuidador"`
-	TurnoCuidador      string `json:"turno_cuidador"`
-	PrecisaTreinamento bool   `json:"precisa_treinamento"`
-	ObsTreinamento     string `json:"obs_treinamento"`
+	MedicoSolicitante  string      `json:"medico_solicitante"`
+	ContatoMedico      string      `json:"contato_medico"`
+	PossuiCuidador     bool        `json:"possui_cuidador"`
+	NomeCuidador       string      `json:"nome_cuidador"`
+	ContatoCuidador    string      `json:"contato_cuidador"`
+	TurnoCuidador      SelectField `json:"turno_cuidador"`
+	PrecisaTreinamento bool        `json:"precisa_treinamento"`
+	ObsTreinamento     string      `json:"obs_treinamento"`
 }
 
 // --- SEGURANÇA ---
@@ -98,10 +108,10 @@ type Seguranca struct {
 }
 
 type Alergia struct {
-	TipoAlergia        string `json:"tipo_alergia"`
-	QuaisAlergias      string `json:"quais_alergias"`
-	Precaucao          string `json:"precaucao"`
-	CuidadosPaliativos string `json:"cuidados_paliativos"`
+	TipoAlergia        SelectField `json:"tipo_alergia"` // FIXED: Object in JSON
+	QuaisAlergias      string      `json:"quais_alergias"`
+	Precaucao          SelectField `json:"precaucao"` // FIXED: Object in JSON
+	CuidadosPaliativos string      `json:"cuidados_paliativos"`
 }
 
 // --- HISTÓRICO CLÍNICO ---
@@ -113,8 +123,8 @@ type Historico struct {
 
 // --- EXAME FÍSICO ---
 type ExameFisico struct {
-	EstadoGeral          string           `json:"estado_geral"`
-	AvaliacaoLocomotora  string           `json:"avaliacao_locomotora"`
+	EstadoGeral          SelectField      `json:"estado_geral"`         // FIXED
+	AvaliacaoLocomotora  SelectField      `json:"avaliacao_locomotora"` // FIXED
 	PossuiDreno          bool             `json:"possui_dreno"`
 	LocalDreno           string           `json:"local_dreno"`
 	DataImplantacaoDreno string           `json:"data_implantacao_dreno"`

@@ -1,0 +1,31 @@
+meta {
+  name: Post Avaliation
+  type: http
+  seq: 14
+}
+
+post {
+  url: http://localhost:8090/Patient
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "resourceType": "Patient",
+    "active": true,
+    "name": [
+      {
+        "use": "official",
+        "family": "Silva",
+        "given": ["Guilherme"]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1990-01-01"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
