@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <style>
+
+
         body {
             font-family: Arial, sans-serif;
             font-size: 11px;
             line-height: 1.2;
         }
 
-        /* Layout Grid System simples */
+        /* Layout Grid System simples (Lógica PEP) */
         .row {
             display: flex;
             width: 100%;
@@ -61,26 +63,7 @@
             width: 100%;
         }
 
-        /* Estilos específicos do cabeçalho */
-        .header {
-            text-align: center;
-            border: 1px solid #000;
-            margin-bottom: 10px;
-        }
-
-        .header h1 {
-            margin: 5px 0;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .header h2 {
-            margin: 2px 0;
-            font-size: 12px;
-            font-style: italic;
-        }
-
-        /* Caixas de Título de Seção */
+        /* Estilos de Títulos e Caixas (Lógica PEP) */
         .section-title {
             background-color: #f0f0f0;
             font-weight: bold;
@@ -95,7 +78,7 @@
             border: 1px solid #000;
         }
 
-        /* Checkbox simulado [ ] */
+        /* Checkbox simulado [ ] (Lógica PEP) */
         .checkbox-box {
             display: inline-block;
             width: 12px;
@@ -106,23 +89,10 @@
             margin-right: 2px;
             font-weight: bold;
             font-size: 10px;
+            vertical-align: middle;
         }
 
-        /* Tabela simples */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 5px;
-        }
-
-        th,
-        td {
-            border: 1px solid #000;
-            padding: 3px;
-            text-align: left;
-            font-size: 10px;
-        }
-
+        /* Estilos de Label e Valor (Lógica PEP) */
         .label {
             font-weight: bold;
             font-size: 9px;
@@ -134,51 +104,409 @@
             min-height: 12px;
             display: block;
         }
+        
+        .text-center {
+            text-align: center;
+        }
+
+        .small-font {
+            font-size: 9px;
+        }
+
+        /* Tabela específica do NEAD (ajustada para PEP style) */
+        .nead-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0;
+        }
+
+        .nead-table th,
+        .nead-table td {
+            border: 1px solid #000;
+            padding: 3px;
+            text-align: left;
+            font-size: 10px;
+            vertical-align: top;
+        }
+
+         .grid-3col {
+        display: grid;
+        grid-template-columns: 70% 15% 15%;
+        width: 100%;
+    }
+
+    .grid-g2 {
+        display: grid;
+        grid-template-columns: 35% 20% 20% 25%;
+        width: 100%;
+    }
+
+    .grid-g3 {
+        display: grid;
+        grid-template-columns: 30% 5% 20% 5% 20% 5% 15%;
+        width: 100%;
+    }   
+    .grid-g2-header {
+        display: grid;
+        grid-template-columns: 40% 30% 30%;
+        width: 100%;
+    }
+
+    .grid-g2-row {
+        display: grid;
+        grid-template-columns: 40% 15% 15% 15% 15%;
+        width: 100%;
+    }
+
+    .grid-g2 {
+    display: grid;
+    grid-template-columns: 35% 20% 20% 25%;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.g2-header {
+    background: #e8f0e0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.g2-title {
+    background: #d9e6f2;
+    font-weight: bold;
+    text-align: center;
+}
+
+
     </style>
 </head>
 
 <body>
+    <div class="section-title" style="border: 1px solid #000; border-bottom: none;">
+        TABELA DE AVALIAÇÃO PARA PLANEJAMENTO DE ATENÇÃO DOMICILIAR <span style="color: #666; font-size: 12px; font-weight: normal;">nead</span>
+    </div>
+
+    <div class="section-box" style="margin-top: 0;">
+        <div class="row">
+            <div class="col w-20">
+                <span class="label">Data da Avaliação:</span>
+                <span class="value">{{.DadosGerais.DataAdmissao}}</span>
+            </div>
+            <div class="col w-40">
+                <span class="label">Nome do Paciente:</span>
+                <span class="value">{{.DadosGerais.NomePaciente}}</span>
+            </div>
+            <div class="col w-10">
+                <span class="label">Idade:</span>
+                <span class="value">{{.DadosGerais.Idade}} anos</span>
+            </div>
+            <div class="col w-15">
+                <span class="label">Matrícula:</span>
+                <span class="value">{{.DadosGerais.Carteirinha}}</span>
+            </div>
+            <div class="col w-15" style="border-right: none;">
+                <span class="label">Convênio:</span>
+                <span class="value">{{.DadosGerais.Convenio}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-50">
+                <span class="label">Diagnóstico Principal:</span>
+                <span class="value">{{.Score.DiagnosticoPrimario}}</span>
+            </div>
+            <div class="col w-50" style="border-right: none;">
+                <span class="label">Diagnóstico Secundário:</span>
+                <span class="value">{{.Score.DiagnosticoSecundario}}</span>
+            </div>
+        </div>
+        <div class="row" style="border-bottom: none;">
+            <div class="col w-100" style="border-right: none;">
+                <span class="label">Médico Assistente:</span>
+                <span class="value">{{.Cuidadores.MedicoSolicitante}} - CRM: </span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-title">GRUPO 1 - ELEGIBILIDADE</div>
+<div class="section-box">
+
+
+    <div class="grid-3col" style="border-bottom:1px solid #000;">
+        <div class="col" style="border-right:1px solid #000;">
+            <span class="label">ELEGIBILIDADE AO ATENDIMENTO DOMICILIAR</span>
+        </div>
+        <div class="col text-center" style="border-right:1px solid #000;">
+            <span class="label">SIM</span>
+        </div>
+        <div class="col text-center">
+            <span class="label">NÃO</span>
+        </div>
+    </div>
+
+   
+    <div class="grid-3col row">
+        <div class="col">Apresenta Cuidador em período integral?</div>
+        <div class="col text-center"><div class="checkbox-box">{{if .Cuidadores.PossuiCuidador}}X{{end}}</div></div>
+        <div class="col text-center"><div class="checkbox-box">{{if not .Cuidadores.PossuiCuidador}}X{{end}}</div></div>
+    </div>
+
+    
+    <div class="grid-3col row">
+        <div class="col">O domicílio é livre de risco?</div>
+        <div class="col text-center"><div class="checkbox-box">{{if not .Score.DomicilioRisco}}X{{end}}</div></div>
+        <div class="col text-center"><div class="checkbox-box">{{if .Score.DomicilioRisco}}X{{end}}</div></div>
+    </div>
+
+   
+    <div class="grid-3col row">
+        <div class="col">Existe impedimento para deslocamento à rede credenciada?</div>
+        <div class="col text-center"><div class="checkbox-box">{{if .Score.ImpedimentoDeslocamento}}X{{end}}</div></div>
+        <div class="col text-center"><div class="checkbox-box">{{if not .Score.ImpedimentoDeslocamento}}X{{end}}</div></div>
+    </div>
+
+   
+    <div class="row-no-border" style="border-top:1px solid #000;">
+        <div class="col w-100" style="border-right:none;">
+            <span class="small-font">Se responder "NÃO" a qualquer item acima, contraindicar Atenção Domiciliar.</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="section-title">GRUPO 2 – CRITÉRIOS PARA INDICAÇÃO IMEDIATA DE INTERNAÇÃO DOMICILIAR</div>
+
+<div class="section-box">
+
+    <div class="grid-g2" style="border-top:1px solid #000;">
+        <div class="g2-title">PERFIL DE INTERNAÇÃO DOMICILIAR</div>
+        <div class="g2-header">24 HORAS</div>
+        <div class="g2-header">12 HORAS</div>
+        <div class="g2-header">ATENDIMENTO DOMICILIAR / OUTROS PROGRAMAS</div>
+    </div>
+
+    <!-- ALIMENTAÇÃO PARENTERAL -->
+    <div class="grid-g2">
+        <div class="col">ALIMENTAÇÃO PARENTERAL</div>
+
+        <div class="col text-center">
+            {{if eq .Score.AlimentacaoParenteral "mais_12h"}}X{{else}}Por mais de 12 horas/dia{{end}}
+        </div>
+
+        <div class="col text-center">
+            {{if eq .Score.AlimentacaoParenteral "ate_12h"}}X{{else}}Até 12 horas/dia{{end}}
+        </div>
+
+        <div class="col text-center">
+            {{if eq .Score.AlimentacaoParenteral "nao_utiliza"}}X{{else}}Não utiliza{{end}}
+        </div>
+    </div>
+
+    <!-- ASPIRAÇÃO DE TRAQUEOSTOMIA -->
+    <div class="grid-g2">
+        <div class="col">ASPIRAÇÃO DE TRAQUEOSTOMIA / VIAS AÉREAS INFERIORES</div>
+
+        <div class="col text-center">
+            {{if eq .Score.AspiracaoTraqueo "mais_5x"}}X{{else}}Mais de 5 vezes/dia{{end}}
+        </div>
+
+        <div class="col text-center">
+            {{if eq .Score.AspiracaoTraqueo "ate_5x"}}X{{else}}Até 5 vezes/dia{{end}}
+        </div>
+
+        <div class="col text-center">
+            {{if eq .Score.AspiracaoTraqueo "nao_utiliza"}}X{{else}}Não utiliza{{end}}
+        </div>
+    </div>
+
+    <!-- VENTILAÇÃO MECÂNICA -->
+    <div class="grid-g2">
+        <div class="col">VENTILAÇÃO MECÂNICA CONTÍNUA INVASIVA OU NÃO</div>
+
+        <div class="col text-center">
+            {{if eq .Score.VentilacaoMecanica "mais_12h"}}X{{else}}Por mais de 12 horas/dia{{end}}
+        </div>
+
+        <div class="col text-center">
+            {{if eq .Score.VentilacaoMecanica "ate_12h"}}X{{else}}Até 12 horas/dia{{end}}
+        </div>
+
+        <div class="col text-center">
+            {{if eq .Score.VentilacaoMecanica "nao_utiliza"}}X{{else}}Não utiliza{{end}}
+        </div>
+    </div>
+
+    <!-- MEDICAÇÃO PARENTERAL -->
+    <div class="grid-g2">
+        <div class="col">MEDICAÇÃO PARENTERAL OU HIPODERMÓCLISE</div>
+
+        <div class="col text-center">
+            {{if eq .Score.MedicacaoParenteral "mais_4x"}}X{{else}}Mais de 4 vezes/dia{{end}}
+        </div>
+
+        <div class="col text-center">
+            —
+        </div>
+
+        <div class="col text-center">
+            {{if eq .Score.MedicacaoParenteral "ate_4x"}}X{{else}}Até 4 vezes/dia{{end}}
+        </div>
+    </div>
+
+    <div class="row-no-border" style="border-top:1px solid #000;">
+        <div class="col w-100">
+            <span class="small-font">
+                Para indicação de Planejamento de Atenção Domiciliar (P.A.D.), considerar a maior complexidade assinalada.
+            </span>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="section-title">GRUPO 3 – ESCORE DE KATZ</div>
+
+<div class="section-box" style="margin-top: 0; border-top: none;">
+
+    <div class="row" style="background-color: #f0f0f0;">
+        <div class="col w-20">ESCORE DE KATZ</div>
+        <div class="col w-40 text-center" style="font-weight: bold;">INDEPENDÊNCIA **1 PONTO**</div>
+        <div class="col w-40 text-center" style="font-weight: bold; border-right: none;">DEPENDÊNCIA **0 PONTO**</div>
+    </div>
+
+    <div class="row" style="background-color: #ffffff;">
+        <div class="col w-20" style="font-weight: bold;">Atividades</div>
+        <div class="col w-40">Sem supervisão, orientação ou assistência pessoal.</div>
+        <div class="col w-40" style="border-right: none;">Com supervisão, orientação ou assistência pessoal ou cuidado integral.</div>
+    </div>
+
+    <div class="row">
+        <div class="col w-20">Banhar-se</div>
+        <div class="col w-40">
+            <div class="checkbox-box">{{if eq .Score.Banho "Independente"}}X{{end}}</div>
+            Banha-se completamente ou necessita de auxílio somente para lavar uma parte do corpo, como as costas, genitais ou uma extremidade incapacitada.
+        </div>
+        <div class="col w-40" style="border-right: none;">
+            <div class="checkbox-box">{{if eq .Score.Banho "Dependente"}}X{{end}}</div>
+            Necessita de ajuda para banhar-se em mais de uma parte do corpo, entrar e sair do chuveiro ou banheira ou requer assistência total no banho.
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col w-20">Vestir-se</div>
+        <div class="col w-40">
+            <div class="checkbox-box">{{if eq .Score.Vestir "Independente"}}X{{end}}</div>
+            Pega as roupas do armário e veste as roupas íntimas externas e cintos, pode receber ajuda para amarrar os sapatos.
+        </div>
+        <div class="col w-40" style="border-right: none;">
+            <div class="checkbox-box">{{if eq .Score.Vestir "Dependente"}}X{{end}}</div>
+            Necessita de ajuda para vestir-se ou necessita ser completamente vestido.
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col w-20">Ir ao Banheiro</div>
+        <div class="col w-40">
+            <div class="checkbox-box">{{if eq .Score.IrAoBanheiro "Independente"}}X{{end}}</div>
+            Dirige-se ao banheiro, entra e sai do mesmo, arruma suas próprias roupas, limpa a área genital sem ajuda.
+        </div>
+        <div class="col w-40" style="border-right: none;">
+            <div class="checkbox-box">{{if eq .Score.IrAoBanheiro "Dependente"}}X{{end}}</div>
+            Necessita de ajuda para ir ao banheiro, limpar-se ou usa urinol ou comadre.
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col w-20">Transferência</div>
+        <div class="col w-40">
+            <div class="checkbox-box">{{if eq .Score.Transferencia "Independente"}}X{{end}}</div>
+            Senta-se, deita-se e se levanta da cama ou cadeira sem ajuda, equipamentos mecânicos de ajuda são aceitáveis.
+        </div>
+        <div class="col w-40" style="border-right: none;">
+            <div class="checkbox-box">{{if eq .Score.Transferencia "Dependente"}}X{{end}}</div>
+            Necessita de ajuda para sentar-se, deitar-se ou se levantar da cama ou cadeira.
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col w-20">Continência</div>
+        <div class="col w-40">
+            <div class="checkbox-box">{{if eq .Score.Continencia "Independente"}}X{{end}}</div>
+            Tem completo controle sobre suas eliminações (urinar e evacuar).
+        </div>
+        <div class="col w-40" style="border-right: none;">
+            <div class="checkbox-box">{{if eq .Score.Continencia "Dependente"}}X{{end}}</div>
+            É parcial ou totalmente incontinente do intestino ou bexiga.
+        </div>
+    </div>
+
+    <div class="row" style="border-bottom: 1px solid #000;">
+        <div class="col w-20">Alimentação</div>
+        <div class="col w-40">
+            <div class="checkbox-box">{{if eq .Score.Alimentacao "Independente"}}X{{end}}</div>
+            Leva a comida do prato à boca sem ajuda, preparação da comida pode ser feita por outra pessoa.
+        </div>
+        <div class="col w-40" style="border-right: none;">
+            <div class="checkbox-box">{{if eq .Score.Alimentacao "Dependente"}}X{{end}}</div>
+            Necessita de ajuda parcial ou total com a alimentação ou requer alimentação parenteral.
+        </div>
+    </div>
+
+    <div class="row-no-border" style="padding: 2px 4px;">
+        <span class="small-font" style="font-weight: bold;">Pontuação KATZ:</span> <span class="value" style="display: inline-block; margin-left: 5px;">{{.Score.PontuacaoKatz}}</span>
+    </div>
+
+</div>
+<br>
+
+<div class="section-title">CLASSIFICAÇÃO KATZ</div>
+<div class="section-box" style="margin-top: 0; border-top: none;">
+
+    <div class="row" style="border-bottom: none;">
+        
+        <div class="col text-center">
+            <span style="font-weight: bold; display: block; padding-bottom: 2px;">5 ou 6</span>
+            <span style="display: block;">Independente</span>
+        </div>
+
+        <div class="col text-center">
+            <span style="font-weight: bold; display: block; padding-bottom: 2px;">3 ou 4</span>
+            <span style="display: block;">Dependência Parcial</span>
+        </div>
+
+        <div class="col text-center" style="border-right: none;">
+            <span style="font-weight: bold; display: block; padding-bottom: 2px;">&lt; 2</span>
+            <span style="display: block;">Dependente Total</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+   
+
+
+    
+
+
     <div class="section-title"> OBSERVAÇÕES ADICIONAIS </div>
-    <div class="group" style="margin: 5px; border: 1px solid #000;">
         <div class="section-box">
-            
-            <div class="row">
-                 <div class="col w-100">
-                    <span class="label">Diagnóstico Primário</span>
-                    <span class="value">{{.Score.DiagnosticoPrimario}}</span>
-                 </div> 
-               </div>  
-                <div class="row">
-                 <div class="col w-100">
-                    <span class="label">Diagnóstico Secundário</span>
-                    <span class="value">{{.Score.DiagnosticoSecundario}}</span>
-                 </div>
-                </div>
-            
-            <div class="row">
-                <div class="row w-50">
-                    O Domicilio é de risco? 
-                    <span class="checkbox-box">{{if not .Score.DomicilioRisco}}Sim{{end}}</span>Não
-                    <span class="checkbox-box">{{if .Score.DomicilioRisco}}X{{end}}</span> Sim
-                 </div>
-                 <div class="row w-50">
-                    Impedimento de deslocamento? <span class="checkbox-box">{{if not .Score.ImpedimentoDeslocamento}}X{{end}}</span> Não
- <span class="checkbox-box">{{if .Score.ImpedimentoDeslocamento}}X{{end}}</span> Sim
-                 </div>
+            <div class="col w-100">            
+                <span class="value" style="min-height: 50px;">{{.Observacoes.Texto}}</span>
             </div>
-
-
+        </div>
+    
+    <div class="row-no-border" style="margin-top: 5px;">
+        <div class="col w-100" style="padding: 2px;">
+            <span class="small-font">* SNG = Sonda Nasogástrica e SNE = Sonda Nasoentérica</span><br>
+            <span class="small-font">** Consulte ESCORE KATZ no verso.</span><br>
+            <span class="small-font">*** Excluso medicamentos de autoaplicação como insulinas e alguns anticoagulantes.</span>
+        </div>
     </div>
-    </div>
-
-    <div class="section-title"> OBSERVAÇÕES ADICIONAIS </div>
-            <div class="section-box">
-                <div class="col w-100">            
-                    <span class="value">{{.Observacoes}}</span>
-                </div>
-            </div>
-
 
 </body>
-
 </html>
