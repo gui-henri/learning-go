@@ -105,7 +105,7 @@ const estadosOpts = ref([
                     id="genero" 
                     v-model="dadosGeraisStore.dadosGerais.genero" 
                     :options="genero" 
-                    optionLabel="name" 
+                    optionLabel="name"
                     placeholder="Selecione" 
                     class="w-full"
                 ></Select>

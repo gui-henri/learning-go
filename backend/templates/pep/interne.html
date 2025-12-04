@@ -223,11 +223,11 @@
                 <span class="label">Altura</span>
                 <span class="value">VALIDAR</span>
             </div>
-             <div class="col w-10">
+            <div class="col w-10">
                 <span class="label">Complexidade</span>
                 <span class="value">VALIDAR</span>
             </div>
-             <div class="col w-20">
+            <div class="col w-20">
                 <span class="label">Previsão de alta</span>
                 <span class="value">VALIDAR</span>
             </div>
@@ -332,7 +332,7 @@
                     <span class="value">{{.Email}}</span>
                 </div>
                 <div class="col w-40"> <span class="label">Forma de contato:</span>
-                    <span class="value">{{.FormaContato}}</span>
+                    <span class="value">{{.FormaContato.Name}}</span>
                 </div>
             </div>
             {{if .NumeroPrioritario}}
@@ -344,7 +344,7 @@
             {{end}}
         </div>
         {{else}}
-            <div style="margin: 5px; font-style: italic;">Nenhum responsável registrado.</div>
+        <div style="margin: 5px; font-style: italic;">Nenhum responsável registrado.</div>
         {{end}}
         <span class="label" style="margin: 5px;">Cuidadores:</span>
         <div class="group" style="margin: 5px; border: 1px solid #000;">
@@ -383,43 +383,43 @@
     <div class="section-title">SEGURANÇA DO PACIENTE</div>
     <div class="section-box" style="padding: 5px;">
         {{ $temAlergia := gt (len .Seguranca.Alergias) 0 }}
-    
+
         <div style="margin-bottom: 5px;">
             <span class="label">Alergia?</span>
             {{if not $temAlergia}}Não{{end}}
-            {{if $temAlergia}}Sim{{end}} 
+            {{if $temAlergia}}Sim{{end}}
         </div>
 
         {{if $temAlergia}}
-            <div class="group" style="margin: 5px; border: 1px solid #000;">
-                <div class="section-title-marginless">Alergias</div>
-                {{range .Seguranca.Alergias}}
-                    <div class="row">
-                        <div class="col w-20">
-                            <span class="label">Tipo da alergia</span>
-                            <span class="value">{{.TipoAlergia.Name}}</span>
-                        </div>
-                        <div class="col w-50">
-                            <span class="label">Qual alergia?</span>
-                            <span class="value">{{.QuaisAlergias}}</span>
-                        </div>
-                        <div class="col w-30">
-                            <span class="label">Precaução:</span>
-                            <span class="value">{{.Precaucao.Name}}</span>
-                        </div>
-                        <div class="col w-50">
-                            <span class="label">Cuidados paliativos:</span>
-                            <span class="value">{{.CuidadosPaliativos}}</span>
-                        </div>
-                    </div>
-                {{end}}
+        <div class="group" style="margin: 5px; border: 1px solid #000;">
+            <div class="section-title-marginless">Alergias</div>
+            {{range .Seguranca.Alergias}}
+            <div class="row">
+                <div class="col w-20">
+                    <span class="label">Tipo da alergia</span>
+                    <span class="value">{{.TipoAlergia.Name}}</span>
+                </div>
+                <div class="col w-50">
+                    <span class="label">Qual alergia?</span>
+                    <span class="value">{{.QuaisAlergias}}</span>
+                </div>
+                <div class="col w-30">
+                    <span class="label">Precaução:</span>
+                    <span class="value">{{.Precaucao.Name}}</span>
+                </div>
+                <div class="col w-50">
+                    <span class="label">Cuidados paliativos:</span>
+                    <span class="value">{{.CuidadosPaliativos}}</span>
+                </div>
             </div>
+            {{end}}
+        </div>
         {{end}}
     </div>
 
     <div class="section-title">HISTÓRIA DA DOENÇA ATUAL</div>
     <div class="section-box">
-        <div class="col w-100">        
+        <div class="col w-100">
             <span class="value">{{.HistoricoClinico.HistoriaDoencaAtual}}</span>
         </div>
     </div>
@@ -441,11 +441,11 @@
         <div class="row">
             <div class="col w-20">
                 <span class="label">Estado geral:</span>
-                <span class="value">{{.ExameFisico.EstadoGeral.Name}}</span>
+                <span class="value">{{.ExameFisico.EstadoGeral}}</span>
             </div>
             <div class="col w-20">
                 <span class="label">Avaliação locomotora:</span>
-                <span class="value">{{.ExameFisico.AvaliacaoLocomotora.Name}}</span>
+                <span class="value">{{.ExameFisico.AvaliacaoLocomotora}}</span>
             </div>
         </div>
         <div class="row">
