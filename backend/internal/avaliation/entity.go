@@ -22,19 +22,19 @@ type SelectField struct {
 }
 
 type AvaliacaoRequest struct {
-	DadosGerais domain.DadosGerais `json:"dadosGerais"`
-	Endereco    domain.Endereco    `json:"endereco"`
-	// Contato            Contato            `json:"contato"`
-	// Cuidadores         Cuidadores         `json:"cuidadores"`
-	// Seguranca          Seguranca          `json:"seguranca"`
-	// HistoricoClinico   Historico          `json:"historicoClinico"`
-	// ExameFisico        ExameFisico        `json:"exameFisico"`
-	// CardioRespiratorio CardioRespiratorio `json:"cardioRespiratorio"`
-	// Nutricional        Nutricional        `json:"nutricional"`
-	// Eliminacoes        Eliminacoes        `json:"eliminacoes"`
-	// CondicoesPele      CondicoesPele      `json:"condicoesPele"`
-	// Score              Score              `json:"score"`
-	// Observacoes        Observacoes        `json:"observacoes"`
+	DadosGerais        domain.DadosGerais        `json:"dadosGerais"`
+	Endereco           domain.Endereco           `json:"endereco"`
+	Contato            domain.Contato            `json:"contato"`
+	Cuidadores         domain.Cuidadores         `json:"cuidadores"`
+	Seguranca          domain.Seguranca          `json:"seguranca"`
+	HistoricoClinico   domain.Historico          `json:"historicoClinico"`
+	ExameFisico        domain.ExameFisico        `json:"exameFisico"`
+	CardioRespiratorio domain.CardioRespiratorio `json:"cardioRespiratorio"`
+	Nutricional        domain.Nutricional        `json:"nutricional"`
+	Eliminacoes        domain.Eliminacoes        `json:"eliminacoes"`
+	CondicoesPele      domain.CondicoesPele      `json:"condicoesPele"`
+	Score              domain.Score              `json:"score"`
+	Observacoes        domain.Observacoes        `json:"observacoes"`
 }
 
 // --- CUIDADORES ---
@@ -84,128 +84,4 @@ type Antimicrobiano struct {
 	Nome        string `json:"nome_antimicrobiano"`
 	DataInicio  string `json:"data_inicio"`
 	DataTermino string `json:"data_termino"`
-}
-
-type CardioRespiratorio struct {
-	PadraoRespiratorio  string `json:"padrao_respiratorio"`
-	ViaAerea            string `json:"via_aerea"`
-	NumeroTubo          string `json:"numero_tubo"`
-	DataOrotraqueal     string `json:"data_orotraqueal"`
-	SuporteVentilatorio string `json:"suporte_ventilatorio"`
-	// VNI
-	ModoVNI           string `json:"modo_vni"`
-	FrequenciaVNI     string `json:"frequencia_vni"`
-	Fio2VNI           string `json:"fio2_vni"`
-	MascaraVNI        string `json:"mascara_vni"`
-	TamanhoMascaraVNI string `json:"tamanho_mascara_vni"`
-	// AVM
-	ModoAVM           string `json:"modo_avm"`
-	FrequenciaAVM     string `json:"frequencia_avm"`
-	Fio2AVM           string `json:"fio2_avm"`
-	MascaraAVM        string `json:"mascara_avm"`
-	TamanhoMascaraAVM string `json:"tamanho_mascara_avm"`
-	// Oxigenoterapia
-	UsaOxigenioterapia bool   `json:"usa_oxigenioterapia"`
-	FonteOxigenio      string `json:"fonte_oxigenio"`
-	FrequenciaOxigenio string `json:"frequencia_oxigenio"`
-	VezesDiaOxigenio   string `json:"vezes_dia_oxigenio"`
-	ModalidadeOxigenio string `json:"modalidade_oxigenio"`
-	FluxoOxigenio      string `json:"fluxo_oxigenio"`
-}
-
-type Nutricional struct {
-	AlimentacaoOral       bool   `json:"alimentacao_oral"`
-	AlimentacaoEnteral    bool   `json:"alimentacao_enteral"`
-	AlimentacaoParenteral bool   `json:"alimentacao_parenteral"`
-	Sonda                 bool   `json:"sonda"`
-	Botton                bool   `json:"botton"`
-	Suplemento            bool   `json:"suplemento"`
-	ViaEnteral            string `json:"via_enteral"`
-	ViaParenteral         string `json:"via_parenteral"`
-	AdaptadorSonda        string `json:"adaptador_sonda"`
-	RestricaoAlimentar    string `json:"restricao_alimentar"`
-	TipoDieta             string `json:"tipo_dieta"`
-	FormaAdministracao    string `json:"forma_administracao"`
-	MarcaBomba            string `json:"marca_bomba"`
-	DataUltimaTroca       string `json:"data_ultima_troca"`
-	Gavando               string `json:"gavando"`
-	VolumeDiario          string `json:"volume_diario"`
-	QualSuplemento        string `json:"qual_suplemento"`
-}
-
-type Eliminacoes struct {
-	FuncaoIntestinal              string `json:"funcao_intestinal"`
-	ViaEvacuacaoFisiologica       bool   `json:"via_evacuacao_fisiologica"`
-	ViaEvacuacaoEstomia           bool   `json:"via_evacuacao_estomia"`
-	TipoEstomia                   string `json:"tipo_estomia"`
-	PlacaEstomia                  string `json:"placa_estomia"`
-	BolsaEstomia                  string `json:"bolsa_estomia"`
-	Diurese                       string `json:"diurese"`
-	NumSndDiurese                 string `json:"num_snd_diurese"`
-	UsaFralda                     bool   `json:"usa_fralda"`
-	TrocasFraldaDia               string `json:"trocas_fralda_dia"`
-	SVA                           bool   `json:"sva"`
-	CateterismoIntermitente       bool   `json:"cateterismo_intermitente"`
-	VezesCateterismoDia           string `json:"vezes_cateterismo_dia"`
-	SVD                           bool   `json:"svd"`
-	NumSVD                        string `json:"num_svd"`
-	ViasSVD                       string `json:"vias_svd"`
-	IrrigacaoSVD                  bool   `json:"irrigacao_svd"`
-	DataTrocaSVD                  string `json:"data_troca_svd"`
-	VolumeDiureseSVD              string `json:"volume_diurese_svd"`
-	Cistostomia                   bool   `json:"cistostomia"`
-	NumCistostomia                string `json:"num_cistostomia"`
-	ViasCistostomia               string `json:"vias_cistostomia"`
-	IrrigacaoCistostomia          bool   `json:"irrigacao_cistostomia"`
-	QtdIrrigacaoCistostomia       string `json:"qtd_irrigacao_cistostomia"`
-	MedicacaoIrrigacaoCistostomia bool   `json:"medicacao_irrigacao_cistostomia"`
-	NomeMedicacaoCistostomia      string `json:"nome_medicacao_cistostomia"`
-	VolumeDiureseCistostomia      string `json:"volume_diurese_cistostomia"`
-	Preservativo                  bool   `json:"preservativo"`
-	VolumeDiuresePreservativo     string `json:"volume_diurese_preservativo"`
-}
-
-type CondicoesPele struct {
-	CondicaoCutaneaMucosa string     `json:"condicao_cutanea_mucosa"`
-	RealizaCurativo       bool       `json:"realiza_curativo"`
-	Curativos             []Curativo `json:"curativos"`
-}
-
-type Curativo struct {
-	LocalCurativo     string `json:"local_curativo"`
-	TipoCobertura     string `json:"tipo_cobertura"`
-	TamanhoCurativo   string `json:"tamanho_curativo"`
-	QtdCurativo       string `json:"qtd_curativo"`
-	FrequenciaTroca   string `json:"frequencia_troca"`
-	MateriaisCurativo string `json:"materiais_curativo"`
-}
-
-type Score struct {
-	DiagnosticoPrimario     string `json:"diagnostico_primario"`
-	DiagnosticoSecundario   string `json:"diagnostico_secundario"`
-	DomicilioRisco          bool   `json:"domicilio_risco"`
-	ImpedimentoDeslocamento bool   `json:"impedimento_deslocamento"`
-	AlimentacaoParenteral   string `json:"alimentacao_parenteral"`
-	AspiracaoTraqueo        string `json:"aspiracao_traqueo"`
-	VentilacaoMecanica      string `json:"ventilacao_mecanica"`
-	MedicacaoParenteral     string `json:"medicacao_parenteral"`
-	Banho                   string `json:"banho"`
-	Vestir                  string `json:"vestir"`
-	HigienePessoal          string `json:"higiene_pessoal"`
-	Transferencia           string `json:"transferencia"`
-	Continencia             string `json:"continencia"`
-	Alimentacao             string `json:"alimentacao"`
-	EstadoNutricional       string `json:"estado_nutricional"`
-	ViaAlimentacaoMedicacao string `json:"via_alimentacao_medicacao"`
-	InternacoesUltimoAno    string `json:"internacoes_ultimo_ano"`
-	AspiracaoViasAereas     string `json:"aspiracao_vias_aereas"`
-	Lesoes                  string `json:"lesoes"`
-	ViaMedicacoes           string `json:"via_medicacoes"`
-	ExerciciosVentilatorios string `json:"exercicios_ventilatorios"`
-	UsoOxigenoterapia       string `json:"uso_oxigenoterapia"`
-	NivelConsciencia        string `json:"nivel_consciencia"`
-}
-
-type Observacoes struct {
-	Texto string `json:"texto"`
 }
