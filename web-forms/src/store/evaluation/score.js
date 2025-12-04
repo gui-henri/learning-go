@@ -21,6 +21,7 @@ export const useScoreStore = defineStore('score', {
             transferencia: null,
             continencia: null,
             alimentacao: null,
+            atividades: null,
 
     
             estado_nutricional: null,

@@ -95,6 +95,7 @@ const totalKatzRaw = computed(() => {
     total += getPoints(s.transferencia, katzOpts.value);
     total += getPoints(s.continencia, katzOpts.value);
     total += getPoints(s.alimentacao, katzOpts.value);
+    total += getPoints(s.atividades, katzOpts.value);
     return total;
 });
 
@@ -297,6 +298,18 @@ const handleSave = () => {
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex flex-col gap-2 w-full md:w-1/3">
+                        <label for="banho" class="dark:text-gray-200">Atividade</label>
+                        <Select 
+                            id="banho" 
+                            v-model="scoreStore.score.atividades" 
+                            :options="katzOpts" 
+                            optionLabel="name" 
+                            optionValue="code"
+                            placeholder="Selecione" 
+                            class="w-full"
+                        />
+                    </div>
                     <div class="flex flex-col gap-2 w-full md:w-1/3">
                         <label for="banho" class="dark:text-gray-200">Banhar-se</label>
                         <Select 
