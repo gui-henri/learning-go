@@ -32,8 +32,8 @@ const freq4xOpts = ref([
 ]);
 
 const katzOpts = ref([
-    { name: 'Independente (Sem ajuda)', code: 'independente', points: 1 },
-    { name: 'Com ajuda / Dependente', code: 'dependente', points: 0 } 
+    { name: 'Independente (Sem ajuda)', code: false, points: 1 },
+    { name: 'Com ajuda / Dependente', code: true, points: 0 } 
 ]);
 
 const estadoNutricionalOpts = ref([
