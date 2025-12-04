@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -42,6 +43,7 @@ func EncodeResponse(_ context.Context, w http.ResponseWriter, response any) erro
 }
 
 func EncodeError(_ context.Context, err error, w http.ResponseWriter) {
+	fmt.Println(err)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 	var syntaxError *json.SyntaxError

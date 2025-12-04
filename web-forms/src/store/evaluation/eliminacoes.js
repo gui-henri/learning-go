@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 
 export const useEliminacoesStore = defineStore('eliminacoes', {
+    persist: true,
     state: () => ({
         eliminacoes: {
             funcao_intestinal: null,
@@ -14,7 +15,7 @@ export const useEliminacoesStore = defineStore('eliminacoes', {
             num_snd_diurese: null,
             usa_fralda: false,
             trocas_fralda_dia: '',
-            sva: false, 
+            sva: false,
 
             cateterismo_intermitente: false,
             vezes_cateterismo_dia: '',
@@ -32,7 +33,7 @@ export const useEliminacoesStore = defineStore('eliminacoes', {
             irrigacao_cistostomia: false,
             qtd_irrigacao_cistostomia: '',
             medicacao_irrigacao_cistostomia: false,
-            nome_medicacao_cistostomia: '', 
+            nome_medicacao_cistostomia: '',
             volume_diurese_cistostomia: null,
 
             preservativo: false,

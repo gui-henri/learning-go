@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 
 export const useNutricionalStore = defineStore('nutricional', {
+    persist: true,
     state: () => ({
         nutricional: {
-    
+
             alimentacao_oral: false,
             alimentacao_enteral: false,
             alimentacao_parenteral: false,

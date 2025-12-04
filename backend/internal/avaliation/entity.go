@@ -38,7 +38,7 @@ type AvaliacaoRequest struct {
 // --- DADOS GERAIS ---
 type DadosGerais struct {
 	Genero       SelectField `json:"genero"` // FIXED: Changed from string to Struct
-	Complexidade string      `json:"complexidade"`
+	Complexidade SelectField `json:"complexidade"`
 
 	// FIXED: JSON sends "123" (string), not 123 (number). Changed to string.
 	// You can convert these to float/int inside your Service layer using strconv.
@@ -82,12 +82,12 @@ type Contato struct {
 }
 
 type Responsavel struct {
-	Nome              string `json:"nome"`
-	Parentesco        string `json:"parentesco"`
-	Email             string `json:"email"`
-	Telefone          string `json:"telefone"`
-	FormaContato      string `json:"forma_contato"`
-	NumeroPrioritario bool   `json:"numero_prioritario"`
+	Nome              string      `json:"nome"`
+	Parentesco        string      `json:"parentesco"`
+	Email             string      `json:"email"`
+	Telefone          string      `json:"telefone"`
+	FormaContato      SelectField `json:"forma_contato"`
+	NumeroPrioritario bool        `json:"numero_prioritario"`
 }
 
 // --- CUIDADORES ---
