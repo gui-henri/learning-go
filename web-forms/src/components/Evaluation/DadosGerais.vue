@@ -79,7 +79,7 @@ const estadosOpts = ref([
             </i>
             <div class="flex flex-col text-left">
                 <h4 class="font-semibold text-xl p-0 m-0">Dados Gerais</h4>
-                <span class="text-red-600">TODO*: Implementar limite de texto nos campos em todo o forms</span>
+                <span class="text-red-600">TODO*: (OBS: provavelmente mudar o calendar para input mask) Implementar limite de texto nos campos em todo o forms</span>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
@@ -95,6 +95,8 @@ const estadosOpts = ref([
                     v-model="dadosGeraisStore.dadosGerais.nome_paciente" 
                     type="text" 
                     placeholder="Glauberthy júnior"
+                    maxlength="100"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/9 lg:w-2/12">
@@ -116,6 +118,8 @@ const estadosOpts = ref([
                     dateFormat="dd/mm/yy" 
                     placeholder="dd/mm/aaaa" 
                     class="w-full"
+                    showIcon="true"
+
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-2/9 lg:w-2/12">
@@ -211,6 +215,8 @@ const estadosOpts = ref([
                     v-model="dadosGeraisStore.dadosGerais.nome_pai" 
                     type="text" 
                     placeholder="Glauberthy glauberthy"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
+            
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/2">
@@ -220,6 +226,7 @@ const estadosOpts = ref([
                     v-model="dadosGeraisStore.dadosGerais.nome_mae" 
                     type="text" 
                     placeholder="Júlia silva"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                 />
             </div>
         </div>
@@ -251,6 +258,7 @@ const estadosOpts = ref([
                     dateFormat="dd/mm/yy" 
                     placeholder="dd/mm/aaaa" 
                     class="w-full"
+                    showIcon="true"
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-2/8">
@@ -272,6 +280,7 @@ const estadosOpts = ref([
                     v-model="dadosGeraisStore.dadosGerais.carteirinha" 
                     type="text" 
                     placeholder="198310293"
+                    v-keyfilter.int
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/4">
@@ -282,6 +291,9 @@ const estadosOpts = ref([
                     dateFormat="dd/mm/yy" 
                     placeholder="dd/mm/aaaa" 
                     class="w-full"
+                    showIcon="true"
+                
+                    
                 />
             </div>
         </div>

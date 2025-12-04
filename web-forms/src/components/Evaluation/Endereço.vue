@@ -119,6 +119,8 @@ const searchEstado = (event) => {
             </i>
             <div class="flex flex-col text-left">
                 <h4 class="font-semibold text-xl p-0 m-0">Endereço</h4>
+                <span class="text-red-600">Como estado está como um campo de autofill não consigo edita para evitar números</span>
+                
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
@@ -151,6 +153,8 @@ const searchEstado = (event) => {
                     dropdown
                     placeholder="Pernambuco" 
                     class="w-full"
+                    maxlength="20"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                     />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/6">
@@ -160,6 +164,9 @@ const searchEstado = (event) => {
                     v-model="enderecoStore.endereco.cidade" 
                     placeholder="Recife" 
                     class="w-full"
+                    maxlength="50"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
+                    
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/6">
@@ -169,6 +176,8 @@ const searchEstado = (event) => {
                     v-model="enderecoStore.endereco.bairro" 
                     placeholder="Boa vista" 
                     class="w-full"
+                    maxlength="50"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/" 
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/6">
@@ -178,6 +187,8 @@ const searchEstado = (event) => {
                     v-model="enderecoStore.endereco.logradouro" 
                     placeholder="Agamenon magalhães" 
                     class="w-full"
+                    maxlength="50"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/10">
@@ -187,6 +198,7 @@ const searchEstado = (event) => {
                     v-model="enderecoStore.endereco.numero" 
                     placeholder="23-A" 
                     class="w-full"
+                    maxlength="10"
                 />
             </div>
         </div>
@@ -199,6 +211,8 @@ const searchEstado = (event) => {
                     v-model="enderecoStore.endereco.complemento" 
                     placeholder="Prédio azul" 
                     class="w-full"
+                    maxlength="50"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/4">
@@ -208,6 +222,8 @@ const searchEstado = (event) => {
                     v-model="enderecoStore.endereco.ponto_referencia" 
                     placeholder="perto do posto de saúde" 
                     class="w-full"
+                    maxlength="50"
+                    v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                 />
             </div>
         </div>
