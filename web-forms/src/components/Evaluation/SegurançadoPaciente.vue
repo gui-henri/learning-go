@@ -89,7 +89,8 @@ const handleSave = () => {
                         :id="'tipo_alergia_' + index" 
                         v-model="item.tipo_alergia" 
                         :options="tipo_alergia" 
-                        optionLabel="name" 
+                        optionLabel="name"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     ></Select>
@@ -113,7 +114,8 @@ const handleSave = () => {
                         :id="'precaucao_' + index" 
                         v-model="item.precaucao" 
                         :options="tipo_precaucao" 
-                        optionLabel="name" 
+                        optionLabel="name"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     ></Select>

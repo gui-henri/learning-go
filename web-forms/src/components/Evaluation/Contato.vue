@@ -150,7 +150,8 @@ const removeResponsavel = (index) => {
                             :id="'forma_contato_' + index" 
                             v-model="responsavel.forma_contato" 
                             :options="forma_contato" 
-                            optionLabel="name" 
+                            optionLabel="name"
+                            optionValue="name"
                             placeholder="Selecione" 
                             class="w-full"
                         ></Select>

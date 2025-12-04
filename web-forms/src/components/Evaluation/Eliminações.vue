@@ -83,7 +83,7 @@ const handleSave = () => {
                         v-model="eliminacoesStore.eliminacoes.funcao_intestinal" 
                         :options="funcaoIntestinalOpts" 
                         optionLabel="name" 
-                        optionValue="code"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -113,7 +113,7 @@ const handleSave = () => {
                             v-model="eliminacoesStore.eliminacoes.tipo_estomia" 
                             :options="tipoEstomiaOpts" 
                             optionLabel="name" 
-                            optionValue="code"
+                            optionValue="name"
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -149,7 +149,7 @@ const handleSave = () => {
                         v-model="eliminacoesStore.eliminacoes.diurese" 
                         :options="diureseOpts" 
                         optionLabel="name" 
-                        optionValue="code"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -226,11 +226,11 @@ const handleSave = () => {
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="vias_svd">Nº de Vias</label>
-                        <Select id="vias_svd" v-model="eliminacoesStore.eliminacoes.vias_svd" :options="viasSondaOpts" optionLabel="name" optionValue="code" placeholder="Selecione" class="w-full" />
+                        <Select id="vias_svd" v-model="eliminacoesStore.eliminacoes.vias_svd" :options="viasSondaOpts" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="volume_diurese_svd">Volume Diurese</label>
-                        <Select id="volume_diurese_svd" v-model="eliminacoesStore.eliminacoes.volume_diurese_svd" :options="volumeDiureseOpts" optionLabel="name" optionValue="code" placeholder="Selecione" class="w-full" />
+                        <Select id="volume_diurese_svd" v-model="eliminacoesStore.eliminacoes.volume_diurese_svd" :options="volumeDiureseOpts" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="data_troca_svd">Última Troca</label>
@@ -256,11 +256,11 @@ const handleSave = () => {
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="vias_cistostomia">Nº de Vias</label>
-                        <Select id="vias_cistostomia" v-model="eliminacoesStore.eliminacoes.vias_cistostomia" :options="viasSondaOpts" optionLabel="name" optionValue="code" placeholder="Selecione" class="w-full" />
+                        <Select id="vias_cistostomia" v-model="eliminacoesStore.eliminacoes.vias_cistostomia" :options="viasSondaOpts" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="volume_diurese_cistostomia">Volume Diurese</label>
-                        <Select id="volume_diurese_cistostomia" v-model="eliminacoesStore.eliminacoes.volume_diurese_cistostomia" :options="volumeDiureseOpts" optionLabel="name" optionValue="code" placeholder="Selecione" class="w-full" />
+                        <Select id="volume_diurese_cistostomia" v-model="eliminacoesStore.eliminacoes.volume_diurese_cistostomia" :options="volumeDiureseOpts" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
                     </div>
                     
                     <div class="md:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-4 border-t pt-2 mt-2">
@@ -300,7 +300,7 @@ const handleSave = () => {
                             v-model="eliminacoesStore.eliminacoes.volume_diurese_preservativo" 
                             :options="volumeDiureseOpts" 
                             optionLabel="name" 
-                            optionValue="code"
+                            optionValue="name"
                             placeholder="Selecione" 
                             class="w-full"
                         />

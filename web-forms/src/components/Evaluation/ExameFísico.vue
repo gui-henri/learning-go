@@ -82,7 +82,7 @@ const removeAntimicrobiano = (index) => {
                         v-model="exameFisicoStore.exameFisico.estado_geral" 
                         :options="estado_geral" 
                         optionLabel="name" 
-                        optionValue="code"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -94,7 +94,7 @@ const removeAntimicrobiano = (index) => {
                         v-model="exameFisicoStore.exameFisico.avaliacao_locomotora" 
                         :options="locomocao" 
                         optionLabel="name" 
-                        optionValue="code"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -175,7 +175,7 @@ const removeAntimicrobiano = (index) => {
                         <div v-if="exameFisicoStore.exameFisico.piccline" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-blue-200">
                             <div class="flex flex-col gap-2">
                                 <label for="tipo_piccline">Tipo</label>
-                                <Select id="tipo_piccline" v-model="exameFisicoStore.exameFisico.tipo_piccline" :options="tipos_piccline" optionLabel="name" optionValue="code" placeholder="Selecione" class="w-full" />
+                                <Select id="tipo_piccline" v-model="exameFisicoStore.exameFisico.tipo_piccline" :options="tipos_piccline" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_imp_piccline">Data Implantação</label>

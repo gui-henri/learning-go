@@ -132,7 +132,7 @@ const searchMarcaBomba = (event) => {
                         v-model="nutricionalStore.nutricional.via_enteral" 
                         :options="viaEnteralOpts" 
                         optionLabel="name" 
-                        optionValue="code"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -155,7 +155,7 @@ const searchMarcaBomba = (event) => {
                         v-model="nutricionalStore.nutricional.via_parenteral" 
                         :options="viaParenteralOpts" 
                         optionLabel="name" 
-                        optionValue="code"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -189,7 +189,7 @@ const searchMarcaBomba = (event) => {
                             v-model="nutricionalStore.nutricional.adaptador_sonda" 
                             :options="adaptadorSondaOpts" 
                             optionLabel="name" 
-                            optionValue="code"
+                            optionValue="name"
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -224,7 +224,7 @@ const searchMarcaBomba = (event) => {
                             v-model="nutricionalStore.nutricional.tipo_dieta" 
                             :options="tipoDietaOpts" 
                             optionLabel="name" 
-                            optionValue="code"
+                            optionValue="name"
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -258,7 +258,7 @@ const searchMarcaBomba = (event) => {
                                 v-model="nutricionalStore.nutricional.forma_administracao" 
                                 :options="formaAdministracaoOpts" 
                                 optionLabel="name" 
-                                optionValue="code"
+                                optionValue="name"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />

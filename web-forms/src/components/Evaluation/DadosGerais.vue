@@ -36,37 +36,6 @@ const handleSave = () => {
     }, 0);
     emit('next-step');
 };
-
-const estadosOpts = ref([
-    "Acre",
-"Alagoas",
-"Amapá",
-"Amazonas",
-"Bahia",
-"Ceará",
-"Distrito Federal",
-"Espírito Santo",
-"Goiás",
-"Maranhão",
-"Mato Grosso",
-"Mato Grosso do Sul",
-"Minas Gerais",
-"Pará",
-"Paraíba",
-"Paraná",
-"Pernambuco",
-"Piauí",
-"Rio de Janeiro",
-"Rio Grande do Norte",
-"Rio Grande do Sul",
-"Rondônia",
-"Roraima",
-"Santa Catarina",
-"São Paulo",
-"Sergipe",
-"Tocantins"
-]);
-
 </script>
 <template>
 
@@ -106,6 +75,7 @@ const estadosOpts = ref([
                     v-model="dadosGeraisStore.dadosGerais.genero" 
                     :options="genero" 
                     optionLabel="name"
+                    optionValue="name"
                     placeholder="Selecione" 
                     class="w-full"
                 ></Select>
@@ -193,7 +163,8 @@ const estadosOpts = ref([
                     id="complexidade" 
                     v-model="dadosGeraisStore.dadosGerais.complexidade" 
                     :options="complexidade" 
-                    optionLabel="name" 
+                    optionLabel="name"
+                    optionValue="name"
                     placeholder="Selecione" 
                     class="w-full"
                 ></Select>

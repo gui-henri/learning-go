@@ -110,7 +110,7 @@ const handleSave = () => {
                             v-model="respiratorioStore.respiratorio.padrao_respiratorio" 
                             :options="padraoRespiratorioOpts" 
                             optionLabel="name"
-                            optionValue="code" 
+                            optionValue="name" 
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -122,7 +122,7 @@ const handleSave = () => {
                             v-model="respiratorioStore.respiratorio.via_aerea" 
                             :options="viaAereaOpts" 
                             optionLabel="name"
-                            optionValue="code" 
+                            optionValue="name" 
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -161,7 +161,7 @@ const handleSave = () => {
                         v-model="respiratorioStore.respiratorio.suporte_ventilatorio" 
                         :options="suporteVentilatorioOpts" 
                         optionLabel="name"
-                        optionValue="code" 
+                        optionValue="name" 
                         placeholder="Selecione o tipo de suporte" 
                         class="w-full"
                     />
@@ -229,7 +229,7 @@ const handleSave = () => {
                                 v-model="respiratorioStore.respiratorio.tamanho_mascara_vni" 
                                 :options="tamanhoMascaraOpts" 
                                 optionLabel="name"
-                                optionValue="code" 
+                                optionValue="name" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -248,7 +248,7 @@ const handleSave = () => {
                                 v-model="respiratorioStore.respiratorio.modo_avm" 
                                 :options="modoVniOpts" 
                                 optionLabel="name"
-                                optionValue="code" 
+                                optionValue="name" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -260,7 +260,7 @@ const handleSave = () => {
                                 v-model="respiratorioStore.respiratorio.frequencia_avm" 
                                 :options="frequenciaVniOpts" 
                                 optionLabel="name"
-                                optionValue="code" 
+                                optionValue="name" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -287,7 +287,7 @@ const handleSave = () => {
                                 v-model="respiratorioStore.respiratorio.mascara_avm" 
                                 :options="mascaraVniOpts" 
                                 optionLabel="name"
-                                optionValue="code" 
+                                optionValue="name" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -327,7 +327,7 @@ const handleSave = () => {
                                     v-model="respiratorioStore.respiratorio.fonte_oxigenio" 
                                     :options="fonteOxigenioOpts" 
                                     optionLabel="name"
-                                    optionValue="code" 
+                                    optionValue="name" 
                                     placeholder="Selecione" 
                                     class="w-full"
                                 />
@@ -339,7 +339,7 @@ const handleSave = () => {
                                     v-model="respiratorioStore.respiratorio.modalidade_oxigenio" 
                                     :options="modalidadeOxigenioOpts" 
                                     optionLabel="name"
-                                    optionValue="code" 
+                                    optionValue="name" 
                                     placeholder="Selecione" 
                                     class="w-full"
                                 />
@@ -366,7 +366,7 @@ const handleSave = () => {
                                     v-model="respiratorioStore.respiratorio.frequencia_oxigenio" 
                                     :options="frequenciaOxigenioOpts" 
                                     optionLabel="name"
-                                    optionValue="code" 
+                                    optionValue="name" 
                                     placeholder="Selecione" 
                                     class="w-full"
                                 />

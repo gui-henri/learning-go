@@ -86,7 +86,8 @@ const handleSave = () => {
                         id="turno_cuidador" 
                         v-model="cuidadorStore.cuidadores.turno_cuidador" 
                         :options="turnos_cuidador" 
-                        optionLabel="name" 
+                        optionLabel="name"
+                        optionValue="name"
                         placeholder="Selecione o turno" 
                         class="w-full"
                     ></Select>

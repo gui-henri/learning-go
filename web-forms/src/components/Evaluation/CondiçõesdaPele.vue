@@ -67,7 +67,7 @@ const handleSave = () => {
                         v-model="condicoesPeleStore.condicoesPele.condicao_cutanea_mucosa" 
                         :options="condicaoCutaneaOpts" 
                         optionLabel="name" 
-                        optionValue="code"
+                        optionValue="name"
                         placeholder="Selecione" 
                         class="w-full"
                     />
