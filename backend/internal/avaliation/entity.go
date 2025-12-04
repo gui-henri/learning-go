@@ -23,7 +23,7 @@ type SelectField struct {
 
 type AvaliacaoRequest struct {
 	DadosGerais domain.DadosGerais `json:"dadosGerais"`
-	// Endereco           Endereco           `json:"endereco"`
+	Endereco    domain.Endereco    `json:"endereco"`
 	// Contato            Contato            `json:"contato"`
 	// Cuidadores         Cuidadores         `json:"cuidadores"`
 	// Seguranca          Seguranca          `json:"seguranca"`
@@ -35,37 +35,6 @@ type AvaliacaoRequest struct {
 	// CondicoesPele      CondicoesPele      `json:"condicoesPele"`
 	// Score              Score              `json:"score"`
 	// Observacoes        Observacoes        `json:"observacoes"`
-}
-
-// --- DADOS GERAIS ---
-
-// --- ENDEREÇO ---
-type Endereco struct {
-	CEP             string `json:"cep"`
-	Estado          string `json:"estado"`
-	Cidade          string `json:"cidade"`
-	Bairro          string `json:"bairro"`
-	Logradouro      string `json:"logradouro"`
-	Numero          string `json:"numero"`
-	Complemento     string `json:"complemento"`
-	PontoReferencia string `json:"ponto_referencia"`
-}
-
-// --- CONTATO ---
-type Contato struct {
-	TelefoneResidencial string        `json:"telefone_residencial"`
-	TelefonePaciente    string        `json:"telefone_paciente"`
-	EmailPaciente       string        `json:"email_paciente"`
-	Responsaveis        []Responsavel `json:"responsaveis"`
-}
-
-type Responsavel struct {
-	Nome              string      `json:"nome"`
-	Parentesco        string      `json:"parentesco"`
-	Email             string      `json:"email"`
-	Telefone          string      `json:"telefone"`
-	FormaContato      SelectField `json:"forma_contato"`
-	NumeroPrioritario bool        `json:"numero_prioritario"`
 }
 
 // --- CUIDADORES ---
