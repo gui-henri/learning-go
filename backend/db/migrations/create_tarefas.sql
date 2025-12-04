@@ -36,3 +36,11 @@ CREATE TABLE IF NOT EXISTS tasks (
     criada_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_patient Foreign Key (patient_id) REFERENCES patient (id) ON DELETE CASCADE
 );
+
+CREATE TABLE avaliation (
+    id SERIAL PRIMARY KEY,
+    resource_json JSONB NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    active BOOLEAN DEFAULT TRUE
+);

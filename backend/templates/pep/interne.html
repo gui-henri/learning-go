@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.2;
+        }
+
+        /* Layout Grid System simples */
+        .row {
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid #000;
+        }
+
+        .row-no-border {
+            display: flex;
+            width: 100%;
+        }
+
+        .col {
+            padding: 4px;
+            border-right: 1px solid #000;
+            position: relative;
+        }
+
+        .col:last-child {
+            border-right: none;
+        }
+
+        /* Classes utilitárias de largura */
+        .w-10 {
+            width: 10%;
+        }
+
+        .w-20 {
+            width: 20%;
+        }
+
+        .w-30 {
+            width: 30%;
+        }
+
+        .w-40 {
+            width: 40%;
+        }
+
+        .w-50 {
+            width: 50%;
+        }
+
+        .w-60 {
+            width: 60%;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        /* Estilos específicos do cabeçalho */
+        .header {
+            text-align: center;
+            border: 1px solid #000;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            margin: 5px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .header h2 {
+            margin: 2px 0;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        /* Caixas de Título de Seção */
+        .section-title {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #000;
+            border-bottom: none;
+            padding: 2px;
+            margin-top: 10px;
+        }
+
+        .section-title-marginless {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #000;
+            padding: 2px;
+        }
+
+        .section-box {
+            border: 1px solid #000;
+        }
+
+        /* Checkbox simulado [ ] */
+        .checkbox-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 11px;
+            margin-right: 2px;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        /* Tabela simples */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 3px;
+            text-align: left;
+            font-size: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+            font-size: 9px;
+            display: block;
+            color: #333;
+        }
+
+        .value {
+            min-height: 12px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="row-no-border" style="align-items: center; justify-content: space-around;">
+            <div class="col w-80" style="border: none; text-align: left;">
+                <h1>INTERNE SOLUÇÕES EM SAÚDE</h1>
+                <h2>PEP - Prontuário Eletrônico do Paciente</h2>
+                <p style="font-size: 9px;">Rua Marques Amorim, 444 - Ilha do Leite Recife - PE</p>
+                <p style="font-size: 9px;">Fone: (81) 2123-0440 - www.interne.com.br</p>
+            </div>
+            <div class="col w-20" style="border: none;">
+                <img src="https://cdn.bitrix24.com.br/b22035513/landing/2a4/2a44b7c2b4e7e248ec783a2eae611962/Logo_Interne_180_x_60_px_1x.png"
+                    style="max-width: 150px;">
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">DADOS DO PACIENTE</div>
+    <div class="section-box">
+        <div class="row">
+            <div class="col w-60">
+                <span class="label">Paciente:</span>
+                <span class="value">{{.DadosGerais.NomePaciente}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Data de Admissão:</span>
+                <span class="value">{{.DadosGerais.DataAdmissao}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-40">
+                <span class="label">Hospital:</span>
+                <span class="value">{{.DadosGerais.Hospital}}</span>
+            </div>
+            <div class="col w-10">
+                <span class="label">Apt:</span>
+                <span class="value">{{.DadosGerais.Apartamento}}</span>
+            </div>
+            <div class="col w-30">
+                <span class="label">Convênio:</span>
+                <span class="value">{{.DadosGerais.Convenio}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-20">
+                <span class="label">N° da carteira:</span>
+                <span class="value">{{.DadosGerais.Carteirinha}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Validade:</span>
+                <span class="value">{{.DadosGerais.VencimentoCarteirinha}}</span>
+            </div>
+            <div class="col w-40">
+                <span class="label">Médico Assistente:</span>
+                <span class="value">{{.Cuidadores.MedicoSolicitante}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-20">
+                <span class="label">Data de nascimento:</span>
+                <span class="value">{{.DadosGerais.DataNascimento}}</span>
+            </div>
+            <div class="col w-10">
+                <span class="label">Idade:</span>
+                <span class="value">{{.DadosGerais.Idade}}</span>
+            </div>
+            <div class="col w-10">
+                <span class="label">Sexo:</span>
+                <span class="value">{{.DadosGerais.Genero.Name}}</span>
+            </div>
+            <div class="col w-10">
+                <span class="label">Peso</span>
+                <span class="value">VALIDAR</span>
+            </div>
+            <div class="col w-10">
+                <span class="label">Altura</span>
+                <span class="value">VALIDAR</span>
+            </div>
+             <div class="col w-10">
+                <span class="label">Complexidade</span>
+                <span class="value">VALIDAR</span>
+            </div>
+             <div class="col w-20">
+                <span class="label">Previsão de alta</span>
+                <span class="value">VALIDAR</span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col w-20">
+                <span class="label">RG:</span>
+                <span class="value">{{.DadosGerais.RG}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">CPF:</span>
+                <span class="value">{{.DadosGerais.CPF}}</span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col w-50">
+                <span class="label">Nome do Pai:</span>
+                <span class="value">{{.DadosGerais.NomePai}}</span>
+            </div>
+            <div class="col w-50">
+                <span class="label">Nome da mãe:</span>
+                <span class="value">{{.DadosGerais.NomeMae}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">ENDEREÇO / CONTATO</div>
+    <div class="section-box">
+        <div class="row">
+            <div class="col w-20">
+                <span class="label">CEP:</span>
+                <span class="value">{{.Endereco.CEP}}</span>
+            </div>
+            <div class="col w-60">
+                <span class="label">Rua:</span>
+                <span class="value">{{.Endereco.Logradouro}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Nº:</span>
+                <span class="value">{{.Endereco.Numero}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-30">
+                <span class="label">Bairro:</span>
+                <span class="value">{{.Endereco.Bairro}}</span>
+            </div>
+            <div class="col w-40">
+                <span class="label">Cidade:</span>
+                <span class="value">{{.Endereco.Cidade}}</span>
+            </div>
+            <div class="col w-30">
+                <span class="label">Estado:</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-30">
+                <span class="label">Complemento:</span>
+                <span class="value">{{.Endereco.Complemento}}</span>
+            </div>
+            <div class="col w-30">
+                <span class="label">Ponto de referência:</span>
+                <span class="value">{{.Endereco.PontoReferencia}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-50">
+                <span class="label">Telefone Celular:</span>
+                <span class="value">{{.Contato.TelefonePaciente}}</span>
+            </div>
+            <div class="col w-50">
+                <span class="label">Telefone Residencial:</span>
+                <span class="value">{{.Contato.TelefoneResidencial}}</span>
+            </div>
+        </div>
+        <span class="label" style="margin: 5px;">Responsáveis:</span>
+
+        {{range .Contato.Responsaveis}}
+        <div class="group" style="margin: 5px; border: 1px solid #000; margin-bottom: 10px;">
+            <div class="row">
+                <div class="col w-40">
+                    <span class="label">Nome do responsável:</span>
+                    <span class="value">
+                        {{.Nome}}
+                    </span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Telefone do responsável:</span>
+                    <span class="value">{{.Telefone}}</span>
+                </div>
+                <div class="col w-20">
+                    <span class="label">Parentesco:</span>
+                    <span class="value">{{.Parentesco}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col w-60">
+                    <span class="label">Email do responsável:</span>
+                    <span class="value">{{.Email}}</span>
+                </div>
+                <div class="col w-40"> <span class="label">Forma de contato:</span>
+                    <span class="value">{{.FormaContato}}</span>
+                </div>
+            </div>
+            {{if .NumeroPrioritario}}
+            <div class="row">
+                <div class="col w-100">
+                    <span class="label" style="font-weight:bold;">★ Contato Prioritário</span>
+                </div>
+            </div>
+            {{end}}
+        </div>
+        {{else}}
+            <div style="margin: 5px; font-style: italic;">Nenhum responsável registrado.</div>
+        {{end}}
+        <span class="label" style="margin: 5px;">Cuidadores:</span>
+        <div class="group" style="margin: 5px; border: 1px solid #000;">
+            <div class="row">
+                <div class="col w-20">
+                    <span class="label">Possui cuidador?</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-50">
+                    <span class="label">Nome do cuidador:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col w-30">
+                    <span class="label">Turno:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-40">
+                    <span class="label">Contato:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+                <div class="col w-30">
+                    <span class="label">Necessita de treinamento?</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col w-30">
+                    <span class="label">Observações do treinamento:</span>
+                    <span class="value">{{.Endereco.Estado}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-title">SEGURANÇA DO PACIENTE</div>
+    <div class="section-box" style="padding: 5px;">
+        {{ $temAlergia := gt (len .Seguranca.Alergias) 0 }}
+    
+        <div style="margin-bottom: 5px;">
+            <span class="label">Alergia?</span>
+            {{if not $temAlergia}}Não{{end}}
+            {{if $temAlergia}}Sim{{end}} 
+        </div>
+
+        {{if $temAlergia}}
+            <div class="group" style="margin: 5px; border: 1px solid #000;">
+                <div class="section-title-marginless">Alergias</div>
+                {{range .Seguranca.Alergias}}
+                    <div class="row">
+                        <div class="col w-20">
+                            <span class="label">Tipo da alergia</span>
+                            <span class="value">{{.TipoAlergia.Name}}</span>
+                        </div>
+                        <div class="col w-50">
+                            <span class="label">Qual alergia?</span>
+                            <span class="value">{{.QuaisAlergias}}</span>
+                        </div>
+                        <div class="col w-30">
+                            <span class="label">Precaução:</span>
+                            <span class="value">{{.Precaucao.Name}}</span>
+                        </div>
+                        <div class="col w-50">
+                            <span class="label">Cuidados paliativos:</span>
+                            <span class="value">{{.CuidadosPaliativos}}</span>
+                        </div>
+                    </div>
+                {{end}}
+            </div>
+        {{end}}
+    </div>
+
+    <div class="section-title">HISTÓRIA DA DOENÇA ATUAL</div>
+    <div class="section-box">
+        <div class="col w-100">        
+            <span class="value">{{.HistoricoClinico.HistoriaDoencaAtual}}</span>
+        </div>
+    </div>
+    <div class="section-title">PLANO TERAPÊUTICO</div>
+    <div class="section-box">
+        <div class="col w-100">
+            <span class="value">{{.HistoricoClinico.PlanoTerapeutico}}</span>
+        </div>
+    </div>
+    <div class="section-title">ANAMNESE DE ENFERMAGEM</div>
+    <div class="section-box">
+        <div class="col w-100">
+            <span class="value">{{.HistoricoClinico.AnamneseEnfermagem}}</span>
+        </div>
+    </div>
+
+    <div class="section-title">EXAME FÍSICO / TERAPIA</div>
+    <div class="section-box">
+        <div class="row">
+            <div class="col w-20">
+                <span class="label">Estado geral:</span>
+                <span class="value">{{.ExameFisico.EstadoGeral.Name}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Avaliação locomotora:</span>
+                <span class="value">{{.ExameFisico.AvaliacaoLocomotora.Name}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-50">
+                <span class="label">Possui Dreno?</span>
+                {{if .ExameFisico.PossuiDreno}}Sim{{end}}
+                {{if not .ExameFisico.PossuiDreno}}Não{{end}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-50">
+                <span class="label">Possui Acesso?</span>
+                {{if .ExameFisico.PossuiAcesso}}Sim{{end}}
+                {{if not .ExameFisico.PossuiAcesso}}Não{{end}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-10">
+                <span class="label">Picc Line</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Tipo</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Data da Implantação:</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Data da Última troca</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Curativos</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col w-10">
+                <span class="label">Hipodermóclise</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Tipo</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Data da Última Troca:</span>
+                <span class="value">{{.Endereco.Estado}}</span>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 20px; font-size: 8px; text-align: right;">
+        Gerado eletronicamente em
+    </div>
+
+
+</body>
+
+</html>

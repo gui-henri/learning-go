@@ -228,8 +228,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -768,
-        416
+        -256,
+        640
       ],
       "id": "f8b8c756-a720-4743-ba7a-a90f296d7f74",
       "name": "Mensagem sobre não saber o tipo de arquivo",
@@ -643,6 +643,160 @@
     },
     {
       "parameters": {
+        "method": "POST",
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelopeid/requirements",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "body": "0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -512,
+        944
+      ],
+      "id": "a1999d6e-a5d0-4a6c-9100-5dfbb50e3ba4",
+      "name": "Adiciona Requisitos",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelope_id/signers",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "body": "0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -720,
+        944
+      ],
+      "id": "b74cc85a-f350-4182-ac3b-351050087a45",
+      "name": "Adiciona Signatário",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "SSOOOON"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1216,
+        1136
+      ],
+      "id": "4a1bd3d5-da14-48dc-9297-5a9345666bbd",
+      "name": "Cria um envelope",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelopeid/documents",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/vnd.api+json",
+        "body": "0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -928,
+        944
+      ],
+      "id": "28b37b0c-d89f-45c6-a58a-da9540c8cc94",
+      "name": "Salva no primeiro envelope aberto",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c5933e5c-b7cc-484a-972c-01d4293a3b5f",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1472,
+        1120
+      ],
+      "id": "3370c4f0-e474-43bc-99ec-91da0ee76c80",
+      "name": "há um envelope aberto?",
+      "disabled": true
+    },
+    {
+      "parameters": {
         "url": "https://sandbox.clicksign.com/api/v3/envelopes",
         "sendHeaders": true,
         "headerParameters": {
@@ -673,160 +827,93 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        32,
-        240
+        -1664,
+        1120
       ],
       "id": "f4d7e77c-ca4b-40d4-bfc3-125fcecaf01b",
-      "name": "Get Envelopes"
+      "name": "Get Envelopes",
+      "disabled": true
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "c5933e5c-b7cc-484a-972c-01d4293a3b5f",
-              "leftValue": "",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
+        "resource": "messageAttachment",
+        "operation": "getAll",
+        "messageId": {
+          "__rl": true,
+          "value": "={{ $('Microsoft Outlook Trigger').first().json.id }}",
+          "mode": "id"
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
       "position": [
-        224,
-        240
+        32,
+        320
       ],
-      "id": "3370c4f0-e474-43bc-99ec-91da0ee76c80",
-      "name": "há um envelope aberto?"
+      "id": "8cc8e730-8abc-41a8-b782-def395e5480d",
+      "name": "Get many attachments1",
+      "webhookId": "e2541aab-24fb-423d-833b-a3c762e7219f",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "7W5TDaXGauh2OBzL",
+          "name": "Microsoft Outlook account"
+        }
+      }
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelopeid/documents",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "raw",
-        "rawContentType": "application/vnd.api+json",
-        "body": "0",
-        "options": {}
+        "operation": "sendDocument",
+        "chatId": "8436440465",
+        "binaryData": true,
+        "additionalFields": {}
       },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
       "position": [
-        768,
-        64
+        448,
+        320
       ],
-      "id": "28b37b0c-d89f-45c6-a58a-da9540c8cc94",
-      "name": "Salva no primeiro envelope aberto"
+      "id": "c8836375-df57-40f8-84b9-db750695d947",
+      "name": "Send a document",
+      "webhookId": "5290fef6-197d-42d5-b97f-c2bde92178d7",
+      "credentials": {
+        "telegramApi": {
+          "id": "0UCasPM0OYtZP1Gu",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://sandbox.clicksign.com/api/v3/envelopes",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Accept",
-              "value": "application/json"
-            },
-            {
-              "name": "Authorization",
-              "value": "SSOOOON"
-            }
-          ]
+        "resource": "messageAttachment",
+        "operation": "download",
+        "messageId": {
+          "__rl": true,
+          "value": "={{ $('Microsoft Outlook Trigger').first().json.id }}",
+          "mode": "id"
         },
-        "sendBody": true,
-        "contentType": "raw",
-        "rawContentType": "application/vnd.api+json",
-        "options": {}
+        "attachmentId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        }
       },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
       "position": [
-        480,
-        256
+        240,
+        320
       ],
-      "id": "4a1bd3d5-da14-48dc-9297-5a9345666bbd",
-      "name": "Cria um envelope"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelope_id/signers",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "raw",
-        "rawContentType": "application/vnd.api+json",
-        "body": "0",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        976,
-        64
-      ],
-      "id": "b74cc85a-f350-4182-ac3b-351050087a45",
-      "name": "Adiciona Signatário"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://sandbox.clicksign.com/api/v3/envelopes/envelopeid/requirements",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "raw",
-        "rawContentType": "application/vnd.api+json",
-        "body": "0",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1184,
-        64
-      ],
-      "id": "a1999d6e-a5d0-4a6c-9100-5dfbb50e3ba4",
-      "name": "Adiciona Requisitos"
+      "id": "db92cd61-f475-4cf2-84a9-0663487199c0",
+      "name": "Download an attachment",
+      "webhookId": "135523f7-26f4-498b-a84a-3baaf7447c23",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "7W5TDaXGauh2OBzL",
+          "name": "Microsoft Outlook account"
+        }
+      }
     }
   ],
   "connections": {
@@ -892,7 +979,7 @@
       "main": [
         [
           {
-            "node": "Get Envelopes",
+            "node": "Get many attachments1",
             "type": "main",
             "index": 0
           }
@@ -903,7 +990,18 @@
       "main": [
         [
           {
-            "node": "Get Envelopes",
+            "node": "Get many attachments1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensagem sobre não saber o tipo de arquivo": {
+      "main": [
+        [
+          {
+            "node": "Get many attachments1",
             "type": "main",
             "index": 0
           }
@@ -954,7 +1052,7 @@
       "main": [
         [
           {
-            "node": "Get Envelopes",
+            "node": "Get many attachments1",
             "type": "main",
             "index": 0
           }
@@ -1055,11 +1153,33 @@
         ]
       ]
     },
-    "Get Envelopes": {
+    "Adiciona Signatário": {
       "main": [
         [
           {
-            "node": "há um envelope aberto?",
+            "node": "Adiciona Requisitos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cria um envelope": {
+      "main": [
+        [
+          {
+            "node": "Salva no primeiro envelope aberto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Salva no primeiro envelope aberto": {
+      "main": [
+        [
+          {
+            "node": "Adiciona Signatário",
             "type": "main",
             "index": 0
           }
@@ -1084,33 +1204,33 @@
         ]
       ]
     },
-    "Salva no primeiro envelope aberto": {
+    "Get Envelopes": {
       "main": [
         [
           {
-            "node": "Adiciona Signatário",
+            "node": "há um envelope aberto?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Cria um envelope": {
+    "Get many attachments1": {
       "main": [
         [
           {
-            "node": "Salva no primeiro envelope aberto",
+            "node": "Download an attachment",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Adiciona Signatário": {
+    "Download an attachment": {
       "main": [
         [
           {
-            "node": "Adiciona Requisitos",
+            "node": "Send a document",
             "type": "main",
             "index": 0
           }
