@@ -10,22 +10,17 @@ services:
       - /app/node_modules
     tty: true
     stdin_open: true
-  n8n:
-    image: n8nio/n8n
-    ports:
-      - "5678:5678"
-    volumes:
-      - n8n_data:/home/node/.n8n
-    environment:
-      - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=admin
-      - N8N_SECURE_COOKIE=false
-  hapi-fhir:
-    image: hapiproject/hapi:latest
-    container_name: hapi-fhir
-    ports:
-      - "8092:8080"
+  # n8n:
+  #   image: n8nio/n8n
+  #   ports:
+  #     - "5678:5678"
+  #   volumes:
+  #     - n8n_data:/home/node/.n8n
+  #   environment:
+  #     - N8N_BASIC_AUTH_ACTIVE=true
+  #     - N8N_BASIC_AUTH_USER=admin
+  #     - N8N_BASIC_AUTH_PASSWORD=admin
+  #     - N8N_SECURE_COOKIE=false
   gotenberg:
     image: gotenberg/gotenberg:8
   db:
@@ -52,22 +47,7 @@ services:
     working_dir: /backend
     depends_on:
       - db
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    container_name: frontend
-    ports:
-      - "8091:3000"
-    depends_on:
-      - backend
-    volumes:
-      - ./frontend:/frontend
-      - node_modules_frontend:/frontend/node_modules
-    working_dir: /frontend
-
 volumes:
-  node_modules_frontend:
   pgdata:
   # ADIÇÃO: O volume para o n8n precisa ser declarado aqui.
   n8n_data:
