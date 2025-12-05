@@ -234,7 +234,7 @@ const removeAntimicrobiano = (index) => {
                                 <InputText id="local_periferico" v-model="exameFisicoStore.exameFisico.local_periferico" placeholder="Local anatômico" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
-                                <label for="data_troca_periferico">Data Implantação</label>
+                                <label for="data_troca_periferico">Data Última Troca</label>
                                 <Calendar id="data_troca_periferico" v-model="exameFisicoStore.exameFisico.data_troca_periferico" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">

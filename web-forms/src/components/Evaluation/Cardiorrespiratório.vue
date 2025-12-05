@@ -19,8 +19,8 @@ const viaAereaOpts = ref([
 
 const suporteVentilatorioOpts = ref([
     { name: 'Espontânea', code: 'espontanea' },
-    { name: 'Ventilação Não Invasiva (VNI)', code: 'vni' },
-    { name: 'Assistência Ventilatória Mecânica', code: 'avm' }
+    { name: 'Ventilação Não Invasiva (VNI)', code: 'modo_vni' },
+    { name: 'Assistência Ventilatória Mecânica', code: 'modo_avm' }
 ]);
 
 const modoVniOpts = ref([
@@ -129,7 +129,7 @@ const handleSave = () => {
                     </div>
                 </div>
 
-                <div v-if="respiratorioStore.respiratorio.via_aerea === 'orotraqueal'" class="flex flex-col md:flex-row gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
+                <div v-if="respiratorioStore.respiratorio.via_aerea === 'Orotraqueal'" class="flex flex-col md:flex-row gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="numero_tubo">Número do tubo</label>
                         <InputText 
@@ -166,9 +166,8 @@ const handleSave = () => {
                         class="w-full"
                     />
                 </div>
-
-                <div v-if="respiratorioStore.respiratorio.suporte_ventilatorio === 'vni'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
-                    <h5 class="font-medium text-gray-700">Detalhes da VNI</h5>
+                <div v-if="respiratorioStore.respiratorio.suporte_ventilatorio === 'Ventilação Não Invasiva (VNI)'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
+                <h5 class="font-medium text-gray-700">Detalhes da VNI</h5>
                     
                     <div class="flex flex-col md:flex-row gap-4">
                         <div class="flex flex-col gap-2 w-full md:w-1/3">
@@ -178,7 +177,7 @@ const handleSave = () => {
                                 v-model="respiratorioStore.respiratorio.modo_vni" 
                                 :options="modoVniOpts" 
                                 optionLabel="name"
-                                optionValue="code" 
+                                optionValue="name" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -190,7 +189,7 @@ const handleSave = () => {
                                 v-model="respiratorioStore.respiratorio.frequencia_vni" 
                                 :options="frequenciaVniOpts" 
                                 optionLabel="name"
-                                optionValue="code" 
+                                optionValue="name" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -236,8 +235,7 @@ const handleSave = () => {
                         </div>
                     </div>
                 </div>
-
-                <div v-if="respiratorioStore.respiratorio.suporte_ventilatorio === 'avm'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
+                <div v-if="respiratorioStore.respiratorio.suporte_ventilatorio === 'Assistência Ventilatória Mecânica'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
                     <h5 class="font-medium text-gray-700">Detalhes da AVM</h5>
                     
                     <div class="flex flex-col md:flex-row gap-4">
