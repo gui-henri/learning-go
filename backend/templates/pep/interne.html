@@ -776,6 +776,156 @@
 
     </div>
 
+    <div class="section-title">NUTRICIONAL</div>
+<div class="section-box">
+    
+ 
+    <div class="row">
+        <div class="col w-20">
+            <span class="label">Alimentação Oral?</span>
+            <span class="value">{{if .Nutricional.AlimentacaoOral}}Sim{{else}}Não{{end}}</span>
+        </div>
+        <div class="col w-20">
+            <span class="label">Alimentação Enteral?</span>
+            <span class="value">{{if .Nutricional.AlimentacaoEnteral}}Sim{{else}}Não{{end}}</span>
+        </div>
+        
+
+        {{if .Nutricional.AlimentacaoEnteral}}
+        <div class="col w-30">
+            <span class="label">Via de alimentação enteral:</span>
+            <span class="value">{{.Nutricional.ViaEnteral}}</span>
+        </div>
+        {{else}}
+        <div class="col w-30">
+            <span class="label">Via de alimentação enteral:</span>
+            <span class="value">N/A</span>
+        </div>
+        {{end}}
+
+        <div class="col w-30" style="border-right: none;">
+            <span class="label">Alimentação Parenteral?</span>
+            <span class="value">{{if .Nutricional.AlimentacaoParenteral}}Sim{{else}}Não{{end}}</span>
+        </div>
+    </div>
+
+    {{if .Nutricional.AlimentacaoParenteral}}
+    <div class="row">
+        <div class="col w-30">
+            <span class="label">Via de alimentação parenteral:</span>
+            <span class="value">{{.Nutricional.ViaParenteral}}</span>
+        </div>
+        <div class="col w-70" style="border-right: none;">
+            <span class="label"></span>
+            <span class="value"></span>
+        </div>
+    </div>
+    {{end}}
+
+    
+    <div class="row">
+        <div class="col w-20">
+            <span class="label">Usa Sonda?</span>
+            <span class="value">{{if .Nutricional.Sonda}}Sim{{else}}Não{{end}}</span>
+        </div>
+
+        {{if .Nutricional.Sonda}}
+        <div class="col w-25">
+            <span class="label">Data da última troca:</span>
+            <span class="value">{{.Nutricional.DataUltimaTroca}}</span>
+        </div>
+        <div class="col w-25">
+            <span class="label">Adaptador da sonda:</span>
+            <span class="value">{{.Nutricional.AdaptadorSonda}}</span>
+        </div>
+        <div class="col w-10">
+            <span class="label">Usa Botton?</span>
+            <span class="value">{{if .Nutricional.Botton}}Sim{{else}}Não{{end}}</span>
+        </div>
+        {{else}}
+        <div class="col w-60">
+            <span class="label"></span>
+            <span class="value">Detalhes de sonda não aplicáveis.</span>
+        </div>
+        {{end}}
+        <div class="col w-20" style="border-right: none;">
+            <!-- Coluna de preenchimento ou próxima informação -->
+        </div>
+    </div>
+
+    <!-- Linha 4: Restrição Alimentar -->
+    <div class="row">
+        <div class="col w-100" style="border-right: none;">
+            <span class="label">Restrição alimentar:</span>
+            <span class="value">{{.Nutricional.RestricaoAlimentar}}</span>
+        </div>
+    </div>
+
+    <!-- Linha 5: Detalhes da Dieta -->
+    <div class="row">
+        <div class="col w-30">
+            <span class="label">Tipo de dieta:</span>
+            <span class="value">{{.Nutricional.TipoDieta}}</span>
+        </div>
+
+        <!-- Campos Condicionais: Dieta Industrializada ou Mista -->
+        {{if or (eq .Nutricional.TipoDieta "Industrializada") (eq .Nutricional.TipoDieta "Mista")}}
+        <div class="col w-15">
+            <span class="label">Gavando (ml/h):</span>
+            <span class="value">{{.Nutricional.Gavando}}</span>
+        </div>
+        <div class="col w-15">
+            <span class="label">Volume diário:</span>
+            <span class="value">{{.Nutricional.VolumeDiario}}</span>
+        </div>
+        <div class="col w-25">
+            <span class="label">Forma de administração:</span>
+            <span class="value">{{.Nutricional.FormaAdministracao}}</span>
+        </div>
+        
+            <!-- Detalhe Condicional: Marca da Bomba -->
+            {{if eq .Nutricional.FormaAdministracao "Bomba de infusão"}}
+            <div class="col w-15" style="border-right: none;">
+                <span class="label">Marca da Bomba:</span>
+                <span class="value">{{.Nutricional.MarcaBomba}}</span>
+            </div>
+            {{else}}
+            <div class="col w-15" style="border-right: none;">
+                <span class="label"></span>
+                <span class="value"></span>
+            </div>
+            {{end}}
+        
+        {{else}}
+        <div class="col w-70" style="border-right: none;">
+            <span class="label"></span>
+            <span class="value"></span>
+        </div>
+        {{end}}
+    </div>
+
+    <!-- Linha 6: Suplemento -->
+    <div class="row-no-border">
+        <div class="col w-20">
+            <span class="label">Suplemento?</span>
+            <span class="value">{{if .Nutricional.Suplemento}}Sim{{else}}Não{{end}}</span>
+        </div>
+
+        {{if .Nutricional.Suplemento}}
+        <div class="col w-80" style="border-right: none;">
+            <span class="label">Qual suplemento?</span>
+            <span class="value">{{.Nutricional.QualSuplemento}}</span>
+        </div>
+        {{else}}
+        <div class="col w-80" style="border-right: none;">
+            <span class="label"></span>
+            <span class="value"></span>
+        </div>
+        {{end}}
+    </div>
+    
+</div>
+
     </div>
 
 
