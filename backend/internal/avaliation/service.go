@@ -9,11 +9,13 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"path/filepath"
+	"time"
 )
 
 type AvaliationService interface {
 	Save(ctx context.Context, data AvaliacaoRequest) error
-	Export(ctx context.Context, id int, format string)
+	Export(ctx context.Context, id int, format string) ([]byte, error)
 }
 
 type avaliationService struct {
@@ -24,7 +26,55 @@ type avaliationService struct {
 
 func NewAvaliationService(r avaliationRepository, gotenbergUrl string, templateInternePath string) (*avaliationService, error) {
 
-	tmpl, err := template.ParseFiles(templateInternePath)
+	funcMap := template.FuncMap{
+		"formatDate": func(val interface{}) string {
+			if val == nil {
+				return ""
+			}
+
+			// 1. Se o valor for uma STRING (o caso atual do seu erro)
+			if s, ok := val.(string); ok {
+				if s == "" {
+					return ""
+				}
+				// Tenta fazer o parse do formato ISO que vem do JSON (ex: 2025-12-10T03:00:00.000Z)
+				t, err := time.Parse(time.RFC3339, s)
+				if err == nil {
+					return t.Format("02/01/2006")
+				}
+
+				// Tenta fazer o parse de data simples (ex: 2025-12-10)
+				t, err = time.Parse("2006-01-02", s)
+				if err == nil {
+					return t.Format("02/01/2006")
+				}
+
+				// Se não conseguir converter, retorna a string original para não deixar em branco
+				return s
+			}
+
+			// 2. Se o valor for *time.Time (Ponteiro)
+			if t, ok := val.(*time.Time); ok {
+				if t == nil || t.IsZero() {
+					return ""
+				}
+				return t.Format("02/01/2006")
+			}
+
+			// 3. Se o valor for time.Time (Valor direto)
+			if t, ok := val.(time.Time); ok {
+				if t.IsZero() {
+					return ""
+				}
+				return t.Format("02/01/2006")
+			}
+
+			return ""
+		},
+	}
+
+	baseName := filepath.Base(templateInternePath)
+	tmpl, err := template.New(baseName).Funcs(funcMap).ParseFiles(templateInternePath)
 	if err != nil {
 		return nil, fmt.Errorf("could not parse template: %w", err)
 	}

@@ -120,7 +120,7 @@ const handleSave = () => {
                 <InputGroup>
                     <InputText 
                         id="peso" 
-                        v-model="dadosGeraisStore.dadosGerais.peso" 
+                        v-model.number="dadosGeraisStore.dadosGerais.peso" 
                         type="text"
                         v-keyfilter.int
                         maxlength="3" 
@@ -134,7 +134,7 @@ const handleSave = () => {
                 <InputGroup>
                     <InputText 
                         id="altura" 
-                        v-model="dadosGeraisStore.dadosGerais.altura" 
+                        v-model.number="dadosGeraisStore.dadosGerais.altura" 
                         type="text"
                         v-keyfilter.int
                         maxlength="3" 
@@ -148,7 +148,7 @@ const handleSave = () => {
                 <InputGroup>
                     <InputText 
                         id="idade" 
-                        v-model="dadosGeraisStore.dadosGerais.idade" 
+                        v-model.number="dadosGeraisStore.dadosGerais.idade" 
                         type="text"
                         v-keyfilter.int
                         maxlength="3"

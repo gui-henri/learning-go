@@ -44,7 +44,7 @@ const isFilled = computed(() => {
 });
 
 watch(() => nutricionalStore.nutricional.via_enteral, (novoValor) => {
-    if (novoValor === 'gastrostomia' || novoValor === 'nasoenteral') {
+    if (novoValor === 'Gastrostomia' || novoValor === 'Nasoenteral') {
         nutricionalStore.nutricional.sonda = true;
     } else {
         nutricionalStore.nutricional.sonda = false;

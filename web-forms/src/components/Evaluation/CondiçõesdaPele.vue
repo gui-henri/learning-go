@@ -74,7 +74,7 @@ const handleSave = () => {
                 </div>
             </div>
 
-            <div v-if="condicoesPeleStore.condicoesPele.condicao_cutanea_mucosa === 'lesao'" class="flex flex-col gap-4 mt-2">
+            <div v-if="condicoesPeleStore.condicoesPele.condicao_cutanea_mucosa === 'Com Lesão'" class="flex flex-col gap-4 mt-2">
                 
                 <div v-for="(curativo, index) in condicoesPeleStore.condicoesPele.curativos" :key="index" class="p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10 flex flex-col gap-4 relative">
                     
