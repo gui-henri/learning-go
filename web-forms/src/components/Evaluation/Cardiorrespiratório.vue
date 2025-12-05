@@ -377,7 +377,7 @@ const handleSave = () => {
                                     placeholder="Se intermitente" 
                                     type="number" 
                                     class="w-full"
-                                    :disabled="respiratorioStore.respiratorio.frequencia_oxigenio !== 'intermitente'"
+                                    :disabled="respiratorioStore.respiratorio.frequencia_oxigenio !== 'Intermitente'"
                                 />
                             </div>
                         </div>

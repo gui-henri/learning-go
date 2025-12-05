@@ -18,7 +18,6 @@ func main() {
 	mux := http.NewServeMux()
 	avaliation.NewHttpTransportLayer(db.DB, mux, "http://gotenberg:3000", "./templates/pep/interne.html")
 	handler := middleware.NoCors(mux)
-
 	fmt.Println("Starting server at 8090")
 	log.Fatal(http.ListenAndServe(":8090", handler))
 }
