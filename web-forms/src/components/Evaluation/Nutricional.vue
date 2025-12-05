@@ -35,7 +35,7 @@ const tipoDietaOpts = ref([
 
 const formaAdministracaoOpts = ref([
     { name: 'Gravitacional', code: 'gravitacional' },
-    { name: 'Bomba de infusão', code: 'bomba_infusao' },
+    { name: 'Bomba de Infusão', code: 'bomba_infusao' },
 ]);
 
 
@@ -230,7 +230,7 @@ const searchMarcaBomba = (event) => {
                         />
                     </div>
 
-                    <template v-if="nutricionalStore.nutricional.tipo_dieta === 'industrializada' || nutricionalStore.nutricional.tipo_dieta === 'mista'">
+                    <template v-if="nutricionalStore.nutricional.tipo_dieta === 'Industrializada' || nutricionalStore.nutricional.tipo_dieta === 'Mista'">
                         <div class="flex flex-col gap-2 w-full md:w-2/10">
                             <label for="gavando">Gavando (ml/h) <span class="text-red-500">*</span></label>
                             <InputText 
@@ -263,7 +263,7 @@ const searchMarcaBomba = (event) => {
                                 class="w-full"
                             />
                         </div>
-                        <div v-if="nutricionalStore.nutricional.forma_administracao === 'bomba_infusao'" class="flex flex-col gap-2 w-full md:w-1/3 fadein animation-duration-300">
+                        <div v-if="nutricionalStore.nutricional.forma_administracao === 'Bomba de Infusão'" class="flex flex-col gap-2 w-full md:w-1/3 fadein animation-duration-300">
                             <label for="marca_bomba">Marca da Bomba <span class="text-red-500">*</span></label>  
                             <AutoComplete 
                                 id="marca_bomba" 

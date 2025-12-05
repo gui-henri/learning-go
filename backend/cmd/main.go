@@ -8,8 +8,6 @@ import (
 
 	"github.com/gui-henri/learning-go/db"
 	"github.com/gui-henri/learning-go/internal/avaliation"
-	"github.com/gui-henri/learning-go/internal/patient"
-	"github.com/gui-henri/learning-go/internal/tasks"
 	"github.com/gui-henri/learning-go/pkg/middleware"
 )
 
@@ -18,8 +16,6 @@ func main() {
 	defer db.DB.Close(context.Background())
 
 	mux := http.NewServeMux()
-	tasks.NewHttpTransportLayer(db.DB, mux)
-	patient.NewHttpTransportLayer(db.DB, mux)
 	avaliation.NewHttpTransportLayer(db.DB, mux, "http://gotenberg:3000", "./templates/pep/interne.html")
 	handler := middleware.NoCors(mux)
 
