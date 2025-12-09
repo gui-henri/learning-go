@@ -56,3 +56,16 @@ func MakeGetAvaliationEndpoint(s AvaliationService) endpoint.Endpoint {
 		}, nil
 	}
 }
+
+func MakeUpdateAvaliationEndpoint(s AvaliationService) endpoint.Endpoint {
+	return func(ctx context.Context, request any) (any, error) {
+		req := request.(requests.UpdateAvaliationRequest)
+
+		err := s.Update(ctx, req.Id, req.Data)
+		if err != nil {
+			return requests.UpdateAvaliationResponse{Status: "failed", Err: err.Error()}, nil
+		}
+
+		return requests.UpdateAvaliationResponse{Status: "success"}, nil
+	}
+}

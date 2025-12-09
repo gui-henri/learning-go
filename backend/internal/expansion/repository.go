@@ -11,6 +11,7 @@ import (
 
 type AvaliationRepository interface {
 	Save(a []byte) error
+	Update(id string, a []byte) error
 	GetOne(id string) (domain.AvaliacaoRequest, error)
 	GetAll() ([]domain.AvaliacaoListDto, error)
 }
@@ -28,6 +29,12 @@ func NewAvaliationRepository(db db.IDB) *avaliationRepository {
 func (s *avaliationRepository) Save(a []byte) error {
 	query := "INSERT INTO avaliation (resource_json) VALUES ($1)"
 	_, err := s.db.Exec(context.Background(), query, a)
+	return err
+}
+
+func (s *avaliationRepository) Update(id string, a []byte) error {
+	query := "UPDATE avaliation SET resource_json = $1, last_updated = NOW() WHERE id = $2"
+	_, err := s.db.Exec(context.Background(), query, a, id)
 	return err
 }
 func (s *avaliationRepository) GetOne(id string) (domain.AvaliacaoRequest, error) {
@@ -69,6 +76,7 @@ func (s *avaliationRepository) GetAll() ([]domain.AvaliacaoListDto, error) {
 			return nil, fmt.Errorf("failed to parse json: %w", err)
 		}
 
+		// TODO: the fields should be stored in the sql table instead of only the JSON
 		itemList := domain.AvaliacaoListDto{
 			Id:           schm.Id,
 			NomePaciente: result.DadosGerais.NomePaciente,

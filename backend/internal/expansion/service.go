@@ -18,6 +18,7 @@ import (
 type AvaliationService interface {
 	Get(ctx context.Context, id string) (domain.AvaliacaoRequest, error)
 	Save(ctx context.Context, data domain.AvaliacaoRequest) error
+	Update(ctx context.Context, id string, data domain.AvaliacaoRequest) error
 	Export(ctx context.Context, id string, format string) ([]byte, error)
 	List(ctx context.Context) ([]domain.AvaliacaoListDto, error)
 }
@@ -97,6 +98,17 @@ func (s *avaliationService) Save(ctx context.Context, data domain.AvaliacaoReque
 	}
 
 	err = s.repository.Save(dataBytes)
+
+	return err
+}
+
+func (s *avaliationService) Update(ctx context.Context, id string, data domain.AvaliacaoRequest) error {
+	dataBytes, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	err = s.repository.Update(id, dataBytes)
 
 	return err
 }
