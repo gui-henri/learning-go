@@ -1,4 +1,3 @@
-
 package expansion
 
 import (
@@ -12,7 +11,7 @@ import (
 
 type AvaliationRepository interface {
 	Save(a []byte) error
-	GetOne(id int) (domain.AvaliacaoRequest, error)
+	GetOne(id string) (domain.AvaliacaoRequest, error)
 	GetAll() ([]domain.AvaliacaoRequest, error)
 }
 
@@ -27,25 +26,22 @@ func NewAvaliationRepository(db db.IDB) *avaliationRepository {
 }
 
 func (s *avaliationRepository) Save(a []byte) error {
-	query := "INSERT INTO avaliation (resource_json) VALUES ()"
+	query := "INSERT INTO avaliation (resource_json) VALUES ($1)"
 	_, err := s.db.Exec(context.Background(), query, a)
 	return err
 }
-
-func (s *avaliationRepository) GetOne(id int) (domain.AvaliacaoRequest, error) {
-	query := "SELECT resource_json FROM avaliation WHERE id="
+func (s *avaliationRepository) GetOne(id string) (domain.AvaliacaoRequest, error) {
+	query := "SELECT id, resource_json, created_at, last_updated, active FROM avaliation WHERE id = $1"
 	row := s.db.QueryRow(context.Background(), query, id)
 
 	var schm domain.AvaliacaoSchema
 
-	err := row.Scan(&schm.ResourceJSON)
-
+	err := row.Scan(&schm.Id, &schm.ResourceJSON, &schm.CreatedAt, &schm.LastUpdated, &schm.Active)
 	if err != nil {
 		return domain.AvaliacaoRequest{}, err
 	}
 
 	var result domain.AvaliacaoRequest
-
 	if err := json.Unmarshal(schm.ResourceJSON, &result); err != nil {
 		return domain.AvaliacaoRequest{}, fmt.Errorf("failed to parse json: %w", err)
 	}
@@ -54,7 +50,7 @@ func (s *avaliationRepository) GetOne(id int) (domain.AvaliacaoRequest, error) {
 }
 
 func (s *avaliationRepository) GetAll() ([]domain.AvaliacaoRequest, error) {
-	query := "SELECT resource_json FROM avaliation"
+	query := "SELECT id, resource_json, created_at, last_updated, active FROM avaliation"
 	rows, err := s.db.Query(context.Background(), query)
 	if err != nil {
 		return nil, err
@@ -64,7 +60,7 @@ func (s *avaliationRepository) GetAll() ([]domain.AvaliacaoRequest, error) {
 	var avaliations []domain.AvaliacaoRequest
 	for rows.Next() {
 		var schm domain.AvaliacaoSchema
-		if err := rows.Scan(&schm.ResourceJSON); err != nil {
+		if err := rows.Scan(&schm.Id, &schm.ResourceJSON, &schm.CreatedAt, &schm.LastUpdated, &schm.Active); err != nil {
 			return nil, err
 		}
 
@@ -77,4 +73,3 @@ func (s *avaliationRepository) GetAll() ([]domain.AvaliacaoRequest, error) {
 
 	return avaliations, nil
 }
-

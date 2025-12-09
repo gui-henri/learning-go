@@ -17,7 +17,7 @@ import (
 
 type AvaliationService interface {
 	Save(ctx context.Context, data domain.AvaliacaoRequest) error
-	Export(ctx context.Context, id int, format string) ([]byte, error)
+	Export(ctx context.Context, id string, format string) ([]byte, error)
 	List(ctx context.Context) ([]domain.AvaliacaoRequest, error)
 }
 
@@ -104,7 +104,7 @@ func (s *avaliationService) List(ctx context.Context) ([]domain.AvaliacaoRequest
 	return s.repository.GetAll()
 }
 
-func (s *avaliationService) Export(ctx context.Context, id int, format string) ([]byte, error) {
+func (s *avaliationService) Export(ctx context.Context, id string, format string) ([]byte, error) {
 
 	if format != "interne" {
 		return nil, fmt.Errorf("formato inválido")

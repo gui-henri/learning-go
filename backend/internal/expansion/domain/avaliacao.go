@@ -6,7 +6,7 @@ import (
 )
 
 type AvaliacaoSchema struct {
-	Id           int             `db:"id" json:"id"`
+	Id           string          `db:"id" json:"id"`
 	ResourceJSON json.RawMessage `db:"resource_json" json:"resource_json"`
 	CreatedAt    time.Time       `db:"created_at" json:"created_at"`
 	LastUpdated  time.Time       `db:"last_updated" json:"last_updated"`

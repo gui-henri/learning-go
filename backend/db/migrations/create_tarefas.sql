@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS tasks (
     CONSTRAINT fk_patient Foreign Key (patient_id) REFERENCES patient (id) ON DELETE CASCADE
 );
 
-CREATE TABLE avaliation (
-    id SERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS avaliation (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     resource_json JSONB NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),

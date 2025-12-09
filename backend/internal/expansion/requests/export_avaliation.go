@@ -5,11 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 )
 
 type ExportAvaliationRequest struct {
-	Id     int
+	Id     string
 	Format string
 }
 
@@ -21,15 +20,8 @@ type ExportAvaliationResponse struct {
 func DecodeExportAvaliationRequest(_ context.Context, r *http.Request) (any, error) {
 	id := r.PathValue("id")
 
-	// Parse ID from string to int...
-	idInt, err := strconv.Atoi(id)
-
-	if err != nil {
-		return nil, fmt.Errorf("invalid id format: %s", id)
-	}
-
 	return ExportAvaliationRequest{
-		Id:     idInt,
+		Id:     id,
 		Format: r.URL.Query().Get("format"), // Get format from ?format=pdf
 	}, nil
 }
