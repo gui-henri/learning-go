@@ -31,12 +31,12 @@ func (s *avaliationRepository) Save(a []byte) error {
 	return err
 }
 func (s *avaliationRepository) GetOne(id string) (domain.AvaliacaoRequest, error) {
-	query := "SELECT id, resource_json, created_at, last_updated, active FROM avaliation WHERE id = $1"
+	query := "SELECT resource_json FROM avaliation WHERE id = $1"
 	row := s.db.QueryRow(context.Background(), query, id)
 
 	var schm domain.AvaliacaoSchema
 
-	err := row.Scan(&schm.Id, &schm.ResourceJSON, &schm.CreatedAt, &schm.LastUpdated, &schm.Active)
+	err := row.Scan(&schm.ResourceJSON)
 	if err != nil {
 		return domain.AvaliacaoRequest{}, err
 	}

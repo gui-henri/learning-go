@@ -43,3 +43,16 @@ func MakeExportAvaliationEndpoint(s AvaliationService) endpoint.Endpoint {
 		}, nil
 	}
 }
+
+func MakeGetAvaliationEndpoint(s AvaliationService) endpoint.Endpoint {
+	return func(ctx context.Context, request any) (response any, err error) {
+		req := request.(requests.GetAvaliationRequest)
+
+		avaliation, err := s.Get(ctx, req.Id)
+
+		return requests.GetAvaliationResponse{
+			Data: avaliation,
+			Err:  err,
+		}, nil
+	}
+}

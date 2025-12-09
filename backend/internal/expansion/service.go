@@ -16,6 +16,7 @@ import (
 )
 
 type AvaliationService interface {
+	Get(ctx context.Context, id string) (domain.AvaliacaoRequest, error)
 	Save(ctx context.Context, data domain.AvaliacaoRequest) error
 	Export(ctx context.Context, id string, format string) ([]byte, error)
 	List(ctx context.Context) ([]domain.AvaliacaoRequest, error)
@@ -170,4 +171,8 @@ func (s *avaliationService) Export(ctx context.Context, id string, format string
 
 	return pdfBytes, nil
 
+}
+
+func (s *avaliationService) Get(ctx context.Context, id string) (domain.AvaliacaoRequest, error) {
+	return s.repository.GetOne(id)
 }
