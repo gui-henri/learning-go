@@ -19,7 +19,7 @@ type AvaliationService interface {
 	Get(ctx context.Context, id string) (domain.AvaliacaoRequest, error)
 	Save(ctx context.Context, data domain.AvaliacaoRequest) error
 	Export(ctx context.Context, id string, format string) ([]byte, error)
-	List(ctx context.Context) ([]domain.AvaliacaoRequest, error)
+	List(ctx context.Context) ([]domain.AvaliacaoListDto, error)
 }
 
 type avaliationService struct {
@@ -101,7 +101,7 @@ func (s *avaliationService) Save(ctx context.Context, data domain.AvaliacaoReque
 	return err
 }
 
-func (s *avaliationService) List(ctx context.Context) ([]domain.AvaliacaoRequest, error) {
+func (s *avaliationService) List(ctx context.Context) ([]domain.AvaliacaoListDto, error) {
 	return s.repository.GetAll()
 }
 

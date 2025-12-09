@@ -9,7 +9,7 @@ import (
 )
 
 type ListAvaliationResponse struct {
-	Avaliations []domain.AvaliacaoRequest `json:"avaliations"`
+	Avaliations []domain.AvaliacaoListDto `json:"avaliations"`
 	Err         string                    `json:"error,omitempty"`
 }
 

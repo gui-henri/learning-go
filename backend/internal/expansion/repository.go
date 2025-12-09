@@ -12,7 +12,7 @@ import (
 type AvaliationRepository interface {
 	Save(a []byte) error
 	GetOne(id string) (domain.AvaliacaoRequest, error)
-	GetAll() ([]domain.AvaliacaoRequest, error)
+	GetAll() ([]domain.AvaliacaoListDto, error)
 }
 
 type avaliationRepository struct {
@@ -49,7 +49,7 @@ func (s *avaliationRepository) GetOne(id string) (domain.AvaliacaoRequest, error
 	return result, nil
 }
 
-func (s *avaliationRepository) GetAll() ([]domain.AvaliacaoRequest, error) {
+func (s *avaliationRepository) GetAll() ([]domain.AvaliacaoListDto, error) {
 	query := "SELECT id, resource_json, created_at, last_updated, active FROM avaliation"
 	rows, err := s.db.Query(context.Background(), query)
 	if err != nil {
@@ -57,7 +57,7 @@ func (s *avaliationRepository) GetAll() ([]domain.AvaliacaoRequest, error) {
 	}
 	defer rows.Close()
 
-	var avaliations []domain.AvaliacaoRequest
+	var avaliations []domain.AvaliacaoListDto
 	for rows.Next() {
 		var schm domain.AvaliacaoSchema
 		if err := rows.Scan(&schm.Id, &schm.ResourceJSON, &schm.CreatedAt, &schm.LastUpdated, &schm.Active); err != nil {
@@ -68,7 +68,15 @@ func (s *avaliationRepository) GetAll() ([]domain.AvaliacaoRequest, error) {
 		if err := json.Unmarshal(schm.ResourceJSON, &result); err != nil {
 			return nil, fmt.Errorf("failed to parse json: %w", err)
 		}
-		avaliations = append(avaliations, result)
+
+		itemList := domain.AvaliacaoListDto{
+			Id:           schm.Id,
+			NomePaciente: result.DadosGerais.NomePaciente,
+			Idade:        result.DadosGerais.Idade,
+			CPF:          result.DadosGerais.CPF,
+		}
+
+		avaliations = append(avaliations, itemList)
 	}
 
 	return avaliations, nil

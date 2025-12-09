@@ -13,12 +13,6 @@ type AvaliacaoSchema struct {
 	Active       bool            `db:"active" json:"active"`
 }
 
-type SelectField struct {
-	Name  string `json:"name"`
-	Code  string `json:"code"`
-	Value string `json:"value"` // Added Value because 'Seguranca' uses 'value' instead of 'code'
-}
-
 type AvaliacaoRequest struct {
 	DadosGerais        DadosGerais        `json:"dadosGerais"`
 	Endereco           Endereco           `json:"endereco"`
@@ -33,4 +27,11 @@ type AvaliacaoRequest struct {
 	CondicoesPele      CondicoesPele      `json:"condicoesPele"`
 	Score              Score              `json:"score"`
 	Observacoes        Observacoes        `json:"observacoes"`
+}
+
+type AvaliacaoListDto struct {
+	Id           string
+	NomePaciente string
+	Idade        int
+	CPF          string
 }
