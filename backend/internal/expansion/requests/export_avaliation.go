@@ -1,4 +1,4 @@
-package avaliation
+package requests
 
 import (
 	"context"
@@ -7,31 +7,6 @@ import (
 	"net/http"
 	"strconv"
 )
-
-type SaveAvaliationRequest struct {
-	Data AvaliacaoRequest
-}
-
-type SaveAvaliationResponse struct {
-	Status string `json:"status"`
-	Err    string `json:"error,omitempty"`
-}
-
-func decodeSaveFormRequest(_ context.Context, r *http.Request) (any, error) {
-	var body AvaliacaoRequest
-
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
-		fmt.Println("JSON Error:", err)
-		return nil, err
-	}
-
-	return SaveAvaliationRequest{Data: body}, nil
-}
-
-func encodeResponse(_ context.Context, w http.ResponseWriter, response any) error {
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	return json.NewEncoder(w).Encode(response)
-}
 
 type ExportAvaliationRequest struct {
 	Id     int
@@ -43,7 +18,7 @@ type ExportAvaliationResponse struct {
 	Err  error
 }
 
-func decodeExportAvaliationRequest(_ context.Context, r *http.Request) (any, error) {
+func DecodeExportAvaliationRequest(_ context.Context, r *http.Request) (any, error) {
 	id := r.PathValue("id")
 
 	// Parse ID from string to int...
@@ -59,7 +34,7 @@ func decodeExportAvaliationRequest(_ context.Context, r *http.Request) (any, err
 	}, nil
 }
 
-func encodeExportAvaliationResponse(_ context.Context, w http.ResponseWriter, response any) error {
+func EncodeExportAvaliationResponse(_ context.Context, w http.ResponseWriter, response any) error {
 	resp := response.(ExportAvaliationResponse)
 
 	if resp.Err != nil {
