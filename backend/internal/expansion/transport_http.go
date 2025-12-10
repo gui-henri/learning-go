@@ -58,7 +58,7 @@ func NewHttpTransportLayer(db db.IDB, mux *http.ServeMux, gotenbergUrl string, t
 
 	getAvaliationForm := httptransport.NewServer(
 		MakeGetAvaliationFormOptionsEndpoint(avaliationService),
-		func(ctx context.Context, r *http.Request) (any, error) { return nil, nil },
+		requests.DecodeGetAvaliationFormRequest,
 		requests.EncodeGetAvaliationFormResponse,
 		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
 	)

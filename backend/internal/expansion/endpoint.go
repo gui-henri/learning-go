@@ -72,7 +72,13 @@ func MakeUpdateAvaliationEndpoint(s AvaliationService) endpoint.Endpoint {
 
 func MakeGetAvaliationFormOptionsEndpoint(s AvaliationService) endpoint.Endpoint {
 	return func(ctx context.Context, request any) (response any, err error) {
-		opts := s.GetFormOptions(ctx)
-		return opts, nil
+		req := request.(requests.GetAvaliationFormRequest)
+
+		opts, ok := s.GetFormOptions(ctx, req.Version)
+		if !ok {
+			return opts, nil
+		}
+
+		return requests.GetAvaliationFormResponse{}, nil
 	}
 }

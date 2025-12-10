@@ -21,7 +21,7 @@ type AvaliationService interface {
 	Update(ctx context.Context, id string, data domain.AvaliacaoRequest) error
 	Export(ctx context.Context, id string, format string) ([]byte, error)
 	List(ctx context.Context) ([]domain.AvaliacaoListDto, error)
-	GetFormOptions(ctx context.Context) domain.AvaliationFormOptions
+	GetFormOptions(ctx context.Context, version int) (domain.AvaliationFormOptions, bool)
 }
 
 type avaliationService struct {
@@ -190,6 +190,11 @@ func (s *avaliationService) Get(ctx context.Context, id string) (domain.Avaliaca
 	return s.repository.GetOne(id)
 }
 
-func (s *avaliationService) GetFormOptions(ctx context.Context) domain.AvaliationFormOptions {
-	return domain.GetAvaliationFormOptions()
+func (s *avaliationService) GetFormOptions(ctx context.Context, version int) (domain.AvaliationFormOptions, bool) {
+	opts := domain.GetAvaliationFormOptions()
+	if opts.Version == version {
+		return opts, true
+	}
+
+	return opts, false
 }
