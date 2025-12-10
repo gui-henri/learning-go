@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useEliminacoesStore } from '@/store/evaluation/eliminacoes';
 
 const funcaoIntestinalOpts = ref([
@@ -55,6 +55,18 @@ const handleSave = () => {
     emit('next-step');
 };
 
+
+watch(() => eliminacoesStore.eliminacoes.sva, (novoValor) => {
+    if (novoValor === true) {
+        eliminacoesStore.eliminacoes.svd = false;
+    }
+});
+
+watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
+    if (novoValor === true) {
+        eliminacoesStore.eliminacoes.sva = false;
+    }
+});
 
 </script>
 

@@ -8,11 +8,8 @@ const nutricionalStore = useNutricionalStore();
 const activeIndex = ref(null);
 
 const viaEnteralOpts = ref([
-    { name: 'Nasogástrica', code: 'nasogastrica' },
-    { name: 'Orogástrica', code: 'orogastrica' },
     { name: 'Gastrostomia', code: 'gastrostomia' },
     { name: 'Jejunostomia', code: 'jejunostomia' },
-    { name: 'Oroenteral', code: 'oroenteral' },
     { name: 'Nasoenteral', code: 'nasoenteral' }
 ]);
 
@@ -85,6 +82,20 @@ const searchMarcaBomba = (event) => {
         });
     }
 };
+
+watch(() => nutricionalStore.nutricional.alimentacao_enteral, (novoValor) => {
+    if (novoValor === true) {
+        nutricionalStore.nutricional.alimentacao_parenteral = false;
+    }
+});
+
+watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => {
+    if (novoValor === true) {
+        nutricionalStore.nutricional.alimentacao_enteral = false;
+    }
+});
+
+
 
 </script>
 

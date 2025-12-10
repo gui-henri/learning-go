@@ -7,20 +7,33 @@ const antimicrobianosBase = {
     data_termino: null
 }
 
-export const exameFisicoModel = {
-    estado_geral: null,
-    avaliacao_locomotora: null,
-    possui_dreno: false,
+const drenosBase = {
     local_dreno: null,
     data_implantacao_dreno: null,
     curativos_dreno: null,
+}
+
+export const exameFisicoModel = {
+    estado_geral: null,
+    avaliacao_locomotora: null,
+    drenos: [],
     possui_acesso: false,
     antimicrobianos: []
 }
 
 export const useExameFisicoStore = defineStore('exameFisico', () => {
-
     const exameFisico = ref(exameFisicoModel)
+
+    function adicionarDreno() {
+        exameFisico.value.drenos.push({ ...drenosBase })
+    }
+
+    function removerDreno(index) {
+        if (exameFisico.value.drenos.length > 0) {
+            exameFisico.value.drenos.splice(index, 1)
+        }
+    }
+
     function adicionarAntimicrobiano() {
         exameFisico.value.antimicrobianos.push({ ...antimicrobianosBase })
     }
@@ -33,7 +46,9 @@ export const useExameFisicoStore = defineStore('exameFisico', () => {
     return {
         exameFisico,
         adicionarAntimicrobiano,
-        removerAntimicrobiano
+        removerAntimicrobiano,
+        adicionarDreno,
+        removerDreno
     }
 }, {
     persist: true

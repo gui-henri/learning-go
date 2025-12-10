@@ -102,47 +102,56 @@ const removeAntimicrobiano = (index) => {
             </div>
 
             <div class="border-t my-2"></div>
+            <div class="flex flex-col gap-4 w-full">
+                <div v-for="(dreno, index) in exameFisicoStore.exameFisico.drenos" :key="index" class="p-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-col gap-4">
+                    
+                    <div class="flex justify-between items-center">
+                        <h5 class="font-bold text-gray-600">Dreno {{ index + 1 }}</h5>
+                        <Button icon="pi pi-trash" 
+                                class="p-button-rounded p-button-danger p-button-text" 
+                                @click="exameFisicoStore.removerDreno(index)" />
+                    </div>
 
-            <div class="flex flex-col gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
-                    <label for="possui_dreno">Drenos?</label>
-                    <InputSwitch 
-                        id="possui_dreno" 
-                        v-model="exameFisicoStore.exameFisico.possui_dreno" 
-                    />
-                </div>
-
-                <div v-if="exameFisicoStore.exameFisico.possui_dreno" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                     <div class="flex flex-col md:flex-row gap-4">
                         <div class="flex flex-col gap-2 w-full md:w-1/3">
-                            <label for="local_dreno">Local do dreno</label>
+                            <label :for="'local_dreno_' + index">Local do dreno</label>
                             <InputText 
-                                id="local_dreno" 
-                                v-model="exameFisicoStore.exameFisico.local_dreno" 
+                                :id="'local_dreno_' + index" 
+                                v-model="dreno.local_dreno" 
                                 placeholder="Local anatômico" 
                                 class="w-full"
                             />
                         </div>
+
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
-                            <label for="data_implantacao_dreno">Data implantação</label>
+                            <label :for="'data_implantacao_dreno_' + index">Data implantação</label>
                             <Calendar 
-                                id="data_implantacao_dreno" 
-                                v-model="exameFisicoStore.exameFisico.data_implantacao_dreno" 
+                                :id="'data_implantacao_dreno_' + index" 
+                                v-model="dreno.data_implantacao_dreno" 
                                 dateFormat="dd/mm/yy" 
                                 placeholder="dd/mm/aaaa" 
                                 class="w-full"
                             />
                         </div>
+
                         <div class="flex flex-col gap-2 w-full flex-1">
-                            <label for="curativos_dreno">Curativos do dreno</label>
+                            <label :for="'curativos_dreno_' + index">Curativos do dreno</label>
                             <InputText 
-                                id="curativos_dreno" 
-                                v-model="exameFisicoStore.exameFisico.curativos_dreno" 
+                                :id="'curativos_dreno_' + index" 
+                                v-model="dreno.curativos_dreno" 
                                 placeholder="Informações sobre curativos" 
                                 class="w-full"
                             />
                         </div>
                     </div>
+                </div>
+
+                <div v-if="exameFisicoStore.exameFisico.drenos.length === 0" class="text-gray-500 italic text-sm p-2">
+                    Nenhum dreno registrado.
+                </div>
+
+                <div class="flex justify-end w-full">
+                    <Button label="Adicionar dreno" icon="pi pi-plus" class="p-button-outlined p-button-secondary" @click="exameFisicoStore.adicionarDreno" />
                 </div>
             </div>
 
@@ -343,7 +352,7 @@ const removeAntimicrobiano = (index) => {
                 </div>
 
                 <div class="flex justify-end w-full">
-                    <Button label="Adicionar antimicrobiano" icon="pi pi-plus" class="p-button-outlined p-button-secondary p-button-sm" @click="addAntimicrobiano" />
+                    <Button label="Adicionar antimicrobiano" icon="pi pi-plus" class="p-button-outlined p-button-secondary" @click="addAntimicrobiano" />
                 </div>
             </div>
         </div>

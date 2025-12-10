@@ -1,15 +1,18 @@
 package domain
 
+type Dreno struct {
+	Local           string `json:"local_dreno,omitempty"`
+	DataImplantacao string `json:"data_implantacao_dreno,omitempty"`
+	Curativos       string `json:"curativos_dreno,omitempty"`
+}
+
 type ExameFisico struct {
 	// General Evaluation
 	EstadoGeral         string `json:"estado_geral"`
 	AvaliacaoLocomotora string `json:"avaliacao_locomotora"`
 
 	// Drains Section
-	PossuiDreno          bool   `json:"possui_dreno"`
-	LocalDreno           string `json:"local_dreno,omitempty"`
-	DataImplantacaoDreno string `json:"data_implantacao_dreno,omitempty"`
-	CurativosDreno       string `json:"curativos_dreno,omitempty"`
+	Drenos []Dreno `json:"drenos,omitempty"`
 
 	PossuiAcesso bool `json:"possui_acesso"`
 
