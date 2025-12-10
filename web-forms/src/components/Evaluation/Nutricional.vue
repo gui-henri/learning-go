@@ -223,7 +223,6 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                     class="w-full"
                 />
             </div>
-            <span class="text-red-600">TODO*: verificar se seria mais adequado esconder o campo com um switch ou trazer ele já selecionado com um default que mostra os campos.</span>
             <div class="flex flex-col gap-4 border-t pt-4">
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-2/10">

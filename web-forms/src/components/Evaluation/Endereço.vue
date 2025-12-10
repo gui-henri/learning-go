@@ -119,8 +119,6 @@ const searchEstado = (event) => {
             </i>
             <div class="flex flex-col text-left">
                 <h4 class="font-semibold text-xl p-0 m-0">Endereço</h4>
-                <span class="text-red-600">Como estado está como um campo de autofill não consigo edita para evitar números</span>
-                
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>

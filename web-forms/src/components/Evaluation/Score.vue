@@ -89,7 +89,62 @@
         { name: 'Comatoso', code: 'comatoso', points: 2 }
     ]);
 
-    // --- CÁLCULOS ---
+    // ... (outras computed properties e imports)
+
+// Funções auxiliares (opcional, mas melhora a clareza)
+const getGroup2Priority = (value, opts) => {
+    // 1. Tenta encontrar a opção pelo 'code' (que é o que está salvo no store)
+    const opt = opts.find(o => o.code === value);
+    if (!opt) return 0; // Se não selecionado ou 'nao_utiliza' (0)
+
+    // 2. Mapeamento da prioridade de complexidade:
+    // Mais de 12h / Mais de 5x / Mais de 4x = 3 (24h)
+    if (opt.name.includes('Mais de 12 horas') || opt.name.includes('Mais que 5x') || opt.name.includes('Mais que 4x')) {
+        return 3; // 24 HORAS
+    }
+    // Até 12h / Até 5x / Até 4x = 2 (12h)
+    if (opt.name.includes('Até 12 horas') || opt.name.includes('Até 5x') || opt.name.includes('Até 4x')) {
+        return 2; // 12 HORAS (ou AD/Outros Programas para a Medicação)
+    }
+
+    // Não utiliza = 1 (AD / Outros Programas)
+    return 1;
+};
+
+
+const recomendacaoGrupo2 = computed(() => {
+    const s = scoreStore.score;
+    let maxPriority = 0;
+
+
+    maxPriority = Math.max(maxPriority, getGroup2Priority(s.alimentacao_parenteral, freq12hOpts.value));
+
+
+    maxPriority = Math.max(maxPriority, getGroup2Priority(s.aspiracao_traqueo, freq5xOpts.value));
+
+  
+    maxPriority = Math.max(maxPriority, getGroup2Priority(s.ventilacao_mecanica, freq12hOpts.value));
+
+
+    if (s.medicacao_parenteral === 'mais_4x') {
+        maxPriority = Math.max(maxPriority, 3); // 24 HORAS
+    } else if (s.medicacao_parenteral === 'ate_4x') {
+        maxPriority = Math.max(maxPriority, 1);
+    }
+    
+
+    if (maxPriority === 3) {
+        return 'Internação Domiciliar 24h';
+    } else if (maxPriority === 2) {
+        return 'Internação Domiciliar 12h';
+    } else if (maxPriority === 1) {
+        return 'Atendimento Domiciliar / Outros Programas';
+    } else {
+        return 'Nenhuma indicação imediata no Grupo 2';
+    }
+});
+
+
     const totalKatzRaw = computed(() => {
         let total = 0;
         const s = scoreStore.score;
@@ -109,16 +164,16 @@
         return 'Dependente Total';
     });
 
-    // Lógica de cores do Katz: Verde (Bom), Laranja (Atenção), Vermelho (Ruim)
+
     const katzColorClass = computed(() => {
         const pts = totalKatzRaw.value;
-        if (pts >= 5) { // Independente (Bom)
+        if (pts >= 5) { 
             return 'bg-green-50 border-green-200 text-green-900 dark:bg-green-900/30 dark:border-green-800 dark:text-green-300';
         }
-        if (pts >= 3) { // Parcial (Atenção)
+        if (pts >= 3) { 
             return 'bg-orange-50 border-orange-200 text-orange-900 dark:bg-orange-900/30 dark:border-orange-800 dark:text-orange-300';
         }
-        // Dependente Total (Ruim)
+        
         return 'bg-red-50 border-red-200 text-red-900 dark:bg-red-900/30 dark:border-red-800 dark:text-red-300';
     });
 
@@ -183,6 +238,8 @@
         }, 0);
         emit('next-step');
     };
+
+
     </script>
 
     <template>
@@ -301,8 +358,7 @@
                             />
                         </div>
                     </div>
-                    <div class="flex flex-col md:flex-row gap-4">Para indicação de Planejamento de Atenção Domiciliar (P.A.D.), 
-                        considerar a maior complexidade assinalada, ainda que uma única vez. Recomendação atual: {{ }} </div>
+                    <div class="flex flex-col md:flex-row gap-4">Para indicação de Planejamento de Atenção Domiciliar (P.A.D.) Recomendação atual: {{ recomendacaoGrupo2 }}    </div>
 
                     <!-- KATZ -->
                     <div class="flex justify-between items-center border-b pb-2 mt-4 dark:border-gray-700">
