@@ -22,3 +22,17 @@ type DadosGerais struct {
 	Carteirinha           string `json:"carteirinha"`
 	VencimentoCarteirinha string `json:"vencimento_carteirinha"`
 }
+
+func GetDadosGeraisFormOptions() FormMetadata {
+	return FormMetadata{
+		"genero": []FieldOption{
+			{Label: "Masculino", Value: "M"},
+			{Label: "Feminino", Value: "F"},
+		},
+		"complexidade": []FieldOption{
+			{Label: "Alta", Value: "high"},
+			{Label: "Média", Value: "medium"},
+			{Label: "Baixa", Value: "low"},
+		},
+	}
+}

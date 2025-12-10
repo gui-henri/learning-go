@@ -26,3 +26,55 @@ type CardioRespiratorio struct {
 	ModalidadeOxigenio string `json:"modalidade_oxigenio"`
 	FluxoOxigenio      string `json:"fluxo_oxigenio"`
 }
+
+func GetCardioRespiratorioFormOptions() FormMetadata {
+	return FormMetadata{
+		"padrao_respiratorio": []FieldOption{
+			{Label: "Eupnéico", Value: "eupneico"},
+			{Label: "Dispnéico", Value: "dispneico"},
+			{Label: "Bradipnéico", Value: "bradipneico"},
+			{Label: "Taquipnéico", Value: "taquipneico"},
+		},
+		"via_aerea": []FieldOption{
+			{Label: "Fisiológica", Value: "fisiologica"},
+			{Label: "Orotraqueal", Value: "orotraqueal"},
+			{Label: "Traqueóstomo", Value: "traqueostomo"},
+		},
+		"suporte_ventilatorio": []FieldOption{
+			{Label: "Espontânea", Value: "espontanea"},
+			{Label: "Ventilação Não Invasiva (VNI)", Value: "modo_vni"},
+			{Label: "Assistência Ventilatória Mecânica", Value: "modo_avm"},
+		},
+		"modo_vni": []FieldOption{
+			{Label: "CPAP Simples", Value: "cpap_simples"},
+			{Label: "CPAP Automático", Value: "cpap_automatico"},
+			{Label: "BiPAP", Value: "bipap"},
+		},
+		"frequencia_vni": []FieldOption{
+			{Label: "Contínuo", Value: "continuo"},
+			{Label: "Intermitente", Value: "intermitente"},
+		},
+		"mascara_vni": []FieldOption{
+			{Label: "Nasal", Value: "nasal"},
+			{Label: "Facial", Value: "facial"},
+			{Label: "Oronasal", Value: "oronasal"},
+		},
+		"tamanho_mascara": []FieldOption{
+			{Label: "P", Value: "P"},
+			{Label: "M", Value: "M"},
+			{Label: "G", Value: "G"},
+		},
+		"fonte_oxigenio": []FieldOption{
+			{Label: "Cilindro", Value: "cilindro"},
+			{Label: "Concentrador", Value: "concentrador"},
+		},
+		"frequencia_oxigenio": []FieldOption{
+			{Label: "Intermitente", Value: "intermitente"},
+			{Label: "Contínua", Value: "continua"},
+		},
+		"modalidade_oxigenio": []FieldOption{
+			{Label: "Cateter Nasal", Value: "cateter_nasal"},
+			{Label: "Venturi", Value: "venturi"},
+		},
+	}
+}

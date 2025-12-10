@@ -15,3 +15,14 @@ type Responsavel struct {
 	FormaContato      string `json:"forma_contato"`
 	NumeroPrioritario bool   `json:"numero_prioritario"`
 }
+
+func GetContatoFormOptions() FormMetadata {
+	return FormMetadata{
+		"responsavel": []FieldOption{
+			{Label: "Residencial", Value: "residencial"},
+			{Label: "Celular", Value: "celular"},
+			{Label: "WhatsApp", Value: "whatsApp"},
+			{Label: "Celular e WhatsApp", Value: "celular_whatsApp"},
+		},
+	}
+}

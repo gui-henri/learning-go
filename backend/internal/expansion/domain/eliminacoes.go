@@ -31,3 +31,31 @@ type Eliminacoes struct {
 	Preservativo                  bool   `json:"preservativo"`
 	VolumeDiuresePreservativo     string `json:"volume_diurese_preservativo"`
 }
+
+func GetEliminacoesFormOptions() FormMetadata {
+	return FormMetadata{
+		"funcao_intestinal": []FieldOption{
+			{Label: "Normal", Value: "normal"},
+			{Label: "Constipado", Value: "constipado"},
+			{Label: "Com diarreia", Value: "com_diarreia"},
+		},
+		"tipo_estomia": []FieldOption{
+			{Label: "Ileostomia", Value: "ileostomia"},
+			{Label: "Colostomia", Value: "colostomia"},
+		},
+		"diurese": []FieldOption{
+			{Label: "Espontânea", Value: "espontanea"},
+			{Label: "Induzida", Value: "induzida"},
+		},
+		"volume_diurese": []FieldOption{
+			{Label: "Normal", Value: "normal"},
+			{Label: "Anúria", Value: "anuria"},
+			{Label: "Oligúria", Value: "oliguria"},
+			{Label: "Poliúria", Value: "poliuria"},
+		},
+		"vias_sonda": []FieldOption{
+			{Label: "2 Vias", Value: "2"},
+			{Label: "3 Vias", Value: "3"},
+		},
+	}
+}

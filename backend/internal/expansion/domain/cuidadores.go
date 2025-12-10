@@ -10,3 +10,13 @@ type Cuidadores struct {
 	PrecisaTreinamento bool   `json:"precisa_treinamento"`
 	ObsTreinamento     string `json:"obs_treinamento"`
 }
+
+func GetCuidadoresFormOptions() FormMetadata {
+	return FormMetadata{
+		"turno_cuidador": []FieldOption{
+			{Label: "Noturno", Value: "turno_noturno"},
+			{Label: "Diurno", Value: "turno_diurno"},
+			{Label: "24h", Value: "turno_24h"},
+		},
+	}
+}

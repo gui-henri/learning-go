@@ -52,3 +52,26 @@ type Antimicrobiano struct {
 	DataInicio  string `json:"data_inicio"`
 	DataTermino string `json:"data_termino"`
 }
+
+func GetDadosClinicosFormOptions() FormMetadata {
+	return FormMetadata{
+		"estado_geral": []FieldOption{
+			{Label: "Bom", Value: "bom"},
+			{Label: "Regular", Value: "regular"},
+			{Label: "Grave", Value: "grave"},
+			{Label: "Gravíssimo", Value: "gravissimo"},
+			{Label: "Decaído", Value: "decaido"},
+		},
+		"locomocao": []FieldOption{
+			{Label: "Deambula sem apoio", Value: "deambula_sem_apoio"},
+			{Label: "Deambula com apoio", Value: "deambula_com_apoio"},
+			{Label: "Restrito ao leito", Value: "restrito_leito"},
+			{Label: "Cadeirante", Value: "cadeirante"},
+		},
+		"tipo_piccline": []FieldOption{
+			{Label: "Monolumen", Value: "monolumen"},
+			{Label: "Duplolumen", Value: "duplolumen"},
+			{Label: "Triplolumen", Value: "triplolumen"},
+		},
+	}
+}

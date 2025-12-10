@@ -10,3 +10,20 @@ type Alergia struct {
 	Precaucao          string `json:"precaucao"` // FIXED: Object in JSON
 	CuidadosPaliativos string `json:"cuidados_paliativos"`
 }
+
+func GetSegurancaFormOptions() FormMetadata {
+	return FormMetadata{
+		"alergia": []FieldOption{
+			{Label: "Medicamentosa", Value: "alergia_medicamentosa"},
+			{Label: "Alimentar", Value: "alergia_alimentar"},
+			{Label: "Respiratória", Value: "alergia_respiratoria"},
+			{Label: "Outros", Value: "alergia_outros"},
+		},
+		"precaocao": []FieldOption{
+			{Label: "Padrão", Value: "prec_padrao"},
+			{Label: "Contato", Value: "prec_contato"},
+			{Label: "Gotículas", Value: "prec_goticulas"},
+			{Label: "Aerossóis", Value: "prec_aerossois"},
+		},
+	}
+}
