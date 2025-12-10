@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed} from 'vue';
 import { useExameFisicoStore } from '@/store/evaluation/exameFisico';
+import { InputMask } from 'primevue';
 
 const estado_geral = ref([
     { name: 'Bom', code: 'bom' },
@@ -125,12 +126,12 @@ const removeAntimicrobiano = (index) => {
 
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
                             <label :for="'data_implantacao_dreno_' + index">Data implantação</label>
-                            <Calendar 
+                            <InputMask
                                 :id="'data_implantacao_dreno_' + index" 
                                 v-model="dreno.data_implantacao_dreno" 
-                                dateFormat="dd/mm/yy" 
                                 placeholder="dd/mm/aaaa" 
                                 class="w-full"
+                                mask="99/99/9999"
                             />
                         </div>
 
@@ -188,11 +189,11 @@ const removeAntimicrobiano = (index) => {
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_imp_piccline">Data Implantação</label>
-                                <Calendar id="data_imp_piccline" v-model="exameFisicoStore.exameFisico.data_imp_piccline" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                                <InputMask id="data_imp_piccline" v-model="exameFisicoStore.exameFisico.data_imp_piccline" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_troca_piccline">Última Troca</label>
-                                <Calendar id="data_troca_piccline" v-model="exameFisicoStore.exameFisico.data_troca_piccline" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                                <InputMask id="data_troca_piccline" v-model="exameFisicoStore.exameFisico.data_troca_piccline" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="curativo_piccline">Curativo</label>
@@ -216,11 +217,11 @@ const removeAntimicrobiano = (index) => {
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_imp_central">Data Implantação</label>
-                                <Calendar id="data_imp_central" v-model="exameFisicoStore.exameFisico.data_imp_central" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                                <InputMask id="data_imp_central" v-model="exameFisicoStore.exameFisico.data_imp_central" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_troca_central">Última Troca</label>
-                                <Calendar id="data_troca_central" v-model="exameFisicoStore.exameFisico.data_troca_central" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                                <InputMask id="data_troca_central" v-model="exameFisicoStore.exameFisico.data_troca_central" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="curativo_central">Curativo</label>
@@ -244,7 +245,7 @@ const removeAntimicrobiano = (index) => {
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_troca_periferico">Data Última Troca</label>
-                                <Calendar id="data_troca_periferico" v-model="exameFisicoStore.exameFisico.data_troca_periferico" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                                <InputMask id="data_troca_periferico" v-model="exameFisicoStore.exameFisico.data_troca_periferico" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="curativo_periferico">Curativo</label>
@@ -257,14 +258,14 @@ const removeAntimicrobiano = (index) => {
 
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center gap-4">
-                            <label for="hipodermoclise">Hipodermóclise?</label>
+                            <label for="hipodermoclise">clise?</label>
                             <InputSwitch id="hipodermoclise" v-model="exameFisicoStore.exameFisico.hipodermoclise" />
                         </div>
                         
                         <div v-if="exameFisicoStore.exameFisico.hipodermoclise" class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-4 border-l-4 border-blue-200">
                             <div class="flex flex-col gap-2">
                                 <label for="data_troca_hipo">Última Troca</label>
-                                <Calendar id="data_troca_hipo" v-model="exameFisicoStore.exameFisico.data_troca_hipo" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                                <InputMask id="data_troca_hipo" v-model="exameFisicoStore.exameFisico.data_troca_hipo" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="curativo_hipo">Curativo</label>
@@ -288,11 +289,11 @@ const removeAntimicrobiano = (index) => {
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_outro_acesso">Data Implantação</label>
-                                <Calendar id="data_outro_acesso" v-model="exameFisicoStore.exameFisico.data_outro_acesso" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                                <InputMask id="data_outro_acesso" v-model="exameFisicoStore.exameFisico.data_outro_acesso" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_acesso_ultimo">Último acesso</label>
-                                <Calendar id="data_acesso_ultimo" v-model="exameFisicoStore.exameFisico.data_acesso_ultimo" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                                <InputMask id="data_acesso_ultimo" v-model="exameFisicoStore.exameFisico.data_acesso_ultimo" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                             </div>
                         </div>
                     </div>
@@ -330,10 +331,10 @@ const removeAntimicrobiano = (index) => {
                         </div>
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
                             <label :for="'data_inicio_' + index">Data Início</label>
-                            <Calendar 
+                            <InputMask 
                                 :id="'data_inicio_' + index" 
                                 v-model="item.data_inicio" 
-                                dateFormat="dd/mm/yy" 
+                                mask="99/99/9999"
                                 placeholder="dd/mm/aaaa" 
                                 class="w-full"
                             />
