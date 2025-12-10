@@ -3,12 +3,13 @@ package domain
 type FieldOption struct {
 	Label  string `json:"label"`
 	Value  string `json:"value"`
-	Points int    `json:"points"`
+	Points int    `json:"points,omitempty"`
 }
 
 type FormMetadata map[string][]FieldOption
 
 type AvaliationFormOptions struct {
+	Version            int
 	DadosGerais        FormMetadata `json:"dados_gerais"`
 	Contato            FormMetadata `json:"contato"`
 	DadosClinicos      FormMetadata `json:"dados_clinicos"`
@@ -20,6 +21,7 @@ type AvaliationFormOptions struct {
 
 func GetAvaliationFormOptions() AvaliationFormOptions {
 	return AvaliationFormOptions{
+		Version:            1,
 		DadosGerais:        GetDadosGeraisFormOptions(),
 		Contato:            GetContatoFormOptions(),
 		DadosClinicos:      GetDadosClinicosFormOptions(),
