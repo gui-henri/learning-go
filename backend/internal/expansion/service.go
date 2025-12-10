@@ -1,4 +1,4 @@
-package avaliation
+package expansion
 
 import (
 	"bytes"
@@ -11,20 +11,25 @@ import (
 	"net/http"
 	"path/filepath"
 	"time"
+
+	"github.com/gui-henri/learning-go/internal/expansion/domain"
 )
 
 type AvaliationService interface {
-	Save(ctx context.Context, data AvaliacaoRequest) error
-	Export(ctx context.Context, id int, format string) ([]byte, error)
+	Get(ctx context.Context, id string) (domain.AvaliacaoRequest, error)
+	Save(ctx context.Context, data domain.AvaliacaoRequest) error
+	Update(ctx context.Context, id string, data domain.AvaliacaoRequest) error
+	Export(ctx context.Context, id string, format string) ([]byte, error)
+	List(ctx context.Context) ([]domain.AvaliacaoListDto, error)
 }
 
 type avaliationService struct {
-	repository   avaliationRepository
+	repository   AvaliationRepository
 	gotenbergUrl string
 	templates    *template.Template
 }
 
-func NewAvaliationService(r avaliationRepository, gotenbergUrl string, templateInternePath string) (*avaliationService, error) {
+func NewAvaliationService(r AvaliationRepository, gotenbergUrl string, templateInternePath string) (*avaliationService, error) {
 
 	funcMap := template.FuncMap{
 		"formatDate": func(val interface{}) string {
@@ -86,7 +91,7 @@ func NewAvaliationService(r avaliationRepository, gotenbergUrl string, templateI
 	}, nil
 }
 
-func (s *avaliationService) Save(ctx context.Context, data AvaliacaoRequest) error {
+func (s *avaliationService) Save(ctx context.Context, data domain.AvaliacaoRequest) error {
 	dataBytes, err := json.Marshal(data)
 	if err != nil {
 		return err
@@ -97,7 +102,22 @@ func (s *avaliationService) Save(ctx context.Context, data AvaliacaoRequest) err
 	return err
 }
 
-func (s *avaliationService) Export(ctx context.Context, id int, format string) ([]byte, error) {
+func (s *avaliationService) Update(ctx context.Context, id string, data domain.AvaliacaoRequest) error {
+	dataBytes, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	err = s.repository.Update(id, dataBytes)
+
+	return err
+}
+
+func (s *avaliationService) List(ctx context.Context) ([]domain.AvaliacaoListDto, error) {
+	return s.repository.GetAll()
+}
+
+func (s *avaliationService) Export(ctx context.Context, id string, format string) ([]byte, error) {
 
 	if format != "interne" {
 		return nil, fmt.Errorf("formato inválido")
@@ -163,4 +183,8 @@ func (s *avaliationService) Export(ctx context.Context, id int, format string) (
 
 	return pdfBytes, nil
 
+}
+
+func (s *avaliationService) Get(ctx context.Context, id string) (domain.AvaliacaoRequest, error) {
+	return s.repository.GetOne(id)
 }
