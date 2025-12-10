@@ -340,12 +340,12 @@ const removeAntimicrobiano = (index) => {
                         </div>
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
                             <label :for="'data_termino_' + index">Data Término</label>
-                            <Calendar 
-                                :id="'data_termino_' + index" 
-                                v-model="item.data_termino" 
-                                dateFormat="dd/mm/yy" 
-                                placeholder="dd/mm/aaaa" 
+                            <InputMask
+                                :id="'data_termino_' + index"
+                                v-model="item.data_termino"
+                                placeholder="dd/mm/aaaa"
                                 class="w-full"
+                                mask="99/99/9999"
                             />
                         </div>
                     </div>

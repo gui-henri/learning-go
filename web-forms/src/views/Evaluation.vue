@@ -33,7 +33,6 @@ const eliminacoes = useEliminacoesStore();
 const condicoesPele = useCondicoesPeleStore();
 const score = useScoreStore();
 const obs = useObservacoesStore();
-
 async function submitFormData() {
   try {
     const payload = {

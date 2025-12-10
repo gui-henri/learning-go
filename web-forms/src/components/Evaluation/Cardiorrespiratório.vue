@@ -148,6 +148,7 @@ const handleSave = () => {
                             dateFormat="dd/mm/yy" 
                             placeholder="dd/mm/aaaa" 
                             class="w-full"
+                            showIcon
                         />
                     </div>
                 </div>

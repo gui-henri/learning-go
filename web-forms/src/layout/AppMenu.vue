@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-
+import 'primeicons/primeicons.css'
 import AppMenuItem from './AppMenuItem.vue';
 
 const model = ref([
