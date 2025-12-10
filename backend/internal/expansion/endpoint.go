@@ -69,3 +69,10 @@ func MakeUpdateAvaliationEndpoint(s AvaliationService) endpoint.Endpoint {
 		return requests.UpdateAvaliationResponse{Status: "success"}, nil
 	}
 }
+
+func MakeGetAvaliationFormOptionsEndpoint(s AvaliationService) endpoint.Endpoint {
+	return func(ctx context.Context, request any) (response any, err error) {
+		opts := s.GetFormOptions(ctx)
+		return opts, nil
+	}
+}

@@ -56,11 +56,19 @@ func NewHttpTransportLayer(db db.IDB, mux *http.ServeMux, gotenbergUrl string, t
 		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
 	)
 
+	getAvaliationForm := httptransport.NewServer(
+		MakeGetAvaliationFormOptionsEndpoint(avaliationService),
+		func(ctx context.Context, r *http.Request) (any, error) { return nil, nil },
+		requests.EncodeGetAvaliationFormResponse,
+		httptransport.ServerErrorEncoder(transport_encoding.EncodeError),
+	)
+
 	mux.HandleFunc("GET /Avaliation/{id}", getAvaliation.ServeHTTP)
 	mux.HandleFunc("POST /Avaliation", saveAvaliation.ServeHTTP)
 	mux.HandleFunc("PUT /Avaliation/{id}", updateAvaliation.ServeHTTP)
 	mux.HandleFunc("GET /Avaliation", listAvaliation.ServeHTTP)
 	mux.HandleFunc("GET /Avaliation/{id}/export", exportAvaliation.ServeHTTP)
+	mux.HandleFunc("GET /Avaliation/form", getAvaliationForm.ServeHTTP)
 
 	return mux, nil
 }
