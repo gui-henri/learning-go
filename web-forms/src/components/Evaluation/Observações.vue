@@ -55,6 +55,7 @@ const isFilled = computed(() => {
                     placeholder="Descreva aqui qualquer observação adicional relevante sobre o paciente, condições do domicílio ou detalhes que não se encaixaram nos campos anteriores..." 
                     class="w-full" 
                     autoResize
+                    maxlength="300"
                 />
             </div>
 

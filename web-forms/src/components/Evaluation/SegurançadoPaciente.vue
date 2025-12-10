@@ -103,6 +103,7 @@ const handleSave = () => {
                         v-model="item.quais_alergias" 
                         placeholder="Descreva as alergias..." 
                         class="w-full"
+                        maxlength="200"
                     />
                 </div>
             </div>
@@ -128,6 +129,7 @@ const handleSave = () => {
                     v-model="item.cuidados_paliativos" 
                     placeholder="Descreva os cuidados gerais com o paciente..." 
                     class="w-full"
+                    maxlength="200"
                 />
             </div>
         </div>

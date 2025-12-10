@@ -48,7 +48,6 @@ const handleSave = () => {
             </i>
             <div class="flex flex-col text-left">
                 <h4 class="font-semibold text-xl p-0 m-0">Dados Gerais</h4>
-                <span class="text-red-600">TODO*: (OBS: provavelmente mudar o calendar para input mask) Implementar limite de texto nos campos em todo o forms</span>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
