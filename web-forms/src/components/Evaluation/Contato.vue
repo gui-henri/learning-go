@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useContatoStore } from '@/store/evaluation/contato';
+import { InputMask } from 'primevue';
 
 const contatoStore = useContatoStore();
 
@@ -65,29 +66,32 @@ const removeResponsavel = (index) => {
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/3">
                     <label for="telefone_residencial">Telefone residencial</label>
-                    <InputText 
+                    <InputMask
                         id="telefone_residencial" 
                         v-model="contatoStore.contato.telefone_residencial" 
-                        placeholder="(81) 9 9999-9999" 
+                        w
                         class="w-full"
+                        mask="(99) 9 9999-9999"
                     />
                 </div>
                 <div class="flex flex-col gap-2 w-full md:w-1/3">
                     <label for="telefone_paciente">Telefone paciente</label>
-                    <InputText 
+                    <InputMask
                         id="telefone_paciente" 
                         v-model="contatoStore.contato.telefone_paciente" 
                         placeholder="(81) 9 9999-9999" 
                         class="w-full"
+                        mask="(99) 9 9999-9999"
                     />
                 </div>
                 <div class="flex flex-col gap-2 w-full md:w-1/3">
                     <label for="email_paciente">E-mail paciente</label>
-                    <InputText 
+                    <InputText
                         id="email_paciente" 
                         v-model="contatoStore.contato.email_paciente" 
                         placeholder="exemplo@dominio.com" 
                         class="w-full"
+                        type="email"
                     />
                 </div>
             </div>
@@ -137,11 +141,12 @@ const removeResponsavel = (index) => {
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/3">
                         <label :for="'telefone_responsavel_' + index">Telefone do responsável</label>
-                        <InputText 
+                        <InputMask
                             :id="'telefone_responsavel_' + index" 
                             v-model="responsavel.telefone" 
                             placeholder="(81) 9 9999-9999" 
                             class="w-full"
+                            mask="(99) 9 9999-9999"
                         />
                     </div>
                     <div class="flex flex-col gap-2 md:w-1/3">

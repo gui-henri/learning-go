@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useCuidadoresStore } from '@/store/evaluation/cuidadores';
+import { InputMask } from 'primevue';
 
 const cuidadorStore = useCuidadoresStore();
 
@@ -73,11 +74,13 @@ const handleSave = () => {
                 </div>
                 <div class="flex flex-col gap-2 w-full md:w-1/4">
                     <label for="contato_cuidador">Contato do cuidador</label>
-                    <InputText 
+                    <InputMask
                         id="contato_cuidador" 
                         v-model="cuidadorStore.cuidadores.contato_cuidador" 
-                        placeholder="(XX) 9 9999-9999" 
+                        placeholder="(81) 9 9999-9999" 
                         class="w-full"
+                        mask="(99) 9 9999-9999"     
+                        
                     />
                 </div>
                 <div class="flex flex-col gap-2 w-full md:w-1/4">
@@ -127,11 +130,12 @@ const handleSave = () => {
                 </div>
                 <div class="flex flex-col gap-2 w-full md:w-1/2">
                     <label for="contato_medico">Contato do médico</label>
-                    <InputText 
+                    <InputMask
                         id="contato_medico" 
                         v-model="cuidadorStore.cuidadores.contato_medico" 
                         placeholder="(XX) 9 9999-9999" 
                         class="w-full"
+                        mask="(99) 9 9999-9999"
                     />
                 </div>
             </div>

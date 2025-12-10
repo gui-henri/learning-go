@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { useEliminacoesStore } from '@/store/evaluation/eliminacoes';
+import { InputMask } from 'primevue';
 
 const funcaoIntestinalOpts = ref([
     { name: 'Normal', code: 'normal' },
@@ -246,7 +247,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="data_troca_svd">Última Troca</label>
-                        <Calendar id="data_troca_svd" v-model="eliminacoesStore.eliminacoes.data_troca_svd" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" class="w-full" />
+                        <InputMask id="data_troca_svd" v-model="eliminacoesStore.eliminacoes.data_troca_svd" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
                     </div>
                     <div class="flex items-center gap-2 md:col-span-4">
                         <label for="irrigacao_svd">Realiza Irrigação?</label>

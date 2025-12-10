@@ -7,16 +7,13 @@
 
     const getPoints = (value, options) => {
     if (!value) return 0;
-    
-    // 1. Tenta encontrar pelo 'code' (valor que vem do v-model quando você usa optionValue="code")
+
     let opt = options.find(o => o.code === value);
-    
-    // 2. Se não encontrou pelo 'code', tenta pelo 'name' (caso o v-model guarde o nome)
+
     if (!opt) {
         opt = options.find(o => o.name === value);
     }
-    
-    // 3. Retorna os pontos se encontrado, ou 0.
+
     return opt ? opt.points : 0;
 };
 
@@ -164,14 +161,13 @@
         return '18+ pts: Internação Domiciliar 24h';
     });
 
-    // Lógica de cores do NEAD (Inverso do Katz: quanto mais pontos, pior/mais complexo)
+
     const neadColorClass = computed(() => {
         if (totalNead.value >= 12) {
-            // Alta complexidade (Vermelho)
+           
             return 'bg-red-50 border-red-200 text-red-900 dark:bg-red-900/30 dark:border-red-800 dark:text-red-300';
         }
-        // Baixa/Média complexidade (Verde)
-        return 'bg-green-50 border-green-200 text-green-900 dark:bg-green-900/30 dark:border-green-800 dark:text-green-300';
+            return 'bg-green-50 border-green-200 text-green-900 dark:bg-green-900/30 dark:border-green-800 dark:text-green-300';
     });
 
     const isFilled = computed(() => {
@@ -305,6 +301,8 @@
                             />
                         </div>
                     </div>
+                    <div class="flex flex-col md:flex-row gap-4">Para indicação de Planejamento de Atenção Domiciliar (P.A.D.), 
+                        considerar a maior complexidade assinalada, ainda que uma única vez. Recomendação atual: {{ }} </div>
 
                     <!-- KATZ -->
                     <div class="flex justify-between items-center border-b pb-2 mt-4 dark:border-gray-700">

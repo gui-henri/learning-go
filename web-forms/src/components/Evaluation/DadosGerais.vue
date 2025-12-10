@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue'; // <--- Import 'watch'
 import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
 
 const emit = defineEmits(['next-step']);
@@ -21,6 +21,37 @@ const complexidade = ref([
     { name: 'Média', code: 'media' },
     { name: 'Alta', code: 'alta' }
 ]);
+
+
+const calculateAge = (dateOfBirth) => {
+    if (!dateOfBirth) return null;
+
+    const dob = new Date(dateOfBirth);
+    if (isNaN(dob.getTime())) return null;
+
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+
+    return age;
+};
+
+
+watch(() => dadosGeraisStore.dadosGerais.data_nascimento, (newDate) => {
+    const age = calculateAge(newDate);
+    
+
+    if (age !== null && age >= 0) {
+        dadosGeraisStore.dadosGerais.idade = age;
+    } else {
+
+        dadosGeraisStore.dadosGerais.idade = null;
+    }
+}, { immediate: true });
 
 const handleSave = () => {
     activeIndex.value = null;
@@ -81,13 +112,14 @@ const handleSave = () => {
             </div>
             <div class="flex flex-col gap-2 w-full md:w-2/9 lg:w-3/14">
                 <label for="nascimento">Data de nascimento</label>
-                <Calendar 
-                    id="nascimento" 
-                    v-model="dadosGeraisStore.dadosGerais.data_nascimento" 
-                    dateFormat="dd/mm/yy" 
-                    placeholder="dd/mm/aaaa" 
+
+                <InputMask
+                    id="nascimento"
+                    v-model="dadosGeraisStore.dadosGerais.data_nascimento"
+                    placeholder="dd/mm/aaaa"
                     class="w-full"
                     showIcon="true"
+                    mask="99/99/9999"
 
                 />
             </div>
@@ -202,7 +234,7 @@ const handleSave = () => {
         </div>
 
         <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-1/8">
+            <div class="flex flex-col gap-2 w-full md:w-2/8">
                 <label for="convenio">Convênio</label>
                 <InputText 
                     id="convenio" 
@@ -211,7 +243,7 @@ const handleSave = () => {
                     placeholder="Convenio médico xyz"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-3/8">
+            <div class="flex flex-col gap-2 w-full md:w-2/8">
                 <label for="hospital">Hospital de internação</label>
                 <InputText 
                     id="hospital" 
@@ -222,22 +254,22 @@ const handleSave = () => {
             </div>
             <div class="flex flex-col gap-2 w-full md:w-2/8">
                 <label for="data_admissao">Data de admissão</label>
-                <Calendar 
+                <InputMask
                     id="data_admissao" 
                     v-model="dadosGeraisStore.dadosGerais.data_admissao" 
-                    dateFormat="dd/mm/yy" 
                     placeholder="dd/mm/aaaa" 
                     class="w-full"
                     showIcon="true"
+                    mask="99/99/9999"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-2/8">
+            <div class="flex flex-col gap-2 w-full md:w-1/8">
                 <label for="apartamento-hospital">Apartamento</label>
                 <InputText 
                     id="apartamento_hospital" 
                     v-model="dadosGeraisStore.dadosGerais.apartamento" 
                     type="text" 
-                    placeholder="Português"
+                    placeholder="Bloco A"
                 />
             </div>
           
@@ -255,15 +287,13 @@ const handleSave = () => {
             </div>
             <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="vencimento_carteirinha">Validade da carteirinha</label>
-                <Calendar 
+                <InputMask
                     id="vencimento_carteirinha" 
                     v-model="dadosGeraisStore.dadosGerais.vencimento_carteirinha" 
-                    dateFormat="dd/mm/yy" 
                     placeholder="dd/mm/aaaa" 
                     class="w-full"
                     showIcon="true"
-                
-                    
+                    mask="99/99/9999"
                 />
             </div>
         </div>
