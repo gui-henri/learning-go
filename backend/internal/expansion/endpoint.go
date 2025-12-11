@@ -79,6 +79,6 @@ func MakeGetAvaliationFormOptionsEndpoint(s AvaliationService) endpoint.Endpoint
 			return opts, nil
 		}
 
-		return requests.GetAvaliationFormResponse{}, nil
+		return nil, nil
 	}
 }
