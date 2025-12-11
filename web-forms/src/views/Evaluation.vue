@@ -1,11 +1,6 @@
 <script setup>
-import DadosGerais from '@/components/Evaluation/DadosGerais.vue';
-import Endereço from '@/components/Evaluation/Endereço.vue';
-import Cardiorrespiratório from '@/components/Evaluation/Cardiorrespiratório.vue';
-import Nutricional from '@/components/Evaluation/Nutricional.vue';
-import Eliminações from '@/components/Evaluation/Eliminações.vue';
-import CondiçõesdaPele from '@/components/Evaluation/CondiçõesdaPele.vue';
-import Observações from '@/components/Evaluation/Observações.vue';
+import { onMounted, computed } from 'vue';
+
 import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
 import { useEnderecoStore } from '@/store/evaluation/endereco';
 import { useContatoStore } from '@/store/evaluation/contato';
@@ -19,6 +14,8 @@ import { useCondicoesPeleStore } from '@/store/evaluation/condicoesPele';
 import { useScoreStore } from '@/store/evaluation/score';
 import { useObservacoesStore } from '@/store/evaluation/observacao';
 import { useExameFisicoStore } from '@/store/evaluation/exameFisico';
+import { AvaliationService } from '@/service/AvaliationService';
+import { useAvaliationForm } from '@/store/evaluation/form';
 
 const dadosGeraisStore = useDadosGeraisStore();
 const enderecoStore = useEnderecoStore();
@@ -33,9 +30,15 @@ const eliminacoes = useEliminacoesStore();
 const condicoesPele = useCondicoesPeleStore();
 const score = useScoreStore();
 const obs = useObservacoesStore();
+const avaliationFormStore = useAvaliationForm();
+
+const formData = computed(() => avaliationFormStore.avaliationForm);
+onMounted(async () => {
+    await AvaliationService.getFormData(avaliationFormStore);
+});
+
 async function submitFormData() {
-  try {
-    const payload = {
+  const payload = {
       dadosGerais: dadosGeraisStore.dadosGerais,
       endereco: enderecoStore.endereco,
       contato: contatoStore.contato,
@@ -50,49 +53,32 @@ async function submitFormData() {
       score: score.score,
       observacoes: obs.observacoes
   };
-
-    console.log(JSON.stringify(payload))
-
-    const response = await fetch('http://localhost:8090/Avaliation', { 
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
-    }
-
-    const result = await response.json();
-    console.log('Success:', result);
-    alert('Formulário salvo com sucesso!');
-
-  } catch (error) {
-    console.error('Failed to save form:', error);
-    alert('Erro ao salvar o formulário.');
-  }
+  
+  await AvaliationService.submitFormData(payload)
 }
-
 
 </script>
 
 <template>
     <Fluid>
-        <DadosGerais/>
-        <Endereço/>
-        <Contato/>
-        <Cuidadores/>
-        <SegurançadoPaciente/>
-        <HistóricoClínico/>
-        <ExameFísico/>
-        <Cardiorrespiratório />
-        <Nutricional/>
-        <Eliminações/>
-        <CondiçõesdaPele/>
-        <Score/>
-        <Observações/>
-        <Button v-on:click="submitFormData">Enviar</Button>
+        <div v-if="formData">
+            <DadosGerais :formFields="formData.dados_gerais"/>
+            <Endereço/>
+            <Contato/>
+            <Cuidadores/>
+            <SegurançadoPaciente/>
+            <HistóricoClínico/>
+            <ExameFísico/>
+            <Cardiorrespiratório />
+            <Nutricional/>
+            <Eliminações/>
+            <CondiçõesdaPele/>
+            <Score/>
+            <Observações/>
+            <Button @click="submitFormData">Enviar</Button>
+        </div>
+        <div v-else>
+            <p>Carregando formulário...</p>
+        </div>
     </Fluid>
 </template>

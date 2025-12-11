@@ -1,10 +1,20 @@
 <script setup>
-import { ref, computed, watch } from 'vue'; // <--- Import 'watch'
+import { ref, computed, watch } from 'vue';
 import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
 
 const emit = defineEmits(['next-step']);
 const dadosGeraisStore = useDadosGeraisStore();
 const activeIndex = ref(null);
+
+const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  }
+})
+
+console.log(props.formFields.complexidade)
 
 const isFilled = computed(() => {
     return !!dadosGeraisStore.dadosGerais.nome_paciente && 
