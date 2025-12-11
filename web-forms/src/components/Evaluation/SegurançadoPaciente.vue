@@ -109,7 +109,7 @@ const handleSave = () => {
             </div>
 
             <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/2">
+                <div class="flex flex-col gap-2 w-full md:w-2/8">
                     <label :for="'precaucao_' + index">Precaução</label>
                     <Select 
                         :id="'precaucao_' + index" 
@@ -121,8 +121,8 @@ const handleSave = () => {
                         class="w-full"
                     ></Select>
                 </div>
-            </div>
-            <div class="flex flex-col gap-2 w-full">
+            
+            <div class="flex flex-col gap-2 w-full md:w-6/8 ">
                 <label for="cuidados_paliativos">Cuidados Paliativos</label>
                 <InputText 
                     id="cuidados_paliativos" 
@@ -133,6 +133,7 @@ const handleSave = () => {
                 />
             </div>
         </div>
+    </div>
 
         <div class="flex justify-end w-full">
             <Button label="Adicionar alergia" icon="pi pi-plus" class="p-button-outlined p-button-secondary" @click="addAlergia" />
