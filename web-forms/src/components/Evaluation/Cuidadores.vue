@@ -5,11 +5,13 @@ import { InputMask } from 'primevue';
 
 const cuidadorStore = useCuidadoresStore();
 
-const turnos_cuidador = ref([
-    { name: 'Diurno', code: 'diurno' },
-    { name: 'Noturno', code: 'noturno' },
-    { name: '24h', code: '24h' }
-]);
+const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  }
+})
 
 const emit = defineEmits(['next-step']);
 const activeIndex = ref(null);
@@ -88,9 +90,9 @@ const handleSave = () => {
                     <Select 
                         id="turno_cuidador" 
                         v-model="cuidadorStore.cuidadores.turno_cuidador" 
-                        :options="turnos_cuidador" 
-                        optionLabel="name"
-                        optionValue="name"
+                        :options="formFields.turno_cuidador" 
+                        optionLabel="label"
+                        optionValue="label"
                         placeholder="Selecione o turno" 
                         class="w-full"
                     ></Select>

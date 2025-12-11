@@ -19,7 +19,7 @@ func GetSegurancaFormOptions() FormMetadata {
 			{Label: "Respiratória", Value: "alergia_respiratoria"},
 			{Label: "Outros", Value: "alergia_outros"},
 		},
-		"precaocao": []FieldOption{
+		"precaucao": []FieldOption{
 			{Label: "Padrão", Value: "prec_padrao"},
 			{Label: "Contato", Value: "prec_contato"},
 			{Label: "Gotículas", Value: "prec_goticulas"},

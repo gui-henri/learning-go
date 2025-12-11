@@ -65,10 +65,10 @@ async function submitFormData() {
             <DadosGerais :formFields="formData.dados_gerais"/>
             <Endereço/>
             <Contato :formFields="formData.contato"/>
-            <Cuidadores/>
-            <SegurançadoPaciente/>
+            <Cuidadores :formFields="formData.cuidadores"/>
+            <SegurançadoPaciente :formFields="formData.seguranca"/>
             <HistóricoClínico/>
-            <ExameFísico/>
+            <ExameFísico :formFields="formData.dados_clinicos"/>
             <Cardiorrespiratório />
             <Nutricional/>
             <Eliminações/>

@@ -12,6 +12,8 @@ type AvaliationFormOptions struct {
 	Version            int
 	DadosGerais        FormMetadata `json:"dados_gerais"`
 	Contato            FormMetadata `json:"contato"`
+	Cuidadores         FormMetadata `json:"cuidadores"`
+	SegurancaPaciente  FormMetadata `json:"seguranca"`
 	DadosClinicos      FormMetadata `json:"dados_clinicos"`
 	CardioRespiratorio FormMetadata `json:"cardio_respiratorio"`
 	Nutricional        FormMetadata `json:"nutricional"`
@@ -24,6 +26,8 @@ func GetAvaliationFormOptions() AvaliationFormOptions {
 		Version:            1,
 		DadosGerais:        GetDadosGeraisFormOptions(),
 		Contato:            GetContatoFormOptions(),
+		Cuidadores:         GetCuidadoresFormOptions(),
+		SegurancaPaciente:  GetSegurancaFormOptions(),
 		DadosClinicos:      GetDadosClinicosFormOptions(),
 		CardioRespiratorio: GetCardioRespiratorioFormOptions(),
 		Nutricional:        GetNutricionalFormOptions(),

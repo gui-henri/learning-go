@@ -3,6 +3,14 @@ import { ref, computed} from 'vue';
 import { useExameFisicoStore } from '@/store/evaluation/exameFisico';
 import { InputMask } from 'primevue';
 
+const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  }
+})
+
 const estado_geral = ref([
     { name: 'Bom', code: 'bom' },
     { name: 'Regular', code: 'regular' },
@@ -81,9 +89,9 @@ const removeAntimicrobiano = (index) => {
                     <Select 
                         id="estado_geral" 
                         v-model="exameFisicoStore.exameFisico.estado_geral" 
-                        :options="estado_geral" 
-                        optionLabel="name" 
-                        optionValue="name"
+                        :options="formFields.estado_geral" 
+                        optionLabel="label" 
+                        optionValue="label"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -93,9 +101,9 @@ const removeAntimicrobiano = (index) => {
                     <Select 
                         id="avaliacao_locomotora" 
                         v-model="exameFisicoStore.exameFisico.avaliacao_locomotora" 
-                        :options="locomocao" 
-                        optionLabel="name" 
-                        optionValue="name"
+                        :options="formFields.locomocao" 
+                        optionLabel="label" 
+                        optionValue="label"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -185,7 +193,7 @@ const removeAntimicrobiano = (index) => {
                         <div v-if="exameFisicoStore.exameFisico.piccline" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-blue-200">
                             <div class="flex flex-col gap-2">
                                 <label for="tipo_piccline">Tipo</label>
-                                <Select id="tipo_piccline" v-model="exameFisicoStore.exameFisico.tipo_piccline" :options="tipos_piccline" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
+                                <Select id="tipo_piccline" v-model="exameFisicoStore.exameFisico.tipo_piccline" :options="formFields.tipo_piccline" optionLabel="label" optionValue="label" placeholder="Selecione" class="w-full" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_imp_piccline">Data Implantação</label>
@@ -258,7 +266,7 @@ const removeAntimicrobiano = (index) => {
 
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center gap-4">
-                            <label for="hipodermoclise">clise?</label>
+                            <label for="hipodermoclise">hipodermoclise?</label>
                             <InputSwitch id="hipodermoclise" v-model="exameFisicoStore.exameFisico.hipodermoclise" />
                         </div>
                         
@@ -308,6 +316,9 @@ const removeAntimicrobiano = (index) => {
                 </div>
             </div>
             <div class="flex flex-col gap-4">
+                <div v-if="exameFisicoStore.exameFisico.antimicrobianos.length === 0" class="text-gray-500 italic text-sm p-2">
+                    Nenhum antimicrobiano registrado.
+                </div>
                 <div v-for="(item, index) in exameFisicoStore.exameFisico.antimicrobianos" :key="index" class="p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10 flex flex-col gap-4 relative">
                     
                     <div class="flex justify-between items-center">

@@ -2,22 +2,15 @@
 import { ref, computed } from 'vue';
 import { useSegurancaStore } from '@/store/evaluation/seguranca';
 
-
 const segurancaStore = useSegurancaStore();
 
-const tipo_alergia = ref([
-    { name: 'Medicamentosa', value: 'medicamentosa' },
-    { name: 'Alimentar', value: 'alimentar' },
-    { name: 'Respiratória', value: 'respiratoria' },
-    { name: 'Outros', value: 'outros' }
-]);
-
-const tipo_precaucao = ref([
-    { name: 'Padrão', value: 'padrao' },
-    { name: 'Contato', value: 'contato' },
-    { name: 'Gotículas', value: 'goticulas' },
-    { name: 'Aerossóis', value: 'aerossois' }
-]);
+const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  }
+})
 
 const emit = defineEmits(['next-step']);
 const activeIndex = ref(null);
@@ -88,9 +81,9 @@ const handleSave = () => {
                     <Select 
                         :id="'tipo_alergia_' + index" 
                         v-model="item.tipo_alergia" 
-                        :options="tipo_alergia" 
-                        optionLabel="name"
-                        optionValue="name"
+                        :options="formFields.alergia" 
+                        optionLabel="label"
+                        optionValue="label"
                         placeholder="Selecione" 
                         class="w-full"
                     ></Select>
@@ -114,9 +107,9 @@ const handleSave = () => {
                     <Select 
                         :id="'precaucao_' + index" 
                         v-model="item.precaucao" 
-                        :options="tipo_precaucao" 
-                        optionLabel="name"
-                        optionValue="name"
+                        :options="formFields.precaucao" 
+                        optionLabel="label"
+                        optionValue="label"
                         placeholder="Selecione" 
                         class="w-full"
                     ></Select>
