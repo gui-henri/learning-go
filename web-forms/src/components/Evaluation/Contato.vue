@@ -5,6 +5,14 @@ import { InputMask } from 'primevue';
 
 const contatoStore = useContatoStore();
 
+const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  }
+})
+
 const forma_contato = ref([
     { name: 'Residencial', code: 'residencial' },
     { name: 'Celular', code: 'celular' },
@@ -153,9 +161,9 @@ const removeResponsavel = (index) => {
                         <Select 
                             :id="'forma_contato_' + index" 
                             v-model="responsavel.forma_contato" 
-                            :options="forma_contato" 
-                            optionLabel="name"
-                            optionValue="name"
+                            :options="formFields.responsavel" 
+                            optionLabel="label"
+                            optionValue="label"
                             placeholder="Selecione" 
                             class="w-full"
                         ></Select>

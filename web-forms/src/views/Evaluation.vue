@@ -64,7 +64,7 @@ async function submitFormData() {
         <div v-if="formData">
             <DadosGerais :formFields="formData.dados_gerais"/>
             <Endereço/>
-            <Contato/>
+            <Contato :formFields="formData.contato"/>
             <Cuidadores/>
             <SegurançadoPaciente/>
             <HistóricoClínico/>

@@ -14,24 +14,10 @@ const props = defineProps({
   }
 })
 
-console.log(props.formFields.complexidade)
-
 const isFilled = computed(() => {
     return !!dadosGeraisStore.dadosGerais.nome_paciente && 
            dadosGeraisStore.dadosGerais.nome_paciente.length > 3;
 });
-
-const genero = ref([
-    { name: 'Feminino', code: 'feminino' },
-    { name: 'Masculino', code: 'masculino' }
-]);
-
-const complexidade = ref([
-    { name: 'Baixa', code: 'baixa' },
-    { name: 'Média', code: 'media' },
-    { name: 'Alta', code: 'alta' }
-]);
-
 
 const calculateAge = (dateOfBirth) => {
     if (!dateOfBirth) return null;
@@ -113,9 +99,9 @@ const handleSave = () => {
                 <Select 
                     id="genero" 
                     v-model="dadosGeraisStore.dadosGerais.genero" 
-                    :options="genero" 
-                    optionLabel="name"
-                    optionValue="name"
+                    :options="props.formFields.genero" 
+                    optionLabel="label"
+                    optionValue="label"
                     placeholder="Selecione" 
                     class="w-full"
                 ></Select>
@@ -203,9 +189,9 @@ const handleSave = () => {
                 <Select 
                     id="complexidade" 
                     v-model="dadosGeraisStore.dadosGerais.complexidade" 
-                    :options="complexidade" 
-                    optionLabel="name"
-                    optionValue="name"
+                    :options="props.formFields.complexidade" 
+                    optionLabel="label"
+                    optionValue="label"
                     placeholder="Selecione" 
                     class="w-full"
                 ></Select>
