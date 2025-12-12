@@ -33,7 +33,7 @@ func (s *avaliationRepository) Save(a []byte) error {
 }
 
 func (s *avaliationRepository) Update(id string, a []byte) error {
-	query := "UPDATE avaliation SET resource_json = $1, last_updated = NOW() WHERE id = $2"
+	query := "UPDATE avaliation SET resource_json = resource_json || $1, last_updated = NOW() WHERE id = $2"
 	_, err := s.db.Exec(context.Background(), query, a, id)
 	return err
 }
