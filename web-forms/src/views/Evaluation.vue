@@ -32,6 +32,9 @@ const score = useScoreStore();
 const obs = useObservacoesStore();
 const avaliationFormStore = useAvaliationForm();
 
+const activeStep = ref(0);
+const isLoading = ref(false);
+
 const formData = computed(() => avaliationFormStore.avaliationForm);
 onMounted(async () => {
     await AvaliationService.getFormData(avaliationFormStore);
@@ -55,6 +58,28 @@ async function submitFormData() {
   };
   
   await AvaliationService.submitFormData(payload)
+}
+
+async function handleNextStep() {
+    isLoading.value = true;
+    
+    try {
+        const payload = {
+            dadosGerais: dadosGeraisStore.dadosGerais,
+        };
+
+        // await AvaliationService.submitFormData(payload); // UNCOMMENT TO ENABLE SAVE
+        console.log("Saving to database..."); 
+
+        activeStep.value = activeStep.value + 1;        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (error) {
+        console.error("Error saving:", error);
+        alert("Erro ao salvar dados.");
+    } finally {
+        isLoading.value = false;
+    }
 }
 
 </script>
