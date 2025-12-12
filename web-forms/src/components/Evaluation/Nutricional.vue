@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'; 
 import { useNutricionalStore } from '@/store/evaluation/nutricional';
+import { InputMask } from 'primevue';
 
 const emit = defineEmits(['next-step']);
 
@@ -147,12 +148,9 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                         class="w-full"
                     />
                 </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row gap-4 border-t pt-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
+                                <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="alimentacao_parenteral">Alimentação Parenteral?</label>
-                    <InputSwitch 
+                    <InputSwitch    
                         id="alimentacao_parenteral" 
                         v-model="nutricionalStore.nutricional.alimentacao_parenteral" 
                     />
@@ -184,10 +182,10 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                 <template v-if="nutricionalStore.nutricional.sonda">
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="data_ultima_troca">Data da última troca</label>
-                        <Calendar 
+                        <InputMask
                             id="data_ultima_troca" 
                             v-model="nutricionalStore.nutricional.data_ultima_troca" 
-                            dateFormat="dd/mm/yy" 
+                            mask="99/99/9999"
                             placeholder="dd/mm/aaaa" 
                             class="w-full"
                         />

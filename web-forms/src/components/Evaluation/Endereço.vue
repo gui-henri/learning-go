@@ -127,7 +127,7 @@ const searchEstado = (event) => {
     </template>
     <div class="flex flex-col gap-4 w-full">
         <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="cep">CEP</label>
                 <div class="p-input-icon-right w-full">
                     <i v-if="isLoadingCep" class="pi pi-spin pi-spinner" />
@@ -141,7 +141,7 @@ const searchEstado = (event) => {
                     />
                 </div>
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="estado">Estado</label>
                 <AutoComplete
                     id="estado" 
@@ -155,7 +155,7 @@ const searchEstado = (event) => {
                     v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                     />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="cidade">Cidade</label>
                 <InputText 
                     id="cidade" 
@@ -167,7 +167,7 @@ const searchEstado = (event) => {
                     
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="bairro">Bairro</label>
                 <InputText 
                     id="bairro" 
@@ -178,7 +178,10 @@ const searchEstado = (event) => {
                     v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/" 
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/6">
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="logradouro">Logradouro</label>
                 <InputText 
                     id="logradouro" 
@@ -189,7 +192,7 @@ const searchEstado = (event) => {
                     v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/10">
+            <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="numero-logradoro">Número</label>
                 <InputText 
                     id="numero-logradoro" 
@@ -199,9 +202,6 @@ const searchEstado = (event) => {
                     maxlength="10"
                 />
             </div>
-        </div>
-
-        <div class="flex flex-col md:flex-row gap-4">
             <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="complemento">Complemento</label>
                 <InputText 
