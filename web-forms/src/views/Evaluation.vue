@@ -72,10 +72,7 @@ async function submitFormData() {
             <Cardiorrespiratório :formFields="formData.cardio_respiratorio"/>
             <Nutricional  :formFields="formData.nutricional"/>
             <Eliminações  :formFields="formData.eliminacoes"/>
-            <CondiçõesdaPele  :formFields="formData.condicoes_pele"/> <p>em condicao o unico select que tem não esta no bruno,
-                 imagino que por causa do jeito que o front é
-
-            </p>
+            <CondiçõesdaPele  :formFields="formData.condicoes_pele"/>
             <Score :formFields="formData.avaliacao" />
             <Observações/>
             <Button @click="submitFormData">Enviar</Button>

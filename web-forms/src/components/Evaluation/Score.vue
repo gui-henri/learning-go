@@ -557,7 +557,7 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="uso_oxigenoterapia" 
                                 v-model="scoreStore.score.uso_oxigenoterapia" 
-                                :options="props.formFields.avaliacao.frequencia_respiratoria" 
+                                :options="props.formFields.frequencia_respiratoria" 
                                 optionLabel="label" 
                                 optionValue="label"
                                 placeholder="Selecione" 
