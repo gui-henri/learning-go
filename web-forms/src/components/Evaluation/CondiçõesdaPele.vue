@@ -73,9 +73,6 @@ const handleSave = () => {
                     />
                 </div>
             </div>
-
-            <div v-if="condicoesPeleStore.condicoesPele.condicao_cutanea_mucosa === 'Com Lesão'" class="flex flex-col gap-4 mt-2">
-                
                 <div v-for="(curativo, index) in condicoesPeleStore.condicoesPele.curativos" :key="index" class="p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10 flex flex-col gap-4 relative">
                     
                     <div class="flex justify-between items-center">
@@ -159,7 +156,6 @@ const handleSave = () => {
                 <div class="flex justify-end w-full">
                     <Button label="Adicionar curativo" icon="pi pi-plus" class="p-button-outlined p-button-secondary" @click="addCurativo" />
                 </div>
-            </div>
 
         </div>
         <Button class="mt-3" v-on:click="handleSave">

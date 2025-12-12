@@ -83,7 +83,7 @@ const handleSave = () => {
     </template>
     <div class="flex flex-col gap-4 w-full">
         <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 w-full md:w-3/9 ">
+            <div class="flex flex-col gap-2 w-full md:w-4/10 ">
                 <label for="nome_paciente">Nome completo</label>
                 <InputText 
                     id="nome_paciente" 
@@ -94,7 +94,7 @@ const handleSave = () => {
                     v-keyfilter="/[a-zA-Z\sáàãâéèêíìîóòõôúùûçÇÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ]/"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/9 lg:w-2/12">
+            <div class="flex flex-col gap-2 w-full md:w-1/10 lg:w-2/12">
                 <label for="genero">Gênero</label>
                 <Select 
                     id="genero" 
@@ -106,7 +106,7 @@ const handleSave = () => {
                     class="w-full"
                 ></Select>
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-2/9 lg:w-3/14">
+            <div class="flex flex-col gap-2 w-full md:w-2/10 lg:w-3/14">
                 <label for="nascimento">Data de nascimento</label>
 
                 <InputMask
@@ -119,7 +119,7 @@ const handleSave = () => {
 
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-2/9 lg:w-2/12">
+            <div class="flex flex-col gap-2 w-full md:w-3/10 lg:w-2/12">
                 <label for="cpf">CPF</label>
                 <InputMask 
                     id="cpf" 
