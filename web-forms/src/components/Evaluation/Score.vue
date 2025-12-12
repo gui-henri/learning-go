@@ -17,6 +17,14 @@
     return opt ? opt.points : 0;
 };
 
+const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  }
+})
+
 
     const freq12hOpts = ref([
         { name: 'Não utiliza', code: 'nao_utiliza', points: 0 },
@@ -311,9 +319,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="alimentacao_parenteral" 
                                 v-model="scoreStore.score.alimentacao_parenteral" 
-                                :options="freq12hOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.freq_12h" 
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -323,9 +331,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="aspiracao_traqueo" 
                                 v-model="scoreStore.score.aspiracao_traqueo" 
-                                :options="freq5xOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.freq_5x" 
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -338,9 +346,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="ventilacao_mecanica" 
                                 v-model="scoreStore.score.ventilacao_mecanica" 
-                                :options="freq12hOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.freq_12h"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -350,9 +358,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="medicacao_parenteral" 
                                 v-model="scoreStore.score.medicacao_parenteral" 
-                                :options="freq4xOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.freq_4x"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -371,9 +379,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="banho" 
                                 v-model="scoreStore.score.banho" 
-                                :options="katzOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.katz" 
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -383,9 +391,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="vestir" 
                                 v-model="scoreStore.score.vestir" 
-                                :options="katzOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.katz"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -395,9 +403,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="higiene_pessoal" 
                                 v-model="scoreStore.score.higiene_pessoal" 
-                                :options="katzOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.katz"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -410,9 +418,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="transferencia" 
                                 v-model="scoreStore.score.transferencia" 
-                                :options="katzOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.katz"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -422,9 +430,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="continencia" 
                                 v-model="scoreStore.score.continencia" 
-                                :options="katzOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.katz"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -434,9 +442,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="alimentacao" 
                                 v-model="scoreStore.score.alimentacao" 
-                                :options="katzOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.katz"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -460,9 +468,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="estado_nutricional" 
                                 v-model="scoreStore.score.estado_nutricional" 
-                                :options="estadoNutricionalOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.estado_nutricional"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -472,9 +480,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="via_alimentacao_medicacao" 
                                 v-model="scoreStore.score.via_alimentacao_medicacao" 
-                                :options="viaAlimentacaoOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.via_aliementacao"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -483,10 +491,10 @@ const recomendacaoGrupo2 = computed(() => {
                             <label for="internacoes_ultimo_ano" class="dark:text-gray-200">Internações no último ano</label>
                             <Select 
                                 id="internacoes_ultimo_ano" 
-                                v-model="scoreStore.score.internacoes_ultimo_ano" 
-                                :options="internacoesOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                v-model="props.formFields.internacoes_ultimo_ano" 
+                                :options="props.formFields.internacoes_ultimo_ano"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -499,9 +507,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="aspiracao_vias_aereas" 
                                 v-model="scoreStore.score.aspiracao_vias_aereas" 
-                                :options="aspiracaoViasAereasOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.aspiracao_vias_aereas"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -510,10 +518,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <label for="lesoes" class="dark:text-gray-200">Lesões</label>
                             <Select 
                                 id="lesoes" 
-                                v-model="scoreStore.score.lesoes" 
-                                :options="lesoesOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.lesoes"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -523,9 +530,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="via_medicacoes" 
                                 v-model="scoreStore.score.via_medicacoes" 
-                                :options="viaMedicacoesOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.via_medicacoes"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -538,9 +545,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="exercicios_ventilatorios" 
                                 v-model="scoreStore.score.exercicios_ventilatorios" 
-                                :options="frequenciaRespOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.exercicios_ventilatorios"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -550,9 +557,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="uso_oxigenoterapia" 
                                 v-model="scoreStore.score.uso_oxigenoterapia" 
-                                :options="frequenciaRespOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.avaliacao.frequencia_respiratoria" 
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -562,9 +569,9 @@ const recomendacaoGrupo2 = computed(() => {
                             <Select 
                                 id="nivel_consciencia" 
                                 v-model="scoreStore.score.nivel_consciencia" 
-                                :options="nivelConscienciaOpts" 
-                                optionLabel="name" 
-                                optionValue="code"
+                                :options="props.formFields.nivel_consciencia"
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />

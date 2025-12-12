@@ -4,6 +4,14 @@ import { useRespiratorioStore } from '@/store/evaluation/cardiorespiratorio';
 
 const respiratorioStore = useRespiratorioStore();
 
+const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  }
+})
+
 const padraoRespiratorioOpts = ref([
     { name: 'Eupnéico', code: 'eupneico' },
     { name: 'Dispnéico', code: 'dispneico' },
@@ -108,9 +116,9 @@ const handleSave = () => {
                         <Select 
                             id="padrao_respiratorio" 
                             v-model="respiratorioStore.respiratorio.padrao_respiratorio" 
-                            :options="padraoRespiratorioOpts" 
-                            optionLabel="name"
-                            optionValue="name" 
+                            :options="props.formFields.padrao_respiratorio" 
+                            optionLabel="label"
+                            optionValue="label" 
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -120,9 +128,9 @@ const handleSave = () => {
                         <Select 
                             id="via_aerea" 
                             v-model="respiratorioStore.respiratorio.via_aerea" 
-                            :options="viaAereaOpts" 
-                            optionLabel="name"
-                            optionValue="name" 
+                            :options="props.formFields.via_aerea" 
+                            optionLabel="label"
+                            optionValue="label" 
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -142,10 +150,10 @@ const handleSave = () => {
                     </div>
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="data_orotraqueal">Data orotraqueal</label>
-                        <Calendar 
+                        <InputMask
                             id="data_orotraqueal" 
                             v-model="respiratorioStore.respiratorio.data_orotraqueal" 
-                            dateFormat="dd/mm/yy" 
+                            mask="99/99/9999"
                             placeholder="dd/mm/aaaa" 
                             class="w-full"
                             showIcon
@@ -160,9 +168,9 @@ const handleSave = () => {
                     <Select 
                         id="suporte_ventilatorio" 
                         v-model="respiratorioStore.respiratorio.suporte_ventilatorio" 
-                        :options="suporteVentilatorioOpts" 
-                        optionLabel="name"
-                        optionValue="name" 
+                        :options="props.formFields.suporte_ventilatorio" 
+                        optionLabel="label"
+                        optionValue="label" 
                         placeholder="Selecione o tipo de suporte" 
                         class="w-full"
                     />
@@ -176,9 +184,9 @@ const handleSave = () => {
                             <Select 
                                 id="modo_vni" 
                                 v-model="respiratorioStore.respiratorio.modo_vni" 
-                                :options="modoVniOpts" 
-                                optionLabel="name"
-                                optionValue="name" 
+                                :options="props.formFields.modo_vni" 
+                                optionLabel="label"
+                                optionValue="label" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -188,9 +196,9 @@ const handleSave = () => {
                             <Select 
                                 id="frequencia_vni" 
                                 v-model="respiratorioStore.respiratorio.frequencia_vni" 
-                                :options="frequenciaVniOpts" 
-                                optionLabel="name"
-                                optionValue="name" 
+                                :options="props.formFields.frequencia_vni" 
+                                optionLabel="label"
+                                optionValue="label" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -215,9 +223,9 @@ const handleSave = () => {
                             <Select 
                                 id="mascara_vni" 
                                 v-model="respiratorioStore.respiratorio.mascara_vni" 
-                                :options="mascaraVniOpts" 
-                                optionLabel="name"
-                                optionValue="code" 
+                                :options="props.formFields.mascara_vni" 
+                                optionLabel="label"
+                                optionValue="label" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -227,9 +235,9 @@ const handleSave = () => {
                             <Select 
                                 id="tamanho_mascara_vni" 
                                 v-model="respiratorioStore.respiratorio.tamanho_mascara_vni" 
-                                :options="tamanhoMascaraOpts" 
-                                optionLabel="name"
-                                optionValue="name" 
+                                :options="props.formFields.tamanho_mascara" 
+                                optionLabel="label"
+                                optionValue="label" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />
@@ -245,9 +253,9 @@ const handleSave = () => {
                             <Select 
                                 id="modo_avm" 
                                 v-model="respiratorioStore.respiratorio.modo_avm" 
-                                :options="modoVniOpts" 
-                                optionLabel="name"
-                                optionValue="name" 
+                                :options="props.formFields.modo_avm" 
+                                optionLabel="label"
+                                optionValue="label" 
                                 placeholder="Selecione" 
                                 class="w-full"
                             />

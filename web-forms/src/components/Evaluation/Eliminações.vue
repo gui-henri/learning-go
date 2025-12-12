@@ -3,6 +3,14 @@ import { ref, computed, watch } from 'vue';
 import { useEliminacoesStore } from '@/store/evaluation/eliminacoes';
 import { InputMask } from 'primevue';
 
+const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  }
+})
+
 const funcaoIntestinalOpts = ref([
     { name: 'Normal', code: 'normal' },
     { name: 'Constipado', code: 'constipado' },
@@ -94,9 +102,9 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     <Select 
                         id="funcao_intestinal" 
                         v-model="eliminacoesStore.eliminacoes.funcao_intestinal" 
-                        :options="funcaoIntestinalOpts" 
-                        optionLabel="name" 
-                        optionValue="name"
+                        :options="props.formFields.funcao_intestinal" 
+                        optionLabel="label" 
+                        optionValue="label"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -124,9 +132,9 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                         <Select 
                             id="tipo_estomia" 
                             v-model="eliminacoesStore.eliminacoes.tipo_estomia" 
-                            :options="tipoEstomiaOpts" 
-                            optionLabel="name" 
-                            optionValue="name"
+                            :options="props.formFields.tipo_estomia"
+                            optionLabel="label" 
+                            optionValue="label"
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -160,9 +168,9 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     <Select 
                         id="diurese" 
                         v-model="eliminacoesStore.eliminacoes.diurese" 
-                        :options="diureseOpts" 
-                        optionLabel="name" 
-                        optionValue="name"
+                        :options="props.formFields.volume_diurese" 
+                        optionLabel="label" 
+                        optionValue="label"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -243,7 +251,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="volume_diurese_svd">Volume Diurese</label>
-                        <Select id="volume_diurese_svd" v-model="eliminacoesStore.eliminacoes.volume_diurese_svd" :options="volumeDiureseOpts" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
+                        <Select id="volume_diurese_svd" v-model="eliminacoesStore.eliminacoes.volume_diurese_svd" :options="props.formFields.volume_diurese" optionLabel="label" optionValue="label" placeholder="Selecione" class="w-full" />
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="data_troca_svd">Última Troca</label>
@@ -269,11 +277,11 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="vias_cistostomia">Nº de Vias</label>
-                        <Select id="vias_cistostomia" v-model="eliminacoesStore.eliminacoes.vias_cistostomia" :options="viasSondaOpts" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
+                        <Select id="vias_cistostomia" v-model="eliminacoesStore.eliminacoes.vias_cistostomia" :options="props.formFields.vias_sonda" optionLabel="label" optionValue="label" placeholder="Selecione" class="w-full" />
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="volume_diurese_cistostomia">Volume Diurese</label>
-                        <Select id="volume_diurese_cistostomia" v-model="eliminacoesStore.eliminacoes.volume_diurese_cistostomia" :options="volumeDiureseOpts" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
+                        <Select id="volume_diurese_cistostomia" v-model="eliminacoesStore.eliminacoes.volume_diurese_cistostomia" :options="props.formFields.volume_diurese" optionLabel="label" optionValue="label" placeholder="Selecione" class="w-full" />
                     </div>
                     
                     <div class="md:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-4 border-t pt-2 mt-2">
@@ -312,8 +320,8 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                             id="volume_diurese_preservativo" 
                             v-model="eliminacoesStore.eliminacoes.volume_diurese_preservativo" 
                             :options="volumeDiureseOpts" 
-                            optionLabel="name" 
-                            optionValue="name"
+                            optionLabel="label" 
+                            optionValue="label"
                             placeholder="Selecione" 
                             class="w-full"
                         />
