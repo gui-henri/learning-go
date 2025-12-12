@@ -17,7 +17,7 @@ import (
 
 type AvaliationService interface {
 	Get(ctx context.Context, id string) (domain.AvaliacaoRequest, error)
-	Save(ctx context.Context, data domain.AvaliacaoRequest) error
+	Save(ctx context.Context, data domain.AvaliacaoRequest) (string, error)
 	Update(ctx context.Context, id string, data domain.AvaliacaoRequest) error
 	Export(ctx context.Context, id string, format string) ([]byte, error)
 	List(ctx context.Context) ([]domain.AvaliacaoListDto, error)
@@ -92,15 +92,19 @@ func NewAvaliationService(r AvaliationRepository, gotenbergUrl string, templateI
 	}, nil
 }
 
-func (s *avaliationService) Save(ctx context.Context, data domain.AvaliacaoRequest) error {
+func (s *avaliationService) Save(ctx context.Context, data domain.AvaliacaoRequest) (string, error) {
 	dataBytes, err := json.Marshal(data)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	err = s.repository.Save(dataBytes)
+	id, err := s.repository.Save(dataBytes)
 
-	return err
+	if err != nil {
+		return "", err
+	}
+
+	return id, nil
 }
 
 func (s *avaliationService) Update(ctx context.Context, id string, data domain.AvaliacaoRequest) error {

@@ -11,12 +11,12 @@ func MakeSaveAvaliationEndpoint(s AvaliationService) endpoint.Endpoint {
 	return func(ctx context.Context, request any) (any, error) {
 		req := request.(requests.SaveAvaliationRequest)
 
-		err := s.Save(ctx, req.Data)
+		id, err := s.Save(ctx, req.Data)
 		if err != nil {
-			return requests.SaveAvaliationResponse{Status: "failed", Err: err.Error()}, nil
+			return requests.SaveAvaliationResponse{Err: err.Error()}, nil
 		}
 
-		return requests.SaveAvaliationResponse{Status: "success"}, nil
+		return requests.SaveAvaliationResponse{Id: id}, nil
 	}
 }
 

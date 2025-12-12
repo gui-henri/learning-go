@@ -36,7 +36,7 @@ const activeStep = ref(0);
 
 const formData = computed(() => avaliationFormStore.avaliationForm);
 onMounted(async () => {
-    await AvaliationService.getFormData(avaliationFormStore);
+    await AvaliationService.getFormData();
 });
 
 async function submitFormData() {

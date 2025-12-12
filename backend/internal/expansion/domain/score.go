@@ -82,6 +82,16 @@ func GetAvaliacaoFormOptions() FormMetadata {
 			{Label: "Intramuscular ou subcutânea", Value: "im_sc", Points: 1},
 			{Label: "IV até 4x/dia ou Hipodermóclise", Value: "iv_hipo", Points: 2},
 		},
+		"exercicio_ventilatorio": []FieldOption{
+			{Label: "Ausente", Value: "ausente", Points: 0},
+			{Label: "Intermitente", Value: "intermitente", Points: 1},
+		},
+
+		"uso_oxigenoterapia": []FieldOption{
+			{Label: "Ausente", Value: "ausente", Points: 0},
+			{Label: "Intermitente", Value: "intermitente", Points: 1},
+			{Label: "Continuo", Value: "continuo", Points: 2},
+		},
 
 		"frequencia_respiratoria": []FieldOption{
 			{Label: "Ausente", Value: "ausente", Points: 0},

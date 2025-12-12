@@ -10,7 +10,7 @@ import (
 )
 
 type AvaliationRepository interface {
-	Save(a []byte) error
+	Save(a []byte) (string, error)
 	Update(id string, a []byte) error
 	GetOne(id string) (domain.AvaliacaoRequest, error)
 	GetAll() ([]domain.AvaliacaoListDto, error)
@@ -26,10 +26,18 @@ func NewAvaliationRepository(db db.IDB) *avaliationRepository {
 	}
 }
 
-func (s *avaliationRepository) Save(a []byte) error {
-	query := "INSERT INTO avaliation (resource_json) VALUES ($1)"
-	_, err := s.db.Exec(context.Background(), query, a)
-	return err
+func (s *avaliationRepository) Save(a []byte) (string, error) {
+
+	var id string
+
+	query := "INSERT INTO avaliation (resource_json) VALUES ($1) RETURNING id"
+	err := s.db.QueryRow(context.Background(), query, a).Scan(&id)
+
+	if err != nil {
+		return "", err
+	}
+
+	return id, nil
 }
 
 func (s *avaliationRepository) Update(id string, a []byte) error {

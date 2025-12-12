@@ -14,8 +14,8 @@ type SaveAvaliationRequest struct {
 }
 
 type SaveAvaliationResponse struct {
-	Status string `json:"status"`
-	Err    string `json:"error,omitempty"`
+	Id  string `json:"id"`
+	Err string `json:"error,omitempty"`
 }
 
 func DecodeSaveAvaliationRequest(_ context.Context, r *http.Request) (any, error) {

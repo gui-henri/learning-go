@@ -1,7 +1,11 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
+import { useAvaliationForm } from "@/store/evaluation/form";
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { AvaliationService } from '@/service/AvaliationService';
+
+const avaliationFormStore = useAvaliationForm();
 
 const dadosGeraisStore = useDadosGeraisStore();
 const emit = defineEmits(['next-step']);
@@ -54,7 +58,20 @@ watch(() => dadosGeraisStore.dadosGerais.data_nascimento, (newDate) => {
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
 
-const handleSave = () => {
+const handleSave = async () => {
+
+    const payload = {
+        dadosGerais: dadosGeraisStore.dadosGerais,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            dadosGeraisStore.dadosGerais
+        )
+    }
+
     internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("dados-gerais");
