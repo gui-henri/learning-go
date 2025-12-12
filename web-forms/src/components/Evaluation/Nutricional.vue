@@ -117,7 +117,7 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                     :class="isFilled ? 'pi-check-circle text-green-600' : 'pi-plus-circle text-gray-400'">
             </i>
             <div class="flex flex-col text-left">
-                <h4 class="font-semibold text-xl p-0 m-0">Nutricional</h4>
+                <h4 class="font-semibold text-xl p-0 m-0">Nutricional <i class="pi pi-apple text-3xl text-black"></i></h4>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
@@ -149,9 +149,9 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                     <Select 
                         id="via_enteral" 
                         v-model="nutricionalStore.nutricional.via_enteral" 
-                        :options="viaEnteralOpts" 
-                        optionLabel="name" 
-                        optionValue="name"
+                        :options="props.formFields.via_enteral" 
+                        optionLabel="label" 
+                        optionValue="label"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -169,9 +169,9 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                     <Select 
                         id="via_parenteral" 
                         v-model="nutricionalStore.nutricional.via_parenteral" 
-                        :options="viaParenteralOpts" 
-                        optionLabel="name" 
-                        optionValue="name"
+                        :options="props.formFields.via_parenteral" 
+                        optionLabel="label" 
+                        optionValue="label"
                         placeholder="Selecione" 
                         class="w-full"
                     />
@@ -203,9 +203,9 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                         <Select 
                             id="adaptador_sonda" 
                             v-model="nutricionalStore.nutricional.adaptador_sonda" 
-                            :options="adaptadorSondaOpts" 
-                            optionLabel="name" 
-                            optionValue="name"
+                            :options="props.formFields.adaptador_sonda" 
+                            optionLabel="label" 
+                            optionValue="label"
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -237,9 +237,9 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                         <Select 
                             id="tipo_dieta" 
                             v-model="nutricionalStore.nutricional.tipo_dieta" 
-                            :options="tipoDietaOpts" 
-                            optionLabel="name" 
-                            optionValue="name"
+                            :options="props.formFields.tipo_dieta" 
+                            optionLabel="label" 
+                            optionValue="label"
                             placeholder="Selecione" 
                             class="w-full"
                         />
@@ -271,9 +271,9 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                             <Select 
                                 id="forma_administracao" 
                                 v-model="nutricionalStore.nutricional.forma_administracao" 
-                                :options="formaAdministracaoOpts" 
-                                optionLabel="name" 
-                                optionValue="name"
+                                :options="props.formFields.forma_administracao" 
+                                optionLabel="label" 
+                                optionValue="label"
                                 placeholder="Selecione" 
                                 class="w-full"
                             />

@@ -59,7 +59,7 @@ const removeAntimicrobiano = (index) => {
                     :class="isFilled ? 'pi-check-circle text-green-600' : 'pi-plus-circle text-gray-400'">
             </i>
             <div class="flex flex-col text-left">
-                <h4 class="font-semibold text-xl p-0 m-0">Exame Físico</h4>
+                <h4 class="font-semibold text-xl p-0 m-0">Exame Físico <i class="pi pi-user text-3xl text-black"></i></h4>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
@@ -174,7 +174,7 @@ const removeAntimicrobiano = (index) => {
                             <InputSwitch id="piccline" v-model="exameFisicoStore.exameFisico.piccline" />
                         </div>
                         
-                        <div v-if="exameFisicoStore.exameFisico.piccline" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-blue-200">
+                        <div v-if="exameFisicoStore.exameFisico.piccline" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600   ">
                             <div class="flex flex-col gap-2">
                                 <label for="tipo_piccline">Tipo</label>
                                 <Select id="tipo_piccline" v-model="exameFisicoStore.exameFisico.tipo_piccline" :options="formFields.tipo_piccline" optionLabel="label" optionValue="label" placeholder="Selecione" class="w-full" />
@@ -201,8 +201,8 @@ const removeAntimicrobiano = (index) => {
                             <label for="acesso_central">Acesso Venoso Central?</label>
                             <InputSwitch id="acesso_central" v-model="exameFisicoStore.exameFisico.acesso_central" />
                         </div>
-                        
-                        <div v-if="exameFisicoStore.exameFisico.acesso_central" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-blue-200">
+
+                        <div v-if="exameFisicoStore.exameFisico.acesso_central" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600">
                             <div class="flex flex-col gap-2">
                                 <label for="local_central">Local</label>
                                 <InputText id="local_central" v-model="exameFisicoStore.exameFisico.local_central" placeholder="Local anatômico" class="w-full" />
@@ -230,7 +230,7 @@ const removeAntimicrobiano = (index) => {
                             <InputSwitch id="acesso_periferico" v-model="exameFisicoStore.exameFisico.acesso_periferico" />
                         </div>
                         
-                        <div v-if="exameFisicoStore.exameFisico.acesso_periferico" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-blue-200">
+                        <div v-if="exameFisicoStore.exameFisico.acesso_periferico" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-red-600">
                             <div class="flex flex-col gap-2">
                                 <label for="local_periferico">Local</label>
                                 <InputText id="local_periferico" v-model="exameFisicoStore.exameFisico.local_periferico" placeholder="Local anatômico" class="w-full" />
@@ -253,8 +253,8 @@ const removeAntimicrobiano = (index) => {
                             <label for="hipodermoclise">hipodermoclise?</label>
                             <InputSwitch id="hipodermoclise" v-model="exameFisicoStore.exameFisico.hipodermoclise" />
                         </div>
-                        
-                        <div v-if="exameFisicoStore.exameFisico.hipodermoclise" class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-4 border-l-4 border-blue-200">
+
+                        <div v-if="exameFisicoStore.exameFisico.hipodermoclise" class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-4 border-l-4 border-red-600">
                             <div class="flex flex-col gap-2">
                                 <label for="data_troca_hipo">Última Troca</label>
                                 <InputMask id="data_troca_hipo" v-model="exameFisicoStore.exameFisico.data_troca_hipo" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />
@@ -273,8 +273,8 @@ const removeAntimicrobiano = (index) => {
                             <label for="outros_acessos">Outros acessos?</label>
                             <InputSwitch id="outros_acessos" v-model="exameFisicoStore.exameFisico.outros_acessos" />
                         </div>
-                        
-                        <div v-if="exameFisicoStore.exameFisico.outros_acessos" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-blue-200">
+
+                        <div v-if="exameFisicoStore.exameFisico.outros_acessos" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-red-600">
                              <div class="flex flex-col gap-2">
                                 <label for="nome_outros_acessos">Nome/Tipo</label>
                                 <InputText id="nome_outros_acessos" v-model="exameFisicoStore.exameFisico.nome_outros_acessos" placeholder="Descreva o acesso" class="w-full" />

@@ -58,7 +58,7 @@ const handleSave = () => {
                     :class="isFilled ? 'pi-check-circle text-green-600' : 'pi-plus-circle text-gray-400'">
             </i>
             <div class="flex flex-col text-left">
-                <h4 class="font-semibold text-xl p-0 m-0">Condições da Pele</h4>
+                <h4 class="font-semibold text-xl p-0 m-0">Condições da Pele <i class="pi pi-user-minus"></i></h4>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
@@ -66,21 +66,6 @@ const handleSave = () => {
         </div>
     </template>
         <div class="flex flex-col gap-4 w-full">
-        
-            <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/3">
-                    <label for="condicao_cutanea_mucosa">Como é a Cutânea-mucosa</label>
-                    <Select 
-                        id="condicao_cutanea_mucosa" 
-                        v-model="condicoesPeleStore.condicoesPele.condicao_cutanea_mucosa" 
-                        :options="condicaoCutaneaOpts" 
-                        optionLabel="name" 
-                        optionValue="name"
-                        placeholder="Selecione" 
-                        class="w-full"
-                    />
-                </div>
-            </div>
                 <div v-for="(curativo, index) in condicoesPeleStore.condicoesPele.curativos" :key="index" class="p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10 flex flex-col gap-4 relative">
                     
                     <div class="flex justify-between items-center">

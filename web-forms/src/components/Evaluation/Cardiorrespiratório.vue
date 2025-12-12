@@ -106,7 +106,7 @@
                             :class="isFilled ? 'pi-check-circle text-green-600' : 'pi-plus-circle text-gray-400'">
                         </i>
                         <div class="flex flex-col w-full text-left">
-                            <h4 class="font-semibold text-xl p-0 m-0">Cardiorrespiratório</h4>
+                            <h4 class="font-semibold text-xl p-0 m-0">Cardiorrespiratório <i class="pi pi-cloud text-3xl text-black"></i></h4>
 
                             <span class="text-xs text-gray-500 font-normal -mt-4">
                                 {{ isFilled ? '' : 'Toque para preencher' }}
