@@ -88,7 +88,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     :class="isFilled ? 'pi-check-circle text-green-600' : 'pi-plus-circle text-gray-400'">
             </i>
             <div class="flex flex-col text-left">
-                <h4 class="font-semibold text-xl p-0 m-0">Eliminações</h4>
+                <h4 class="font-semibold text-xl p-0 m-0">Eliminações <i class="pi pi-list text-3xl text-black"></i></h4>
                 <span class="text-xs text-gray-500 font-normal -mt-4">
                     {{ isFilled ? '' : 'Toque para preencher' }}
                 </span>
@@ -97,7 +97,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
     </template>
         <div class="flex flex-col gap-4 w-full">
             <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/3">
+                <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="funcao_intestinal">Função Intestinal</label>
                     <Select 
                         id="funcao_intestinal" 
@@ -109,7 +109,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/3">
+                <div class="flex flex-col gap-2 w-full md:w-1/8">
                     <label for="via_evacuacao_fisiologica">Via Fisiológica?</label>
                     <InputSwitch 
                         id="via_evacuacao_fisiologica" 
@@ -163,7 +163,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
             <h5 class="font-medium text-gray-700 border-b pb-2 mt-4">Diurese e Dispositivos Urinários</h5>
             
             <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex flex-col gap-2 w-full md:w-1/4">
+                <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="diurese">Diurese</label>
                     <Select 
                         id="diurese" 
@@ -187,14 +187,14 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                 </div>
                 
                 
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <div class="flex flex-col gap-2 w-full md:w-1/8">
                     <label for="usa_fralda">Usa Fralda?</label>
                     <InputSwitch 
                         id="usa_fralda" 
                         v-model="eliminacoesStore.eliminacoes.usa_fralda" 
                     />
                 </div>
-                <div v-if="eliminacoesStore.eliminacoes.usa_fralda" class="flex flex-col gap-2 w-full md:w-1/4">
+                <div v-if="eliminacoesStore.eliminacoes.usa_fralda" class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="trocas_fralda_dia">Nº trocas por dia</label>
                     <InputText 
                         id="trocas_fralda_dia" 
@@ -204,7 +204,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     />
                 </div>
                 
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
+                <div class="flex flex-col gap-2 w-full md:w-1/3">
                     <label for="sva">SVA (Alívio)?</label>
                     <InputSwitch 
                         id="sva" 
