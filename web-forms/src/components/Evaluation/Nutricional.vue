@@ -9,6 +9,11 @@ const emit = defineEmits(['next-step']);
 const nutricionalStore = useNutricionalStore();
 
 const props = defineProps({
+  formFields: {
+    type: Object,
+    required: false,
+    default: null
+  },
   isActive: {
     type: Boolean,
     default: false

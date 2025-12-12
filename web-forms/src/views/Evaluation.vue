@@ -32,7 +32,6 @@ const score = useScoreStore();
 const obs = useObservacoesStore();
 const avaliationFormStore = useAvaliationForm();
 
-const isLoading = ref(false);
 const activeStep = ref(0);
 
 const formData = computed(() => avaliationFormStore.avaliationForm);
@@ -77,10 +76,7 @@ function setStep(index) {
 <template>
     <Fluid>
         <div v-if="formData">
-            <DadosGerais 
-                :is-active="activeStep === 0" 
-                :formFields="formData.dados_gerais" 
-                @next-step="setStep(1)"/>
+            <DadosGerais :is-active="activeStep === 0" :formFields="formData.dados_gerais" @next-step="setStep(1)"/>
             <Endereço :is-active="activeStep === 1" @next-step="setStep(2)"/>
             <Contato :is-active="activeStep === 2" :formFields="formData.contato" @next-step="setStep(3)"/>
             <Cuidadores :is-active="activeStep === 3" :formFields="formData.cuidadores" @next-step="setStep(4)"/>

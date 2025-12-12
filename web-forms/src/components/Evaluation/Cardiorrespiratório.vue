@@ -1,15 +1,20 @@
     <script setup>
     import { ref, computed } from 'vue';
     import { useRespiratorioStore } from '@/store/evaluation/cardiorespiratorio';
+    import { useStepAccordion } from "@/composable/useStepAccordion";
 
     const respiratorioStore = useRespiratorioStore();
 
     const props = defineProps({
-    formFields: {
-        type: Object,
-        required: false,
-        default: null
-    }
+        formFields: {
+            type: Object,
+            required: false,
+            default: null
+        },
+        isActive: {
+            type: Boolean,
+            default: false
+        }
     })
 
     const padraoRespiratorioOpts = ref([
@@ -70,15 +75,16 @@
     ]);
 
     const emit = defineEmits(['next-step']);
-    const activeIndex = ref(null);
 
     const isFilled = computed(() => {
         return !!respiratorioStore.respiratorio.padrao_respiratorio && 
             respiratorioStore.respiratorio.padrao_respiratorio.length > 3;
     });
 
+    const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
     const handleSave = () => {
-        activeIndex.value = null;
+        internalIndex.value = null;
         setTimeout(() => {
             const self = document.getElementById("cardiorrespiratorio");
             if (self) {
@@ -88,7 +94,7 @@
                 });
             }
         }, 0);
-        emit('next-step');
+        nextStep('next-step');
     };
 
 
@@ -96,7 +102,7 @@
 
     <template>
         <Fluid>
-            <Accordion v-model:activeIndex="activeIndex" id="cardiorrespiratorio" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+            <Accordion v-model:activeIndex="internalIndex" id="cardiorrespiratorio" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
                 <AccordionTab>
 
                 <template #header>
