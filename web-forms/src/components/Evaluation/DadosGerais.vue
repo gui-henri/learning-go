@@ -259,7 +259,7 @@ const handleSave = () => {
                     mask="99/99/9999"
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/8">
+            <div class="flex flex-col gap-2 w-full md:w-2/8">
                 <label for="apartamento-hospital">Apartamento</label>
                 <InputText 
                     id="apartamento_hospital" 
@@ -271,7 +271,7 @@ const handleSave = () => {
           
         </div>
         <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-col gap-2 md:w-1/4">
+            <div class="flex flex-col gap-2 md:w-2/8">
                 <label for="carteirinha">Nº Carteirinha</label>
                 <InputText 
                     id="carteirinha" 
@@ -281,7 +281,7 @@ const handleSave = () => {
                     v-keyfilter.int
                 />
             </div>
-            <div class="flex flex-col gap-2 w-full md:w-1/4">
+            <div class="flex flex-col gap-2 w-full md:w-2/8">
                 <label for="vencimento_carteirinha">Validade da carteirinha</label>
                 <InputMask
                     id="vencimento_carteirinha" 

@@ -98,8 +98,8 @@ const handleSave = () => {
                     ></Select>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row gap-4 items-center 1/2 mt-6 min-h-16">
-                <div class="flex flex-col gap-2 w-full md:w-1/6">
+            <div class="flex flex-col md:flex-row gap-4 items-center mt-6 min-h-16">
+                <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="precisa_treinamento">Precisa de treinamento?</label>
                     <InputSwitch 
                         id="precisa_treinamento" 
@@ -107,7 +107,7 @@ const handleSave = () => {
                         class="w-full"
                     ></InputSwitch>
                 </div>
-                <div v-if="cuidadorStore.cuidadores.precisa_treinamento" class="flex flex-col gap-2 w-full 1/2 flex-1 transition-all duration-300">
+                <div v-if="cuidadorStore.cuidadores.precisa_treinamento" class="flex flex-col gap-2 w-full md:w-4/6 flex-1 transition-all duration-300">
                     <label for="obs_treinamento">Observações do treinamento</label>
                     <InputText 
                         id="obs_treinamento" 
