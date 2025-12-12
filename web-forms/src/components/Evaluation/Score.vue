@@ -1,9 +1,10 @@
     <script setup>
     import { ref, computed } from 'vue';
     import { useScoreStore } from '@/store/evaluation/score';
+    import { useStepAccordion } from "@/composable/useStepAccordion";
 
     const scoreStore = useScoreStore();
-    const activeIndex = ref(null);
+    const emit = defineEmits(['next-step']);
 
     const getPoints = (value, options) => {
     if (!value) return 0;
@@ -22,6 +23,10 @@ const props = defineProps({
     type: Object,
     required: false,
     default: null
+  },
+  isActive: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -238,20 +243,26 @@ const recomendacaoGrupo2 = computed(() => {
             scoreStore.score.diagnostico_primario.length > 3;
     });
 
+    const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
     const handleSave = () => {
-        activeIndex.value = null;
+        internalIndex.value = null;
         setTimeout(() => {
             const self = document.getElementById("score");
-            if (self) self.scrollIntoView({ behavior: 'instant', block: 'start' });
+            if (self) {
+                self.scrollIntoView({ 
+                    behavior: 'instant', 
+                    block: 'start',
+                });
+            }
         }, 0);
-        emit('next-step');
+        nextStep()
     };
-
 
     </script>
 
     <template>
-        <Accordion v-model:activeIndex="activeIndex" id="score" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600 dark:bg-surface-900">
+        <Accordion v-model:activeIndex="internalIndex" id="score" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600 dark:bg-surface-900">
             <AccordionTab>
                 <template #header>
                     <div class="flex items-center gap-3 w-full">

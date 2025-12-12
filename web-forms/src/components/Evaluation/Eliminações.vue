@@ -2,56 +2,32 @@
 import { ref, computed, watch } from 'vue';
 import { useEliminacoesStore } from '@/store/evaluation/eliminacoes';
 import { InputMask } from 'primevue';
+import { useStepAccordion } from "@/composable/useStepAccordion";
 
 const props = defineProps({
   formFields: {
     type: Object,
     required: false,
     default: null
+  },
+  isActive: {
+    type: Boolean,
+    default: false
   }
 })
-
-const funcaoIntestinalOpts = ref([
-    { name: 'Normal', code: 'normal' },
-    { name: 'Constipado', code: 'constipado' },
-    { name: 'Com diarreia', code: 'com_diarreia' }
-]);
-
-const tipoEstomiaOpts = ref([
-    { name: 'Ileostomia', code: 'ileostomia' },
-    { name: 'Colostomia', code: 'colostomia' }
-]);
-
-const diureseOpts = ref([
-    { name: 'Espontânea', code: 'espontanea' },
-    { name: 'Induzida', code: 'induzida' }
-]);
-
-const volumeDiureseOpts = ref([
-    { name: 'Normal', code: 'normal' },
-    { name: 'Anúria', code: 'anuria' },
-    { name: 'Oligúria', code: 'oliguria' },
-    { name: 'Poliúria', code: 'poliuria' }
-]);
-
-const viasSondaOpts = ref([
-    { name: '2 Vias', code: '2' },
-    { name: '3 Vias', code: '3' }
-]);
 
 const emit = defineEmits(['next-step']);
 
 const eliminacoesStore = useEliminacoesStore();
 
-const activeIndex = ref(null);
-
 const isFilled = computed(() => {
     return !!eliminacoesStore.eliminacoes.funcao_intestinal;
 });
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
 const handleSave = () => {
-    activeIndex.value = null;
-    
+    internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("eliminacoes");
         if (self) {
@@ -61,9 +37,8 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep()
 };
-
 
 watch(() => eliminacoesStore.eliminacoes.sva, (novoValor) => {
     if (novoValor === true) {
@@ -80,7 +55,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
 </script>
 
 <template>
-    <Accordion v-model:activeIndex="activeIndex" id="eliminacoes" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+    <Accordion v-model:activeIndex="internalIndex" id="eliminacoes" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
         <AccordionTab>
         <template #header>
             <div class="flex items-center gap-3 w-full">
@@ -247,7 +222,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="vias_svd">Nº de Vias</label>
-                        <Select id="vias_svd" v-model="eliminacoesStore.eliminacoes.vias_svd" :options="viasSondaOpts" optionLabel="name" optionValue="name" placeholder="Selecione" class="w-full" />
+                        <Select id="vias_svd" v-model="eliminacoesStore.eliminacoes.vias_svd" :options="props.formFields.vias_sonda" optionLabel="label" optionValue="label" placeholder="Selecione" class="w-full" />
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="volume_diurese_svd">Volume Diurese</label>
@@ -319,7 +294,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                         <Select 
                             id="volume_diurese_preservativo" 
                             v-model="eliminacoesStore.eliminacoes.volume_diurese_preservativo" 
-                            :options="volumeDiureseOpts" 
+                            :options="props.formFields.volume_diurese" 
                             optionLabel="label" 
                             optionValue="label"
                             placeholder="Selecione" 

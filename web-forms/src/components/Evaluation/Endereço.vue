@@ -1,11 +1,19 @@
 <script setup>
 import { useEnderecoStore } from '@/store/evaluation/endereco';
+import { useStepAccordion } from "@/composable/useStepAccordion";
 import { computed, ref, watch } from 'vue';
 
-const emit = defineEmits(['next-step']);
 const enderecoStore = useEnderecoStore();
-const activeIndex = ref(null);
 const isLoadingCep = ref(false);
+
+const emit = defineEmits(['next-step']);
+
+const props = defineProps({
+  isActive: {
+    type: Boolean,
+    default: false
+  }
+})
 
 const isFilled = computed(() => {
     return !!enderecoStore.endereco.cep && 
@@ -47,9 +55,10 @@ watch(() => enderecoStore.endereco.cep, (novoCep) => {
     }
 });
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
 const handleSave = () => {
-    activeIndex.value = null;
-    
+    internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("endereco");
         if (self) {
@@ -59,7 +68,7 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep()
 };
 
 const estadosOpts = ref([
@@ -110,7 +119,7 @@ const searchEstado = (event) => {
 
 <template>
 
-<Accordion v-model:activeIndex="activeIndex" id="endereco" class=" scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+<Accordion v-model:activeIndex="internalIndex" id="endereco" class=" scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
     <AccordionTab>
     <template #header>
         <div class="flex items-center gap-3 w-full">

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, ref, watch } from 'vue';
 
 import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
 import { useEnderecoStore } from '@/store/evaluation/endereco';
@@ -32,8 +32,8 @@ const score = useScoreStore();
 const obs = useObservacoesStore();
 const avaliationFormStore = useAvaliationForm();
 
-const activeStep = ref(0);
 const isLoading = ref(false);
+const activeStep = ref(0);
 
 const formData = computed(() => avaliationFormStore.avaliationForm);
 onMounted(async () => {
@@ -60,25 +60,15 @@ async function submitFormData() {
   await AvaliationService.submitFormData(payload)
 }
 
-async function handleNextStep() {
-    isLoading.value = true;
-    
-    try {
-        const payload = {
-            dadosGerais: dadosGeraisStore.dadosGerais,
-        };
-
-        // await AvaliationService.submitFormData(payload); // UNCOMMENT TO ENABLE SAVE
-        console.log("Saving to database..."); 
-
-        activeStep.value = activeStep.value + 1;        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    } catch (error) {
-        console.error("Error saving:", error);
-        alert("Erro ao salvar dados.");
-    } finally {
-        isLoading.value = false;
+function setStep(index) {
+    if (activeStep.value === index) {
+        activeStep.value = -1;
+        
+        setTimeout(() => {
+            activeStep.value = index;
+        }, 50);
+    } else {
+        activeStep.value = index;
     }
 }
 
@@ -87,19 +77,22 @@ async function handleNextStep() {
 <template>
     <Fluid>
         <div v-if="formData">
-            <DadosGerais :formFields="formData.dados_gerais"/>
-            <Endereço/>
-            <Contato :formFields="formData.contato"/>
-            <Cuidadores :formFields="formData.cuidadores"/>
-            <SegurançadoPaciente :formFields="formData.seguranca"/>
-            <HistóricoClínico/>
-            <ExameFísico :formFields="formData.dados_clinicos"/>
-            <Cardiorrespiratório :formFields="formData.cardio_respiratorio"/>
-            <Nutricional  :formFields="formData.nutricional"/>
-            <Eliminações  :formFields="formData.eliminacoes"/>
-            <CondiçõesdaPele  :formFields="formData.condicoes_pele"/>
-            <Score :formFields="formData.avaliacao" />
-            <Observações/>
+            <DadosGerais 
+                :is-active="activeStep === 0" 
+                :formFields="formData.dados_gerais" 
+                @next-step="setStep(1)"/>
+            <Endereço :is-active="activeStep === 1" @next-step="setStep(2)"/>
+            <Contato :is-active="activeStep === 2" :formFields="formData.contato" @next-step="setStep(3)"/>
+            <Cuidadores :is-active="activeStep === 3" :formFields="formData.cuidadores" @next-step="setStep(4)"/>
+            <SegurançadoPaciente :is-active="activeStep === 4" :formFields="formData.seguranca" @next-step="setStep(5)"/>
+            <HistóricoClínico :is-active="activeStep === 5" @next-step="setStep(6)"/>
+            <ExameFísico :is-active="activeStep === 6" :formFields="formData.dados_clinicos" @next-step="setStep(7)"/>
+            <Cardiorrespiratório :is-active="activeStep === 7" :formFields="formData.cardio_respiratorio" @next-step="setStep(8)"/>
+            <Nutricional :is-active="activeStep === 8" :formFields="formData.nutricional" @next-step="setStep(9)"/>
+            <Eliminações :is-active="activeStep === 9" :formFields="formData.eliminacoes" @next-step="setStep(10)"/>
+            <CondiçõesdaPele :is-active="activeStep === 10" :formFields="formData.condicoes_pele" @next-step="setStep(11)"/>
+            <Score :is-active="activeStep === 11" :formFields="formData.avaliacao" @next-step="setStep(12)"/>
+            <Observações :is-active="activeStep === 12" @next-step="setStep(13)"/>
             <Button @click="submitFormData">Enviar</Button>
         </div>
         <div v-else>

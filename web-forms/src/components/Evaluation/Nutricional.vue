@@ -2,11 +2,18 @@
 import { ref, computed, watch } from 'vue'; 
 import { useNutricionalStore } from '@/store/evaluation/nutricional';
 import { InputMask } from 'primevue';
+import { useStepAccordion } from "@/composable/useStepAccordion";
 
 const emit = defineEmits(['next-step']);
 
 const nutricionalStore = useNutricionalStore();
-const activeIndex = ref(null);
+
+const props = defineProps({
+  isActive: {
+    type: Boolean,
+    default: false
+  }
+})
 
 const viaEnteralOpts = ref([
     { name: 'Gastrostomia', code: 'gastrostomia' },
@@ -49,9 +56,10 @@ watch(() => nutricionalStore.nutricional.via_enteral, (novoValor) => {
     }
 });
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
 const handleSave = () => {
-    activeIndex.value = null;
-    
+    internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("nutricional");
         if (self) {
@@ -61,7 +69,7 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep()
 };
 
 const marcasBombaOpts = ref([
@@ -101,7 +109,7 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
 </script>
 
 <template>
-    <Accordion v-model:activeIndex="activeIndex" id="nutricional" class="scroll-mt-24 mt-8 mb-8 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+    <Accordion v-model:activeIndex="internalIndex" id="nutricional" class="scroll-mt-24 mt-8 mb-8 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
         <AccordionTab>
         <template #header>
             <div class="flex items-center gap-3 w-full">

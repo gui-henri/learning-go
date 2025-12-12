@@ -1,17 +1,23 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useCondicoesPeleStore } from '@/store/evaluation/condicoesPele';
+import { useStepAccordion } from "@/composable/useStepAccordion";
 
 const emit = defineEmits(['next-step']);
 
 const condicoesPeleStore = useCondicoesPeleStore();
 
+const props = defineProps({
+  isActive: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const condicaoCutaneaOpts = ref([
     { name: 'Íntegra', code: 'integra' },
     { name: 'Com Lesão', code: 'lesao' }
 ]);
-
-const activeIndex = ref(null);
 
 const isFilled = computed(() => {
     return !!condicoesPeleStore.condicoesPele.condicao_cutanea_mucosa;
@@ -25,9 +31,10 @@ const removeCurativo = (index) => {
     condicoesPeleStore.removerCurativo(index);
 };
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
 const handleSave = () => {
-    activeIndex.value = null;
-    
+    internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("condicoesPele");
         if (self) {
@@ -37,12 +44,13 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep()
 };
+
 </script>
 
 <template>
-    <Accordion v-model:activeIndex="activeIndex" id="condicoesPele" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+    <Accordion v-model:activeIndex="internalIndex" id="condicoesPele" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
         <AccordionTab>
         <template #header>
             <div class="flex items-center gap-3 w-full">

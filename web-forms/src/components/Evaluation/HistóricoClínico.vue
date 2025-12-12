@@ -1,19 +1,29 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useHistoricoStore } from '@/store/evaluation/historico';   
+import { useHistoricoStore } from '@/store/evaluation/historico';
+import { useStepAccordion } from "@/composable/useStepAccordion";
 
 const historicoStore = useHistoricoStore();
 
+const props = defineProps({
+  isActive: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const emit = defineEmits(['next-step']);
-const activeIndex = ref(null);
 
 const isFilled = computed(() => {
     return !!historicoStore.historico.historia_doenca_atual &&
             historicoStore.historico.historia_doenca_atual.length > 3;
 });
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
 const handleSave = () => {
-    activeIndex.value = null;
+    internalIndex.value = null;
+    
     setTimeout(() => {
         const self = document.getElementById("historico");
         if (self) {
@@ -23,13 +33,13 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep('next-step');
 };
 
 </script>
 
 <template>
-    <Accordion v-model:activeIndex="activeIndex" id="historico" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+    <Accordion v-model:activeIndex="internalIndex" id="historico" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
         <AccordionTab>
         <template #header>
             <div class="flex items-center gap-3 w-full">

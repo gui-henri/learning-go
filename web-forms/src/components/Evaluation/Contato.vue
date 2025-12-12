@@ -1,6 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { useContatoStore } from '@/store/evaluation/contato';
+import { useStepAccordion } from "@/composable/useStepAccordion";
+
 import { InputMask } from 'primevue';
 
 const contatoStore = useContatoStore();
@@ -10,26 +12,24 @@ const props = defineProps({
     type: Object,
     required: false,
     default: null
+  },
+  isActive: {
+    type: Boolean,
+    default: false
   }
 })
 
-const forma_contato = ref([
-    { name: 'Residencial', code: 'residencial' },
-    { name: 'Celular', code: 'celular' },
-    { name: 'Whatsapp', code: 'whatsapp' },
-    { name: 'Celular e Whatsapp', code: 'celular_whatsapp' }
-]);
-
 const emit = defineEmits(['next-step']);
-const activeIndex = ref(null);
 
 const isFilled = computed(() => {
     return !!contatoStore.contato.telefone_paciente && 
            contatoStore.contato.telefone_paciente.length > 3;
 });
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
 const handleSave = () => {
-    activeIndex.value = null;
+    internalIndex.value = null;
     
     setTimeout(() => {
         const self = document.getElementById("contato");
@@ -40,7 +40,7 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep('next-step');
 };
 
 const addResponsavel = () => {
@@ -54,7 +54,7 @@ const removeResponsavel = (index) => {
 </script>
 
 <template>
-    <Accordion v-model:activeIndex="activeIndex" id="contato" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+    <Accordion v-model:activeIndex="internalIndex" id="contato" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
         <AccordionTab>
         <template #header>
             <div class="flex items-center gap-3 w-full">

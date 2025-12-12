@@ -2,48 +2,32 @@
 import { ref, computed} from 'vue';
 import { useExameFisicoStore } from '@/store/evaluation/exameFisico';
 import { InputMask } from 'primevue';
+import { useStepAccordion } from "@/composable/useStepAccordion";
 
 const props = defineProps({
   formFields: {
     type: Object,
     required: false,
     default: null
+  },
+  isActive: {
+    type: Boolean,
+    default: false
   }
 })
-
-const estado_geral = ref([
-    { name: 'Bom', code: 'bom' },
-    { name: 'Regular', code: 'regular' },
-    { name: 'Grave', code: 'grave' },
-    { name: 'Gravíssimo', code: 'gravissimo' },
-    { name: 'Decaído', code: 'decaido' }
-]);
-
-const locomocao = ref([
-    { name: 'Deambula sem apoio', code: 'deambula_sem_apoio' },
-    { name: 'Deambula com apoio', code: 'deambula_com_apoio' },
-    { name: 'Restrito ao leito', code: 'restrito_leito' },
-    { name: 'Cadeirante', code: 'cadeirante' }
-]);
-
-const tipos_piccline = ref([
-    { name: 'Monolumen', code: 'monolumen' },
-    { name: 'Duplolumen', code: 'duplolumen' },
-    { name: 'Triplolumen', code: 'triplolumen' }
-]);
 
 const emit = defineEmits(['next-step']);
 
 const exameFisicoStore = useExameFisicoStore();
 
-const activeIndex = ref(null);
-
 const isFilled = computed(() => {
     return !!exameFisicoStore.exameFisico.estado_geral
 });
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
 const handleSave = () => {
-    activeIndex.value = null;
+    internalIndex.value = null;
     
     setTimeout(() => {
         const self = document.getElementById("exame-fisico");
@@ -54,7 +38,7 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep('next-step');
 };
 
 const addAntimicrobiano = () => {
@@ -67,7 +51,7 @@ const removeAntimicrobiano = (index) => {
 
 </script>
 <template>
-    <Accordion v-model:activeIndex="activeIndex" id="exame-fisico" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+    <Accordion v-model:activeIndex="internalIndex" id="exame-fisico" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
         <AccordionTab>
         <template #header>
             <div class="flex items-center gap-3 w-full">

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useSegurancaStore } from '@/store/evaluation/seguranca';
+import { useStepAccordion } from "@/composable/useStepAccordion";
 
 const segurancaStore = useSegurancaStore();
 
@@ -9,11 +10,14 @@ const props = defineProps({
     type: Object,
     required: false,
     default: null
+  },
+  isActive: {
+    type: Boolean,
+    default: false
   }
 })
 
 const emit = defineEmits(['next-step']);
-const activeIndex = ref(null);
 
 const addAlergia = () => {
     segurancaStore.adicionarAlergia();
@@ -31,8 +35,10 @@ const isFilled = computed(() => {
     return temAlergia || temCuidado;
 });
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
 const handleSave = () => {
-    activeIndex.value = null;
+    internalIndex.value = null;
     
     setTimeout(() => {
         const self = document.getElementById("segurança");
@@ -43,13 +49,13 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep('next-step');
 };
 
 </script>
 
 <template>
-<Accordion v-model:activeIndex="activeIndex" id="segurança" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+<Accordion v-model:activeIndex="internalIndex" id="segurança" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
     <AccordionTab>
         <template #header>
             <div class="flex items-center gap-3 w-full">

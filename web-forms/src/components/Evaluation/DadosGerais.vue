@@ -1,16 +1,20 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
+import { useStepAccordion } from "@/composable/useStepAccordion";
 
-const emit = defineEmits(['next-step']);
 const dadosGeraisStore = useDadosGeraisStore();
-const activeIndex = ref(null);
+const emit = defineEmits(['next-step']);
 
 const props = defineProps({
   formFields: {
     type: Object,
     required: false,
     default: null
+  },
+  isActive: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -36,10 +40,8 @@ const calculateAge = (dateOfBirth) => {
     return age;
 };
 
-
 watch(() => dadosGeraisStore.dadosGerais.data_nascimento, (newDate) => {
     const age = calculateAge(newDate);
-    
 
     if (age !== null && age >= 0) {
         dadosGeraisStore.dadosGerais.idade = age;
@@ -49,9 +51,11 @@ watch(() => dadosGeraisStore.dadosGerais.data_nascimento, (newDate) => {
     }
 }, { immediate: true });
 
+const { internalIndex, nextStep } = useStepAccordion(props, emit);
+
+
 const handleSave = () => {
-    activeIndex.value = null;
-    
+    internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("dados-gerais");
         if (self) {
@@ -61,12 +65,12 @@ const handleSave = () => {
             });
         }
     }, 0);
-    emit('next-step');
+    nextStep()
 };
 </script>
 <template>
 
-<Accordion v-model:activeIndex="activeIndex" id="dados-gerais" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
+<Accordion v-model:activeIndex="internalIndex" id="dados-gerais" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
     <AccordionTab>
     <template #header>
         <div class="flex items-center gap-3 w-full">
