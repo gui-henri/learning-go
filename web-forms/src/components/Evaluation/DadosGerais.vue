@@ -258,6 +258,7 @@ const handleSave = async () => {
                     v-model="dadosGeraisStore.dadosGerais.convenio" 
                     type="text" 
                     placeholder="Convenio médico xyz"
+                    maxlength="50"
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-2/8">
@@ -267,6 +268,7 @@ const handleSave = async () => {
                     v-model="dadosGeraisStore.dadosGerais.hospital" 
                     type="text" 
                     placeholder="Português"
+                    maxlength="50"
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-2/8">
@@ -287,6 +289,7 @@ const handleSave = async () => {
                     v-model="dadosGeraisStore.dadosGerais.apartamento" 
                     type="text" 
                     placeholder="Bloco A"
+                    maxlength="50"
                 />
             </div>
           
@@ -300,6 +303,7 @@ const handleSave = async () => {
                     type="text" 
                     placeholder="198310293"
                     v-keyfilter.int
+                    maxlength="50"
                 />
             </div>
             <div class="flex flex-col gap-2 w-full md:w-2/8">

@@ -122,7 +122,7 @@
 
                 <div class="flex flex-col gap-4 w-full">
                     <div class="flex flex-col md:flex-row gap-4">
-                        <div class="flex flex-col gap-2 w-full md:w-1/3">
+                        <div class="flex flex-col gap-2 w-full md:w-1/4">
                             <label for="padrao_respiratorio">Padrão respiratório <span class="text-red-500">*</span></label>
                             <Select 
                                 id="padrao_respiratorio" 
@@ -132,9 +132,10 @@
                                 optionValue="label" 
                                 placeholder="Selecione" 
                                 class="w-full"
+
                             />
                         </div>
-                        <div class="flex flex-col gap-2 w-full md:w-1/3">
+                        <div class="flex flex-col gap-2 w-full md:w-1/4">
                             <label for="via_aerea">Via aérea <span class="text-red-500">*</span></label>
                             <Select 
                                 id="via_aerea" 
@@ -174,7 +175,7 @@
 
                     <div class="border-t my-2"></div>
 
-                    <div class="flex flex-col gap-2 w-full md:w-1/2">
+                    <div class="flex flex-col gap-2 w-full md:w-1/3">
                         <label for="suporte_ventilatorio">Suporte ventilatório <span class="text-red-500">*</span></label>
                         <Select 
                             id="suporte_ventilatorio" 

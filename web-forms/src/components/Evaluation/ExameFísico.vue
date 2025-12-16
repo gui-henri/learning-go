@@ -94,7 +94,7 @@ const removeAntimicrobiano = (index) => {
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-2/4">
+                <div class="flex flex-col gap-2 w-full md:w-1/4">
                     <label for="avaliacao_locomotora">Avaliação locomotora <span class="text-red-500">*</span></label>
                     <Select 
                         id="avaliacao_locomotora" 
@@ -127,6 +127,7 @@ const removeAntimicrobiano = (index) => {
                                 v-model="dreno.local_dreno" 
                                 placeholder="Local anatômico" 
                                 class="w-full"
+                                maxlength="100"
                             />
                         </div>
 
@@ -148,6 +149,7 @@ const removeAntimicrobiano = (index) => {
                                 v-model="dreno.curativos_dreno" 
                                 placeholder="Informações sobre curativos" 
                                 class="w-full"
+                                maxlength="100"
                             />
                         </div>
                     </div>
@@ -203,7 +205,7 @@ const removeAntimicrobiano = (index) => {
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="curativo_piccline">Curativo</label>
-                                <InputText id="curativo_piccline" v-model="exameFisicoStore.exameFisico.curativo_piccline" placeholder="Nome do curativo" class="w-full" />
+                                <InputText id="curativo_piccline" v-model="exameFisicoStore.exameFisico.curativo_piccline" placeholder="Nome do curativo" class="w-full" maxlength="100" />
                             </div>
                         </div>
                     </div>
@@ -219,7 +221,7 @@ const removeAntimicrobiano = (index) => {
                         <div v-if="exameFisicoStore.exameFisico.acesso_central" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600">
                             <div class="flex flex-col gap-2">
                                 <label for="local_central">Local</label>
-                                <InputText id="local_central" v-model="exameFisicoStore.exameFisico.local_central" placeholder="Local anatômico" class="w-full" />
+                                <InputText id="local_central" v-model="exameFisicoStore.exameFisico.local_central" placeholder="Local anatômico" class="w-full" maxlength="100" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_imp_central">Data Implantação</label>
@@ -231,7 +233,7 @@ const removeAntimicrobiano = (index) => {
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="curativo_central">Curativo</label>
-                                <InputText id="curativo_central" v-model="exameFisicoStore.exameFisico.curativo_central" placeholder="Nome do curativo" class="w-full" />
+                                <InputText id="curativo_central" v-model="exameFisicoStore.exameFisico.curativo_central" placeholder="Nome do curativo" class="w-full" maxlength="100"/>
                             </div>
                         </div>
                     </div>
@@ -247,7 +249,7 @@ const removeAntimicrobiano = (index) => {
                         <div v-if="exameFisicoStore.exameFisico.acesso_periferico" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-red-600">
                             <div class="flex flex-col gap-2">
                                 <label for="local_periferico">Local</label>
-                                <InputText id="local_periferico" v-model="exameFisicoStore.exameFisico.local_periferico" placeholder="Local anatômico" class="w-full" />
+                                <InputText id="local_periferico" v-model="exameFisicoStore.exameFisico.local_periferico" placeholder="Local anatômico" class="w-full" maxlength="100" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_troca_periferico">Data Última Troca</label>
@@ -255,7 +257,7 @@ const removeAntimicrobiano = (index) => {
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="curativo_periferico">Curativo</label>
-                                <InputText id="curativo_periferico" v-model="exameFisicoStore.exameFisico.curativo_periferico" placeholder="Nome do curativo" class="w-full" />
+                                <InputText id="curativo_periferico" v-model="exameFisicoStore.exameFisico.curativo_periferico" placeholder="Nome do curativo" class="w-full" maxlength="100"/>
                             </div>
                         </div>
                     </div>
@@ -275,7 +277,7 @@ const removeAntimicrobiano = (index) => {
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="curativo_hipo">Curativo</label>
-                                <InputText id="curativo_hipo" v-model="exameFisicoStore.exameFisico.curativo_hipo" placeholder="Nome do curativo" class="w-full" />
+                                <InputText id="curativo_hipo" v-model="exameFisicoStore.exameFisico.curativo_hipo" placeholder="Nome do curativo" class="w-full" maxlength="100"/>
                             </div>
                         </div>
                     </div>
@@ -291,7 +293,7 @@ const removeAntimicrobiano = (index) => {
                         <div v-if="exameFisicoStore.exameFisico.outros_acessos" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-red-600">
                              <div class="flex flex-col gap-2">
                                 <label for="nome_outros_acessos">Nome/Tipo</label>
-                                <InputText id="nome_outros_acessos" v-model="exameFisicoStore.exameFisico.nome_outros_acessos" placeholder="Descreva o acesso" class="w-full" />
+                                <InputText id="nome_outros_acessos" v-model="exameFisicoStore.exameFisico.nome_outros_acessos" placeholder="Descreva o acesso" class="w-full" maxlength="100"/>
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label for="data_outro_acesso">Data Implantação</label>
@@ -336,6 +338,7 @@ const removeAntimicrobiano = (index) => {
                                 v-model="item.nome_antimicrobiano" 
                                 placeholder="Nome da medicação" 
                                 class="w-full"
+                                maxlength="100"
                             />
                         </div>
                         <div class="flex flex-col gap-2 w-full md:w-1/4">

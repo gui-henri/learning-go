@@ -146,6 +146,7 @@ const removeResponsavel = (index) => {
                             v-model="responsavel.parentesco" 
                             placeholder="Pai, mãe..." 
                             class="w-full"
+                            maxlength="20"
                         />
                     </div>
                 
@@ -156,6 +157,7 @@ const removeResponsavel = (index) => {
                             v-model="responsavel.email" 
                             placeholder="resp@email.com" 
                             class="w-full"
+                            maxlength="100"
                         />
                     </div>
                 </div>

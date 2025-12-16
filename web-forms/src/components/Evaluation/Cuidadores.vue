@@ -93,6 +93,7 @@ const handleSave = async () => {
                         v-model="cuidadorStore.cuidadores.nome_cuidador" 
                         placeholder="Nome completo" 
                         class="w-full"
+                        maxlength="100"
                     />
                 </div>
                 <div class="flex flex-col gap-2 w-full md:w-1/4">
@@ -135,6 +136,7 @@ const handleSave = async () => {
                         v-model="cuidadorStore.cuidadores.obs_treinamento" 
                         placeholder="Descreva a necessidade..." 
                         class="w-full"
+                        maxlenght="200"
                     />
                 </div>
             </div>

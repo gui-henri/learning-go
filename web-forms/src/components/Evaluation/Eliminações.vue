@@ -99,14 +99,14 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                         class="w-full"
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/8">
+                <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="via_evacuacao_fisiologica">Via Fisiológica?</label>
                     <InputSwitch 
                         id="via_evacuacao_fisiologica" 
                         v-model="eliminacoesStore.eliminacoes.via_evacuacao_fisiologica" 
                     />
                 </div>
-                <div class="flex flex-col gap-2 w-full md:w-1/3">
+                <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="via_evacuacao_estomia">Usa Estomia?</label>
                     <InputSwitch 
                         id="via_evacuacao_estomia" 
