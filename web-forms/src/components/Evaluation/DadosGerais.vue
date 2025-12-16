@@ -68,7 +68,7 @@ const handleSave = async () => {
     } else {
         await AvaliationService.appendToAvaliation(
             avaliationFormStore.avaliationId, 
-            dadosGeraisStore.dadosGerais
+            payload
         )
     }
 
