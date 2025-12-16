@@ -22,7 +22,7 @@ export const exameFisicoModel = {
 }
 
 export const useExameFisicoStore = defineStore('exameFisico', () => {
-    const exameFisico = ref(exameFisicoModel)
+    const exameFisico = ref(JSON.parse(JSON.stringify(exameFisicoModel)))
 
     function adicionarDreno() {
         exameFisico.value.drenos.push({ ...drenosBase })
@@ -43,12 +43,18 @@ export const useExameFisicoStore = defineStore('exameFisico', () => {
             exameFisico.value.antimicrobianos.splice(index, 1)
         }
     }
+
+    function reset() {
+        exameFisico.value = JSON.parse(JSON.stringify(exameFisicoModel))
+    }
+
     return {
         exameFisico,
         adicionarAntimicrobiano,
         removerAntimicrobiano,
         adicionarDreno,
-        removerDreno
+        removerDreno,
+        reset
     }
 }, {
     persist: true

@@ -56,9 +56,40 @@ async function submitFormData() {
       observacoes: obs.observacoes
   };
   
-  await AvaliationService.submitFormData(payload);
+  try {
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload);
+    } else {
+        await AvaliationService.appendToAvaliation(avaliationFormStore.avaliationId, payload)
+    }
 
-  
+    dadosGeraisStore.reset();
+    enderecoStore.reset();
+    contatoStore.reset();
+    cuidadoresStore.reset();
+    segurancaPacienteStore.reset();
+    historicoClinicoStore.reset();
+    exameFisicoStore.reset();
+    cardioRespiratorioStore.reset();
+    nutricionalStore.reset();
+    eliminacoes.reset();
+    condicoesPele.reset();
+    score.reset();
+    obs.reset();
+    avaliationFormStore.reset();
+
+    setTimeout(() => {
+        const self = document.getElementById("dados-gerais");
+        if (self) {
+            self.scrollIntoView({ 
+                behavior: 'instant', 
+                block: 'start',
+            });
+        }
+    }, 0);
+  } catch (error) {
+    console.error('Erro ao enviar o formulário:', error);
+  }
 }
 
 function setStep(index) {

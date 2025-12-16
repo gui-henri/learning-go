@@ -41,7 +41,7 @@ export const useEliminacoesStore = defineStore('eliminacoes', {
         }
     }),
     actions: {
-        clean() {
+        reset() {
             this.eliminacoes = {
                 funcao_intestinal: null,
                 via_evacuacao_fisiologica: false,

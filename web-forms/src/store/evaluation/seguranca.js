@@ -13,7 +13,7 @@ export const segurancaModel = {
 }
 
 export const useSegurancaStore = defineStore('seguranca', () => {
-    const seguranca = ref(segurancaModel)
+    const seguranca = ref(JSON.parse(JSON.stringify(segurancaModel)))
 
     function adicionarAlergia() {
         seguranca.value.alergias.push({ ...alergiaBase })
@@ -25,10 +25,15 @@ export const useSegurancaStore = defineStore('seguranca', () => {
         }
     }
 
+    function reset() {
+        seguranca.value = JSON.parse(JSON.stringify(segurancaModel))
+    }
+
     return {
         seguranca,
         adicionarAlergia,
-        removerAlergia
+        removerAlergia,
+        reset
     }
 }, {
     persist: true

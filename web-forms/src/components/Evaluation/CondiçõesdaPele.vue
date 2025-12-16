@@ -40,26 +40,30 @@ const handleSave = async () => {
     const payload = {
         condicoesPele: condicoesPeleStore.condicoesPele,
     };
-    if (avaliationFormStore.avaliationId === null) {
-        await AvaliationService.submitFormData(payload)
-    } else {
-        await AvaliationService.appendToAvaliation(
-            avaliationFormStore.avaliationId, 
-            payload
-        )
-    }
-
-    internalIndex.value = null;
-    setTimeout(() => {
-        const self = document.getElementById("condicoesPele");
-        if (self) {
-            self.scrollIntoView({ 
-                behavior: 'instant', 
-                block: 'start',
-            });
+    try {
+        if (avaliationFormStore.avaliationId === null) {
+            await AvaliationService.submitFormData(payload)
+        } else {
+            await AvaliationService.appendToAvaliation(
+                avaliationFormStore.avaliationId, 
+                payload
+            )
         }
-    }, 0);
-    nextStep()
+
+        internalIndex.value = null;
+        setTimeout(() => {
+            const self = document.getElementById("condicoesPele");
+            if (self) {
+                self.scrollIntoView({ 
+                    behavior: 'instant', 
+                    block: 'start',
+                });
+            }
+        }, 0);
+        nextStep()
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 </script>

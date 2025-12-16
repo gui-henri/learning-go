@@ -9,10 +9,15 @@ export const historicoModel = {
 
 export const useHistoricoStore = defineStore('historico', () => {
     
-    const historico = ref(historicoModel)
+    const historico = ref(JSON.parse(JSON.stringify(historicoModel)))
+
+    function reset() {
+        historico.value = JSON.parse(JSON.stringify(historicoModel))
+    }
 
     return {
         historico,
+        reset
     }
 }, {
     persist: true

@@ -15,7 +15,7 @@ export const useCondicoesPeleStore = defineStore('condicoesPele', () => {
     const condicoesPele = ref({
         condicao_cutanea_mucosa: null,
         realiza_curativo: false,
-        curativos: [] 
+        curativos: []
     });
 
     function adicionarCurativo() {
@@ -29,10 +29,19 @@ export const useCondicoesPeleStore = defineStore('condicoesPele', () => {
         }
     }
 
+    function reset() {
+        condicoesPele.value = JSON.parse(JSON.stringify({
+            condicao_cutanea_mucosa: null,
+            realiza_curativo: false,
+            curativos: []
+        }))
+    }
+
     return {
         condicoesPele,
         adicionarCurativo,
-        removerCurativo
+        removerCurativo,
+        reset
     };
 }, {
     persist: true

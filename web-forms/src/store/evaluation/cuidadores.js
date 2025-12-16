@@ -16,10 +16,14 @@ export const cuidadoresModel = {
 
 export const useCuidadoresStore = defineStore('cuidadores', () => {
 
-    const cuidadores = ref(cuidadoresModel)
+    const cuidadores = ref(JSON.parse(JSON.stringify(cuidadoresModel)))
+    function reset() {
+        cuidadores.value = JSON.parse(JSON.stringify(cuidadoresModel))
+    }
 
     return {
         cuidadores,
+        reset
     }
 }, {
     persist: true

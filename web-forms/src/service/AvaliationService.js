@@ -55,8 +55,7 @@ export const AvaliationService = {
             alert('Formulário salvo com sucesso!');
 
         } catch (error) {
-            console.error('Failed to save form:', error);
-            alert('Erro ao salvar o formulário.');
+            throw error;
         }
     },
     async appendToAvaliation(id, payload) {
@@ -77,11 +76,10 @@ export const AvaliationService = {
 
             const result = await response.json();
             console.log('Success:', result);
-            alert('Formulário salvo com sucesso!');
-
         } catch (error) {
             console.error('Failed to save form:', error);
             alert('Erro ao salvar o formulário.');
+            throw error;
         }
     }
 }
