@@ -23,9 +23,14 @@ export const useAvaliationForm = defineStore('avaliationForm', () => {
     const avaliationForm = ref(avaliationFormStoreModel)
     const avaliationId = ref(null)
 
+    function reset() {
+        avaliationId.value = null
+    }
+
     return {
         avaliationForm,
-        avaliationId
+        avaliationId,
+        reset
     }
 }, {
     persist: true

@@ -14,10 +14,15 @@ export const enderecoModel = {
 
 export const useEnderecoStore = defineStore('endereco', () => {
     
-    const endereco = ref(enderecoModel)
+    const endereco = ref(JSON.parse(JSON.stringify(enderecoModel)))
+
+    function reset() {
+        endereco.value = JSON.parse(JSON.stringify(enderecoModel))
+    }
 
     return {
-        endereco    
+        endereco,
+        reset
     }
 }, {
     persist: true

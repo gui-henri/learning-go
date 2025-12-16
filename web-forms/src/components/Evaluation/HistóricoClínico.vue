@@ -28,26 +28,30 @@ const handleSave = async () => {
     const payload = {
         historicoClinico: historicoStore.historico,
     };
-    if (avaliationFormStore.avaliationId === null) {
-        await AvaliationService.submitFormData(payload)
-    } else {
-        await AvaliationService.appendToAvaliation(
-            avaliationFormStore.avaliationId, 
-            payload
-        )
-    }
-    internalIndex.value = null;
-    
-    setTimeout(() => {
-        const self = document.getElementById("historico");
-        if (self) {
-            self.scrollIntoView({ 
-                behavior: 'instant', 
-                block: 'start',
-            });
+    try {
+        if (avaliationFormStore.avaliationId === null) {
+            await AvaliationService.submitFormData(payload)
+        } else {
+            await AvaliationService.appendToAvaliation(
+                avaliationFormStore.avaliationId, 
+                payload
+            )
         }
-    }, 0);
-    nextStep('next-step');
+        internalIndex.value = null;
+        
+        setTimeout(() => {
+            const self = document.getElementById("historico");
+            if (self) {
+                self.scrollIntoView({ 
+                    behavior: 'instant', 
+                    block: 'start',
+                });
+            }
+        }, 0);
+        nextStep('next-step');
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 </script>

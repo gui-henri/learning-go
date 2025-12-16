@@ -32,10 +32,15 @@ export const useContatoStore = defineStore('contato', () => {
         }
     }
 
+    function reset() {
+        contato.value = JSON.parse(JSON.stringify(contatoModel))
+    }
+
     return {
         contato,
         adicionarResponsavel,
-        removerResponsavel
+        removerResponsavel,
+        reset
     }
 }, {
     persist: true

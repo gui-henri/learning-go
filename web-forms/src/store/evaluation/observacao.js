@@ -8,7 +8,7 @@ export const useObservacoesStore = defineStore('observacoes', {
         }
     }),
     actions: {
-        clean() {
+        reset() {
             this.observacoes = {
                 texto: ''
             };

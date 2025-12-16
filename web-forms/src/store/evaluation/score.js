@@ -36,7 +36,7 @@ export const useScoreStore = defineStore('score', {
         }
     }),
     actions: {
-        clean() {
+        reset() {
             this.score = {
                 diagnostico_primario: '',
                 diagnostico_secundario: '',

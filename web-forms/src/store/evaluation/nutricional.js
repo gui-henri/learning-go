@@ -27,7 +27,7 @@ export const useNutricionalStore = defineStore('nutricional', {
         }
     }),
     actions: {
-        clean() {
+        reset() {
             this.nutricional = {
                 alimentacao_oral: false,
                 alimentacao_enteral: false,

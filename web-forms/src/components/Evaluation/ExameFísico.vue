@@ -33,26 +33,30 @@ const handleSave = async () => {
     const payload = {
         exameFisico: exameFisicoStore.exameFisico,
     };
-    if (avaliationFormStore.avaliationId === null) {
-        await AvaliationService.submitFormData(payload)
-    } else {
-        await AvaliationService.appendToAvaliation(
-            avaliationFormStore.avaliationId, 
-            payload
-        )
-    }
-    internalIndex.value = null;
-    
-    setTimeout(() => {
-        const self = document.getElementById("exame-fisico");
-        if (self) {
-            self.scrollIntoView({ 
-                behavior: 'instant', 
-                block: 'start',
-            });
+    try {
+        if (avaliationFormStore.avaliationId === null) {
+            await AvaliationService.submitFormData(payload)
+        } else {
+            await AvaliationService.appendToAvaliation(
+                avaliationFormStore.avaliationId, 
+                payload
+            )
         }
-    }, 0);
-    nextStep('next-step');
+        internalIndex.value = null;
+        
+        setTimeout(() => {
+            const self = document.getElementById("exame-fisico");
+            if (self) {
+                self.scrollIntoView({ 
+                    behavior: 'instant', 
+                    block: 'start',
+                });
+            }
+        }, 0);
+        nextStep('next-step');
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 const addAntimicrobiano = () => {
