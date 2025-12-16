@@ -1,8 +1,11 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { useHistoricoStore } from '@/store/evaluation/historico';
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
 
+const avaliationFormStore = useAvaliationForm();
 const historicoStore = useHistoricoStore();
 
 const props = defineProps({
@@ -21,7 +24,18 @@ const isFilled = computed(() => {
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+    const payload = {
+        historicoClinico: historicoStore.historico,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
     internalIndex.value = null;
     
     setTimeout(() => {

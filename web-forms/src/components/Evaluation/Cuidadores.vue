@@ -1,9 +1,12 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { useCuidadoresStore } from '@/store/evaluation/cuidadores';
 import { InputMask } from 'primevue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
 
+const avaliationFormStore = useAvaliationForm();
 const cuidadorStore = useCuidadoresStore();
 
 const props = defineProps({
@@ -27,7 +30,19 @@ const isFilled = computed(() => {
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+    const payload = {
+        cuidadores: cuidadorStore.cuidadores,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
+
     internalIndex.value = null;
     
     setTimeout(() => {

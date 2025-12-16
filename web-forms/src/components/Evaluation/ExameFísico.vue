@@ -1,8 +1,13 @@
 <script setup>
-import { ref, computed} from 'vue';
+import { computed} from 'vue';
 import { useExameFisicoStore } from '@/store/evaluation/exameFisico';
 import { InputMask } from 'primevue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
+
+const avaliationFormStore = useAvaliationForm();
+const exameFisicoStore = useExameFisicoStore();
 
 const props = defineProps({
   formFields: {
@@ -18,15 +23,24 @@ const props = defineProps({
 
 const emit = defineEmits(['next-step']);
 
-const exameFisicoStore = useExameFisicoStore();
-
 const isFilled = computed(() => {
     return !!exameFisicoStore.exameFisico.estado_geral
 });
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+    const payload = {
+        exameFisico: exameFisicoStore.exameFisico,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
     internalIndex.value = null;
     
     setTimeout(() => {

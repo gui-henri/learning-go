@@ -2,7 +2,10 @@
 import { useEnderecoStore } from '@/store/evaluation/endereco';
 import { useStepAccordion } from "@/composable/useStepAccordion";
 import { computed, ref, watch } from 'vue';
+import { AvaliationService } from '@/service/AvaliationService';
+import { useAvaliationForm } from "@/store/evaluation/form";
 
+const avaliationFormStore = useAvaliationForm();
 const enderecoStore = useEnderecoStore();
 const isLoadingCep = ref(false);
 
@@ -57,7 +60,19 @@ watch(() => enderecoStore.endereco.cep, (novoCep) => {
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+    const payload = {
+        endereco: enderecoStore.endereco,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
+
     internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("endereco");

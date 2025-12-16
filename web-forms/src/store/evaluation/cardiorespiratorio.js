@@ -32,8 +32,13 @@ export const respiratorioModel = {
 
 export const useRespiratorioStore = defineStore('respiratorio', () => {
     const respiratorio = ref(respiratorioModel)
+    function resetRespiratorio() {
+        respiratorio.value = JSON.parse(JSON.stringify(respiratorioModel))
+    }
+
     return {
         respiratorio,
+        resetRespiratorio,
     }
 }, {
     persist: true

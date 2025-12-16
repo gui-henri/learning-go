@@ -51,7 +51,7 @@ export const AvaliationService = {
             const result = await response.json();
             avaliationForm.avaliationId = result.id;
             console.log('Success:', result);
-            
+
             alert('Formulário salvo com sucesso!');
 
         } catch (error) {
@@ -59,7 +59,7 @@ export const AvaliationService = {
             alert('Erro ao salvar o formulário.');
         }
     },
-    async appendToAvaliation(id, payload){
+    async appendToAvaliation(id, payload) {
         try {
             console.log(JSON.stringify(payload))
 

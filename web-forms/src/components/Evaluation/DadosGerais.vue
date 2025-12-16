@@ -1,9 +1,9 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
-import { useAvaliationForm } from "@/store/evaluation/form";
 import { useStepAccordion } from "@/composable/useStepAccordion";
 import { AvaliationService } from '@/service/AvaliationService';
+import { useAvaliationForm } from "@/store/evaluation/form";
 
 const avaliationFormStore = useAvaliationForm();
 

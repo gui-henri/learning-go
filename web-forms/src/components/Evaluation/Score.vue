@@ -2,8 +2,12 @@
             import { ref, computed } from 'vue';
             import { useScoreStore } from '@/store/evaluation/score';
             import { useStepAccordion } from "@/composable/useStepAccordion";
+            import { useAvaliationForm } from "@/store/evaluation/form";
+            import { AvaliationService } from '@/service/AvaliationService';
 
+            const avaliationFormStore = useAvaliationForm();
             const scoreStore = useScoreStore();
+            
             const emit = defineEmits(['next-step']);
 
             const getPoints = (value, options) => {
@@ -241,7 +245,19 @@
 
             const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-            const handleSave = () => {
+            const handleSave = async () => {
+                const payload = {
+                    score: scoreStore.score,
+                };
+                if (avaliationFormStore.avaliationId === null) {
+                    await AvaliationService.submitFormData(payload)
+                } else {
+                    await AvaliationService.appendToAvaliation(
+                        avaliationFormStore.avaliationId, 
+                        payload
+                    )
+                }
+                
                 internalIndex.value = null;
                 setTimeout(() => {
                     const self = document.getElementById("score");

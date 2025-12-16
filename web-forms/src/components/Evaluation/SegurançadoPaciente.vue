@@ -1,8 +1,11 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { useSegurancaStore } from '@/store/evaluation/seguranca';
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
 
+const avaliationFormStore = useAvaliationForm();
 const segurancaStore = useSegurancaStore();
 
 const props = defineProps({
@@ -37,7 +40,20 @@ const isFilled = computed(() => {
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+
+    const payload = {
+        seguranca: segurancaStore.seguranca,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
+
     internalIndex.value = null;
     
     setTimeout(() => {

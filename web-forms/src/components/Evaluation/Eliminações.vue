@@ -1,8 +1,13 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useEliminacoesStore } from '@/store/evaluation/eliminacoes';
 import { InputMask } from 'primevue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
+
+const avaliationFormStore = useAvaliationForm();
+const eliminacoesStore = useEliminacoesStore();
 
 const props = defineProps({
   formFields: {
@@ -18,15 +23,25 @@ const props = defineProps({
 
 const emit = defineEmits(['next-step']);
 
-const eliminacoesStore = useEliminacoesStore();
-
 const isFilled = computed(() => {
     return !!eliminacoesStore.eliminacoes.funcao_intestinal;
 });
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+    const payload = {
+        eliminacoes: eliminacoesStore.eliminacoes,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
+    
     internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("eliminacoes");

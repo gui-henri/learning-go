@@ -2,9 +2,11 @@
 import { computed } from 'vue';
 import { useContatoStore } from '@/store/evaluation/contato';
 import { useStepAccordion } from "@/composable/useStepAccordion";
-
 import { InputMask } from 'primevue';
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
 
+const avaliationFormStore = useAvaliationForm();
 const contatoStore = useContatoStore();
 
 const props = defineProps({
@@ -28,7 +30,20 @@ const isFilled = computed(() => {
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+
+    const payload = {
+        contato: contatoStore.contato,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
+
     internalIndex.value = null;
     
     setTimeout(() => {

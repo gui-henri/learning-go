@@ -3,10 +3,13 @@ import { ref, computed, watch } from 'vue';
 import { useNutricionalStore } from '@/store/evaluation/nutricional';
 import { InputMask } from 'primevue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
+
+const avaliationFormStore = useAvaliationForm();
+const nutricionalStore = useNutricionalStore();
 
 const emit = defineEmits(['next-step']);
-
-const nutricionalStore = useNutricionalStore();
 
 const props = defineProps({
   formFields: {
@@ -19,35 +22,6 @@ const props = defineProps({
     default: false
   }
 })
-
-const viaEnteralOpts = ref([
-    { name: 'Gastrostomia', code: 'gastrostomia' },
-    { name: 'Jejunostomia', code: 'jejunostomia' },
-    { name: 'Nasoenteral', code: 'nasoenteral' }
-]);
-
-const viaParenteralOpts = ref([
-    { name: 'Central', code: 'central' },
-    { name: 'Periférica', code: 'periferica' }
-]);
-
-const adaptadorSondaOpts = ref([
-    { name: 'Torneirinha 3 vias', code: 'torneirinha_3_vias' },
-    { name: 'Polifix 2 vias', code: 'polifix_2_vias' },
-    { name: 'Outros', code: 'outros' }
-]);
-
-const tipoDietaOpts = ref([
-    { name: 'Artesanal', code: 'artesanal' },
-    { name: 'Industrializada', code: 'industrializada' },
-    { name: 'Mista', code: 'mista' }
-]);
-
-const formaAdministracaoOpts = ref([
-    { name: 'Gravitacional', code: 'gravitacional' },
-    { name: 'Bomba de Infusão', code: 'bomba_infusao' },
-]);
-
 
 const isFilled = computed(() => {
     return !!nutricionalStore.nutricional.alimentacao_oral;
@@ -63,7 +37,19 @@ watch(() => nutricionalStore.nutricional.via_enteral, (novoValor) => {
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+    const payload = {
+        nutricional: nutricionalStore.nutricional,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
+
     internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("nutricional");

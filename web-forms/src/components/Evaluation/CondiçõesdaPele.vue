@@ -2,10 +2,13 @@
 import { ref, computed } from 'vue';
 import { useCondicoesPeleStore } from '@/store/evaluation/condicoesPele';
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
+
+const avaliationFormStore = useAvaliationForm();
+const condicoesPeleStore = useCondicoesPeleStore();
 
 const emit = defineEmits(['next-step']);
-
-const condicoesPeleStore = useCondicoesPeleStore();
 
 const props = defineProps({
   isActive: {
@@ -33,7 +36,19 @@ const removeCurativo = (index) => {
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-const handleSave = () => {
+const handleSave = async () => {
+    const payload = {
+        condicoesPele: condicoesPeleStore.condicoesPele,
+    };
+    if (avaliationFormStore.avaliationId === null) {
+        await AvaliationService.submitFormData(payload)
+    } else {
+        await AvaliationService.appendToAvaliation(
+            avaliationFormStore.avaliationId, 
+            payload
+        )
+    }
+
     internalIndex.value = null;
     setTimeout(() => {
         const self = document.getElementById("condicoesPele");

@@ -56,7 +56,9 @@ async function submitFormData() {
       observacoes: obs.observacoes
   };
   
-  await AvaliationService.submitFormData(payload)
+  await AvaliationService.submitFormData(payload);
+
+  
 }
 
 function setStep(index) {
@@ -89,7 +91,7 @@ function setStep(index) {
             <CondiçõesdaPele :is-active="activeStep === 10" :formFields="formData.condicoes_pele" @next-step="setStep(11)"/>
             <Score :is-active="activeStep === 11" :formFields="formData.avaliacao" @next-step="setStep(12)"/>
             <Observações :is-active="activeStep === 12" @next-step="setStep(13)"/>
-            <Button @click="submitFormData">Enviar</Button>
+            <Button @click="submitFormData">Finalizar</Button>
         </div>
         <div v-else>
             <p>Carregando formulário...</p>

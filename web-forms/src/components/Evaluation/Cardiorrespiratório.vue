@@ -2,7 +2,10 @@
     import { ref, computed } from 'vue';
     import { useRespiratorioStore } from '@/store/evaluation/cardiorespiratorio';
     import { useStepAccordion } from "@/composable/useStepAccordion";
-
+    import { useAvaliationForm } from "@/store/evaluation/form";
+    import { AvaliationService } from '@/service/AvaliationService';
+    
+    const avaliationFormStore = useAvaliationForm();
     const respiratorioStore = useRespiratorioStore();
 
     const props = defineProps({
@@ -16,31 +19,6 @@
             default: false
         }
     })
-
-    const padraoRespiratorioOpts = ref([
-        { name: 'Eupnéico', code: 'eupneico' },
-        { name: 'Dispnéico', code: 'dispneico' },
-        { name: 'Bradipnéico', code: 'bradipneico' },
-        { name: 'Taquipnéico', code: 'taquipneico' }
-    ]);
-
-    const viaAereaOpts = ref([
-        { name: 'Fisiológica', code: 'fisiologica' },
-        { name: 'Orotraqueal', code: 'orotraqueal' },
-        { name: 'Traqueóstomo', code: 'traqueostomo' }
-    ]);
-
-    const suporteVentilatorioOpts = ref([
-        { name: 'Espontânea', code: 'espontanea' },
-        { name: 'Ventilação Não Invasiva (VNI)', code: 'modo_vni' },
-        { name: 'Assistência Ventilatória Mecânica', code: 'modo_avm' }
-    ]);
-
-    const modoVniOpts = ref([
-        { name: 'CPAP Simples', code: 'cpap_simples' },
-        { name: 'CPAP Automático', code: 'cpap_automatico' },
-        { name: 'BiPAP', code: 'bipap' }
-    ]);
 
     const frequenciaVniOpts = ref([
         { name: 'Contínuo', code: 'continuo' },
@@ -83,7 +61,19 @@
 
     const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-    const handleSave = () => {
+    const handleSave = async () => {
+        const payload = {
+            cardioRespiratorio: respiratorioStore.respiratorio,
+        };
+        if (avaliationFormStore.avaliationId === null) {
+            await AvaliationService.submitFormData(payload)
+        } else {
+            await AvaliationService.appendToAvaliation(
+                avaliationFormStore.avaliationId, 
+                payload
+            )
+        }
+
         internalIndex.value = null;
         setTimeout(() => {
             const self = document.getElementById("cardiorrespiratorio");

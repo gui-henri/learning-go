@@ -14,19 +14,19 @@ type AvaliacaoSchema struct {
 }
 
 type AvaliacaoRequest struct {
-	DadosGerais        DadosGerais        `json:"dadosGerais"`
-	Endereco           Endereco           `json:"endereco"`
-	Contato            Contato            `json:"contato"`
-	Cuidadores         Cuidadores         `json:"cuidadores"`
-	Seguranca          Seguranca          `json:"seguranca"`
-	HistoricoClinico   Historico          `json:"historicoClinico"`
-	ExameFisico        ExameFisico        `json:"exameFisico"`
-	CardioRespiratorio CardioRespiratorio `json:"cardioRespiratorio"`
-	Nutricional        Nutricional        `json:"nutricional"`
-	Eliminacoes        Eliminacoes        `json:"eliminacoes"`
-	CondicoesPele      CondicoesPele      `json:"condicoesPele"`
-	Score              Score              `json:"score"`
-	Observacoes        Observacoes        `json:"observacoes"`
+	DadosGerais        *DadosGerais        `json:"dadosGerais,omitempty"`
+	Endereco           *Endereco           `json:"endereco,omitempty"`
+	Contato            *Contato            `json:"contato,omitempty"`
+	Cuidadores         *Cuidadores         `json:"cuidadores,omitempty"`
+	Seguranca          *Seguranca          `json:"seguranca,omitempty"`
+	HistoricoClinico   *Historico          `json:"historicoClinico,omitempty"`
+	ExameFisico        *ExameFisico        `json:"exameFisico,omitempty"`
+	CardioRespiratorio *CardioRespiratorio `json:"cardioRespiratorio,omitempty"`
+	Nutricional        *Nutricional        `json:"nutricional,omitempty"`
+	Eliminacoes        *Eliminacoes        `json:"eliminacoes,omitempty"`
+	CondicoesPele      *CondicoesPele      `json:"condicoesPele,omitempty"`
+	Score              *Score              `json:"score,omitempty"`
+	Observacoes        *Observacoes        `json:"observacoes,omitempty"`
 }
 
 type AvaliacaoListDto struct {

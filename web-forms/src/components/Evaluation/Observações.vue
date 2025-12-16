@@ -2,6 +2,11 @@
 import { useObservacoesStore } from '@/store/evaluation/observacao';
 import { computed } from 'vue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
+import { useAvaliationForm } from "@/store/evaluation/form";
+import { AvaliationService } from '@/service/AvaliationService';
+
+const avaliationFormStore = useAvaliationForm();
+const observacoesStore = useObservacoesStore();
 
 const props = defineProps({
   isActive: {
@@ -10,12 +15,22 @@ const props = defineProps({
   }
 })
 
-const observacoesStore = useObservacoesStore();
 const emit = defineEmits(['next-step']);
 
 const { internalIndex, nextStep } = useStepAccordion(props, emit);
 
-    const handleSave = () => {
+    const handleSave = async () => {
+        const payload = {
+            observacoes: observacoesStore.observacoes,
+        };
+        if (avaliationFormStore.avaliationId === null) {
+            await AvaliationService.submitFormData(payload)
+        } else {
+            await AvaliationService.appendToAvaliation(
+                avaliationFormStore.avaliationId, 
+                payload
+            )
+        }
         internalIndex.value = null;
         setTimeout(() => {
             const self = document.getElementById("observacoes");
