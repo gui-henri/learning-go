@@ -158,7 +158,7 @@ const searchEstado = (event) => {
             <div class="flex flex-col gap-2 w-full md:w-1/4">
                 <label for="cep">CEP</label>
                 <div class="p-input-icon-right w-full">
-                    <i v-if="isLoadingCep" class="pi pi-spin pi-spinner" />
+                    <i v-show="isLoadingCep" class="pi pi-spin pi-spinner" />
                     <InputMask 
                         id="cep" 
                         v-model="enderecoStore.endereco.cep" 

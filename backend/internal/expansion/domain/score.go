@@ -9,7 +9,7 @@ type Score struct {
 	AspiracaoTraqueo        string `json:"aspiracao_traqueo"`
 	VentilacaoMecanica      string `json:"ventilacao_mecanica"`
 	MedicacaoParenteral     string `json:"medicacao_parenteral"`
-	Atividades              bool   `json:"atividades"`
+	AtividadesVidaDiaria    bool   `json:"atividades_vida_diaria"`
 	Banho                   bool   `json:"banho"`
 	Vestir                  bool   `json:"vestir"`
 	HigienePessoal          bool   `json:"higiene_pessoal"`
@@ -30,24 +30,24 @@ type Score struct {
 func GetAvaliacaoFormOptions() FormMetadata {
 	return FormMetadata{
 		"freq_12h": []FieldOption{
-			{Label: "Não utiliza", Value: "nao_utiliza", Points: 0},
-			{Label: "Até 12 horas por dia", Value: "ate_12h", Points: 0},
-			{Label: "Mais de 12 horas por dia", Value: "mais_12h", Points: 0},
+			{Label: "Não utiliza", Value: "nao_utiliza"},
+			{Label: "Até 12 horas por dia", Value: "ate_12h"},
+			{Label: "Mais de 12 horas por dia", Value: "mais_12h"},
 		},
 		"freq_5x": []FieldOption{
-			{Label: "Não utiliza", Value: "nao_utiliza", Points: 0},
-			{Label: "Até 5x por dia", Value: "ate_5x", Points: 0},
-			{Label: "Mais que 5x por dia", Value: "mais_5x", Points: 0},
+			{Label: "Não utiliza", Value: "nao_utiliza"},
+			{Label: "Até 5x por dia", Value: "ate_5x"},
+			{Label: "Mais que 5x por dia", Value: "mais_5x"},
 		},
 		"freq_4x": []FieldOption{
-			{Label: "Não utiliza", Value: "nao_utiliza", Points: 0},
-			{Label: "Até 4x por dia", Value: "ate_4x", Points: 0},
-			{Label: "Mais que 4x por dia", Value: "mais_4x", Points: 0},
+			{Label: "Não utiliza", Value: "nao_utiliza"},
+			{Label: "Até 4x por dia", Value: "ate_4x"},
+			{Label: "Mais que 4x por dia", Value: "mais_4x"},
 		},
 
 		"katz": []FieldOption{
-			{Label: "Independente (Sem ajuda)", Value: "independente", Points: 1},
-			{Label: "Com ajuda / Dependente", Value: "dependente", Points: 0},
+			{Label: "Independente (Sem ajuda)", Value: "independente"},
+			{Label: "Com ajuda / Dependente", Value: "dependente"},
 		},
 
 		"estado_nutricional": []FieldOption{
@@ -103,5 +103,86 @@ func GetAvaliacaoFormOptions() FormMetadata {
 			{Label: "Confuso/Desorientado", Value: "confuso", Points: 1},
 			{Label: "Comatoso", Value: "comatoso", Points: 2},
 		},
+	}
+}
+
+func CalcularScoreKatz(score Score) int {
+	total := 0
+
+	values := []bool{
+		score.Banho,
+		score.Vestir,
+		score.HigienePessoal,
+		score.Transferencia,
+		score.Continencia,
+		score.Alimentacao,
+	}
+
+	for _, v := range values {
+		if v == true {
+			total++
+		}
+	}
+
+	return total
+}
+
+func KatzParaPontosNEAD(scoreKatz int) int {
+	switch {
+	case scoreKatz < 2:
+		return 2
+	case scoreKatz == 3 || scoreKatz == 4:
+		return 1
+	default:
+		return 0
+	}
+}
+
+func CalcularPontosNEADBase(score Score, options FormMetadata) int {
+	total := 0
+
+	mapper := map[string]string{
+		"estado_nutricional":    score.EstadoNutricional,
+		"via_alimentacao":       score.ViaAlimentacaoMedicacao,
+		"internacoes":           score.InternacoesUltimoAno,
+		"aspiracao_vias_aereas": score.AspiracaoViasAereas,
+		"lesoes":                score.Lesoes,
+		"via_medicacoes":        score.ViaMedicacoes,
+		"uso_oxigenoterapia":    score.UsoOxigenoterapia,
+		"nivel_consciencia":     score.NivelConsciencia,
+	}
+
+	for field, value := range mapper {
+		opts := options[field]
+		for _, opt := range opts {
+			if opt.Value == value {
+				total += opt.Points
+				break
+			}
+		}
+	}
+
+	return total
+}
+
+type AvaliacaoResultado struct {
+	ScoreKatz       int `json:"score_katz"`
+	PontosKatzNEAD  int `json:"pontos_katz_nead"`
+	PontosNEADBase  int `json:"pontos_nead_base"`
+	PontosNEADFinal int `json:"pontos_nead_final"`
+}
+
+func CalcularResultado(score Score) AvaliacaoResultado {
+	options := GetAvaliacaoFormOptions()
+
+	scoreKatz := CalcularScoreKatz(score)
+	pontosKatzNEAD := KatzParaPontosNEAD(scoreKatz)
+	pontosNEADBase := CalcularPontosNEADBase(score, options)
+
+	return AvaliacaoResultado{
+		ScoreKatz:       scoreKatz,
+		PontosKatzNEAD:  pontosKatzNEAD,
+		PontosNEADBase:  pontosNEADBase,
+		PontosNEADFinal: pontosNEADBase + pontosKatzNEAD,
 	}
 }

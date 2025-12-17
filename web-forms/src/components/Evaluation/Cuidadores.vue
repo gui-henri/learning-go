@@ -87,7 +87,7 @@ const handleSave = async () => {
                 class="w-full"
             ></ToggleSwitch>
         </div>
-        <template v-if="cuidadorStore.cuidadores.possui_cuidador">   
+        <template v-show="cuidadorStore.cuidadores.possui_cuidador">   
             <hr class="border-gray-200 my-2"/>
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/2">
@@ -133,7 +133,7 @@ const handleSave = async () => {
                         class="w-full"
                     ></ToggleSwitch>
                 </div>
-                <div v-if="cuidadorStore.cuidadores.precisa_treinamento" class="flex flex-col gap-2 w-full md:w-4/6 flex-1 transition-all duration-300">
+                <div v-show="cuidadorStore.cuidadores.precisa_treinamento" class="flex flex-col gap-2 w-full md:w-4/6 flex-1 transition-all duration-300">
                     <label for="obs_treinamento">Observações do treinamento</label>
                     <InputText 
                         id="obs_treinamento" 

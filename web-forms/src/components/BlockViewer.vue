@@ -57,7 +57,7 @@ async function copyCode(event) {
         <div class="flex flex-col lg:flex-row justify-between py-4 gap-4 lg:gap-2 px-0!">
             <div class="flex items-center gap-2">
                 <span class="font-medium text-xl">{{ header }}</span>
-                <span v-if="free" class="flex items-center justify-center px-1.5 py-1 w-fit bg-emerald-500 text-emerald-100 dark:bg-emerald-400 dark:text-emerald-800 rounded-md leading-none! text-xs md:text-sm">Free</span>
+                <span v-show="free" class="flex items-center justify-center px-1.5 py-1 w-fit bg-emerald-500 text-emerald-100 dark:bg-emerald-400 dark:text-emerald-800 rounded-md leading-none! text-xs md:text-sm">Free</span>
             </div>
             <div class="flex items-center gap-2">
                 <!-- Preview/Code Toggle -->
@@ -122,10 +122,10 @@ async function copyCode(event) {
             </div>
         </div>
         <div class="p-0 border border-surface-200 dark:border-surface-700 rounded-xl overflow-hidden">
-            <div :class="containerClass" :style="previewStyle" v-if="blockView == BlockView.PREVIEW">
+            <div :class="containerClass" :style="previewStyle" v-show="blockView == BlockView.PREVIEW">
                 <slot />
             </div>
-            <div v-if="blockView === BlockView.CODE">
+            <div v-show="blockView === BlockView.CODE">
                 <pre class="app-code"><code>{{code}}</code></pre>
             </div>
         </div>

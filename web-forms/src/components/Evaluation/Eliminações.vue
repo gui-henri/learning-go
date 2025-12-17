@@ -119,7 +119,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                 </div>
             </div>
 
-            <div v-if="eliminacoesStore.eliminacoes.via_evacuacao_estomia" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
+            <div v-show="eliminacoesStore.eliminacoes.via_evacuacao_estomia" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="tipo_estomia">Tipo de Estomia</label>
@@ -170,7 +170,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     />
                 </div>
 
-                <div v-if="eliminacoesStore.eliminacoes.diurese === 'induzida'" class="flex flex-col gap-2 w-full md:w-1/4">
+                <div v-show="eliminacoesStore.eliminacoes.diurese === 'induzida'" class="flex flex-col gap-2 w-full md:w-1/4">
                     <label for="num_snd_diurese">Nº da sonda (Fr)</label>
                     <InputText 
                         id="num_snd_diurese" 
@@ -188,7 +188,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                         v-model="eliminacoesStore.eliminacoes.usa_fralda" 
                     />
                 </div>
-                <div v-if="eliminacoesStore.eliminacoes.usa_fralda" class="flex flex-col gap-2 w-full md:w-1/6">
+                <div v-show="eliminacoesStore.eliminacoes.usa_fralda" class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="trocas_fralda_dia">Nº trocas por dia</label>
                     <InputText 
                         id="trocas_fralda_dia" 
@@ -216,7 +216,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                             v-model="eliminacoesStore.eliminacoes.cateterismo_intermitente" 
                         />
                     </div>
-                    <div v-if="eliminacoesStore.eliminacoes.cateterismo_intermitente" class="flex flex-col gap-2 w-full md:w-1/3">
+                    <div v-show="eliminacoesStore.eliminacoes.cateterismo_intermitente" class="flex flex-col gap-2 w-full md:w-1/3">
                         <label for="vezes_cateterismo_dia">Nº de vezes ao dia</label>
                         <InputText 
                             id="vezes_cateterismo_dia" 
@@ -234,7 +234,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     <ToggleSwitch id="svd" v-model="eliminacoesStore.eliminacoes.svd" />
                 </div>
 
-                <div v-if="eliminacoesStore.eliminacoes.svd" class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
+                <div v-show="eliminacoesStore.eliminacoes.svd" class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                     <div class="flex flex-col gap-2">
                         <label for="num_svd">Nº da Sonda (Fr)</label>
                         <InputText id="num_svd" v-model="eliminacoesStore.eliminacoes.num_svd" placeholder="Ex: 16" class="w-full" />
@@ -264,7 +264,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     <ToggleSwitch id="cistostomia" v-model="eliminacoesStore.eliminacoes.cistostomia" />
                 </div>
 
-                <div v-if="eliminacoesStore.eliminacoes.cistostomia" class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
+                <div v-show="eliminacoesStore.eliminacoes.cistostomia" class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                     <div class="flex flex-col gap-2">
                         <label for="num_cistostomia">Nº da Sonda</label>
                         <InputText id="num_cistostomia" v-model="eliminacoesStore.eliminacoes.num_cistostomia" placeholder="Calibre" class="w-full" />
@@ -283,7 +283,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                             <label for="irrigacao_cistostomia">Realiza Irrigação?</label>
                             <ToggleSwitch id="irrigacao_cistostomia" v-model="eliminacoesStore.eliminacoes.irrigacao_cistostomia" />
                         </div>
-                        <div v-if="eliminacoesStore.eliminacoes.irrigacao_cistostomia" class="flex flex-col gap-2">
+                        <div v-show="eliminacoesStore.eliminacoes.irrigacao_cistostomia" class="flex flex-col gap-2">
                             <label for="qtd_irrigacao_cistostomia">Quantidade Irrigação</label>
                             <InputText id="qtd_irrigacao_cistostomia" v-model="eliminacoesStore.eliminacoes.qtd_irrigacao_cistostomia" placeholder="ml" class="w-full" />
                         </div>
@@ -294,7 +294,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                             <label for="medicacao_irrigacao_cistostomia">Medicação na irrigação?</label>
                             <ToggleSwitch id="medicacao_irrigacao_cistostomia" v-model="eliminacoesStore.eliminacoes.medicacao_irrigacao_cistostomia" />
                         </div>
-                        <div v-if="eliminacoesStore.eliminacoes.medicacao_irrigacao_cistostomia" class="flex flex-col gap-2 md:col-span-2">
+                        <div v-show="eliminacoesStore.eliminacoes.medicacao_irrigacao_cistostomia" class="flex flex-col gap-2 md:col-span-2">
                             <label for="nome_medicacao_cistostomia">Qual medicação?</label>
                             <InputText id="nome_medicacao_cistostomia" v-model="eliminacoesStore.eliminacoes.nome_medicacao_cistostomia" placeholder="Nome do medicamento" class="w-full" />
                         </div>
@@ -308,7 +308,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                         <label for="preservativo">Preservativo Urinário?</label>
                         <ToggleSwitch id="preservativo" v-model="eliminacoesStore.eliminacoes.preservativo" />
                     </div>
-                    <div v-if="eliminacoesStore.eliminacoes.preservativo" class="flex flex-col gap-2 w-full md:w-1/3">
+                    <div v-show="eliminacoesStore.eliminacoes.preservativo" class="flex flex-col gap-2 w-full md:w-1/3">
                         <label for="volume_diurese_preservativo">Volume Diurese</label>
                         <Select 
                             id="volume_diurese_preservativo" 

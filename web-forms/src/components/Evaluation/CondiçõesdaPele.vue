@@ -90,7 +90,7 @@ const handleSave = async () => {
                     
                     <div class="flex justify-between items-center">
                         <h6 class="font-bold text-gray-600 m-0">Lesão {{ index + 1 }}</h6>
-                        <Button v-if="condicoesPeleStore.condicoesPele.curativos.length > 0" 
+                        <Button v-show="condicoesPeleStore.condicoesPele.curativos.length > 0" 
                                 icon="pi pi-trash" 
                                 class="p-button-rounded p-button-danger p-button-text" 
                                 @click="removeCurativo(index)" 

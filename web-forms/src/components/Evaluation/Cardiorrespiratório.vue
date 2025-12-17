@@ -99,7 +99,6 @@ import { ToggleSwitch } from 'primevue';
         <Fluid>
             <Accordion v-model:activeIndex="internalIndex" id="cardiorrespiratorio" class="scroll-mt-24 card shadow-2xl rounded-2xl w-full p-4 sm:p-8 border-t-8 border-red-600">
                 <AccordionTab>
-
                 <template #header>
                     <div class="flex items-center gap-3 w-full">
                         
@@ -115,15 +114,16 @@ import { ToggleSwitch } from 'primevue';
                         </div>
                         
                     </div>
+                    <div class="w-full text-right"> 
+                <button 
+                    type="button" 
+                    class="p-2 mr-6 rounded-lg bg-red-600 hover:bg-red-700 transition-colors" 
+                    @click="respiratorioStore.resetRespiratorio"> 
+                    <i class="pi pi-trash text-white"></i>
+                </button>   
+            </div>
                 </template>
-    <div class="w-full text-right"> 
-        <button 
-            type="button" 
-            class="p-2 rounded-lg bg-red-600 hover:bg-red-700 transition-colors" 
-            @click="respiratorioStore.resetRespiratorio"> 
-            <i class="pi pi-trash text-white"></i>
-        </button>   
-    </div>
+    
 
                 <div class="flex flex-col gap-4 w-full">
                     <div class="flex flex-col md:flex-row gap-4">
@@ -154,7 +154,7 @@ import { ToggleSwitch } from 'primevue';
                         </div>
                     </div>
 
-                    <div v-if="respiratorioStore.respiratorio.via_aerea === 'Orotraqueal'" class="flex flex-col md:flex-row gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
+                    <div v-show="respiratorioStore.respiratorio.via_aerea === 'Orotraqueal'" class="flex flex-col md:flex-row gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                         <div class="flex flex-col gap-2 w-full md:w-1/4">
                             <label for="numero_tubo">Número do tubo</label>
                             <InputText 
@@ -192,7 +192,7 @@ import { ToggleSwitch } from 'primevue';
                             class="w-full"
                         />
                     </div>
-                    <div v-if="respiratorioStore.respiratorio.suporte_ventilatorio === 'Ventilação Não Invasiva (VNI)'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
+                    <div v-show="respiratorioStore.respiratorio.suporte_ventilatorio === 'Ventilação Não Invasiva (VNI)'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
                     <h5 class="font-medium text-gray-700">Detalhes da VNI</h5>
                         
                         <div class="flex flex-col md:flex-row gap-4">
@@ -261,7 +261,7 @@ import { ToggleSwitch } from 'primevue';
                             </div>
                         </div>
                     </div>
-                    <div v-if="respiratorioStore.respiratorio.suporte_ventilatorio === 'Assistência Ventilatória Mecânica'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
+                    <div v-show="respiratorioStore.respiratorio.suporte_ventilatorio === 'Assistência Ventilatória Mecânica'" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mt-2 dark:bg-gray-400/10">
                         <h5 class="font-medium text-gray-700">Detalhes da AVM</h5>
                         
                         <div class="flex flex-col md:flex-row gap-4">
@@ -342,7 +342,7 @@ import { ToggleSwitch } from 'primevue';
                             />
                         </div>
 
-                        <div v-if="respiratorioStore.respiratorio.usa_oxigenioterapia" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
+                        <div v-show="respiratorioStore.respiratorio.usa_oxigenioterapia" class="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex flex-col gap-2 w-full md:w-1/3">
                                     <label for="fonte_oxigenio">Fonte</label>

@@ -159,7 +159,7 @@ const removeAntimicrobiano = (index) => {
                     </div>
                 </div>
 
-                <div v-if="exameFisicoStore.exameFisico.drenos.length === 0" class="text-gray-500 italic text-sm p-2">
+                <div v-show="exameFisicoStore.exameFisico.drenos.length === 0" class="text-gray-500 italic text-sm p-2">
                     Nenhum dreno registrado.
                 </div>
 
@@ -179,7 +179,7 @@ const removeAntimicrobiano = (index) => {
                     />
                 </div>
 
-                <div v-if="exameFisicoStore.exameFisico.possui_acesso" class="flex flex-col gap-6 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
+                <div v-show="exameFisicoStore.exameFisico.possui_acesso" class="flex flex-col gap-6 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
                     
                     <div class="flex items-center gap-4">
                         <label for="cateter_total">Cateter total implantado?</label>
@@ -194,7 +194,7 @@ const removeAntimicrobiano = (index) => {
                             <ToggleSwitch id="piccline" v-model="exameFisicoStore.exameFisico.piccline" />
                         </div>
                         
-                        <div v-if="exameFisicoStore.exameFisico.piccline" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600   ">
+                        <div v-show="exameFisicoStore.exameFisico.piccline" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600   ">
                             <div class="flex flex-col gap-2">
                                 <label for="tipo_piccline">Tipo</label>
                                 <Select id="tipo_piccline" v-model="exameFisicoStore.exameFisico.tipo_piccline" :options="formFields.tipo_piccline" optionLabel="label" optionValue="label" placeholder="Selecione" class="w-full" />
@@ -222,7 +222,7 @@ const removeAntimicrobiano = (index) => {
                             <ToggleSwitch id="acesso_central" v-model="exameFisicoStore.exameFisico.acesso_central" />
                         </div>
 
-                        <div v-if="exameFisicoStore.exameFisico.acesso_central" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600">
+                        <div v-show="exameFisicoStore.exameFisico.acesso_central" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600">
                             <div class="flex flex-col gap-2">
                                 <label for="local_central">Local</label>
                                 <InputText id="local_central" v-model="exameFisicoStore.exameFisico.local_central" placeholder="Local anatômico" class="w-full" maxlength="100" />
@@ -250,7 +250,7 @@ const removeAntimicrobiano = (index) => {
                             <ToggleSwitch id="acesso_periferico" v-model="exameFisicoStore.exameFisico.acesso_periferico" />
                         </div>
                         
-                        <div v-if="exameFisicoStore.exameFisico.acesso_periferico" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-red-600">
+                        <div v-show="exameFisicoStore.exameFisico.acesso_periferico" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-red-600">
                             <div class="flex flex-col gap-2">
                                 <label for="local_periferico">Local</label>
                                 <InputText id="local_periferico" v-model="exameFisicoStore.exameFisico.local_periferico" placeholder="Local anatômico" class="w-full" maxlength="100" />
@@ -274,7 +274,7 @@ const removeAntimicrobiano = (index) => {
                             <ToggleSwitch id="hipodermoclise" v-model="exameFisicoStore.exameFisico.hipodermoclise" />
                         </div>
 
-                        <div v-if="exameFisicoStore.exameFisico.hipodermoclise" class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-4 border-l-4 border-red-600">
+                        <div v-show="exameFisicoStore.exameFisico.hipodermoclise" class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-4 border-l-4 border-red-600">
                             <div class="flex flex-col gap-2">
                                 <label for="data_troca_hipo">Última Troca</label>
                                 <InputMask id="data_troca_hipo" v-model="exameFisicoStore.exameFisico.data_troca_hipo" mask="99/99/9999" placeholder="dd/mm/aaaa" class="w-full" />

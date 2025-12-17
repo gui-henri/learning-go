@@ -125,7 +125,7 @@ const removeResponsavel = (index) => {
                 
                 <div class="flex justify-between items-center">
                     <h5 class="font-bold text-gray-600">Responsável {{ index + 1 }}</h5>
-                    <Button v-if="contatoStore.contato.responsaveis.length > 1" 
+                    <Button v-show="contatoStore.contato.responsaveis.length > 1" 
                             icon="pi pi-trash" 
                             class="p-button-rounded p-button-danger p-button-text" 
                             @click="removeResponsavel(index)" 
