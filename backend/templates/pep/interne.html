@@ -162,8 +162,7 @@
         </div>
     </div>
 
-    <div class="section-title">DADOS DO PACIENTE</div>
-    <div class="section-title">Colocar os acentos as interrogações e dois pontos nos campos</div>
+    <div class="section-title">DADOS DO PACIENTE</div>  
 
     <div class="section-box">
         <div class="row">
@@ -350,30 +349,31 @@
         {{end}}
         <span class="label" style="margin: 5px;">Cuidadores:</span>
         <div class="group" style="margin: 5px; border: 1px solid #000;">
-            <div class="row">
-                <div class="col w-20">
-                    <span class="label">Possui cuidador?</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-50">
-                    <span class="label">Nome do cuidador:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col w-30">
-                    <span class="label">Turno:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-40">
-                    <span class="label">Contato:</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-                <div class="col w-30">
-                    <span class="label">Necessita de treinamento?</span>
-                    <span class="value">{{.Endereco.Estado}}</span>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col w-30">
+            <span class="label">Possui cuidador?</span>
+            <span class="value">{{if .Cuidadores.PossuiCuidador}}Sim{{else}}Não{{end}}</span>
+        </div>
+        <div class="col w-70">
+            <span class="label">Nome do cuidador:</span>
+            <span class="value">{{.Cuidadores.NomeCuidador}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col w-30">
+            <span class="label">Turno:</span>
+            <span class="value">{{.Cuidadores.Turno}}</span>
+        </div>
+        <div class="col w-40">
+            <span class="label">Contato:</span>
+            <span class="value">{{.Cuidadores.ContatoCuidador}}</span>
+        </div>
+        <div class="col w-30">
+            <span class="label">Necessita de treinamento?</span>
+            <span class="value">{{if .Cuidadores.NecessitaTreinamento}}Sim{{else}}Não{{end}}</span>
+        </div>
+    </div>
+</div>
             <div class="row">
                 <div class="col w-30">
                     <span class="label">Observações do treinamento:</span>
@@ -918,7 +918,7 @@
     
 </div>
 
-    </div>
+</div>
 
 
 
