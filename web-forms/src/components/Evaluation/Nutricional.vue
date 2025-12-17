@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'; 
 import { useNutricionalStore } from '@/store/evaluation/nutricional';
-import { InputMask } from 'primevue';
+import { InputMask, ToggleSwitch } from 'primevue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
 import { useAvaliationForm } from "@/store/evaluation/form";
 import { AvaliationService } from '@/service/AvaliationService';
@@ -125,7 +125,7 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="alimentacao_oral">Alimentação Oral?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="alimentacao_oral" 
                         v-model="nutricionalStore.nutricional.alimentacao_oral" 
                     />
@@ -133,7 +133,7 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                 
                 <div class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="alimentacao_enteral">Alimentação Enteral?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="alimentacao_enteral" 
                         v-model="nutricionalStore.nutricional.alimentacao_enteral" 
                     />
@@ -153,7 +153,7 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                 </div>
                                 <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="alimentacao_parenteral">Alimentação Parenteral?</label>
-                    <InputSwitch    
+                    <ToggleSwitch    
                         id="alimentacao_parenteral" 
                         v-model="nutricionalStore.nutricional.alimentacao_parenteral" 
                     />
@@ -176,7 +176,7 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
             <div class="flex flex-col md:flex-row gap-4 border-t pt-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="sonda">Usa Sonda?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="sonda" 
                         v-model="nutricionalStore.nutricional.sonda" 
                     />
@@ -207,7 +207,7 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                     </div>
                     <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="botton">Usa Botton?</label>
-                        <InputSwitch 
+                        <ToggleSwitch 
                             id="botton" 
                             v-model="nutricionalStore.nutricional.botton" 
                         />
@@ -293,7 +293,7 @@ watch(() => nutricionalStore.nutricional.alimentacao_parenteral, (novoValor) => 
                 <div class="flex flex-col md:flex-row gap-4 items-center">
                     <div class="flex flex-col gap-2 w-full md:w-1/6">
                         <label for="suplemento">Suplemento?</label>
-                        <InputSwitch 
+                        <ToggleSwitch 
                             id="suplemento" 
                             v-model="nutricionalStore.nutricional.suplemento" 
                         />

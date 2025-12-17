@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useCuidadoresStore } from '@/store/evaluation/cuidadores';
-import { InputMask } from 'primevue';
+import { InputMask, ToggleSwitch } from 'primevue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
 import { useAvaliationForm } from "@/store/evaluation/form";
 import { AvaliationService } from '@/service/AvaliationService';
@@ -81,11 +81,11 @@ const handleSave = async () => {
         </template>
         <div class="flex flex-col gap-2 w-full md:w-1/6">
             <label for="possui_cuidador">Possui cuidador?</label>
-            <InputSwitch 
+            <ToggleSwitch 
                 id="possui_cuidador" 
                 v-model="cuidadorStore.cuidadores.possui_cuidador" 
                 class="w-full"
-            ></InputSwitch>
+            ></ToggleSwitch>
         </div>
         <template v-if="cuidadorStore.cuidadores.possui_cuidador">   
             <hr class="border-gray-200 my-2"/>
@@ -127,11 +127,11 @@ const handleSave = async () => {
             <div class="flex flex-col md:flex-row gap-4 items-center mt-6 min-h-16">
                 <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="precisa_treinamento">Precisa de treinamento?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="precisa_treinamento" 
                         v-model="cuidadorStore.cuidadores.precisa_treinamento" 
                         class="w-full"
-                    ></InputSwitch>
+                    ></ToggleSwitch>
                 </div>
                 <div v-if="cuidadorStore.cuidadores.precisa_treinamento" class="flex flex-col gap-2 w-full md:w-4/6 flex-1 transition-all duration-300">
                     <label for="obs_treinamento">Observações do treinamento</label>

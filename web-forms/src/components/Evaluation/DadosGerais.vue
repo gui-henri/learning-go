@@ -4,6 +4,7 @@ import { useDadosGeraisStore } from '@/store/evaluation/dadosGerais';
 import { useStepAccordion } from "@/composable/useStepAccordion";
 import { AvaliationService } from '@/service/AvaliationService';
 import { useAvaliationForm } from "@/store/evaluation/form";
+import { ToggleSwitch } from 'primevue';
 
 const avaliationFormStore = useAvaliationForm();
 
@@ -223,7 +224,7 @@ const handleSave = async () => {
             </div>
             <div class="flex flex-col gap-2 py-2 w-full md:w-2/12">
                 <label for="previsao_alta">Previsão de alta?</label>
-                <InputSwitch 
+                <ToggleSwitch 
                     id="previsao_alta" 
                     v-model="dadosGeraisStore.dadosGerais.previsao_alta" 
                 />

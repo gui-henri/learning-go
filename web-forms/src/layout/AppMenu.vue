@@ -12,7 +12,6 @@ const model = ref([
         label: 'Expansão',
         items: [
             { label: 'Avaliação de paciente', icon: 'pi pi-fw pi-id-card', to: '/avaliacao' },
-            { label: 'Pacientes', icon: 'pi pi-fw pi-id-card', to: '/paciente' },
         ]
         
         

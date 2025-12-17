@@ -1,7 +1,7 @@
 <script setup>
 import { computed} from 'vue';
 import { useExameFisicoStore } from '@/store/evaluation/exameFisico';
-import { InputMask } from 'primevue';
+import { InputMask, ToggleSwitch } from 'primevue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
 import { useAvaliationForm } from "@/store/evaluation/form";
 import { AvaliationService } from '@/service/AvaliationService';
@@ -173,7 +173,7 @@ const removeAntimicrobiano = (index) => {
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="possui_acesso">Possui acessos?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="possui_acesso" 
                         v-model="exameFisicoStore.exameFisico.possui_acesso" 
                     />
@@ -183,7 +183,7 @@ const removeAntimicrobiano = (index) => {
                     
                     <div class="flex items-center gap-4">
                         <label for="cateter_total">Cateter total implantado?</label>
-                        <InputSwitch id="cateter_total" v-model="exameFisicoStore.exameFisico.cateter_total" />
+                        <ToggleSwitch id="cateter_total" v-model="exameFisicoStore.exameFisico.cateter_total" />
                     </div>
 
                     <hr class="border-gray-300"/>
@@ -191,7 +191,7 @@ const removeAntimicrobiano = (index) => {
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center gap-4">
                             <label for="piccline">PiccLine?</label>
-                            <InputSwitch id="piccline" v-model="exameFisicoStore.exameFisico.piccline" />
+                            <ToggleSwitch id="piccline" v-model="exameFisicoStore.exameFisico.piccline" />
                         </div>
                         
                         <div v-if="exameFisicoStore.exameFisico.piccline" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600   ">
@@ -219,7 +219,7 @@ const removeAntimicrobiano = (index) => {
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center gap-4">
                             <label for="acesso_central">Acesso Venoso Central?</label>
-                            <InputSwitch id="acesso_central" v-model="exameFisicoStore.exameFisico.acesso_central" />
+                            <ToggleSwitch id="acesso_central" v-model="exameFisicoStore.exameFisico.acesso_central" />
                         </div>
 
                         <div v-if="exameFisicoStore.exameFisico.acesso_central" class="grid grid-cols-1 md:grid-cols-4 gap-4 pl-4 border-l-4 border-red-600">
@@ -247,7 +247,7 @@ const removeAntimicrobiano = (index) => {
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center gap-4">
                             <label for="acesso_periferico">Acesso Venoso Periférico?</label>
-                            <InputSwitch id="acesso_periferico" v-model="exameFisicoStore.exameFisico.acesso_periferico" />
+                            <ToggleSwitch id="acesso_periferico" v-model="exameFisicoStore.exameFisico.acesso_periferico" />
                         </div>
                         
                         <div v-if="exameFisicoStore.exameFisico.acesso_periferico" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-red-600">
@@ -271,7 +271,7 @@ const removeAntimicrobiano = (index) => {
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center gap-4">
                             <label for="hipodermoclise">hipodermoclise?</label>
-                            <InputSwitch id="hipodermoclise" v-model="exameFisicoStore.exameFisico.hipodermoclise" />
+                            <ToggleSwitch id="hipodermoclise" v-model="exameFisicoStore.exameFisico.hipodermoclise" />
                         </div>
 
                         <div v-if="exameFisicoStore.exameFisico.hipodermoclise" class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-4 border-l-4 border-red-600">
@@ -291,7 +291,7 @@ const removeAntimicrobiano = (index) => {
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center gap-4">
                             <label for="outros_acessos">Outros acessos?</label>
-                            <InputSwitch id="outros_acessos" v-model="exameFisicoStore.exameFisico.outros_acessos" />
+                            <ToggleSwitch id="outros_acessos" v-model="exameFisicoStore.exameFisico.outros_acessos" />
                         </div>
 
                         <div v-if="exameFisicoStore.exameFisico.outros_acessos" class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-4 border-l-4 border-red-600">

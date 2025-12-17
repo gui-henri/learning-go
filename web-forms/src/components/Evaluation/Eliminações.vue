@@ -1,7 +1,7 @@
 <script setup>
 import { computed, watch } from 'vue';
 import { useEliminacoesStore } from '@/store/evaluation/eliminacoes';
-import { InputMask } from 'primevue';
+import { InputMask, ToggleSwitch } from 'primevue';
 import { useStepAccordion } from "@/composable/useStepAccordion";
 import { useAvaliationForm } from "@/store/evaluation/form";
 import { AvaliationService } from '@/service/AvaliationService';
@@ -105,14 +105,14 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                 </div>
                 <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="via_evacuacao_fisiologica">Via Fisiológica?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="via_evacuacao_fisiologica" 
                         v-model="eliminacoesStore.eliminacoes.via_evacuacao_fisiologica" 
                     />
                 </div>
                 <div class="flex flex-col gap-2 w-full md:w-1/5">
                     <label for="via_evacuacao_estomia">Usa Estomia?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="via_evacuacao_estomia" 
                         v-model="eliminacoesStore.eliminacoes.via_evacuacao_estomia" 
                     />
@@ -183,7 +183,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                 
                 <div class="flex flex-col gap-2 w-full md:w-1/8">
                     <label for="usa_fralda">Usa Fralda?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="usa_fralda" 
                         v-model="eliminacoesStore.eliminacoes.usa_fralda" 
                     />
@@ -200,7 +200,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                 
                 <div class="flex flex-col gap-2 w-full md:w-1/3">
                     <label for="sva">SVA (Alívio)?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="sva" 
                         v-model="eliminacoesStore.eliminacoes.sva" 
                     />
@@ -211,7 +211,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                 <div class="flex flex-col md:flex-row gap-4 items-center">
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="cateterismo_intermitente">Cateterismo Intermitente?</label>
-                        <InputSwitch 
+                        <ToggleSwitch 
                             id="cateterismo_intermitente" 
                             v-model="eliminacoesStore.eliminacoes.cateterismo_intermitente" 
                         />
@@ -231,7 +231,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
             <div class="border-t my-2 pt-2">
                 <div class="flex flex-col gap-2 w-full mb-2">
                     <label for="svd">Sonda Vesical de Demora (SVD)?</label>
-                    <InputSwitch id="svd" v-model="eliminacoesStore.eliminacoes.svd" />
+                    <ToggleSwitch id="svd" v-model="eliminacoesStore.eliminacoes.svd" />
                 </div>
 
                 <div v-if="eliminacoesStore.eliminacoes.svd" class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
@@ -253,7 +253,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     </div>
                     <div class="flex items-center gap-2 md:col-span-4">
                         <label for="irrigacao_svd">Realiza Irrigação?</label>
-                        <InputSwitch id="irrigacao_svd" v-model="eliminacoesStore.eliminacoes.irrigacao_svd" />
+                        <ToggleSwitch id="irrigacao_svd" v-model="eliminacoesStore.eliminacoes.irrigacao_svd" />
                     </div>
                 </div>
             </div>
@@ -261,7 +261,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
             <div class="border-t my-2 pt-2">
                 <div class="flex flex-col gap-2 w-full mb-2">
                     <label for="cistostomia">Cistostomia?</label>
-                    <InputSwitch id="cistostomia" v-model="eliminacoesStore.eliminacoes.cistostomia" />
+                    <ToggleSwitch id="cistostomia" v-model="eliminacoesStore.eliminacoes.cistostomia" />
                 </div>
 
                 <div v-if="eliminacoesStore.eliminacoes.cistostomia" class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-400/10">
@@ -281,7 +281,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                     <div class="md:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-4 border-t pt-2 mt-2">
                         <div class="flex flex-col gap-2">
                             <label for="irrigacao_cistostomia">Realiza Irrigação?</label>
-                            <InputSwitch id="irrigacao_cistostomia" v-model="eliminacoesStore.eliminacoes.irrigacao_cistostomia" />
+                            <ToggleSwitch id="irrigacao_cistostomia" v-model="eliminacoesStore.eliminacoes.irrigacao_cistostomia" />
                         </div>
                         <div v-if="eliminacoesStore.eliminacoes.irrigacao_cistostomia" class="flex flex-col gap-2">
                             <label for="qtd_irrigacao_cistostomia">Quantidade Irrigação</label>
@@ -292,7 +292,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                      <div class="md:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-4 border-t pt-2">
                         <div class="flex flex-col gap-2">
                             <label for="medicacao_irrigacao_cistostomia">Medicação na irrigação?</label>
-                            <InputSwitch id="medicacao_irrigacao_cistostomia" v-model="eliminacoesStore.eliminacoes.medicacao_irrigacao_cistostomia" />
+                            <ToggleSwitch id="medicacao_irrigacao_cistostomia" v-model="eliminacoesStore.eliminacoes.medicacao_irrigacao_cistostomia" />
                         </div>
                         <div v-if="eliminacoesStore.eliminacoes.medicacao_irrigacao_cistostomia" class="flex flex-col gap-2 md:col-span-2">
                             <label for="nome_medicacao_cistostomia">Qual medicação?</label>
@@ -306,7 +306,7 @@ watch(() => eliminacoesStore.eliminacoes.svd, (novoValor) => {
                 <div class="flex flex-col md:flex-row gap-4 items-center">
                     <div class="flex flex-col gap-2 w-full md:w-1/4">
                         <label for="preservativo">Preservativo Urinário?</label>
-                        <InputSwitch id="preservativo" v-model="eliminacoesStore.eliminacoes.preservativo" />
+                        <ToggleSwitch id="preservativo" v-model="eliminacoesStore.eliminacoes.preservativo" />
                     </div>
                     <div v-if="eliminacoesStore.eliminacoes.preservativo" class="flex flex-col gap-2 w-full md:w-1/3">
                         <label for="volume_diurese_preservativo">Volume Diurese</label>

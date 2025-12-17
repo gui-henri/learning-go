@@ -191,7 +191,7 @@ const removeResponsavel = (index) => {
                     </div>
                     <div class="flex flex-col gap-2 w-full md:w-1/3 items-start justify-center">
                         <label :for="'numero_prioritario_' + index" class="mb-2">Contato prioritário?</label>
-                        <InputSwitch 
+                        <ToggleSwitch 
                             :id="'numero_prioritario_' + index" 
                             v-model="responsavel.numero_prioritario" 
                         />

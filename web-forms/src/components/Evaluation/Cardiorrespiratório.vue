@@ -4,6 +4,7 @@
     import { useStepAccordion } from "@/composable/useStepAccordion";
     import { useAvaliationForm } from "@/store/evaluation/form";
     import { AvaliationService } from '@/service/AvaliationService';
+import { ToggleSwitch } from 'primevue';
     
     const avaliationFormStore = useAvaliationForm();
     const respiratorioStore = useRespiratorioStore();
@@ -335,7 +336,7 @@
                     <div class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2 w-full md:w-1/6">
                             <label for="usa_oxigenioterapia">Oxigenioterapia?</label>
-                            <InputSwitch 
+                            <ToggleSwitch 
                                 id="usa_oxigenioterapia"
                                 v-model="respiratorioStore.respiratorio.usa_oxigenioterapia" 
                             />

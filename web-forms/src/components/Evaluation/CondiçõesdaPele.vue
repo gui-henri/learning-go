@@ -4,6 +4,7 @@ import { useCondicoesPeleStore } from '@/store/evaluation/condicoesPele';
 import { useStepAccordion } from "@/composable/useStepAccordion";
 import { useAvaliationForm } from "@/store/evaluation/form";
 import { AvaliationService } from '@/service/AvaliationService';
+import { ToggleSwitch } from 'primevue';
 
 const avaliationFormStore = useAvaliationForm();
 const condicoesPeleStore = useCondicoesPeleStore();
@@ -98,7 +99,7 @@ const handleSave = async () => {
 
                     <div class="flex flex-col gap-2 w-full md:w-1/6">
                     <label for="realiza_curativo">Realiza curativo?</label>
-                    <InputSwitch 
+                    <ToggleSwitch 
                         id="realiza_curativo" 
                         v-model="condicoesPeleStore.condicoesPele.realiza_curativo" 
                     />

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useEvaluationStore } from '@/store/evaluation/dadosGerais'
+import { ToggleSwitch } from 'primevue';
 
 const store = useEvaluationStore();
 
@@ -76,7 +77,7 @@ const complexidade = ref([
                     </div>
                     <div class="flex flex-col gap-2 py-2 w-full m"> 
                         <label for="previsao_alta">Previsão de alta?</label>
-                        <InputSwitch id="previsao_alta" v-model="store.evaluation.previsao_alta" />
+                        <ToggleSwitch id="previsao_alta" v-model="store.evaluation.previsao_alta" />
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row gap-4">

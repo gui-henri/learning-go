@@ -4,6 +4,7 @@
             import { useStepAccordion } from "@/composable/useStepAccordion";
             import { useAvaliationForm } from "@/store/evaluation/form";
             import { AvaliationService } from '@/service/AvaliationService';
+import { ToggleSwitch } from 'primevue';
 
             const avaliationFormStore = useAvaliationForm();
             const scoreStore = useScoreStore();
@@ -107,14 +108,14 @@
                             <div class="flex flex-col md:flex-row gap-4 border-t pt-4 dark:border-gray-700">
                                 <div class="flex flex-col gap-2 w-full md:w-1/2">
                                     <label for="domicilio_risco" class="dark:text-gray-200">O domicílio é de risco?</label>
-                                    <InputSwitch 
+                                    <ToggleSwitch 
                                         id="domicilio_risco" 
                                         v-model="scoreStore.score.domicilio_risco" 
                                     />
                                 </div>
                                 <div class="flex flex-col gap-2 w-full md:w-1/2">
                                     <label for="impedimento_deslocamento" class="dark:text-gray-200">Impedimento de deslocamento?</label>
-                                    <InputSwitch 
+                                    <ToggleSwitch 
                                         id="impedimento_deslocamento" 
                                         v-model="scoreStore.score.impedimento_deslocamento" 
                                     />
@@ -263,9 +264,9 @@
                             </div>
 
                             <!-- CARD RESULTADO KATZ -->
-                            <div class="p-4 rounded-lg mt-4 border" :class="katzColorClass">
-                                <h3 class="text-lg font-bold mb-1">Resultado Katz: TOTALKATZ / 6</h3>
-                                <p class="font-medium m-0">CLASSIFICAO KATZ</p>
+                            <div class="p-4 rounded-lg mt-4 border">
+                                <h3 class="text-lg font-bold mb-1">  pontos     / 6</h3>
+                                <p class="font-medium m-0"> cor nead CLASSIFICAO KATZ</p>
                             </div>
 
                             <!-- GRUPO 3: CRITÉRIOS DE APOIO -->
@@ -390,9 +391,9 @@
                                 </div>
                             </div>
 
-                            <div class="p-4 rounded-lg mt-4 border" :class="neadColorClass">
+                            <div class="p-4 rounded-lg mt-4 border" >
                                 <h3 class="text-lg font-bold mb-1">Resultado Final: TOTAL NEAD Pontos</h3>
-                                <p class="font-medium m-0">CLASSIFICAO NEAD FINAL</p>
+                                <p class="font-medium m-0">CLASSIFICAO NEAD FINAL cor nead</p>
                             </div>
 
                         </div>
