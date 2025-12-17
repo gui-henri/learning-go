@@ -103,6 +103,7 @@ const totalNead = computed(() => {
     total += getPoints('via_medicacoes', s.via_medicacoes);
     total += getPoints('frequencia_respiratoria', s.uso_oxigenoterapia);
     total += getPoints('nivel_consciencia', s.nivel_consciencia);
+    total += getPoints('exercicio_ventilatorio', s.exercicio_ventilatorio);
 
     // Bônus Katz (Lógica: Menos de 2 no Katz = +2 no NEAD | 3 ou 4 no Katz = +1 no NEAD)
     const ptsK = totalKatzRaw.value;
@@ -426,11 +427,11 @@ const neadColorClass = computed(() => {
 
                             <div class="flex flex-col md:flex-row gap-4 border-t pt-4 dark:border-gray-700">
                                 <div class="flex flex-col gap-2 w-full md:w-1/3">
-                                    <label for="exercicios_ventilatorios" class="dark:text-gray-200">Exercícios Ventilatórios</label>
+                                    <label for="exercicio_ventilatorio" class="dark:text-gray-200">Exercícios Ventilatórios</label>
                                     <Select 
-                                        id="exercicios_ventilatorios" 
-                                        v-model="scoreStore.score.exercicios_ventilatorios" 
-                                        :options="props.formFields.exercicios_ventilatorios"
+                                        id="exercicio_ventilatorio" 
+                                        v-model="scoreStore.score.exercicio_ventilatorio" 
+                                        :options="props.formFields.exercicio_ventilatorio"
                                         optionLabel="label" 
                                         optionValue="value"
                                         placeholder="Selecione" 
