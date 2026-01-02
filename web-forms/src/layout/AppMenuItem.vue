@@ -11,7 +11,7 @@ const props = defineProps({
     item: {
         type: Object,
         default: () => ({})
-    },
+    },  
     index: {
         type: Number,
         default: 0

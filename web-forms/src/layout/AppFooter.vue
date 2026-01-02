@@ -2,6 +2,6 @@
 
 <template>
     <div class="layout-footer">
-        <span class="text-primary font-bold">Interne Soluções em Saúde,</span> 2025
+        <span class="text-primary font-bold">Interne Soluções dasdasem Saúde, 2025 </span>
     </div>
 </template>

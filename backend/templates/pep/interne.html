@@ -917,6 +917,189 @@
     </div>
     
 </div>
+<div class="section-title">ELIMINAÇÕES</div>
+<div class="section-box">
+    <div class="row">
+        <div class="col w-40">
+            <span class="label">Função Intestinal:</span>
+            <span class="value">{{.Eliminacoes.FuncaoIntestinal}}</span>
+        </div>
+        <div class="col w-30">
+            <span class="label">Via Fisiológica?</span>
+            <span class="value">{{if .Eliminacoes.ViaEvacuacaoFisiologica}}Sim{{else}}Não{{end}}</span>
+        </div>
+        <div class="col w-30">
+            <span class="label">Usa Estomia?</span>
+            <span class="value">{{if .Eliminacoes.ViaEvacuacaoEstomia}}Sim{{else}}Não{{end}}</span>
+        </div>
+    </div>
+
+    {{if .Eliminacoes.ViaEvacuacaoEstomia}}
+    <div class="row" style="background-color: #f9f9f9;">
+        <div class="col w-30">
+            <span class="label">Tipo de Estomia:</span>
+            <span class="value">{{.Eliminacoes.TipoEstomia}}</span>
+        </div>
+        <div class="col w-35">
+            <span class="label">Placa de Estomia:</span>
+            <span class="value">{{.Eliminacoes.PlacaEstomia}}</span>
+        </div>
+        <div class="col w-35">
+            <span class="label">Bolsa de Estomia:</span>
+            <span class="value">{{.Eliminacoes.BolsaEstomia}}</span>
+        </div>
+    </div>
+    {{end}}
+
+    <div class="row">
+        <div class="col w-25">
+            <span class="label">Diurese:</span>
+            <span class="value">{{.Eliminacoes.Diurese}}</span>
+        </div>
+        <div class="col w-25">
+            <span class="label">Usa Fralda?</span>
+            <span class="value">{{if .Eliminacoes.UsaFralda}}Sim{{else}}Não{{end}}</span>
+        </div>
+        <div class="col w-25">
+            <span class="label">Trocas/Dia (Fralda):</span>
+            <span class="value">{{if .Eliminacoes.UsaFralda}}{{.Eliminacoes.TrocasFraldaDia}}{{else}}N/A{{end}}</span>
+        </div>
+        <div class="col w-25">
+            <span class="label">SVA (Alívio)?</span>
+            <span class="value">{{if .Eliminacoes.Sva}}Sim{{else}}Não{{end}}</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col w-50">
+            <span class="label">Cateterismo Intermitente?</span>
+            <span class="value">{{if .Eliminacoes.CateterismoIntermitente}}Sim{{else}}Não{{end}}</span>
+        </div>
+        <div class="col w-50">
+            <span class="label">Nº de vezes ao dia:</span>
+            <span class="value">{{if .Eliminacoes.CateterismoIntermitente}}{{.Eliminacoes.VezesCateterismoDia}}{{else}}N/A{{end}}</span>
+        </div>
+    </div>
+
+    {{if .Eliminacoes.Svd}}
+    <div class="row" style="background-color: #f0f4f8;">
+        <div class="col w-100"><span class="label" style="color: #000;">DETALHES SVD</span></div>
+    </div>
+    <div class="row">
+        <div class="col w-20">
+            <span class="label">Nº Sonda (Fr):</span>
+            <span class="value">{{.Eliminacoes.NumSvd}}</span>
+        </div>
+        <div class="col w-20">
+            <span class="label">Nº de Vias:</span>
+            <span class="value">{{.Eliminacoes.ViasSvd}}</span>
+        </div>
+        <div class="col w-30">
+            <span class="label">Volume Diurese:</span>
+            <span class="value">{{.Eliminacoes.VolumeDiureseSvd}}</span>
+        </div>
+        <div class="col w-30">
+            <span class="label">Última Troca:</span>
+            <span class="value">{{.Eliminacoes.DataTrocaSvd | formatDate}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col w-100">
+            <span class="label">Realiza Irrigação SVD?</span>
+            <span class="value">{{if .Eliminacoes.IrrigacaoSvd}}Sim{{else}}Não{{end}}</span>
+        </div>
+    </div>
+    {{end}}
+
+    {{if .Eliminacoes.Cistostomia}}
+    <div class="row" style="background-color: #f0f4f8;">
+        <div class="col w-100"><span class="label" style="color: #000;">DETALHES CISTOSTOMIA</span></div>
+    </div>
+    <div class="row">
+        <div class="col w-25">
+            <span class="label">Nº da Sonda:</span>
+            <span class="value">{{.Eliminacoes.NumCistostomia}}</span>
+        </div>
+        <div class="col w-25">
+            <span class="label">Nº de Vias:</span>
+            <span class="value">{{.Eliminacoes.ViasCistostomia}}</span>
+        </div>
+        <div class="col w-50">
+            <span class="label">Volume Diurese:</span>
+            <span class="value">{{.Eliminacoes.VolumeDiureseCistostomia}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col w-30">
+            <span class="label">Irrigação?</span>
+            <span class="value">{{if .Eliminacoes.IrrigacaoCistostomia}}Sim ({{.Eliminacoes.QtdIrrigacaoCistostomia}}ml){{else}}Não{{end}}</span>
+        </div>
+        <div class="col w-70">
+            <span class="label">Medicação na Irrigação:</span>
+            <span class="value">{{if .Eliminacoes.MedicacaoIrrigacaoCistostomia}}{{.Eliminacoes.NomeMedicacaoCistostomia}}{{else}}N/A{{end}}</span>
+        </div>
+    </div>
+    {{end}}
+
+    <div class="row-no-border">
+        <div class="col w-50">
+            <span class="label">Preservativo Urinário?</span>
+            <span class="value">{{if .Eliminacoes.Preservativo}}Sim{{else}}Não{{end}}</span>
+        </div>
+        <div class="col w-50">
+            <span class="label">Volume Diurese (Preservativo):</span>
+            <span class="value">{{if .Eliminacoes.Preservativo}}{{.Eliminacoes.VolumeDiuresePreservativo}}{{else}}N/A{{end}}</span>
+        </div>
+    </div>
+</div>
+<div class="section-title">CONDIÇÕES DA PELE / LESÕES</div>
+<div class="section-box">
+    <div class="row">
+        <div class="col w-50">
+            <span class="label">Realiza curativo?</span>
+            <span class="value">{{if .CondicoesPele.RealizaCurativo}}Sim{{else}}Não{{end}}</span>
+        </div>
+        <div class="col w-50">
+            <span class="label">Status:</span>
+            <span class="value">{{if .CondicoesPele.Curativos}}Presença de lesões{{else}}Pele íntegra{{end}}</span>
+        </div>
+    </div>
+
+    {{range .CondicoesPele.Curativos}}
+    <div class="group" style="margin: 5px; border: 1px solid #000; margin-bottom: 10px;">
+        <div class="row">
+            <div class="col w-40">
+                <span class="label">Local do curativo:</span>
+                <span class="value">{{.LocalCurativo}}</span>
+            </div>
+            <div class="col w-40">
+                <span class="label">Tipo de cobertura:</span>
+                <span class="value">{{.TipoCobertura}}</span>
+            </div>
+            <div class="col w-20">
+                <span class="label">Tamanho:</span>
+                <span class="value">{{.TamanhoCurativo}}</span>
+            </div>
+        </div>
+        <div class="row-no-border">
+            <div class="col w-20">
+                <span class="label">Quantidade:</span>
+                <span class="value">{{.QtdCurativo}}</span>
+            </div>
+            <div class="col w-30">
+                <span class="label">Frequência de troca:</span>
+                <span class="value">{{.FrequenciaTroca}}</span>
+            </div>
+            <div class="col w-50">
+                <span class="label">Materiais descartáveis:</span>
+                <span class="value">{{.MateriaisCurativo}}</span>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div style="margin: 5px; font-style: italic;">Nenhuma lesão registrada.</div>
+    {{end}}
+</div>
 
 </div>
 
