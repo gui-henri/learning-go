@@ -365,14 +365,14 @@
         <div class="section-box">
             
             <div class="row">
-                <div class="col w-15"><span class="label">ESTADO NUTRICIONAL</span></div>
+                <div class="col w-20"><span class="label">ESTADO NUTRICIONAL</span></div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 0}}X{{end}}</div> 0 - Eutrófico</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 1}}X{{end}}</div> 1 - Sobrepeso/Emagrec.</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 2}}X{{end}}</div> 2 - Obeso/Desnutrido</div>
             </div>
 
             <div class="row">
-                <div class="col w-15"><span class="label">ALIMENTAÇÃO ENTERAL</span></div>
+                <div class="col w-20"><span class="label">ALIMENTAÇÃO OU MEDICAÇÃO POR VIA ENTERAL</span></div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Enteral 0}}X{{end}}</div> 0 - Sem Auxílio</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Enteral 1}}X{{end}}</div> 1 - Assistida</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Enteral 2}}X{{end}}</div> 2 - GTT / JEJUNO</div>
@@ -380,28 +380,34 @@
             </div>
 
             <div class="row">
-                <div class="col w-15"><span class="label">INTERNAÇÕES (ANO)</span></div>
+                <div class="col w-20"><span class="label">INTERNAÇÕES (ANO)</span></div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 0}}X{{end}}</div> 0 - (0 a 1)</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 1}}X{{end}}</div> 1 - (2 a 3)</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 2}}X{{end}}</div> 2 - (> 3)</div>
             </div>
 
             <div class="row">
-                <div class="col w-15"><span class="label">LESÕES</span></div>
-                <div class="col w-20 small-font"><div class="checkbox-box">{{if eq .Score.Lesoes 0}}X{{end}}</div> 0 - Nenhuma / Simples</div>
-                <div class="col w-20 small-font"><div class="checkbox-box">{{if eq .Score.Lesoes 1}}X{{end}}</div> 1 - Múltiplas Simples ou Única Complexa</div>
-                <div class="col w-20 small-font"><div class="checkbox-box">{{if eq .Score.Lesoes 2}}X{{end}}</div> 2 - Múltiplas Complexas</div>
+                <div class="col w-20"><span class="label">LESÕES</span></div>
+                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 0}}X{{end}}</div> 0 - Nenhuma / Simples</div>
+                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 1}}X{{end}}</div> 1 - Múltiplas Simples ou Única Complexa</div>
+                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 2}}X{{end}}</div> 2 - Múltiplas Complexas</div>
             </div>
 
             <div class="row">
-                <div class="col w-15"><span class="label">OXIGENIOTERAPIA</span></div>
+                <div class="col w-20"><span class="label">OXIGENIOTERAPIA</span></div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.O2 0}}X{{end}}</div> 0 - Ausente</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.O2 1}}X{{end}}</div> 1 - Intermitente</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.O2 2}}X{{end}}</div> 2 - Contínuo</div>
             </div>
 
             <div class="row">
-                <div class="col w-15"><span class="label">CONSCIÊNCIA</span></div>
+                <div class="col w-20"><span class="label">CONSCIÊNCIA</span></div>
+                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 0}}X{{end}}</div> 0 - Alerta</div>
+                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 1}}X{{end}}</div> 1 - Confuso</div>
+                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 2}}X{{end}}</div> 2 - Comatoso</div>
+            </div>
+            <div class="row">
+                <div class="col w-20"><span class="label">CONSCIÊNCIA</span></div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 0}}X{{end}}</div> 0 - Alerta</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 1}}X{{end}}</div> 1 - Confuso</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 2}}X{{end}}</div> 2 - Comatoso</div>
@@ -412,6 +418,7 @@
                 <span class="label" style="display: inline;">TOTAL PONTOS:</span>
                 <span class="value" style="display: inline-block; font-weight: bold; font-size: 14px; margin-left: 5px;">{{.Score.TotalGrupo3}}</span>
             </div>
+            
         </div>
         </div>
 
@@ -420,6 +427,7 @@
                 <div class="col w-50">
                     <span class="label">ATÉ 5 PONTOS:</span>
                     <span class="label">Procedimentos pontuais ou outros programas.</span>
+                    checagem de cada lesão por curativos
                 </div>
                 <div class="col w-50">
                     <span class="label">12 A 17 PONTOS:</span>
