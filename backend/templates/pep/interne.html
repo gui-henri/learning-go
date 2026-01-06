@@ -42,6 +42,11 @@
             width: 20%;
         }
 
+        .w-25 {
+            width: 25%;
+        }
+        
+
         .w-30 {
             width: 30%;
         }
@@ -1278,9 +1283,16 @@
             </div>
 
             <div class="row" style="background-color: #ffffff;">
-                <div class="col w-20" style="font-weight: bold;">Atividades</div>
-                <div class="col w-40">Sem supervisão, orientação ou assistência pessoal.</div>
-                <div class="col w-40">Com supervisão, orientação ou assistência pessoal ou cuidado integral.</div>
+                <div class="col w-20">Atividades</div>
+                <div class="col w-40">
+                    <div class="checkbox-box">{{if eq .Score.Banho "Independente"}}X{{end}}</div>
+                    Sem supervisão, orientação ou assistência pessoal.
+
+                </div>
+                <div class="col w-40">
+                    <div class="checkbox-box">{{if eq .Score.Banho "Independente"}}X{{end}}</div>
+                    Com supervisão, orientação ou assistência pessoal ou cuidado integral.
+                </div>
             </div>
 
             <div class="row">
@@ -1383,52 +1395,67 @@
         <div class="section-box">
             
             <div class="row">
-                <div class="col w-20"><span class="label">ESTADO NUTRICIONAL</span></div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 0}}X{{end}}</div> 0 - Eutrófico</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 1}}X{{end}}</div> 1 - Sobrepeso/Emagrec.</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 2}}X{{end}}</div> 2 - Obeso/Desnutrido</div>
+                <div class="col w-20">Estado Nutricional</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 0}}X{{end}}</div> 0 - Eutrófico</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 1}}X{{end}}</div> 1 - Sobrepeso/Emagrecido</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Nutricional 2}}X{{end}}</div> 2 - Obeso/Desnutrido</div>
             </div>
 
             <div class="row">
-                <div class="col w-20"><span class="label">ALIMENTAÇÃO OU MEDICAÇÃO POR VIA ENTERAL</span></div>
+                <div class="col w-20">Alimentação ou Medicação por via Enteral</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Enteral 0}}X{{end}}</div> 0 - Sem Auxílio</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Enteral 1}}X{{end}}</div> 1 - Assistida</div>
                 <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Enteral 2}}X{{end}}</div> 2 - GTT / JEJUNO</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Enteral 3}}X{{end}}</div> 3 - SNG / SNE *</div>
+                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Enteral 3}}X{{end}}</div> 3 - SNG / SNE </div>
+            </div>
+            <div class="row">
+                <div class="col w-20">KATZ</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Katz 0}}X{{end}}</div> 0 - Independente</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Katz 1}}X{{end}}</div> 1 - Dependente Parcial</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Katz 2}}X{{end}}</div> 2 - Dependente</div>
             </div>
 
             <div class="row">
-                <div class="col w-20"><span class="label">INTERNAÇÕES (ANO)</span></div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 0}}X{{end}}</div> 0 - (0 a 1)</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 1}}X{{end}}</div> 1 - (2 a 3)</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 2}}X{{end}}</div> 2 - (> 3)</div>
+                <div class="col w-20">Internações no Ùltimo ano</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 0}}X{{end}}</div> 0 - ( 0 a 1 Internações )</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 1}}X{{end}}</div> 1 - ( 2 a 3 Internações )</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Internacoes 2}}X{{end}}</div> 2 - ( > 3 Internações )</div>
+            </div>
+            <div class="row">
+                <div class="col w-20">Aspirações de vias aéreas Superiores</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Aspiracoes 0}}X{{end}}</div> 0 - Ausente </div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Aspiracoes 1}}X{{end}}</div> 1 - Até 5 vezes ao dia</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Aspiracoes 2}}X{{end}}</div> 2 - Mais de 5 vezes ao dia</div>
             </div>
 
             <div class="row">
-                <div class="col w-20"><span class="label">LESÕES</span></div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 0}}X{{end}}</div> 0 - Nenhuma / Simples</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 1}}X{{end}}</div> 1 - Múltiplas Simples ou Única Complexa</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 2}}X{{end}}</div> 2 - Múltiplas Complexas</div>
+                <div class="col w-20">Lesões</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 0}}X{{end}}</div> 0 - Nenhuma / Simples</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 1}}X{{end}}</div> 1 - Múltiplas Simples ou Única Complexa</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Lesoes 2}}X{{end}}</div> 2 - Intravenosa até 4 vezes ao dia / hipodermóclise.</div>
             </div>
-
-            <div class="row">
-                <div class="col w-20"><span class="label">OXIGENIOTERAPIA</span></div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.O2 0}}X{{end}}</div> 0 - Ausente</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.O2 1}}X{{end}}</div> 1 - Intermitente</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.O2 2}}X{{end}}</div> 2 - Contínuo</div>
-            </div>
-
-            <div class="row">
-                <div class="col w-20"><span class="label">CONSCIÊNCIA</span></div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 0}}X{{end}}</div> 0 - Alerta</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 1}}X{{end}}</div> 1 - Confuso</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 2}}X{{end}}</div> 2 - Comatoso</div>
+             <div class="row">
+                <div class="col w-20">Medicações</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Medications 0}}X{{end}}</div> 0 - Via enteral</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Medications 1}}X{{end}}</div> 1 - Intramuscular ou sub-cutânea</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Medications 2}}X{{end}}</div> 2 - Múltiplas Complexas</div>
             </div>
             <div class="row">
-                <div class="col w-20"><span class="label">CONSCIÊNCIA</span></div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 0}}X{{end}}</div> 0 - Alerta</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 1}}X{{end}}</div> 1 - Confuso</div>
-                <div class="col w-20 text-center"><div class="checkbox-box">{{if eq .Score.Consciencia 2}}X{{end}}</div> 2 - Comatoso</div>
+                <div class="col w-20">Exercicíos Ventilatórios</div>
+                <div class="col w-40 text-center"><div class="checkbox-box">{{if eq .Score.Exercicios 0}}X{{end}}</div> 0 - Ausente</div>
+                <div class="col w-40 text-center"><div class="checkbox-box">{{if eq .Score.Exercicios 1}}X{{end}}</div> 1 - Intermitente</div>
+            </div>
+            <div class="row">
+                <div class="col w-20">Uso de Oxigenoterapia</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.O2 0}}X{{end}}</div> 0 - Ausente</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.O2 1}}X{{end}}</div> 1 - Intermitente</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.O2 2}}X{{end}}</div> 2 - Contínuo</div>
+            </div>
+            <div class="row">
+                <div class="col w-20">Nível de Consciência</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Exercicios 0}}X{{end}}</div> 0 - Alerta</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Exercicios 1}}X{{end}}</div> 1 - Confuso ou Desorientado</div>
+                <div class="col w-25 text-center"><div class="checkbox-box">{{if eq .Score.Exercicios 2}}X{{end}}</div> 2 - Comatoso</div>
             </div>
 
             <div class="row" style="background-color: #e8f0e0;">
@@ -1441,41 +1468,45 @@
         </div>
 
         <div class="section-box">
-            <div class="row">
-                <div class="col w-50">
-                    <span class="label">ATÉ 5 PONTOS:</span>
-                    <span class="label">Procedimentos pontuais ou outros programas.</span>
-                </div>
-                <div class="col w-50">
-                    <span class="label">12 A 17 PONTOS:</span>
-                    <span class="value">Considerar <b>Internação Domiciliar 12h</b></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col w-50">
-                    <span class="label">DE 6 A 11 PONTOS:</span>
-                    <span class="label">Considerar <b>Atendimento Multiprofissional</b></span>
-                </div>
-                <div class="col w-50">
-                    <span class="label">18 PONTOS OU MAIS:</span>
-                    <span class="value">Considerar <b>Internação Domiciliar 24h</b></span>
-                </div>
+
+    <div class="row">
+        <div class="col w-50">
+            <span class="label">ATÉ 5 PONTOS:</span><br>
+            <span class="value">
+                Procedimentos pontuais exclusivos ou outros programas:
+            </span>
+            <div class="row-no-border">
+                <div class="checkbox-box">{{if eq .Score.Exercicios 2}}X{{end}}</div> Curativos
+                <div class="checkbox-box">{{if eq .Score.Exercicios 2}}X{{end}}</div> Medicações Parenterais
+                <div class="checkbox-box">{{if eq .Score.Exercicios 2}}X{{end}}</div> Outros Programas
             </div>
         </div>
 
-        <div class="section-title"> OBSERVAÇÕES ADICIONAIS </div>
-        <div class="section-box">
-            <div class="col w-100">            
-                <span class="value" style="min-height: 50px;">{{.Observacoes.Texto}}</span>
-            </div>
+        <div class="col w-50">
+            <span class="label">12 A 17 PONTOS:</span><br>
+            <span class="value">
+                Considerar <b>Internação Domiciliar 12h</b>
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col w-50">
+            <span class="label">DE 6 A 11 PONTOS:</span><br>
+            <span class="value">
+                Considerar <b>Atendimento Domiciliar Multiprofissional</b>
+            </span>
         </div>
 
-        <div class="row-no-border" style="margin-top: 5px;">
-            <div class="col w-100" style="padding: 2px;">
-                <span class="small-font">* SNG = Sonda Nasogástrica e SNE = Sonda Nasoentérica</span><br>
-                <span class="small-font">*** Excluso medicamentos de autoaplicação como insulinas e alguns anticoagulantes.</span>
-            </div>
+        <div class="col w-50">
+            <span class="label">18 PONTOS OU MAIS:</span><br>
+            <span class="value">
+                Considerar <b>Internação Domiciliar 24h</b>
+            </span>
         </div>
+    </div>
+
+</div>
 
 
 </div>
