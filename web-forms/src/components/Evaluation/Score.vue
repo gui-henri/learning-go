@@ -4,7 +4,7 @@
             import { useStepAccordion } from "@/composable/useStepAccordion";
             import { useAvaliationForm } from "@/store/evaluation/form";
             import { AvaliationService } from '@/service/AvaliationService';
-import { ToggleSwitch } from 'primevue';
+            import { ToggleSwitch } from 'primevue';
 
             const avaliationFormStore = useAvaliationForm();
             const scoreStore = useScoreStore();
